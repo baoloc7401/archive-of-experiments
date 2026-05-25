@@ -11,6 +11,14 @@ export interface Experiment {
 
 export const experiments: Experiment[] = [
   {
+    id: "chess",
+    title: "Chess",
+    description: "Full chess engine with minimax + alpha-beta pruning. Play Human vs Human, Human vs AI, or watch AI vs AI.",
+    tags: ["algorithms", "AI", "game"],
+    status: "active",
+    path: "/experiments/chess",
+  },
+  {
     id: "sorting-visualizer",
     title: "Sorting Visualizer",
     description: "Watch bubble, merge, quick, and heap sort race each other in real time.",
