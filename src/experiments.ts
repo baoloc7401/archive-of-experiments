@@ -23,7 +23,7 @@ export const experiments: Experiment[] = [
   {
     id: "pathfinding",
     tags: ["algorithms", "graphs"],
-    status: "planned",
+    status: "active",
     path: "/experiments/pathfinding",
   },
   {
