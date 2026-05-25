@@ -1,29 +1,12 @@
-/* ── Reset & base ─────────────────────────────────────────── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-:root {
-  --bg:       #07080d;
-  --bg2:      #0e1018;
-  --border:   #1e2130;
-  --text:     #9aa3bf;
-  --text-dim: #464f6a;
-  --text-hi:  #e2e8f8;
-  --accent:   #00f5c4;
-  --accent2:  #7c6cfa;
-  --wip:      #f5c400;
-  --planned:  #464f6a;
-  --font-mono: "JetBrains Mono", "Fira Code", "Cascadia Code", ui-monospace, monospace;
-}
-
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: var(--font-mono);
+/* ── Layout ───────────────────────────────────────────────── */
+.root {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
-  -webkit-font-smoothing: antialiased;
 }
-
-a { color: inherit; text-decoration: none; }
 
 /* ── Noise overlay ────────────────────────────────────────── */
 .noise {
@@ -37,20 +20,21 @@ a { color: inherit; text-decoration: none; }
   background-size: 128px 128px;
 }
 
-/* ── Layout ───────────────────────────────────────────────── */
-.root {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 0 24px;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
 /* ── Hero ─────────────────────────────────────────────────── */
 .hero {
   padding: 80px 0 56px;
   position: relative;
+}
+
+.hero-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.hero-content {
+  flex: 1;
 }
 
 .hero-prefix {
@@ -71,7 +55,7 @@ a { color: inherit; text-decoration: none; }
 
 .accent {
   color: var(--accent);
-  text-shadow: 0 0 28px color-mix(in srgb, var(--accent) 45%, transparent);
+  text-shadow: 0 0 28px color-mix(in srgb, var(--accent) 40%, transparent);
 }
 
 .hero-sub {
@@ -87,6 +71,38 @@ a { color: inherit; text-decoration: none; }
   height: 1px;
   background: linear-gradient(90deg, var(--accent) 0%, var(--accent2) 40%, transparent 100%);
   opacity: 0.4;
+  transition: opacity 0.18s;
+}
+
+/* ── Theme toggle ─────────────────────────────────────────── */
+.theme-toggle {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg2);
+  color: var(--text-dim);
+  cursor: pointer;
+  transition:
+    background-color 0.18s ease,
+    border-color 0.18s ease,
+    color 0.18s ease,
+    transform 0.15s ease;
+  margin-top: 4px;
+}
+
+.theme-toggle:hover {
+  color: var(--text-hi);
+  border-color: var(--accent);
+  transform: scale(1.08);
+}
+
+.theme-toggle:active {
+  transform: scale(0.94);
 }
 
 /* ── Section label ────────────────────────────────────────── */
@@ -114,6 +130,7 @@ a { color: inherit; text-decoration: none; }
   flex: 1;
   height: 1px;
   background: var(--border);
+  transition: background-color 0.18s ease;
 }
 
 /* ── Card grid ────────────────────────────────────────────── */
@@ -131,7 +148,11 @@ a { color: inherit; text-decoration: none; }
   border-radius: 10px;
   padding: 24px;
   overflow: hidden;
-  transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+  transition:
+    background-color 0.18s ease,
+    border-color 0.25s,
+    transform 0.25s,
+    box-shadow 0.25s;
 }
 
 .card-glow {
@@ -200,8 +221,8 @@ a:has(.card-clickable) {
 }
 
 .status-planned {
-  color: var(--text-dim);
-  border-color: color-mix(in srgb, var(--text-dim) 40%, transparent);
+  color: var(--planned);
+  border-color: color-mix(in srgb, var(--planned) 40%, transparent);
   background: transparent;
 }
 
@@ -212,6 +233,7 @@ a:has(.card-clickable) {
   color: var(--text-hi);
   margin-bottom: 8px;
   letter-spacing: -0.01em;
+  transition: color 0.18s ease;
 }
 
 .card-description {
@@ -219,6 +241,7 @@ a:has(.card-clickable) {
   color: var(--text);
   line-height: 1.65;
   margin-bottom: 18px;
+  transition: color 0.18s ease;
 }
 
 /* ── Tags ─────────────────────────────────────────────────── */
@@ -247,6 +270,7 @@ a:has(.card-clickable) {
   gap: 10px;
   font-size: 0.75rem;
   color: var(--text-dim);
+  transition: border-color 0.18s ease;
 }
 
 .footer a:hover {

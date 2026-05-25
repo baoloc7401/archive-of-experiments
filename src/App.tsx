@@ -1,8 +1,12 @@
 import { experiments } from "./experiments";
 import ExperimentCard from "./components/ExperimentCard";
+import ThemeToggle from "./components/ThemeToggle";
+import { useTheme } from "./hooks/useTheme";
 import "./App.css";
 
 export default function App() {
+  const { theme, toggle } = useTheme();
+
   const active = experiments.filter((e) => e.status === "active");
   const wip = experiments.filter((e) => e.status === "wip");
   const planned = experiments.filter((e) => e.status === "planned");
@@ -13,13 +17,18 @@ export default function App() {
       <div className="noise" />
 
       <header className="hero">
-        <div className="hero-prefix">baoloc7401 /</div>
-        <h1 className="hero-title">
-          archive<span className="accent">-of-</span>experiments
-        </h1>
-        <p className="hero-sub">
-          A sandbox for algorithms, curiosity, and deliberate learning.
-        </p>
+        <div className="hero-top">
+          <div className="hero-content">
+            <div className="hero-prefix">baoloc7401 /</div>
+            <h1 className="hero-title">
+              archive<span className="accent">-of-</span>experiments
+            </h1>
+            <p className="hero-sub">
+              A sandbox for algorithms, curiosity, and deliberate learning.
+            </p>
+          </div>
+          <ThemeToggle theme={theme} onToggle={toggle} />
+        </div>
         <div className="hero-bar" />
       </header>
 
