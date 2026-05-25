@@ -351,8 +351,6 @@ export default function ChessGame() {
     draw:      drawReason === 'repetition' ? 'draw by repetition' : '50-move draw',
   }[status];
 
-  const turnLabel = pos.turn === 'w' ? 'White' : 'Black';
-
   // Group moves into rounds
   const rounds: [Move, Move | null][] = [];
   for (let i = 0; i < history.length; i += 2) {
@@ -538,19 +536,30 @@ export default function ChessGame() {
 
         {/* ── Sidebar ── */}
         <aside className="chess-sidebar">
-          <div className="chess-status-card">
-            {!isGameOver && (
-              <div className="chess-turn-row">
-                <div className={`chess-turn-pip chess-turn-pip--${pos.turn}`} />
-                <span className="chess-turn-label">{turnLabel} to move</span>
-              </div>
+          <div className="chess-players">
+            {(['b', 'w'] as const).map(color => {
+              const isActive = !isGameOver && pos.turn === color;
+              const won  = isGameOver && status === 'checkmate' && pos.turn !== color;
+              const lost = isGameOver && status === 'checkmate' && pos.turn === color;
+              const checked = !isGameOver && status === 'check' && pos.turn === color;
+              return (
+                <div key={color} className={`chess-player${isActive ? ' chess-player--active' : ''}`}>
+                  <div className={`chess-player-swatch chess-player-swatch--${color}`} />
+                  <span className="chess-player-name">{color === 'w' ? 'White' : 'Black'}</span>
+                  {isActive && thinking && (
+                    <span className="chess-thinking-dots">
+                      <span /><span /><span />
+                    </span>
+                  )}
+                  {checked && <span className="chess-badge chess-badge--check">check</span>}
+                  {won  && <span className="chess-badge chess-badge--win">win</span>}
+                  {lost && <span className="chess-badge chess-badge--lose">loss</span>}
+                </div>
+              );
+            })}
+            {isGameOver && status !== 'checkmate' && (
+              <div className="chess-draw-line">{statusLine}</div>
             )}
-            {statusLine && (
-              <div className={`chess-status-line ${isGameOver ? 'chess-status-line--over' : 'chess-status-line--check'}`}>
-                {statusLine}
-              </div>
-            )}
-            {thinking && <div className="chess-thinking">thinking…</div>}
           </div>
 
           {mode === 'ava' && !isGameOver && (
@@ -574,9 +583,9 @@ export default function ChessGame() {
           )}
 
           <div className="chess-controls">
-            <button className="chess-btn" onClick={resetGame}>Reset</button>
+            <button className="chess-btn" onClick={resetGame}>↺ Reset</button>
             <button className="chess-btn chess-btn--dim" onClick={() => { resetGame(); setMode(null); }}>
-              Change mode
+              ← Mode
             </button>
           </div>
 
@@ -593,8 +602,8 @@ export default function ChessGame() {
               {rounds.length === 0
                 ? <div className="chess-history-empty">No moves yet.</div>
                 : rounds.map(([w, b], i) => (
-                    <div key={i} className="chess-move-row">
-                      <span className="chess-move-num">{i + 1}.</span>
+                    <div key={i} className={`chess-move-row${i === rounds.length - 1 ? ' chess-move-row--last' : ''}`}>
+                      <span className="chess-move-num">{i + 1}</span>
                       <MoveCell label={moveLabel(w)} grade={moveGrades[i * 2]} />
                       {b
                         ? <MoveCell label={moveLabel(b)} grade={moveGrades[i * 2 + 1]} />
