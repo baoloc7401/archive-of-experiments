@@ -1,4 +1,5 @@
 import { useTranslation } from "react-i18next";
+import "./ExperimentCard.css";
 import type { Experiment, ExperimentStatus } from "../experiments";
 
 const STATUS_CLS: Record<ExperimentStatus, string> = {
