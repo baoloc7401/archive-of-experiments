@@ -1,5 +1,7 @@
-import type { CellState, GridConfig, MazeOptions } from './types';
-import { DENSITY_REMOVAL, WEIGHTED_DISTRIBUTION } from './constants';
+import type { CellState, GridConfig, MazeOptions, TerrainConfig, TerrainType } from './types';
+import { DENSITY_REMOVAL } from './constants';
+
+const NON_PLAIN_TERRAINS: TerrainType[] = ['grass', 'sand', 'water', 'mountain'];
 
 function shuffle<T>(arr: T[]): T[] {
   const a = [...arr];
@@ -78,13 +80,39 @@ function enforceMinPath(grid: GridConfig, minLength: number): GridConfig {
   return current;
 }
 
-function assignTerrain(cells: CellState[][]): CellState[][] {
+// Builds weighted terrain distribution from the enabled terrains in config.
+// Uses 4 plain cells as a base, then 2 copies of each enabled terrain,
+// so the proportion of plain stays roughly consistent regardless of how many
+// terrains are enabled.
+function buildDistribution(terrainConfig: Partial<Record<TerrainType, TerrainConfig>>): TerrainType[] {
+  const enabled = NON_PLAIN_TERRAINS.filter((t) => terrainConfig[t]?.enabled !== false);
+  if (enabled.length === 0) return ['plain'];
+  return ['plain', 'plain', 'plain', 'plain', ...enabled, ...enabled];
+}
+
+function assignTerrain(
+  cells: CellState[][],
+  terrainConfig: Partial<Record<TerrainType, TerrainConfig>>,
+): CellState[][] {
+  const dist = buildDistribution(terrainConfig);
   return cells.map((row) =>
     row.map((cell) => {
       if (cell !== 'plain') return cell;
-      return WEIGHTED_DISTRIBUTION[Math.floor(Math.random() * WEIGHTED_DISTRIBUTION.length)];
+      return dist[Math.floor(Math.random() * dist.length)];
     })
   );
+}
+
+// Extract terrain weights from options for embedding in GridConfig
+export function computeTerrainWeights(
+  terrainConfig: Partial<Record<TerrainType, TerrainConfig>>,
+): Partial<Record<TerrainType, number>> {
+  const weights: Partial<Record<TerrainType, number>> = {};
+  for (const t of NON_PLAIN_TERRAINS) {
+    const cfg = terrainConfig[t];
+    if (cfg) weights[t] = cfg.weight;
+  }
+  return weights;
 }
 
 export function makeDefaultGrid(rows: number, cols: number): GridConfig {
@@ -173,9 +201,13 @@ export function generateMaze(rows: number, cols: number, options: MazeOptions): 
   // Enforce minimum path length before assigning terrain
   grid = enforceMinPath(grid, options.minPathLength);
 
-  // Apply terrain weights to passage cells
+  // Apply terrain weights to passage cells and embed weights in grid
   if (options.weighted) {
-    grid = { ...grid, cells: assignTerrain(grid.cells) };
+    grid = {
+      ...grid,
+      cells: assignTerrain(grid.cells, options.terrainConfig),
+      terrainWeights: computeTerrainWeights(options.terrainConfig),
+    };
   }
 
   return grid;

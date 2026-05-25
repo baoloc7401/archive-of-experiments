@@ -1,16 +1,20 @@
 import { memo, useRef, useState, useEffect } from 'react';
-import type { CellState, DrawMode, GridConfig, MazeOptions, RouteDensity } from '../types';
+import type { CellState, DrawMode, GridConfig, MazeOptions, RouteDensity, TerrainConfig, TerrainType } from '../types';
 import type { AlgorithmId } from '../types';
 import {
   ALGORITHMS, CELL_PX, MIN_ROWS, MAX_ROWS, MIN_COLS, MAX_COLS,
-  TERRAIN_DEFS, DEFAULT_MAZE_OPTIONS,
+  TERRAIN_DEFS,
 } from '../constants';
-import { makeDefaultGrid, generateMaze } from '../maze';
+import { makeDefaultGrid, generateMaze, computeTerrainWeights } from '../maze';
+
+const NON_PLAIN_TERRAINS: TerrainType[] = ['grass', 'sand', 'water', 'mountain'];
 
 interface Props {
   grid: GridConfig;
   selected: Set<AlgorithmId>;
+  options: MazeOptions;
   onGridChange: (grid: GridConfig) => void;
+  onOptionsChange: (options: MazeOptions) => void;
   onBack: () => void;
   onRun: () => void;
 }
@@ -53,12 +57,11 @@ const Cell = memo(function Cell({ state, animKey, row, col, delayMult }: CellPro
   );
 });
 
-export default function MazeBuilder({ grid, selected, onGridChange, onBack, onRun }: Props) {
+export default function MazeBuilder({ grid, selected, options, onGridChange, onOptionsChange, onBack, onRun }: Props) {
   const [mode, setMode] = useState<DrawMode>('wall');
   const [rows, setRows] = useState(grid.rows);
   const [cols, setCols] = useState(grid.cols);
   const [showOptions, setShowOptions] = useState(false);
-  const [options, setOptions] = useState<MazeOptions>(DEFAULT_MAZE_OPTIONS);
   const [animKey, setAnimKey] = useState(0);
 
   const gridRef = useRef<HTMLDivElement>(null);
@@ -70,24 +73,31 @@ export default function MazeBuilder({ grid, selected, onGridChange, onBack, onRu
   useEffect(() => {
     const max = getMaxPath(rows, cols);
     if (options.minPathLength > max) {
-      setOptions((o) => ({ ...o, minPathLength: max }));
+      onOptionsChange({ ...options, minPathLength: max });
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rows, cols]);
 
   // When weighted is toggled off, reset terrain draw modes to 'plain'
   useEffect(() => {
-    const terrainIds = TERRAIN_DEFS.map((t) => t.id);
-    if (!options.weighted && terrainIds.includes(mode as never) && mode !== 'plain') {
+    if (!options.weighted && NON_PLAIN_TERRAINS.includes(mode as TerrainType)) {
       setMode('plain');
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [options.weighted]);
 
   function getMaxPath(r: number, c: number) {
     return Math.min(100, Math.floor((r + c) * 1.8));
   }
 
+  // Build grid with current terrain weights embedded
+  function withWeights(g: GridConfig): GridConfig {
+    if (!options.weighted) return { ...g, terrainWeights: undefined };
+    return { ...g, terrainWeights: computeTerrainWeights(options.terrainConfig) };
+  }
+
   function resizeTo(r: number, c: number) {
-    onGridChange(makeDefaultGrid(r, c));
+    onGridChange(withWeights(makeDefaultGrid(r, c)));
   }
 
   function handleRowsChange(val: number) {
@@ -129,7 +139,7 @@ export default function MazeBuilder({ grid, selected, onGridChange, onBack, onRu
       cells[r][c] = action;
     }
 
-    onGridChange({ ...grid, cells, start, end });
+    onGridChange(withWeights({ ...grid, cells, start, end }));
   }
 
   function getCellAt(e: React.MouseEvent | MouseEvent): [number, number] | null {
@@ -181,6 +191,17 @@ export default function MazeBuilder({ grid, selected, onGridChange, onBack, onRu
     window.addEventListener('mouseup', stop);
     return () => window.removeEventListener('mouseup', stop);
   }, []);
+
+  function setTerrainConfig(t: TerrainType, patch: Partial<TerrainConfig>) {
+    const existing = options.terrainConfig[t] ?? { enabled: true, weight: TERRAIN_DEFS.find((d) => d.id === t)!.weight };
+    onOptionsChange({
+      ...options,
+      terrainConfig: {
+        ...options.terrainConfig,
+        [t]: { ...existing, ...patch },
+      },
+    });
+  }
 
   const isDrawable = mode !== 'start' && mode !== 'end';
   const delayMult = Math.min(15, 800 / (grid.rows + grid.cols));
@@ -242,11 +263,11 @@ export default function MazeBuilder({ grid, selected, onGridChange, onBack, onRu
             onClick={() => setMode('plain')}
           >✕ erase</button>
 
-          {/* Terrain buttons — only when weighted */}
+          {/* Terrain buttons — only enabled terrains when weighted */}
           {options.weighted && (
             <>
               <div className="pf-mode-divider" />
-              {TERRAIN_DEFS.filter((t) => t.id !== 'plain').map((t) => (
+              {TERRAIN_DEFS.filter((t) => t.id !== 'plain' && options.terrainConfig[t.id]?.enabled !== false).map((t) => (
                 <button
                   key={t.id}
                   className={`pf-mode-btn pf-terrain-btn pf-terrain-btn-${t.id}${mode === t.id ? ' pf-mode-btn--active' : ''}`}
@@ -274,7 +295,10 @@ export default function MazeBuilder({ grid, selected, onGridChange, onBack, onRu
 
         {/* Actions */}
         <div className="pf-action-group">
-          <button className="pf-btn pf-btn-ghost" onClick={() => onGridChange(makeDefaultGrid(rows, cols))}>
+          <button
+            className="pf-btn pf-btn-ghost"
+            onClick={() => onGridChange(withWeights(makeDefaultGrid(rows, cols)))}
+          >
             clear
           </button>
           <button
@@ -297,16 +321,56 @@ export default function MazeBuilder({ grid, selected, onGridChange, onBack, onRu
           <div className="pf-opt-row">
             <div className="pf-opt-info">
               <span className="pf-opt-label">weighted terrain</span>
-              <span className="pf-opt-desc">assign traversal costs — grass ×2, sand ×3, water ×5, mountain ×10</span>
+              <span className="pf-opt-desc">assign traversal costs to terrain types</span>
             </div>
             <button
               className={`pf-toggle${options.weighted ? ' pf-toggle--on' : ''}`}
-              onClick={() => setOptions((o) => ({ ...o, weighted: !o.weighted }))}
+              onClick={() => onOptionsChange({ ...options, weighted: !options.weighted })}
               aria-pressed={options.weighted}
             >
               <span className="pf-toggle-knob" />
             </button>
           </div>
+
+          {/* Terrain editor — only when weighted */}
+          {options.weighted && (
+            <div className="pf-opt-row pf-opt-row--col pf-terrain-editor-wrap">
+              <span className="pf-opt-label">terrain types &amp; weights</span>
+              <div className="pf-terrain-editor">
+                {TERRAIN_DEFS.filter((t) => t.id !== 'plain').map((def) => {
+                  const cfg = options.terrainConfig[def.id] ?? { enabled: true, weight: def.weight };
+                  return (
+                    <div
+                      key={def.id}
+                      className={`pf-terrain-row pf-terrain-row-${def.id}${!cfg.enabled ? ' pf-terrain-row--off' : ''}`}
+                    >
+                      {/* Enable toggle chip */}
+                      <button
+                        className={`pf-terrain-chip${cfg.enabled ? ' pf-terrain-chip--on' : ''}`}
+                        onClick={() => setTerrainConfig(def.id, { enabled: !cfg.enabled })}
+                        title={cfg.enabled ? 'Disable this terrain' : 'Enable this terrain'}
+                      >
+                        {def.symbol} {def.label}
+                      </button>
+                      {/* Weight control */}
+                      <div className={`pf-terrain-weight-wrap${!cfg.enabled ? ' pf-terrain-weight-wrap--disabled' : ''}`}>
+                        <input
+                          type="range"
+                          className="pf-terrain-slider"
+                          min={1}
+                          max={20}
+                          value={cfg.weight}
+                          disabled={!cfg.enabled}
+                          onChange={(e) => setTerrainConfig(def.id, { weight: Number(e.target.value) })}
+                        />
+                        <span className="pf-terrain-weight-val">×{cfg.weight}</span>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
 
           {/* Route density */}
           <div className="pf-opt-row pf-opt-row--col">
@@ -316,7 +380,7 @@ export default function MazeBuilder({ grid, selected, onGridChange, onBack, onRu
                 <button
                   key={d}
                   className={`pf-density-btn${options.routeDensity === d ? ' pf-density-btn--active' : ''}`}
-                  onClick={() => setOptions((o) => ({ ...o, routeDensity: d }))}
+                  onClick={() => onOptionsChange({ ...options, routeDensity: d })}
                 >
                   <span className="pf-density-name">{d}</span>
                   <span className="pf-density-desc">{DENSITY_DESC[d]}</span>
@@ -339,7 +403,7 @@ export default function MazeBuilder({ grid, selected, onGridChange, onBack, onRu
               min={0}
               max={maxPath}
               value={options.minPathLength}
-              onChange={(e) => setOptions((o) => ({ ...o, minPathLength: Number(e.target.value) }))}
+              onChange={(e) => onOptionsChange({ ...options, minPathLength: Number(e.target.value) })}
             />
             <span className="pf-opt-desc">
               forces the shortest solution to traverse at least this many cells
@@ -393,12 +457,17 @@ export default function MazeBuilder({ grid, selected, onGridChange, onBack, onRu
           <span className="pf-legend-item">
             <span className="pf-legend-dot pf-cell-wall" />wall
           </span>
-          {options.weighted && TERRAIN_DEFS.filter((t) => t.id !== 'plain').map((t) => (
-            <span key={t.id} className="pf-legend-item">
-              <span className={`pf-legend-dot pf-cell-${t.id}`} />
-              {t.label} <span className="pf-legend-weight">×{t.weight}</span>
-            </span>
-          ))}
+          {options.weighted && TERRAIN_DEFS.filter((t) => t.id !== 'plain').map((t) => {
+            const cfg = options.terrainConfig[t.id];
+            if (cfg?.enabled === false) return null;
+            const weight = cfg?.weight ?? t.weight;
+            return (
+              <span key={t.id} className="pf-legend-item">
+                <span className={`pf-legend-dot pf-cell-${t.id}`} />
+                {t.label} <span className="pf-legend-weight">×{weight}</span>
+              </span>
+            );
+          })}
         </div>
 
         <button className="pf-btn pf-btn-primary" onClick={onRun}>

@@ -1,4 +1,4 @@
-import type { AlgorithmDef, MazeOptions, RouteDensity, TerrainType } from './types';
+import type { AlgorithmDef, MazeOptions, RouteDensity, TerrainConfig, TerrainType } from './types';
 
 export const ALGORITHMS: AlgorithmDef[] = [
   {
@@ -94,6 +94,14 @@ export const CELL_WEIGHT: Record<string, number> = {
   wall: Infinity, start: 1, end: 1,
 };
 
+// Non-plain terrains with their default weights and enabled state
+export const DEFAULT_TERRAIN_CONFIG: Partial<Record<TerrainType, TerrainConfig>> = {
+  grass:    { enabled: true, weight: 2 },
+  sand:     { enabled: true, weight: 3 },
+  water:    { enabled: true, weight: 5 },
+  mountain: { enabled: true, weight: 10 },
+};
+
 export const DENSITY_LABELS: Record<RouteDensity, string> = {
   sparse: 'sparse',
   moderate: 'moderate',
@@ -129,4 +137,5 @@ export const DEFAULT_MAZE_OPTIONS: MazeOptions = {
   weighted: false,
   routeDensity: 'moderate',
   minPathLength: 0,
+  terrainConfig: DEFAULT_TERRAIN_CONFIG,
 };

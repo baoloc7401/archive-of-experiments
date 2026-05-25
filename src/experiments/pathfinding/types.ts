@@ -28,10 +28,16 @@ export type DrawMode = CellState;
 
 export type RouteDensity = 'sparse' | 'moderate' | 'dense';
 
+export interface TerrainConfig {
+  enabled: boolean;
+  weight: number;
+}
+
 export interface MazeOptions {
   weighted: boolean;
   routeDensity: RouteDensity;
-  minPathLength: number; // 0 = unconstrained
+  minPathLength: number;
+  terrainConfig: Partial<Record<TerrainType, TerrainConfig>>;
 }
 
 export interface GridConfig {
@@ -40,6 +46,8 @@ export interface GridConfig {
   cells: CellState[][];
   start: [number, number];
   end: [number, number];
+  // Custom traversal weights per terrain type; overrides CELL_WEIGHT defaults in algorithms
+  terrainWeights?: Partial<Record<TerrainType, number>>;
 }
 
 export type AppScreen = 'algorithm-select' | 'maze-builder' | 'run';

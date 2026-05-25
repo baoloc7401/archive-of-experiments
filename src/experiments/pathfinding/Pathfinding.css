@@ -47,16 +47,18 @@
 
 /* ── Page shell ─────────────────────────────────────────────── */
 .pf-page {
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
   background: var(--bg);
   color: var(--text);
 }
 
 /* ── Topbar ─────────────────────────────────────────────────── */
 .pf-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
   flex-shrink: 0;
   display: flex;
   align-items: center;
@@ -65,7 +67,6 @@
   height: 52px;
   border-bottom: 1px solid var(--border);
   background: var(--bg);
-  z-index: 10;
 }
 
 .pf-back {
@@ -99,10 +100,8 @@
 /* ── Content ─────────────────────────────────────────────────── */
 .pf-content {
   flex: 1;
-  min-height: 0;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
 }
 
 /* ── Algorithm selection ─────────────────────────────────────── */
@@ -342,8 +341,6 @@
 
 /* ── Maze builder layout ─────────────────────────────────────── */
 .pf-maze-builder {
-  flex: 1;
-  min-height: 0;
   display: flex;
   flex-direction: column;
   padding: 1.1rem 1.5rem 1rem;
@@ -522,7 +519,10 @@
 }
 
 .pf-options-panel--open {
-  max-height: 320px;
+  max-height: 60vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
 }
 
 .pf-options-inner {
@@ -677,8 +677,6 @@
 
 /* ── Grid scroll ────────────────────────────────────────────── */
 .pf-grid-scroll {
-  flex: 1;
-  min-height: 0;
   overflow: auto;
   scrollbar-width: none;
   border: 1px solid var(--border);
@@ -767,11 +765,8 @@
 
 /* ── Run screen ──────────────────────────────────────────────── */
 .pf-run {
-  flex: 1;
-  min-height: 0;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
 }
 
 /* Controls bar */
@@ -873,11 +868,8 @@
 
 /* Panels container */
 .pf-panels {
-  flex: 1;
-  min-height: 0;
   display: flex;
   gap: 1px;
-  overflow: hidden;
   background: var(--border);
 }
 
@@ -1027,3 +1019,240 @@
   box-shadow: 0 0 6px color-mix(in srgb, var(--accent) 55%, transparent) !important;
   animation: pf-path-flash 0.3s ease-out both;
 }
+
+/* ── Terrain editor (inside options panel) ───────────────────── */
+.pf-terrain-editor-wrap { margin-top: 0.25rem; }
+
+.pf-terrain-editor {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.4rem;
+}
+
+.pf-terrain-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  transition: opacity 0.15s;
+}
+
+.pf-terrain-row--off { opacity: 0.45; }
+
+/* Pill chip — toggle enable/disable */
+.pf-terrain-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.3em;
+  padding: 0.2em 0.65em;
+  border-radius: 99px;
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-dim);
+  cursor: pointer;
+  white-space: nowrap;
+  min-width: 6.5rem;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.pf-terrain-chip--on {
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  color: var(--text-hi);
+}
+
+/* Per-terrain chip accent colour matches the terrain legend dot */
+.pf-terrain-row-grass   .pf-terrain-chip--on { border-color: color-mix(in srgb, var(--pf-grass)    50%, var(--accent)); }
+.pf-terrain-row-sand    .pf-terrain-chip--on { border-color: color-mix(in srgb, var(--pf-sand)     50%, var(--accent)); }
+.pf-terrain-row-water   .pf-terrain-chip--on { border-color: color-mix(in srgb, var(--pf-water)    50%, var(--accent)); }
+.pf-terrain-row-mountain .pf-terrain-chip--on { border-color: color-mix(in srgb, var(--pf-mountain) 50%, var(--accent)); }
+
+/* Weight slider + value */
+.pf-terrain-weight-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.pf-terrain-weight-wrap--disabled { opacity: 0.35; pointer-events: none; }
+
+.pf-terrain-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  flex: 1;
+  height: 2px;
+  background: var(--border);
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+}
+
+.pf-terrain-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 11px; height: 11px;
+  background: var(--accent);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.pf-terrain-slider::-moz-range-thumb {
+  width: 11px; height: 11px;
+  background: var(--accent);
+  border: none; border-radius: 50%;
+  cursor: pointer;
+}
+
+.pf-terrain-weight-val {
+  font-size: 0.72rem;
+  color: var(--text-hi);
+  min-width: 2.8ch;
+  text-align: right;
+  letter-spacing: 0.02em;
+}
+
+/* ── Rankings section (screen 3) ─────────────────────────────── */
+.pf-rankings {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem 1.5rem 1.25rem;
+  border-top: 1px solid var(--border);
+  background: var(--bg);
+}
+
+.pf-rank-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.pf-rank-title {
+  font-size: 0.68rem;
+  color: var(--text-dim);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+
+.pf-rank-aspects {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.pf-rank-aspect-btn {
+  padding: 0.18em 0.7em;
+  border-radius: 99px;
+  font-size: 0.68rem;
+  letter-spacing: 0.05em;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-dim);
+  cursor: pointer;
+  transition: background 0.12s, border-color 0.12s, color 0.12s;
+}
+
+.pf-rank-aspect-btn--on {
+  border-color: color-mix(in srgb, var(--accent2) 55%, var(--border));
+  background: color-mix(in srgb, var(--accent2) 10%, transparent);
+  color: var(--text-hi);
+}
+
+.pf-rank-metric {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.pf-rank-metric-label {
+  font-size: 0.65rem;
+  color: var(--text-dim);
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.pf-rank-metric-hint {
+  font-size: 0.6rem;
+  color: var(--text-dim);
+  letter-spacing: 0.04em;
+  text-transform: none;
+  opacity: 0.65;
+}
+
+.pf-rank-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.pf-rank-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.72rem;
+}
+
+.pf-rank-row--nopath { opacity: 0.5; }
+
+.pf-rank-pos {
+  font-size: 0.6rem;
+  letter-spacing: 0.05em;
+  color: var(--text-dim);
+  min-width: 2.6rem;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.pf-rank-pos--1st { color: var(--accent); font-weight: 600; }
+.pf-rank-pos--2nd { color: var(--text-hi); }
+.pf-rank-pos--3rd { color: var(--text-dim); }
+
+.pf-rank-name {
+  min-width: 11rem;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-shrink: 0;
+}
+
+.pf-rank-row--best .pf-rank-name { color: var(--text-hi); }
+
+.pf-rank-bar-wrap {
+  flex: 1;
+  height: 4px;
+  background: var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+  min-width: 60px;
+}
+
+.pf-rank-bar {
+  height: 100%;
+  background: color-mix(in srgb, var(--accent2) 60%, var(--border));
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.pf-rank-row--best .pf-rank-bar {
+  background: var(--accent);
+}
+
+.pf-rank-val {
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  min-width: 7rem;
+  text-align: right;
+  flex-shrink: 0;
+  letter-spacing: 0.02em;
+}
+
+.pf-rank-row--best .pf-rank-val { color: var(--accent); }

@@ -46,7 +46,7 @@ export function* greedy(grid: GridConfig): AlgoGen {
       const nk = key(nr, nc);
       if (visited.has(nk) || nk in parent) continue;
       parent[nk] = cur;
-      gCost[nk] = (gCost[cur] ?? 0) + cellWeight(cells[nr][nc]);
+      gCost[nk] = (gCost[cur] ?? 0) + cellWeight(cells[nr][nc], grid.terrainWeights);
       frontier.add(nk);
       pq.push({ k: nk, h: h(nr, nc) });
     }

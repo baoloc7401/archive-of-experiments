@@ -42,7 +42,7 @@ export function* dijkstra(grid: GridConfig): AlgoGen {
       if (cells[nr][nc] === 'wall') continue;
       const nk = key(nr, nc);
       if (visited.has(nk)) continue;
-      const newCost = cost + cellWeight(cells[nr][nc]);
+      const newCost = cost + cellWeight(cells[nr][nc], grid.terrainWeights);
       if (!(nk in dist) || newCost < dist[nk]) {
         dist[nk] = newCost;
         parent[nk] = cur;

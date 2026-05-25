@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useCallback } from 'react';
+import { useEffect, useRef, useState, useCallback, useMemo } from 'react';
 import type { AlgorithmId, GridConfig } from '../types';
 import type { AlgoGen, AlgoState } from '../algorithms';
 import { ALGO_FACTORIES } from '../algorithms';
@@ -23,10 +23,67 @@ function makeInitialState(grid: GridConfig): AlgoState {
   };
 }
 
+// ---------------------------------------------------------------------------
+// Rankings
+// ---------------------------------------------------------------------------
+
+type RankAspect = 'visited' | 'path-length' | 'cost' | 'steps';
+
+const RANK_META: { id: RankAspect; label: string; unit: string; pathOnly: boolean }[] = [
+  { id: 'visited',     label: 'explored',    unit: 'nodes',  pathOnly: false },
+  { id: 'path-length', label: 'path length', unit: 'hops',   pathOnly: true  },
+  { id: 'cost',        label: 'path cost',   unit: '',       pathOnly: true  },
+  { id: 'steps',       label: 'steps',       unit: '',       pathOnly: false },
+];
+
+interface RankEntry {
+  id: AlgorithmId;
+  value: number; // Infinity = no-path / N/A
+}
+
+function computeRanking(
+  aspect: RankAspect,
+  ids: AlgorithmId[],
+  states: Partial<Record<AlgorithmId, AlgoState>>,
+): RankEntry[] {
+  return ids
+    .map((id): RankEntry => {
+      const s = states[id];
+      if (!s) return { id, value: Infinity };
+      const found = s.status === 'found';
+      switch (aspect) {
+        case 'visited':     return { id, value: s.visited.size };
+        case 'steps':       return { id, value: s.steps };
+        case 'path-length': return { id, value: found && s.path ? s.path.length - 1 : Infinity };
+        case 'cost':        return { id, value: found ? s.pathCost : Infinity };
+      }
+    })
+    .sort((a, b) => a.value - b.value);
+}
+
+// Assign ordinal rank (ties share the same rank)
+function withRank(entries: RankEntry[]): (RankEntry & { rank: number })[] {
+  let rank = 1;
+  return entries.map((e, i, arr) => {
+    if (i > 0 && arr[i - 1].value !== e.value) rank = i + 1;
+    return { ...e, rank };
+  });
+}
+
+function rankLabel(rank: number) {
+  if (rank === 1) return '1st';
+  if (rank === 2) return '2nd';
+  if (rank === 3) return '3rd';
+  return `${rank}th`;
+}
+
+// ---------------------------------------------------------------------------
+// Component
+// ---------------------------------------------------------------------------
+
 export default function Run({ grid, selected, onBack }: Props) {
   const ids = [...selected];
 
-  // Generator refs — reset on mount
   const gens = useRef<Partial<Record<AlgorithmId, AlgoGen>>>({});
   const doneFlags = useRef<Partial<Record<AlgorithmId, boolean>>>({});
 
@@ -34,7 +91,10 @@ export default function Run({ grid, selected, onBack }: Props) {
     Object.fromEntries(ids.map((id) => [id, makeInitialState(grid)])),
   );
   const [playing, setPlaying] = useState(false);
-  const [speed, setSpeed] = useState(40); // 1–100
+  const [speed, setSpeed] = useState(40);
+  const [activeAspects, setActiveAspects] = useState<Set<RankAspect>>(
+    () => new Set<RankAspect>(['visited', 'path-length', 'steps']),
+  );
 
   const resetAll = useCallback(() => {
     gens.current = {};
@@ -45,9 +105,8 @@ export default function Run({ grid, selected, onBack }: Props) {
     }
     setStates(Object.fromEntries(ids.map((id) => [id, makeInitialState(grid)])));
     setPlaying(false);
-  }, [grid, ids.join(',')]);
+  }, [grid, ids.join(',')]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Initialise on mount
   useEffect(() => {
     resetAll();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
@@ -80,12 +139,10 @@ export default function Run({ grid, selected, onBack }: Props) {
     if (Object.keys(updates).length > 0) {
       setStates((prev) => ({ ...prev, ...updates }));
     }
-  }, [ids]);
+  }, [ids]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Auto-play interval
   useEffect(() => {
     if (!playing) return;
-    // stepsPerTick: 1 at speed=1, up to 20 at speed=100
     const stepsPerTick = Math.max(1, Math.floor(speed / 5));
     const tickMs = Math.max(16, 220 - speed * 2);
     const id = setInterval(() => {
@@ -95,11 +152,31 @@ export default function Run({ grid, selected, onBack }: Props) {
     return () => clearInterval(id);
   }, [playing, speed, stepAll, allDone]);
 
-  // Cell px: scale down when many panels
   const n = ids.length;
   const cellPx = n >= 5 ? 8 : n >= 3 ? 10 : n === 2 ? 12 : Math.min(CELL_PX, 14);
 
   const finished = ids.every((id) => states[id]?.status !== 'running');
+
+  // Show cost metric only when the grid has weighted terrain
+  const isWeighted = useMemo(
+    () => grid.cells.some((row) =>
+      row.some((c) => c !== 'plain' && c !== 'wall' && c !== 'start' && c !== 'end')
+    ),
+    [grid],
+  );
+
+  const visibleAspects = RANK_META.filter(
+    (m) => activeAspects.has(m.id) && (m.id !== 'cost' || isWeighted),
+  );
+
+  function toggleAspect(a: RankAspect) {
+    setActiveAspects((prev) => {
+      const next = new Set(prev);
+      if (next.has(a)) next.delete(a);
+      else next.add(a);
+      return next;
+    });
+  }
 
   return (
     <div className="pf-run">
@@ -108,11 +185,7 @@ export default function Run({ grid, selected, onBack }: Props) {
         <button className="pf-btn pf-btn-ghost" onClick={onBack}>← back</button>
 
         <div className="pf-run-btns">
-          <button
-            className="pf-btn pf-btn-ghost"
-            onClick={resetAll}
-            title="Reset"
-          >⏮ reset</button>
+          <button className="pf-btn pf-btn-ghost" onClick={resetAll} title="Reset">⏮ reset</button>
           <button
             className="pf-btn pf-btn-accent"
             onClick={() => {
@@ -142,7 +215,7 @@ export default function Run({ grid, selected, onBack }: Props) {
           <span className="pf-speed-val">{speed}</span>
         </div>
 
-        {/* Summary when all done */}
+        {/* Summary chips when all done */}
         {finished && (
           <div className="pf-run-summary">
             {ids.map((id) => {
@@ -174,6 +247,74 @@ export default function Run({ grid, selected, onBack }: Props) {
           />
         ))}
       </div>
+
+      {/* Rankings — shown when all algorithms are done */}
+      {finished && (
+        <div className="pf-rankings">
+          <div className="pf-rank-header">
+            <span className="pf-rank-title">rankings</span>
+            <div className="pf-rank-aspects">
+              {RANK_META.filter((m) => m.id !== 'cost' || isWeighted).map((m) => (
+                <button
+                  key={m.id}
+                  className={`pf-rank-aspect-btn${activeAspects.has(m.id) ? ' pf-rank-aspect-btn--on' : ''}`}
+                  onClick={() => toggleAspect(m.id)}
+                >
+                  {m.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {visibleAspects.map((meta) => {
+            const ranked = withRank(computeRanking(meta.id, ids, states));
+            const finiteVals = ranked.filter((e) => e.value !== Infinity).map((e) => e.value);
+            const maxVal = finiteVals.length > 0 ? Math.max(...finiteVals) : 1;
+            const minVal = finiteVals.length > 0 ? Math.min(...finiteVals) : 0;
+            const span = maxVal - minVal || 1;
+
+            return (
+              <div key={meta.id} className="pf-rank-metric">
+                <div className="pf-rank-metric-label">
+                  {meta.label}
+                  <span className="pf-rank-metric-hint">fewer = better</span>
+                </div>
+                <div className="pf-rank-rows">
+                  {ranked.map((entry) => {
+                    const def = ALGORITHMS.find((a) => a.id === entry.id)!;
+                    const noVal = entry.value === Infinity;
+                    // Bar width proportional to value (longest bar = worst); best gets the visual accent
+                    const barPct = noVal ? 0 : ((entry.value - minVal) / span) * 80 + 10;
+                    const label = rankLabel(entry.rank);
+                    return (
+                      <div
+                        key={entry.id}
+                        className={`pf-rank-row${noVal ? ' pf-rank-row--nopath' : ''}${entry.rank === 1 && !noVal ? ' pf-rank-row--best' : ''}`}
+                      >
+                        <span className={`pf-rank-pos pf-rank-pos--${label}`}>{label}</span>
+                        <span className="pf-rank-name">{def.name}</span>
+                        <div className="pf-rank-bar-wrap">
+                          <div
+                            className="pf-rank-bar"
+                            style={{ width: `${barPct}%` }}
+                          />
+                        </div>
+                        <span className="pf-rank-val">
+                          {noVal
+                            ? 'no path'
+                            : meta.unit
+                              ? `${entry.value.toLocaleString()} ${meta.unit}`
+                              : entry.value.toLocaleString()}
+                        </span>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }

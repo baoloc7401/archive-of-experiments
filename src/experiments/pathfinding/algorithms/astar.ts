@@ -45,7 +45,7 @@ export function* astar(grid: GridConfig): AlgoGen {
       if (cells[nr][nc] === 'wall') continue;
       const nk = key(nr, nc);
       if (visited.has(nk)) continue;
-      const tentG = g[cur] + cellWeight(cells[nr][nc]);
+      const tentG = g[cur] + cellWeight(cells[nr][nc], grid.terrainWeights);
       if (!(nk in g) || tentG < g[nk]) {
         g[nk] = tentG;
         parent[nk] = cur;

@@ -14,8 +14,8 @@ export function inBounds(r: number, c: number, rows: number, cols: number): bool
   return r >= 0 && r < rows && c >= 0 && c < cols;
 }
 
-export function cellWeight(state: CellState): number {
-  return CELL_WEIGHT[state] ?? 1;
+export function cellWeight(state: CellState, weights?: Partial<Record<string, number>>): number {
+  return weights?.[state] ?? CELL_WEIGHT[state] ?? 1;
 }
 
 export function manhattan(r1: number, c1: number, r2: number, c2: number): number {
