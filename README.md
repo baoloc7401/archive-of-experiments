@@ -1,25 +1,36 @@
-# Archive of Experiments
+# archive-of-experiments
 
 A personal sandbox for testing algorithms, exploring ideas, and learning through code.
 
-## What's here
+Built with **React + Vite + TypeScript**.
 
-This repo is a collection of experiments across various topics — nothing too serious, just a place to tinker, get things wrong, and figure things out.
+## Run locally
 
-Topics may include:
-
-- Algorithm design and analysis
-- Data structures
-- Problem solving (LeetCode, puzzles, etc.)
-- Language exploration
-- Anything else worth trying
+```bash
+npm install
+npm run dev
+```
 
 ## Structure
 
-Experiments are loosely organized by topic or language. Each folder is self-contained.
+```
+src/
+  experiments.ts          # experiment registry
+  components/
+    ExperimentCard.tsx    # card component
+  App.tsx                 # gateway index
+```
+
+Each experiment lives under `src/experiments/<id>/`. Add a new entry to `experiments.ts` to surface it on the index.
+
+## Status tags
+
+| Badge    | Meaning                       |
+|----------|-------------------------------|
+| LIVE     | Finished and interactive      |
+| WIP      | In progress                   |
+| PLANNED  | On the list                   |
 
 ## Philosophy
 
-> "The best way to learn is to build something, break it, and understand why."
-
-No production code here — just curiosity in motion.
+> The best way to learn is to build something, break it, and understand why.
