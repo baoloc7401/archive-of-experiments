@@ -1,8 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import type { Color, GameMode, GameStatus, Move, Piece, PieceType, Position } from './types';
 import { applyMove, findKing, getLegalMoves, getGameStatus, initialPosition, positionKey } from './engine';
 import { evaluate as evaluatePosition, getBestMove } from './ai';
 import ThemeToggle from '../../components/ThemeToggle';
+import LangToggle from '../../components/LangToggle';
 import { useTheme } from '../../hooks/useTheme';
 import './Chess.css';
 
@@ -23,11 +25,6 @@ function moveLabel(m: Move): string {
   return m.flag === 'promotion' ? base + m.promotion!.toLowerCase() : base;
 }
 
-const MODE_LABELS: Record<GameMode, string> = {
-  hvh: 'Human vs Human',
-  hva: 'Human vs AI',
-  ava: 'AI vs AI',
-};
 
 const AI_DEPTH: Record<GameMode, number> = { hvh: 0, hva: 4, ava: 3 };
 const AI_DELAY: Record<GameMode, number> = { hvh: 0, hva: 150, ava: 450 };
@@ -86,6 +83,7 @@ interface FlyingPiece {
 
 export default function ChessGame() {
   const { theme, toggle } = useTheme();
+  const { t } = useTranslation();
   const [mode, setMode] = useState<GameMode | null>(null);
   const [pos, setPos] = useState<Position>(initialPosition());
   const [legalMoves, setLegalMoves] = useState<Move[]>([]);
@@ -345,10 +343,10 @@ export default function ChessGame() {
 
   const statusLine = {
     playing:   '',
-    check:     'check!',
-    checkmate: pos.turn === 'w' ? 'black wins' : 'white wins',
-    stalemate: 'stalemate',
-    draw:      drawReason === 'repetition' ? 'draw by repetition' : '50-move draw',
+    check:     t('chess.status.check'),
+    checkmate: pos.turn === 'w' ? t('chess.status.black_wins') : t('chess.status.white_wins'),
+    stalemate: t('chess.status.stalemate'),
+    draw:      drawReason === 'repetition' ? t('chess.status.draw_repetition') : t('chess.status.draw_50move'),
   }[status];
 
   // Group moves into rounds
@@ -362,26 +360,28 @@ export default function ChessGame() {
     return (
       <div className="chess-page">
         <div className="chess-back-row">
-          <a href="/" className="chess-back">← experiments</a>
-          <ThemeToggle theme={theme} onToggle={toggle} />
+          <a href="/" className="chess-back">{t('chess.back')}</a>
+          <div className="chess-back-row-controls">
+            <LangToggle />
+            <ThemeToggle theme={theme} onToggle={toggle} />
+          </div>
         </div>
         <div className="chess-mode-screen">
           <div className="chess-mode-title">
             <span className="chess-title-text">chess</span>
-            <span className="chess-title-badge">experiment 01</span>
+            <span className="chess-title-badge">{t('chess.badge')}</span>
           </div>
           <p className="chess-mode-desc">
-            Minimax AI with alpha-beta pruning and piece-square tables.
-            Pick a mode to start.
+            {t('chess.desc1')}<br />{t('chess.desc2')}
           </p>
           <div className="chess-mode-buttons">
             {(['hva', 'hvh', 'ava'] as GameMode[]).map(m => (
               <button key={m} className="chess-mode-btn" onClick={() => setMode(m)}>
-                {MODE_LABELS[m]}
+                {t(`chess.modes.${m}`)}
               </button>
             ))}
             <button className="chess-mode-btn chess-mode-btn--planned" disabled>
-              Puzzle Mode <span className="chess-planned-tag">planned</span>
+              {t('chess.puzzle_mode')} <span className="chess-planned-tag">{t('chess.planned_tag')}</span>
             </button>
           </div>
         </div>
@@ -393,10 +393,13 @@ export default function ChessGame() {
   return (
     <div className="chess-page">
       <div className="chess-topbar">
-        <a href="/" className="chess-back">← experiments</a>
+        <a href="/" className="chess-back">{t('chess.back')}</a>
         <div className="chess-topbar-title">chess</div>
-        <div className="chess-topbar-mode">{MODE_LABELS[mode]}</div>
-        <ThemeToggle theme={theme} onToggle={toggle} />
+        <div className="chess-topbar-mode">{t(`chess.modes.${mode}`)}</div>
+        <div className="chess-topbar-controls">
+          <LangToggle />
+          <ThemeToggle theme={theme} onToggle={toggle} />
+        </div>
       </div>
 
       <div className="chess-layout">
@@ -477,7 +480,7 @@ export default function ChessGame() {
           {promotionPending && (
             <div className="chess-promotion-overlay">
               <div className="chess-promotion-dialog">
-                <p className="chess-promotion-label">Promote to:</p>
+                <p className="chess-promotion-label">{t('chess.promote_to')}</p>
                 <div className="chess-promotion-options">
                   {(['Q', 'R', 'B', 'N'] as PieceType[]).map(pt => (
                     <button
@@ -545,15 +548,15 @@ export default function ChessGame() {
               return (
                 <div key={color} className={`chess-player${isActive ? ' chess-player--active' : ''}`}>
                   <div className={`chess-player-swatch chess-player-swatch--${color}`} />
-                  <span className="chess-player-name">{color === 'w' ? 'White' : 'Black'}</span>
+                  <span className="chess-player-name">{color === 'w' ? t('chess.white') : t('chess.black')}</span>
                   {isActive && thinking && (
                     <span className="chess-thinking-dots">
                       <span /><span /><span />
                     </span>
                   )}
-                  {checked && <span className="chess-badge chess-badge--check">check</span>}
-                  {won  && <span className="chess-badge chess-badge--win">win</span>}
-                  {lost && <span className="chess-badge chess-badge--lose">loss</span>}
+                  {checked && <span className="chess-badge chess-badge--check">{t('chess.check_badge')}</span>}
+                  {won  && <span className="chess-badge chess-badge--win">{t('chess.win_badge')}</span>}
+                  {lost && <span className="chess-badge chess-badge--lose">{t('chess.loss_badge')}</span>}
                 </div>
               );
             })}
@@ -568,7 +571,7 @@ export default function ChessGame() {
                 className={`chess-btn chess-btn--ava ${paused ? 'chess-btn--play' : 'chess-btn--pause'}`}
                 onClick={() => setPaused(p => !p)}
               >
-                {paused ? '▶ Resume' : '⏸ Pause'}
+                {paused ? t('chess.resume') : t('chess.pause')}
               </button>
               {paused && (
                 <button
@@ -576,31 +579,31 @@ export default function ChessGame() {
                   onClick={stepAI}
                   disabled={thinking}
                 >
-                  → Step
+                  {t('chess.step')}
                 </button>
               )}
             </div>
           )}
 
           <div className="chess-controls">
-            <button className="chess-btn" onClick={resetGame}>↺ Reset</button>
+            <button className="chess-btn" onClick={resetGame}>{t('chess.reset')}</button>
             <button className="chess-btn chess-btn--dim" onClick={() => { resetGame(); setMode(null); }}>
-              ← Mode
+              {t('chess.mode_back')}
             </button>
           </div>
 
           <div className="chess-history">
             <div className="chess-history-header">
-              Move history
+              {t('chess.history_title')}
               {rounds.length > 0 && (
                 <button className="chess-copy-btn" onClick={copyHistory}>
-                  {copied ? '✓ copied' : 'copy'}
+                  {copied ? t('chess.copied') : t('chess.copy')}
                 </button>
               )}
             </div>
             <div className="chess-history-list" ref={historyRef}>
               {rounds.length === 0
-                ? <div className="chess-history-empty">No moves yet.</div>
+                ? <div className="chess-history-empty">{t('chess.no_moves')}</div>
                 : rounds.map(([w, b], i) => (
                     <div key={i} className={`chess-move-row${i === rounds.length - 1 ? ' chess-move-row--last' : ''}`}>
                       <span className="chess-move-num">{i + 1}</span>

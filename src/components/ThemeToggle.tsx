@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import type { Theme } from "../hooks/useTheme";
 
 interface Props {
@@ -26,12 +27,13 @@ const moonIcon = (
 );
 
 export default function ThemeToggle({ theme, onToggle }: Props) {
+  const { t } = useTranslation();
   const isDark = theme === "dark";
   return (
     <button
       className="theme-toggle"
       onClick={onToggle}
-      aria-label={`Switch to ${isDark ? "light" : "dark"} mode`}
+      aria-label={t(isDark ? "aria.theme_light" : "aria.theme_dark")}
     >
       {isDark ? sunIcon : moonIcon}
     </button>

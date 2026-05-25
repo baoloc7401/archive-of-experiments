@@ -1,7 +1,9 @@
+import { useTranslation } from "react-i18next";
 import { experiments } from "./experiments";
 import type { ExperimentStatus } from "./experiments";
 import ExperimentCard from "./components/ExperimentCard";
 import ThemeToggle from "./components/ThemeToggle";
+import LangToggle from "./components/LangToggle";
 import { useTheme } from "./hooks/useTheme";
 import "./App.css";
 
@@ -9,6 +11,7 @@ const STATUS_ORDER: Record<ExperimentStatus, number> = { active: 0, wip: 1, plan
 
 export default function App() {
   const { theme, toggle } = useTheme();
+  const { t } = useTranslation();
 
   const ordered = [...experiments].sort(
     (a, b) => STATUS_ORDER[a.status] - STATUS_ORDER[b.status]
@@ -21,15 +24,16 @@ export default function App() {
       <header className="hero">
         <div className="hero-top">
           <div className="hero-content">
-            <div className="hero-prefix">baoloc7401 /</div>
+            <div className="hero-prefix">{t("hero.prefix")}</div>
             <h1 className="hero-title">
               archive<span className="accent">-of-</span>experiments
             </h1>
-            <p className="hero-sub">
-              A sandbox for algorithms, curiosity, and deliberate learning.
-            </p>
+            <p className="hero-sub">{t("hero.subtitle")}</p>
           </div>
-          <ThemeToggle theme={theme} onToggle={toggle} />
+          <div className="hero-controls">
+            <LangToggle />
+            <ThemeToggle theme={theme} onToggle={toggle} />
+          </div>
         </div>
         <div className="hero-bar" />
       </header>
@@ -38,7 +42,7 @@ export default function App() {
         <div className="section-label">
           <span className="label-line" />
           <span className="label-text">
-            {ordered.length} experiment{ordered.length !== 1 ? "s" : ""}
+            {t("section.count", { count: ordered.length })}
           </span>
           <span className="label-line" />
         </div>
@@ -56,10 +60,10 @@ export default function App() {
           target="_blank"
           rel="noreferrer"
         >
-          github
+          {t("footer.github")}
         </a>
         <span className="footer-dot" aria-hidden="true">·</span>
-        <span>built to learn</span>
+        <span>{t("footer.tagline")}</span>
       </footer>
     </div>
   );

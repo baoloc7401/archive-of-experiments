@@ -48,6 +48,13 @@
   margin-left: auto;
 }
 
+.chess-topbar-controls,
+.chess-back-row-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 /* ── Mode selection screen ──────────────────────────────────── */
 .chess-mode-screen {
   padding: 72px 0;
