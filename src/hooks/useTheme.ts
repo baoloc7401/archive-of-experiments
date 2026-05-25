@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 
-type Theme = "dark" | "light";
+export type Theme = "dark" | "light";
 
 function readTheme(): Theme {
   const attr = document.documentElement.getAttribute("data-theme");
@@ -19,5 +19,5 @@ export function useTheme() {
     });
   }, []);
 
-  return { theme, toggle } as const;
+  return { theme, toggle };
 }

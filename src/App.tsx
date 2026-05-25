@@ -1,16 +1,18 @@
 import { experiments } from "./experiments";
+import type { ExperimentStatus } from "./experiments";
 import ExperimentCard from "./components/ExperimentCard";
 import ThemeToggle from "./components/ThemeToggle";
 import { useTheme } from "./hooks/useTheme";
 import "./App.css";
 
+const STATUS_ORDER: Record<ExperimentStatus, number> = { active: 0, wip: 1, planned: 2 };
+
 export default function App() {
   const { theme, toggle } = useTheme();
 
-  const active = experiments.filter((e) => e.status === "active");
-  const wip = experiments.filter((e) => e.status === "wip");
-  const planned = experiments.filter((e) => e.status === "planned");
-  const ordered = [...active, ...wip, ...planned];
+  const ordered = [...experiments].sort(
+    (a, b) => STATUS_ORDER[a.status] - STATUS_ORDER[b.status]
+  );
 
   return (
     <div className="root">
@@ -56,7 +58,7 @@ export default function App() {
         >
           github
         </a>
-        <span className="footer-dot">·</span>
+        <span className="footer-dot" aria-hidden="true">·</span>
         <span>built to learn</span>
       </footer>
     </div>

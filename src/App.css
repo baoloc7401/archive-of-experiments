@@ -23,7 +23,6 @@
 /* ── Hero ─────────────────────────────────────────────────── */
 .hero {
   padding: 80px 0 56px;
-  position: relative;
 }
 
 .hero-top {
@@ -71,7 +70,6 @@
   height: 1px;
   background: linear-gradient(90deg, var(--accent) 0%, var(--accent2) 40%, transparent 100%);
   opacity: 0.4;
-  transition: opacity 0.18s;
 }
 
 /* ── Theme toggle ─────────────────────────────────────────── */
@@ -103,6 +101,11 @@
 
 .theme-toggle:active {
   transform: scale(0.94);
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 /* ── Section label ────────────────────────────────────────── */
@@ -155,6 +158,20 @@
     box-shadow 0.25s;
 }
 
+/* Full-area transparent link — sits above card background, below content */
+.card-link {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+}
+
+.card-link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -3px;
+}
+
+/* Glow layer — decorative, never blocks interaction */
 .card-glow {
   position: absolute;
   inset: 0;
@@ -169,32 +186,18 @@
   pointer-events: none;
 }
 
-.card-clickable {
-  cursor: pointer;
-}
-
-.card-clickable:hover {
+.card-active:hover {
   border-color: color-mix(in srgb, var(--accent) 50%, transparent);
   transform: translateY(-3px);
   box-shadow: 0 8px 32px color-mix(in srgb, var(--accent) 10%, transparent);
 }
 
-.card-clickable:hover .card-glow {
+.card-active:hover .card-glow {
   opacity: 1;
-}
-
-.card-inert {
-  cursor: default;
-}
-
-a:has(.card-clickable) {
-  display: block;
 }
 
 /* ── Card header ──────────────────────────────────────────── */
 .card-header {
-  display: flex;
-  align-items: center;
   margin-bottom: 14px;
 }
 
