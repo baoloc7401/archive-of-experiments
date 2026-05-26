@@ -1,0 +1,190 @@
+import type { Move, Position } from '../types';
+import { applyMove, getLegalMoves, isInCheck, opponent, positionKey } from '../engine';
+import {
+  CONTEMPT,
+  FUTILITY_MARGINS,
+  MATE_SCORE,
+  MAX_EXTENSIONS,
+  MAX_QDEPTH,
+  NMP_BASE_R,
+  NMP_MIN_DEPTH,
+} from './constants';
+import { evaluate, isEndgame } from './evaluate';
+import { histKey, isSameMove, orderMoves } from './ordering';
+import { histTable, tt, type TTFlag } from './tables';
+
+// Quiescence search: extend past the horizon on captures only, to avoid
+// the horizon effect (missing recaptures at the depth boundary).
+export function quiesce(
+  pos: Position,
+  alpha: number,
+  beta: number,
+  maximizing: boolean,
+  qdepth = 0,
+): number {
+  const standPat = evaluate(pos);
+  if (qdepth >= MAX_QDEPTH) return standPat;
+
+  if (maximizing) {
+    if (standPat >= beta) return standPat;
+    alpha = Math.max(alpha, standPat);
+  } else {
+    if (standPat <= alpha) return standPat;
+    beta = Math.min(beta, standPat);
+  }
+
+  const captures = getLegalMoves(pos).filter(m => m.captured || m.flag === 'en-passant');
+  if (captures.length === 0) return standPat;
+  orderMoves(pos, captures);
+
+  let best = standPat;
+  for (const move of captures) {
+    const val = quiesce(applyMove(pos, move), alpha, beta, !maximizing, qdepth + 1);
+    if (maximizing) {
+      best = Math.max(best, val);
+      if (val >= beta) break;
+      alpha = Math.max(alpha, val);
+    } else {
+      best = Math.min(best, val);
+      if (val <= alpha) break;
+      beta = Math.min(beta, val);
+    }
+  }
+  return best;
+}
+
+// Alpha-beta with TT, killer moves, history heuristic, repetition contempt,
+// null-move pruning, futility pruning, and check extensions.
+export function alphaBeta(
+  pos: Position,
+  depth: number,
+  alpha: number,
+  beta: number,
+  maximizing: boolean,
+  repMap: Map<string, number>,
+  ply: number,
+  killers: Array<[Move | null, Move | null]>,
+  extensions = 0,
+  nullMoveDone = false,
+): number {
+  // Check extension — applied before the leaf test so an in-check leaf
+  // gets a real search instead of falling into capture-only quiescence.
+  const inCheck = isInCheck(pos, pos.turn);
+  if (inCheck && extensions < MAX_EXTENSIONS) {
+    depth++;
+    extensions++;
+  }
+
+  if (depth <= 0) return quiesce(pos, alpha, beta, maximizing);
+
+  const key = positionKey(pos);
+  const cached = tt.get(key);
+  const ttMove = cached?.bestMove;
+  const origAlpha = alpha;
+  const origBeta = beta;
+
+  if (cached && cached.depth >= depth) {
+    if (cached.flag === 'exact') return cached.score;
+    if (cached.flag === 'lower') alpha = Math.max(alpha, cached.score);
+    if (cached.flag === 'upper') beta  = Math.min(beta,  cached.score);
+    if (alpha >= beta) return cached.score;
+  }
+
+  // Null-move pruning — pass the move and search shallow; if the opponent
+  // still can't push us under beta, our real move would surely cut off.
+  // Skipped in check (illegal), endgames (zugzwang risk), and when already
+  // null-moved (no consecutive nulls).
+  if (depth >= NMP_MIN_DEPTH && !inCheck && !nullMoveDone && !isEndgame(pos)) {
+    const staticEval = evaluate(pos);
+    const justify = maximizing ? staticEval >= beta : staticEval <= alpha;
+    if (justify) {
+      const R = NMP_BASE_R + Math.floor(depth / 3);
+      const nullDepth = Math.max(0, depth - R - 1);
+      const nullPos: Position = { ...pos, turn: opponent(pos.turn), ep: null };
+      if (maximizing) {
+        const ns = alphaBeta(nullPos, nullDepth, beta - 1, beta, false, repMap, ply + 1, killers, extensions, true);
+        if (ns >= beta) return beta;
+      } else {
+        const ns = alphaBeta(nullPos, nullDepth, alpha, alpha + 1, true, repMap, ply + 1, killers, extensions, true);
+        if (ns <= alpha) return alpha;
+      }
+    }
+  }
+
+  const moves = getLegalMoves(pos);
+  if (moves.length === 0) {
+    return inCheck ? (maximizing ? -MATE_SCORE : MATE_SCORE) : 0;
+  }
+
+  const plyKillers = killers[ply] ?? [null, null];
+  orderMoves(pos, moves, ttMove, plyKillers);
+
+  // Futility pruning — at depth 1–2, if static eval + margin can't bridge
+  // to alpha, quiet moves are unlikely to either. Disabled near mate scores
+  // and in check (tactical positions don't follow the assumption).
+  let futilityActive = false;
+  if (depth >= 1 && depth <= 2 && !inCheck
+      && Math.abs(alpha) < MATE_SCORE - 2000
+      && Math.abs(beta)  < MATE_SCORE - 2000) {
+    const staticEval = evaluate(pos);
+    const margin = FUTILITY_MARGINS[depth];
+    futilityActive = maximizing
+      ? staticEval + margin <= alpha
+      : staticEval - margin >= beta;
+  }
+
+  let best = maximizing ? -Infinity : Infinity;
+  let bestMove: Move | undefined;
+  let movesSearched = 0;
+
+  for (const move of moves) {
+    const isQuiet = !move.captured && move.flag !== 'en-passant' && move.flag !== 'promotion';
+
+    // Always search at least one move so we have a real score (avoids
+    // returning ±Infinity for a position that actually has legal replies).
+    if (futilityActive && movesSearched > 0 && isQuiet) continue;
+
+    const newPos = applyMove(pos, move);
+    const posKey = positionKey(newPos);
+    const prev = repMap.get(posKey) ?? 0;
+
+    let val: number;
+    if (prev >= 2) {
+      val = CONTEMPT;
+    } else {
+      repMap.set(posKey, prev + 1);
+      val = alphaBeta(newPos, depth - 1, alpha, beta, !maximizing, repMap, ply + 1, killers, extensions, false);
+      if (prev === 0) repMap.delete(posKey);
+      else repMap.set(posKey, prev);
+      if (prev === 1) val += maximizing ? CONTEMPT : -CONTEMPT;
+    }
+    movesSearched++;
+
+    if (maximizing) {
+      if (val > best) { best = val; bestMove = move; }
+      alpha = Math.max(alpha, best);
+    } else {
+      if (val < best) { best = val; bestMove = move; }
+      beta = Math.min(beta, best);
+    }
+
+    if (beta <= alpha) {
+      if (isQuiet) {
+        const k = killers[ply] ?? [null, null];
+        if (!k[0] || !isSameMove(move, k[0])) killers[ply] = [move, k[0]];
+        const hk = histKey(move);
+        histTable.set(hk, (histTable.get(hk) ?? 0) + depth * depth);
+      }
+      break;
+    }
+  }
+
+  // TT store — prefer deeper entries; exact entries always overwrite.
+  const existing = tt.get(key);
+  const flag: TTFlag = best <= origAlpha ? 'upper' : best >= origBeta ? 'lower' : 'exact';
+  if (!existing || depth >= existing.depth || flag === 'exact') {
+    tt.set(key, { depth, flag, score: best, bestMove });
+  }
+
+  return best;
+}

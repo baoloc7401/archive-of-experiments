@@ -3,6 +3,7 @@ import type { Color, GameMode, GameStatus, Move, Piece, PieceType, Position } fr
 import { applyMove, findKing, getLegalMoves, getGameStatus, initialPosition, positionKey } from '../engine';
 import { PIECE_SORT, PIECE_VAL, SYMBOLS } from '../constants';
 import { computeGrade, moveLabel } from '../utils';
+import { clearTT } from '../ai';
 
 export interface SlideInfo {
   toRow: number; toCol: number;
@@ -178,6 +179,7 @@ export function useChessGame(mode: GameMode | null) {
   }
 
   function resetGame() {
+    clearTT();
     posHistoryRef.current = new Map();
     posBeforeRef.current = [];
     setPos(initialPosition());
