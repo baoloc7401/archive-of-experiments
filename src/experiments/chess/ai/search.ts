@@ -1,8 +1,18 @@
 import type { Move, Position } from '../types';
-import { applyMove, getLegalMoves, isInCheck, opponent, positionKey } from '../engine';
+import {
+  getLegalMoves,
+  isInCheck,
+  makeMove,
+  makeNullMove,
+  positionKey,
+  unmakeMove,
+  unmakeNullMove,
+} from '../engine';
 import {
   CONTEMPT,
   FUTILITY_MARGINS,
+  LMR_MIN_DEPTH,
+  LMR_MIN_MOVE_INDEX,
   MATE_SCORE,
   MAX_EXTENSIONS,
   MAX_QDEPTH,
@@ -15,6 +25,7 @@ import { histTable, tt, type TTFlag } from './tables';
 
 // Quiescence search: extend past the horizon on captures only, to avoid
 // the horizon effect (missing recaptures at the depth boundary).
+// Mutates pos in place via make/unmake; restores it before returning.
 export function quiesce(
   pos: Position,
   alpha: number,
@@ -39,7 +50,10 @@ export function quiesce(
 
   let best = standPat;
   for (const move of captures) {
-    const val = quiesce(applyMove(pos, move), alpha, beta, !maximizing, qdepth + 1);
+    const undo = makeMove(pos, move);
+    const val = quiesce(pos, alpha, beta, !maximizing, qdepth + 1);
+    unmakeMove(pos, move, undo);
+
     if (maximizing) {
       best = Math.max(best, val);
       if (val >= beta) break;
@@ -54,7 +68,9 @@ export function quiesce(
 }
 
 // Alpha-beta with TT, killer moves, history heuristic, repetition contempt,
-// null-move pruning, futility pruning, and check extensions.
+// null-move pruning, futility pruning, check extensions, LMR, and PVS.
+// Operates on a single mutating pos via make/unmake; the invariant is
+// that pos returns to its input state by the time the function returns.
 export function alphaBeta(
   pos: Position,
   depth: number,
@@ -104,14 +120,16 @@ export function alphaBeta(
     if (justify) {
       const R = NMP_BASE_R + Math.floor(depth / 3);
       const nullDepth = Math.max(0, depth - R - 1);
-      const nullPos: Position = { ...pos, turn: opponent(pos.turn), ep: null };
+      const nullUndo = makeNullMove(pos);
+      let ns: number;
       if (maximizing) {
-        const ns = alphaBeta(nullPos, nullDepth, beta - 1, beta, false, repMap, ply + 1, killers, extensions, true);
-        if (ns >= beta) return beta;
+        ns = alphaBeta(pos, nullDepth, beta - 1, beta, false, repMap, ply + 1, killers, extensions, true);
       } else {
-        const ns = alphaBeta(nullPos, nullDepth, alpha, alpha + 1, true, repMap, ply + 1, killers, extensions, true);
-        if (ns <= alpha) return alpha;
+        ns = alphaBeta(pos, nullDepth, alpha, alpha + 1, true, repMap, ply + 1, killers, extensions, true);
       }
+      unmakeNullMove(pos, nullUndo);
+      if (maximizing && ns >= beta) return beta;
+      if (!maximizing && ns <= alpha) return alpha;
     }
   }
 
@@ -147,8 +165,8 @@ export function alphaBeta(
     // returning ±Infinity for a position that actually has legal replies).
     if (futilityActive && movesSearched > 0 && isQuiet) continue;
 
-    const newPos = applyMove(pos, move);
-    const posKey = positionKey(newPos);
+    const undo = makeMove(pos, move);
+    const posKey = positionKey(pos);
     const prev = repMap.get(posKey) ?? 0;
 
     let val: number;
@@ -156,11 +174,58 @@ export function alphaBeta(
       val = CONTEMPT;
     } else {
       repMap.set(posKey, prev + 1);
-      val = alphaBeta(newPos, depth - 1, alpha, beta, !maximizing, repMap, ply + 1, killers, extensions, false);
+
+      const childDepth = depth - 1;
+      const search = (d: number, a: number, b: number): number =>
+        alphaBeta(pos, d, a, b, !maximizing, repMap, ply + 1, killers, extensions, false);
+
+      if (movesSearched === 0) {
+        // PV move: full window, full depth. With good ordering the first
+        // move is the principal variation; the rest are verified via null window.
+        val = search(childDepth, alpha, beta);
+      } else {
+        // LMR: late, quiet, non-tactical moves get a depth reduction first.
+        // Captures, promotions, in-check positions, and early moves search fully.
+        let reduction = 0;
+        if (depth >= LMR_MIN_DEPTH
+            && movesSearched >= LMR_MIN_MOVE_INDEX
+            && isQuiet
+            && !inCheck) {
+          reduction = Math.floor(0.99 + Math.log(depth) * Math.log(movesSearched + 1) / 3.14);
+          // Keep reduced depth at least 1 (anything less just hits quiescence).
+          reduction = Math.min(Math.max(0, reduction), Math.max(0, childDepth - 1));
+        }
+
+        // PVS null-window probe at (possibly reduced) depth.
+        if (maximizing) {
+          val = search(childDepth - reduction, alpha, alpha + 1);
+          // Reduced search beat alpha — confirm at full depth before
+          // committing to a full-window re-search.
+          if (val > alpha && reduction > 0) {
+            val = search(childDepth, alpha, alpha + 1);
+          }
+          // Move sits inside the open window — need exact value.
+          if (val > alpha && val < beta) {
+            val = search(childDepth, alpha, beta);
+          }
+        } else {
+          val = search(childDepth - reduction, beta - 1, beta);
+          if (val < beta && reduction > 0) {
+            val = search(childDepth, beta - 1, beta);
+          }
+          if (val < beta && val > alpha) {
+            val = search(childDepth, alpha, beta);
+          }
+        }
+      }
+
       if (prev === 0) repMap.delete(posKey);
       else repMap.set(posKey, prev);
       if (prev === 1) val += maximizing ? CONTEMPT : -CONTEMPT;
     }
+
+    // CRITICAL: unmake before any break / continue so pos stays in sync.
+    unmakeMove(pos, move, undo);
     movesSearched++;
 
     if (maximizing) {

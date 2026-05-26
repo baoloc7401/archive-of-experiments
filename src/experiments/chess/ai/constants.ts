@@ -32,6 +32,11 @@ export const MAX_EXTENSIONS = 16;
 // Low weight keeps mobility from dominating material in noisy positions.
 export const MOBILITY_WEIGHT = 4;
 
+// Late Move Reductions — only kick in past the first few well-ordered moves
+// at non-shallow depths. Reduction is logarithmic per CPW / Obsidian.
+export const LMR_MIN_DEPTH = 3;
+export const LMR_MIN_MOVE_INDEX = 4;
+
 // Piece-square tables from white's perspective.
 // Row 0 = rank 8 (top, black's back / white's advanced rank).
 // For white: use board row directly. For black: use (7 - row).

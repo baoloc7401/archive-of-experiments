@@ -31,6 +31,9 @@ export interface Position {
   ep: [number, number] | null;
   halfmove: number;
   fullmove: number;
+  // Incrementally maintained Zobrist hash. Recompute via computeZobrist
+  // only at construction; applyMove keeps it in sync via XOR deltas.
+  zobrist: bigint;
 }
 
 export type GameStatus = 'playing' | 'check' | 'checkmate' | 'stalemate' | 'draw';

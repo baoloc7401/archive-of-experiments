@@ -1,7 +1,9 @@
 import type { Position } from '../types';
 import { findKing } from '../engine';
 import { ENDGAME_MATERIAL, MOBILITY_WEIGHT, PIECE_VALUE, PST, PST_KING_EG } from './constants';
+import { kingSafetyScore } from './kingSafety';
 import { countMobility } from './mobility';
+import { pawnStructureScore } from './pawnStructure';
 
 export function isEndgame(pos: Position): boolean {
   let mat = 0;
@@ -31,6 +33,11 @@ export function evaluate(pos: Position): number {
   // Mobility: difference in pseudo-legal target squares. Captures piece
   // activity and coordination that PST alone misses.
   score += MOBILITY_WEIGHT * (countMobility(pos.board, 'w') - countMobility(pos.board, 'b'));
+
+  // Pawn structure (doubled, isolated, passed) and king safety
+  // (pawn shield, open files near king). King safety self-disables in endgames.
+  score += pawnStructureScore(pos.board);
+  score += kingSafetyScore(pos.board, eg);
 
   // Mop-up: in clearly won endgames, push the losing king to a corner
   // and advance the winning king toward it.

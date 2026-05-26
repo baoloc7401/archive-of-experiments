@@ -1,4 +1,5 @@
 import type { Board, Color, Move, Piece, PieceType, Position } from './types';
+import { computeZobrist, zCastle, zEp, zPiece, zTurn } from './zobrist';
 
 export function initialPosition(): Position {
   const board: Board = Array.from({ length: 8 }, () => Array(8).fill(null));
@@ -9,14 +10,17 @@ export function initialPosition(): Position {
     board[1][col] = { type: 'P', color: 'b' };
     board[6][col] = { type: 'P', color: 'w' };
   }
-  return {
+  const pos: Position = {
     board,
     turn: 'w',
     castling: { wk: true, wq: true, bk: true, bq: true },
     ep: null,
     halfmove: 0,
     fullmove: 1,
+    zobrist: 0n,
   };
+  pos.zobrist = computeZobrist(pos);
+  return pos;
 }
 
 export function opponent(color: Color): Color {
@@ -39,6 +43,7 @@ function clonePosition(pos: Position): Position {
     ep: pos.ep ? [pos.ep[0], pos.ep[1]] : null,
     halfmove: pos.halfmove,
     fullmove: pos.fullmove,
+    zobrist: pos.zobrist,
   };
 }
 
@@ -201,50 +206,181 @@ export function isInCheck(pos: Position, color: Color): boolean {
   return kp ? isSquareAttacked(pos.board, kp[0], kp[1], opponent(color)) : false;
 }
 
-export function applyMove(pos: Position, move: Move): Position {
-  const np = clonePosition(pos);
-  const { board } = np;
+// Reversible state captured before a make. unmakeMove + the same Move
+// is sufficient to restore pos exactly. Piece-level restoration is
+// re-derived from the move (captured field, flag, promotion type).
+export interface UndoInfo {
+  castlingBefore: { wk: boolean; wq: boolean; bk: boolean; bq: boolean };
+  epBefore: [number, number] | null;
+  halfmoveBefore: number;
+  fullmoveBefore: number;
+  zobristBefore: bigint;
+}
+
+// Mutates pos in place and returns the data needed to reverse the move.
+// Caller MUST pair every makeMove with exactly one unmakeMove using the
+// same Move and the returned UndoInfo, or the position state diverges.
+export function makeMove(pos: Position, move: Move): UndoInfo {
+  const undo: UndoInfo = {
+    castlingBefore: { ...pos.castling },
+    epBefore: pos.ep,
+    halfmoveBefore: pos.halfmove,
+    fullmoveBefore: pos.fullmove,
+    zobristBefore: pos.zobrist,
+  };
+
+  const { board } = pos;
   const [fr, fc] = move.from;
   const [tr, tc] = move.to;
   const piece = board[fr][fc] as Piece;
+
+  let z = pos.zobrist;
+  z ^= zTurn();
+  if (pos.ep) z ^= zEp(pos.ep[1]);
+
+  // Regular capture (not en-passant — the EP target square is empty).
+  const captureAtDest = board[tr][tc];
+  if (captureAtDest) z ^= zPiece(captureAtDest.color, captureAtDest.type, tr, tc);
+
+  z ^= zPiece(piece.color, piece.type, fr, fc);
 
   board[tr][tc] = piece;
   board[fr][fc] = null;
 
   if (move.flag === 'en-passant') {
-    board[pos.turn === 'w' ? tr + 1 : tr - 1][tc] = null;
+    const capR = pos.turn === 'w' ? tr + 1 : tr - 1;
+    const capPawn = board[capR][tc] as Piece;
+    z ^= zPiece(capPawn.color, capPawn.type, capR, tc);
+    board[capR][tc] = null;
+    z ^= zPiece(piece.color, piece.type, tr, tc);
   } else if (move.flag === 'castle-k') {
     const rank = pos.turn === 'w' ? 7 : 0;
-    board[rank][5] = board[rank][7];
+    const rook = board[rank][7] as Piece;
+    z ^= zPiece(rook.color, rook.type, rank, 7);
+    z ^= zPiece(rook.color, rook.type, rank, 5);
+    board[rank][5] = rook;
     board[rank][7] = null;
+    z ^= zPiece(piece.color, piece.type, tr, tc);
   } else if (move.flag === 'castle-q') {
     const rank = pos.turn === 'w' ? 7 : 0;
-    board[rank][3] = board[rank][0];
+    const rook = board[rank][0] as Piece;
+    z ^= zPiece(rook.color, rook.type, rank, 0);
+    z ^= zPiece(rook.color, rook.type, rank, 3);
+    board[rank][3] = rook;
     board[rank][0] = null;
+    z ^= zPiece(piece.color, piece.type, tr, tc);
   } else if (move.flag === 'promotion') {
     board[tr][tc] = { type: move.promotion!, color: pos.turn };
+    z ^= zPiece(pos.turn, move.promotion!, tr, tc);
+  } else {
+    z ^= zPiece(piece.color, piece.type, tr, tc);
   }
 
   if (piece.type === 'K') {
-    if (pos.turn === 'w') { np.castling.wk = false; np.castling.wq = false; }
-    else { np.castling.bk = false; np.castling.bq = false; }
+    if (pos.turn === 'w') { pos.castling.wk = false; pos.castling.wq = false; }
+    else { pos.castling.bk = false; pos.castling.bq = false; }
   }
   if (piece.type === 'R') {
-    if (fr === 7 && fc === 0) np.castling.wq = false;
-    if (fr === 7 && fc === 7) np.castling.wk = false;
-    if (fr === 0 && fc === 0) np.castling.bq = false;
-    if (fr === 0 && fc === 7) np.castling.bk = false;
+    if (fr === 7 && fc === 0) pos.castling.wq = false;
+    if (fr === 7 && fc === 7) pos.castling.wk = false;
+    if (fr === 0 && fc === 0) pos.castling.bq = false;
+    if (fr === 0 && fc === 7) pos.castling.bk = false;
   }
-  if (tr === 7 && tc === 0) np.castling.wq = false;
-  if (tr === 7 && tc === 7) np.castling.wk = false;
-  if (tr === 0 && tc === 0) np.castling.bq = false;
-  if (tr === 0 && tc === 7) np.castling.bk = false;
+  if (tr === 7 && tc === 0) pos.castling.wq = false;
+  if (tr === 7 && tc === 7) pos.castling.wk = false;
+  if (tr === 0 && tc === 0) pos.castling.bq = false;
+  if (tr === 0 && tc === 7) pos.castling.bk = false;
 
-  np.ep = move.flag === 'double-push' ? [(fr + tr) / 2, tc] : null;
-  np.halfmove = piece.type === 'P' || move.captured ? 0 : np.halfmove + 1;
-  if (pos.turn === 'b') np.fullmove++;
-  np.turn = opponent(pos.turn);
+  // Use the snapshot in undo (a fresh object via spread) — NOT pos.castling
+  // directly, which would alias the just-mutated object and always compare equal.
+  if (undo.castlingBefore.wk !== pos.castling.wk) z ^= zCastle('wk');
+  if (undo.castlingBefore.wq !== pos.castling.wq) z ^= zCastle('wq');
+  if (undo.castlingBefore.bk !== pos.castling.bk) z ^= zCastle('bk');
+  if (undo.castlingBefore.bq !== pos.castling.bq) z ^= zCastle('bq');
 
+  pos.ep = move.flag === 'double-push' ? [(fr + tr) / 2, tc] : null;
+  if (pos.ep) z ^= zEp(pos.ep[1]);
+
+  pos.halfmove = piece.type === 'P' || move.captured ? 0 : pos.halfmove + 1;
+  if (pos.turn === 'b') pos.fullmove++;
+  pos.turn = opponent(pos.turn);
+  pos.zobrist = z;
+
+  return undo;
+}
+
+// Reverses a prior makeMove. The move must be the exact move that was
+// made, and undo must be the UndoInfo that makeMove returned for it.
+export function unmakeMove(pos: Position, move: Move, undo: UndoInfo): void {
+  pos.turn = opponent(pos.turn);
+  pos.fullmove = undo.fullmoveBefore;
+  pos.halfmove = undo.halfmoveBefore;
+  pos.ep = undo.epBefore;
+  pos.castling = undo.castlingBefore;
+  pos.zobrist = undo.zobristBefore;
+
+  const { board } = pos;
+  const [fr, fc] = move.from;
+  const [tr, tc] = move.to;
+
+  // Restore moving piece to origin. Promotion reverts to the pre-promotion pawn.
+  if (move.flag === 'promotion') {
+    board[fr][fc] = { type: 'P', color: pos.turn };
+  } else {
+    board[fr][fc] = board[tr][tc];
+  }
+
+  // Restore captured piece (or null) at destination.
+  if (move.flag === 'en-passant') {
+    board[tr][tc] = null;
+    const capR = pos.turn === 'w' ? tr + 1 : tr - 1;
+    board[capR][tc] = { type: 'P', color: opponent(pos.turn) };
+  } else {
+    board[tr][tc] = move.captured ?? null;
+  }
+
+  // Send the castled rook back to its corner.
+  if (move.flag === 'castle-k') {
+    const rank = pos.turn === 'w' ? 7 : 0;
+    board[rank][7] = board[rank][5];
+    board[rank][5] = null;
+  } else if (move.flag === 'castle-q') {
+    const rank = pos.turn === 'w' ? 7 : 0;
+    board[rank][0] = board[rank][3];
+    board[rank][3] = null;
+  }
+}
+
+// Null move: pass the turn without moving a piece. Used by NMP.
+// Only turn, ep, and zobrist change; halfmove/fullmove are untouched
+// because null moves aren't real plies in game terms.
+export interface NullUndoInfo {
+  epBefore: [number, number] | null;
+  zobristBefore: bigint;
+}
+
+export function makeNullMove(pos: Position): NullUndoInfo {
+  const undo: NullUndoInfo = { epBefore: pos.ep, zobristBefore: pos.zobrist };
+  let z = pos.zobrist;
+  z ^= zTurn();
+  if (pos.ep) z ^= zEp(pos.ep[1]);
+  pos.turn = opponent(pos.turn);
+  pos.ep = null;
+  pos.zobrist = z;
+  return undo;
+}
+
+export function unmakeNullMove(pos: Position, undo: NullUndoInfo): void {
+  pos.turn = opponent(pos.turn);
+  pos.ep = undo.epBefore;
+  pos.zobrist = undo.zobristBefore;
+}
+
+// Immutable wrapper preserved for the game UI, utils, and any caller
+// that wants a fresh position. The search uses make/unmake directly.
+export function applyMove(pos: Position, move: Move): Position {
+  const np = clonePosition(pos);
+  makeMove(np, move);
   return np;
 }
 
@@ -260,25 +396,22 @@ export function getLegalMoves(pos: Position): Move[] {
       tmp[rank][4] = null;
       if (isSquareAttacked(tmp, rank, passCol, opponent(pos.turn))) continue;
     }
-    const np = applyMove(pos, move);
-    if (!isInCheck(np, pos.turn)) legal.push(move);
+    // Test legality via make/unmake — avoids cloning the whole position
+    // per candidate. After make, pos.turn is the opponent, so we test
+    // the mover's king with opponent(pos.turn).
+    const mover = pos.turn;
+    const undo = makeMove(pos, move);
+    const leftInCheck = isInCheck(pos, mover);
+    unmakeMove(pos, move, undo);
+    if (!leftInCheck) legal.push(move);
   }
   return legal;
 }
 
 export function positionKey(pos: Position): string {
-  let k = pos.turn;
-  k += pos.castling.wk ? 'K' : '-';
-  k += pos.castling.wq ? 'Q' : '-';
-  k += pos.castling.bk ? 'k' : '-';
-  k += pos.castling.bq ? 'q' : '-';
-  k += pos.ep ? `${pos.ep[0]}${pos.ep[1]}` : '--';
-  for (let r = 0; r < 8; r++)
-    for (let c = 0; c < 8; c++) {
-      const p = pos.board[r][c];
-      k += p ? p.color + p.type : '..';
-    }
-  return k;
+  // Compact base-36 of the incrementally-maintained Zobrist hash —
+  // ~13 chars vs ~135 for the old per-call serialization.
+  return pos.zobrist.toString(36);
 }
 
 export function getGameStatus(pos: Position, legalMoves: Move[]): import('./types').GameStatus {

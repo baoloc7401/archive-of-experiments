@@ -285,7 +285,7 @@ PROGRESS: Done
 
 #### 8. Zobrist Hashing
 
-PROGRESS: TODO
+PROGRESS: Done
 
 **What:** Replace the current `positionKey` string-concat with an incrementally-updated 64-bit hash. Precompute random numbers for each (color, piece, square) triple plus side-to-move, castling rights, and en-passant file. In `applyMove`, XOR only the deltas.
 
@@ -304,7 +304,7 @@ PROGRESS: TODO
 
 #### 9. Make/Unmake Pattern
 
-PROGRESS: TODO
+PROGRESS: Done
 
 **What:** Modify the board in-place in `applyMove` and reverse the change in an `undoMove` after the recursive call, rather than cloning the full position.
 
@@ -320,7 +320,7 @@ PROGRESS: TODO
 
 #### 10. Pawn Structure Evaluation
 
-PROGRESS: TODO
+PROGRESS: Done
 
 **What:** Score structural features of pawn formations. These are stable between moves, so they are naturally cached with a pawn hash table (see note below).
 
@@ -343,7 +343,7 @@ PROGRESS: TODO
 
 #### 11. King Safety Evaluation
 
-PROGRESS: TODO
+PROGRESS: Done
 
 **What:** Score how exposed each king is to attack using an **attack unit / danger table** system:
 
@@ -365,7 +365,7 @@ Accumulated attack units index into a non-linear danger table (S-curve: slow ris
 
 #### 12. Late Move Reductions (LMR)
 
-PROGRESS: TODO
+PROGRESS: Done
 
 **What:** After the first few moves at a node are searched at full depth, search later (likely weaker) moves at a reduced depth. Re-search at full depth only if the result beats alpha.
 
@@ -391,7 +391,7 @@ or equivalently, `R` grows slowly with both depth and move number.
 
 #### 13. Principal Variation Search (PVS / Negascout)
 
-PROGRESS: TODO
+PROGRESS: Done
 
 **What:** Search the first (PV) move with the full `[alpha, beta]` window. Search subsequent moves with a null window `[alpha, alpha+1]`. Only re-search with the full window if a move fails high.
 
