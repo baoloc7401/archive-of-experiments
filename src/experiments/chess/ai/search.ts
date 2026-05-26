@@ -90,13 +90,17 @@ export function alphaBeta(
     if (alpha >= beta) return cached.score;
   }
 
+  // Static eval is consulted by both NMP and futility — compute lazily and
+  // share so a node firing both heuristics only pays for evaluate once.
+  let cachedEval: number | null = null;
+  const staticEval = (): number => cachedEval ?? (cachedEval = evaluate(pos));
+
   // Null-move pruning — pass the move and search shallow; if the opponent
   // still can't push us under beta, our real move would surely cut off.
   // Skipped in check (illegal), endgames (zugzwang risk), and when already
   // null-moved (no consecutive nulls).
   if (depth >= NMP_MIN_DEPTH && !inCheck && !nullMoveDone && !isEndgame(pos)) {
-    const staticEval = evaluate(pos);
-    const justify = maximizing ? staticEval >= beta : staticEval <= alpha;
+    const justify = maximizing ? staticEval() >= beta : staticEval() <= alpha;
     if (justify) {
       const R = NMP_BASE_R + Math.floor(depth / 3);
       const nullDepth = Math.max(0, depth - R - 1);
@@ -126,11 +130,10 @@ export function alphaBeta(
   if (depth >= 1 && depth <= 2 && !inCheck
       && Math.abs(alpha) < MATE_SCORE - 2000
       && Math.abs(beta)  < MATE_SCORE - 2000) {
-    const staticEval = evaluate(pos);
     const margin = FUTILITY_MARGINS[depth];
     futilityActive = maximizing
-      ? staticEval + margin <= alpha
-      : staticEval - margin >= beta;
+      ? staticEval() + margin <= alpha
+      : staticEval() - margin >= beta;
   }
 
   let best = maximizing ? -Infinity : Infinity;
