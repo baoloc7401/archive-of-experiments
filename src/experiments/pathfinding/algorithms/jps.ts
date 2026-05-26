@@ -58,6 +58,11 @@ export function* jps(grid: GridConfig): AlgoGen {
         // Vertical scan: forced if wall behind-left/right but open left/right
         if ((blocked(r - dr, c - 1) && open(r, c - 1)) ||
             (blocked(r - dr, c + 1) && open(r, c + 1))) return [r, c];
+        // Cross-scan: 4-directional JPS has no diagonal movement, so a vertical
+        // scan must also check whether a horizontal jump exists at each step.
+        // Without this, an open grid with the goal offset diagonally from the
+        // scan line produces no jump points and JPS wrongly reports no-path.
+        if (jump(r, c + 1, 0, 1) !== null || jump(r, c - 1, 0, -1) !== null) return [r, c];
       }
 
       r += dr;
@@ -95,15 +100,12 @@ export function* jps(grid: GridConfig): AlgoGen {
       // Arrived vertically
       const jp = jump(r + dr, c, dr, 0);
       if (jp) result.push(jp);
-      // Forced horizontal neighbors
-      if (blocked(r - dr, c - 1) && open(r, c - 1)) {
-        const jp2 = jump(r, c - 1, 0, -1);
-        if (jp2) result.push(jp2);
-      }
-      if (blocked(r - dr, c + 1) && open(r, c + 1)) {
-        const jp2 = jump(r, c + 1, 0, 1);
-        if (jp2) result.push(jp2);
-      }
+      // Always try horizontal — forced-neighbor check alone misses jump points
+      // that were identified via cross-scan on open/lightly-walled grids.
+      const jpL = jump(r, c - 1, 0, -1);
+      if (jpL) result.push(jpL);
+      const jpR = jump(r, c + 1, 0, 1);
+      if (jpR) result.push(jpR);
     }
     return result;
   }
