@@ -15,26 +15,87 @@ import {
   LMR_MIN_MOVE_INDEX,
   MATE_SCORE,
   MAX_EXTENSIONS,
-  MAX_QDEPTH,
   NMP_BASE_R,
   NMP_MIN_DEPTH,
+  QS_CHECK_PLIES,
 } from './constants';
 import { evaluate, isEndgame } from './evaluate';
 import { histKey, isSameMove, orderMoves } from './ordering';
+import { getSearchOptions } from './searchOptions';
 import { histTable, tt, type TTFlag } from './tables';
 
-// Quiescence search: extend past the horizon on captures only, to avoid
-// the horizon effect (missing recaptures at the depth boundary).
-// Mutates pos in place via make/unmake; restores it before returning.
+// Any |score| at or above this is a mate score (MATE_SCORE − ply for some
+// ply ≤ MATE_BOUND_BUFFER). Used to detect mate scores in TT adjustment.
+// 1000 is far above any practical search ply, so regular evals never collide.
+const MATE_BOUND = MATE_SCORE - 1000;
+
+// Mate scores are stored in the TT as distance-from-this-node, but produced
+// by the search as distance-from-root. Translate on store/probe by adding /
+// subtracting the current node's ply so a cached "mate in N from here" gives
+// the right root-relative score when the same position is reached at a
+// different depth in a later search.
+function scoreToTT(score: number, ply: number): number {
+  if (score >=  MATE_BOUND) return score + ply;
+  if (score <= -MATE_BOUND) return score - ply;
+  return score;
+}
+function scoreFromTT(score: number, ply: number): number {
+  if (score >=  MATE_BOUND) return score - ply;
+  if (score <= -MATE_BOUND) return score + ply;
+  return score;
+}
+
+// Quiescence search: extend past the horizon on captures (always) and
+// check-giving moves (first QS_CHECK_PLIES levels only) to avoid the
+// horizon effect on forcing lines. Mutates pos in place via make/unmake;
+// restores it before returning. If pos is itself in check, all legal
+// evasions are searched and stand-pat is suppressed — otherwise an
+// in-check position would be evaluated as if quiet.
 export function quiesce(
   pos: Position,
   alpha: number,
   beta: number,
   maximizing: boolean,
+  ply: number,
   qdepth = 0,
 ): number {
+  const inCheck = isInCheck(pos, pos.turn);
+  const allMoves = getLegalMoves(pos);
+
+  const maxQDepth = getSearchOptions().qdepth;
+
+  // Check evasion: no stand-pat (would mis-score mate as quiet), search all replies.
+  if (inCheck) {
+    if (allMoves.length === 0) {
+      // Ply-adjusted mate: shorter mates score higher in magnitude so the
+      // engine prefers the fastest finish.
+      const m = MATE_SCORE - (ply + qdepth);
+      return maximizing ? -m : m;
+    }
+    if (qdepth >= maxQDepth) return evaluate(pos);
+
+    orderMoves(pos, allMoves);
+    let best = maximizing ? -Infinity : Infinity;
+    for (const move of allMoves) {
+      const undo = makeMove(pos, move);
+      const val = quiesce(pos, alpha, beta, !maximizing, ply, qdepth + 1);
+      unmakeMove(pos, move, undo);
+
+      if (maximizing) {
+        best = Math.max(best, val);
+        if (val >= beta) return best;
+        alpha = Math.max(alpha, val);
+      } else {
+        best = Math.min(best, val);
+        if (val <= alpha) return best;
+        beta = Math.min(beta, val);
+      }
+    }
+    return best;
+  }
+
   const standPat = evaluate(pos);
-  if (qdepth >= MAX_QDEPTH) return standPat;
+  if (qdepth >= maxQDepth) return standPat;
 
   if (maximizing) {
     if (standPat >= beta) return standPat;
@@ -44,14 +105,31 @@ export function quiesce(
     beta = Math.min(beta, standPat);
   }
 
-  const captures = getLegalMoves(pos).filter(m => m.captured || m.flag === 'en-passant');
-  if (captures.length === 0) return standPat;
-  orderMoves(pos, captures);
+  // Captures always; check-giving moves only for the first QS_CHECK_PLIES
+  // levels (a check generates few legal replies but unbounded checking
+  // sequences blow up the node count).
+  const considerChecks = qdepth < QS_CHECK_PLIES;
+  const candidates: Move[] = [];
+  for (const move of allMoves) {
+    if (move.captured || move.flag === 'en-passant') {
+      candidates.push(move);
+      continue;
+    }
+    if (!considerChecks) continue;
+    // Cheap check detection: make/unmake and test the opponent's king.
+    const u = makeMove(pos, move);
+    const givesCheck = isInCheck(pos, pos.turn);
+    unmakeMove(pos, move, u);
+    if (givesCheck) candidates.push(move);
+  }
+
+  if (candidates.length === 0) return standPat;
+  orderMoves(pos, candidates);
 
   let best = standPat;
-  for (const move of captures) {
+  for (const move of candidates) {
     const undo = makeMove(pos, move);
-    const val = quiesce(pos, alpha, beta, !maximizing, qdepth + 1);
+    const val = quiesce(pos, alpha, beta, !maximizing, ply, qdepth + 1);
     unmakeMove(pos, move, undo);
 
     if (maximizing) {
@@ -91,7 +169,7 @@ export function alphaBeta(
     extensions++;
   }
 
-  if (depth <= 0) return quiesce(pos, alpha, beta, maximizing);
+  if (depth <= 0) return quiesce(pos, alpha, beta, maximizing, ply);
 
   const key = positionKey(pos);
   const cached = tt.get(key);
@@ -100,10 +178,13 @@ export function alphaBeta(
   const origBeta = beta;
 
   if (cached && cached.depth >= depth) {
-    if (cached.flag === 'exact') return cached.score;
-    if (cached.flag === 'lower') alpha = Math.max(alpha, cached.score);
-    if (cached.flag === 'upper') beta  = Math.min(beta,  cached.score);
-    if (alpha >= beta) return cached.score;
+    // Reconstruct the root-relative score from the absolute mate distance
+    // stored in the TT (no-op for non-mate scores).
+    const cachedScore = scoreFromTT(cached.score, ply);
+    if (cached.flag === 'exact') return cachedScore;
+    if (cached.flag === 'lower') alpha = Math.max(alpha, cachedScore);
+    if (cached.flag === 'upper') beta  = Math.min(beta,  cachedScore);
+    if (alpha >= beta) return cachedScore;
   }
 
   // Static eval is consulted by both NMP and futility — compute lazily and
@@ -135,7 +216,12 @@ export function alphaBeta(
 
   const moves = getLegalMoves(pos);
   if (moves.length === 0) {
-    return inCheck ? (maximizing ? -MATE_SCORE : MATE_SCORE) : 0;
+    if (!inCheck) return 0;
+    // Ply-adjusted mate so the engine prefers the fastest mate (or, when
+    // losing, the slowest) instead of wandering inside the "mate is forced"
+    // region.
+    const m = MATE_SCORE - ply;
+    return maximizing ? -m : m;
   }
 
   const plyKillers = killers[ply] ?? [null, null];
@@ -248,10 +334,12 @@ export function alphaBeta(
   }
 
   // TT store — prefer deeper entries; exact entries always overwrite.
+  // Mate scores are converted to absolute distance-from-this-node before
+  // storing so retrievals at other plies decode correctly via scoreFromTT.
   const existing = tt.get(key);
   const flag: TTFlag = best <= origAlpha ? 'upper' : best >= origBeta ? 'lower' : 'exact';
   if (!existing || depth >= existing.depth || flag === 'exact') {
-    tt.set(key, { depth, flag, score: best, bestMove });
+    tt.set(key, { depth, flag, score: scoreToTT(best, ply), bestMove });
   }
 
   return best;

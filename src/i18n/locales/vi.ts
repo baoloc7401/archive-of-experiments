@@ -106,7 +106,28 @@ const vi = {
     history_title: "Lịch sử nước đi",
     copy: "sao chép",
     copied: "✓ đã sao chép",
+    copy_grades: "đánh giá",
+    copy_grades_hint: "Kèm ký hiệu đánh giá (!!, !, ?!, ...) khi sao chép",
     no_moves: "Chưa có nước đi.",
+    skill: {
+      title: "Mức AI",
+      white: "AI bên Trắng",
+      black: "AI bên Đen",
+      start: "Bắt đầu",
+      back: "Quay lại",
+      beginner: "Mới chơi",
+      casual: "Bình thường",
+      intermediate: "Trung cấp",
+      advanced: "Nâng cao",
+      master: "Chuyên gia",
+      desc: {
+        beginner: "Nhìn trước một nước. Hay đi sai.",
+        casual: "Nhìn trước hai nước. Bỏ lỡ nhiều đòn.",
+        intermediate: "Trình câu lạc bộ. Bắt được đòn cơ bản.",
+        advanced: "Mạnh. Hiếm khi sai, tìm kiếm sâu.",
+        master: "Đầy đủ. Không nhiễu, tìm kiếm sâu nhất.",
+      },
+    },
   },
 } as const;
 

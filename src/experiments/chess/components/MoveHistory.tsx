@@ -16,20 +16,32 @@ interface Props {
   rounds: [Move, Move | null][];
   moveGrades: (number | undefined)[];
   copied: boolean;
+  copyGrades: boolean;
+  onToggleCopyGrades: (v: boolean) => void;
   historyRef: React.RefObject<HTMLDivElement | null>;
   onCopy: () => void;
 }
 
-export function MoveHistory({ rounds, moveGrades, copied, historyRef, onCopy }: Props) {
+export function MoveHistory({ rounds, moveGrades, copied, copyGrades, onToggleCopyGrades, historyRef, onCopy }: Props) {
   const { t } = useTranslation();
   return (
     <div className="chess-history">
       <div className="chess-history-header">
-        {t('chess.history_title')}
+        <span>{t('chess.history_title')}</span>
         {rounds.length > 0 && (
-          <button className="chess-copy-btn" onClick={onCopy}>
-            {copied ? t('chess.copied') : t('chess.copy')}
-          </button>
+          <div className="chess-history-actions">
+            <label className="chess-copy-toggle" title={t('chess.copy_grades_hint')}>
+              <input
+                type="checkbox"
+                checked={copyGrades}
+                onChange={e => onToggleCopyGrades(e.target.checked)}
+              />
+              <span>{t('chess.copy_grades')}</span>
+            </label>
+            <button className="chess-copy-btn" onClick={onCopy}>
+              {copied ? t('chess.copied') : t('chess.copy')}
+            </button>
+          </div>
         )}
       </div>
       <div className="chess-history-list" ref={historyRef}>

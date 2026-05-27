@@ -409,7 +409,9 @@ PROGRESS: Done
 
 #### 14. Aspiration Windows
 
-PROGRESS: TODO
+PROGRESS: TODO (implemented then reverted — negligible benefit at our fixed
+search depth, since aspiration windows pay off mainly in time-limited
+iterative deepening, and a narrow root window risked blurring tie-breaking.)
 
 **What:** In iterative deepening, use a narrow window `[prevScore − δ, prevScore + δ]` instead of `(−∞, +∞)` as the starting window for each new iteration.
 
@@ -425,7 +427,7 @@ PROGRESS: TODO
 
 #### 15. Quiescence: Include Checks
 
-PROGRESS: TODO
+PROGRESS: Done
 
 **What:** Extend `quiesce()` to search moves that give check in addition to captures.
 
@@ -437,7 +439,7 @@ PROGRESS: TODO
 
 #### 16. Web Worker for Search
 
-PROGRESS: TODO
+PROGRESS: Done
 
 **What:** Move `getBestMove` into a Web Worker so the search runs off the main thread.
 
@@ -449,7 +451,7 @@ PROGRESS: TODO
 
 #### 17. Opening Book
 
-PROGRESS: TODO
+PROGRESS: Done
 
 **What:** A lookup table of well-known opening lines. Return a book move instantly when the current position matches a known entry, skipping the search entirely.
 

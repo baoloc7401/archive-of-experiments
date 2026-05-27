@@ -2,6 +2,7 @@ import type { Move, Position } from './types';
 import { FILES, RANKS } from './constants';
 import { applyMove } from './engine';
 import { evaluate as evaluatePosition, getBestMove } from './ai';
+import { GRADER_CONFIG } from './ai/skill';
 
 export function sqName(r: number, c: number): string {
   return FILES[c] + RANKS[r];
@@ -13,7 +14,7 @@ export function moveLabel(m: Move): string {
 }
 
 export function computeGrade(posBefore: Position, chosenMove: Move): number {
-  const best = getBestMove(posBefore, 2);
+  const best = getBestMove(posBefore, GRADER_CONFIG);
   if (!best) return 8;
   const isWhite = posBefore.turn === 'w';
   const evalBest = evaluatePosition(applyMove(posBefore, best));

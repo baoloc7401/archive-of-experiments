@@ -38,3 +38,20 @@ export interface Position {
 
 export type GameStatus = 'playing' | 'check' | 'checkmate' | 'stalemate' | 'draw';
 export type GameMode = 'hvh' | 'hva' | 'ava';
+
+export type SkillLevel = 'beginner' | 'casual' | 'intermediate' | 'advanced' | 'master';
+
+export interface AIConfig {
+  depth: number;
+  qdepth: number;
+  evalNoiseCp: number;
+  topN: number;
+  topNWeights: readonly number[];
+  useBook: boolean;
+  eval: {
+    mobility: boolean;
+    kingSafety: boolean;
+    pawnStructure: boolean;
+    mopUp: boolean;
+  };
+}

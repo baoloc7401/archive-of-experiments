@@ -6,9 +6,6 @@ export const PIECE_VALUE: Record<string, number> = {
 // the losing side still prefers a draw over a bigger loss (contempt < any real loss).
 export const CONTEMPT = -50;
 
-// Maximum quiescence extension past the search horizon.
-export const MAX_QDEPTH = 4;
-
 // Score magnitude returned for checkmate; sign indicates the mated side.
 export const MATE_SCORE = 99999;
 
@@ -36,6 +33,10 @@ export const MOBILITY_WEIGHT = 4;
 // at non-shallow depths. Reduction is logarithmic per CPW / Obsidian.
 export const LMR_MIN_DEPTH = 3;
 export const LMR_MIN_MOVE_INDEX = 4;
+
+// Quiescence: how many initial qdepth plies include check-giving moves
+// in addition to captures. Bounded to prevent node explosion.
+export const QS_CHECK_PLIES = 2;
 
 // Piece-square tables from white's perspective.
 // Row 0 = rank 8 (top, black's back / white's advanced rank).

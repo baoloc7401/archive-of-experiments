@@ -2,14 +2,26 @@ import type { Color, PieceType, Position } from './types';
 
 const PIECE_TYPE_INDEX: Record<PieceType, number> = { P: 0, N: 1, B: 2, R: 3, Q: 4, K: 5 };
 
-function rand64(): bigint {
-  // Two 32-bit chunks via Math.random — uniform enough for hashing.
-  // No cryptographic strength needed: collisions are rare and the TT
-  // never escapes the page (cleared on game reset, never persisted).
-  const hi = BigInt(Math.floor(Math.random() * 0x100000000));
-  const lo = BigInt(Math.floor(Math.random() * 0x100000000));
-  return (hi << 32n) | lo;
+const MASK64 = (1n << 64n) - 1n;
+
+// Deterministic 64-bit PRNG (splitmix64). A fixed seed is essential: the
+// search runs in a Web Worker, which is a separate module instance with its
+// own copy of these key tables. Identical seeds guarantee the worker and the
+// main thread derive the SAME keys, so position hashes (and therefore the
+// opening book, repetition map, and TT) agree across the thread boundary.
+function makeRand64(seed: bigint): () => bigint {
+  let state = seed & MASK64;
+  return () => {
+    state = (state + 0x9E3779B97F4A7C15n) & MASK64;
+    let z = state;
+    z = ((z ^ (z >> 30n)) * 0xBF58476D1CE4E5B9n) & MASK64;
+    z = ((z ^ (z >> 27n)) * 0x94D049BB133111EBn) & MASK64;
+    z = (z ^ (z >> 31n)) & MASK64;
+    return z;
+  };
 }
+
+const rand64 = makeRand64(0x9E3779B97F4A7C15n);
 
 // Precomputed at module load: 12 piece kinds × 64 squares, plus side-to-move,
 // 4 castling rights, and 8 en-passant files.

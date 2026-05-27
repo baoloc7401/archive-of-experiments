@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import type { GameMode } from './types';
+import type { GameMode, SkillLevel } from './types';
+import { DEFAULT_SKILL, SKILL_PRESETS } from './ai/skill';
 import { useChessGame } from './hooks/useChessGame';
 import { useChessAI } from './hooks/useChessAI';
 import { Board } from './components/Board';
@@ -21,10 +22,12 @@ export default function ChessGame() {
   const { theme, toggle } = useTheme();
   const { t } = useTranslation();
   const [mode, setMode] = useState<GameMode | null>(null);
+  const [whiteSkill, setWhiteSkill] = useState<SkillLevel>(DEFAULT_SKILL);
+  const [blackSkill, setBlackSkill] = useState<SkillLevel>(DEFAULT_SKILL);
   const [paused, setPaused] = useState(false);
 
   const game = useChessGame(mode);
-  const { thinking, stepAI } = useChessAI({
+  const { thinking, stepAI, clearAI } = useChessAI({
     mode,
     pos: game.pos,
     status: game.status,
@@ -32,12 +35,21 @@ export default function ChessGame() {
     paused,
     posHistoryRef: game.posHistoryRef,
     applyGameMove: game.applyGameMove,
+    whiteConfig: SKILL_PRESETS[whiteSkill],
+    blackConfig: SKILL_PRESETS[blackSkill],
   });
 
-  if (!mode) return <ModeScreen onSelect={setMode} />;
+  function handleStart(m: GameMode, w: SkillLevel, b: SkillLevel) {
+    setWhiteSkill(w);
+    setBlackSkill(b);
+    setMode(m);
+  }
+
+  if (!mode) return <ModeScreen onStart={handleStart} />;
 
   function handleReset() {
     game.resetGame();
+    clearAI();
     setPaused(false);
   }
 
@@ -132,6 +144,8 @@ export default function ChessGame() {
             rounds={game.rounds}
             moveGrades={game.moveGrades}
             copied={game.copied}
+            copyGrades={game.copyGrades}
+            onToggleCopyGrades={game.setCopyGrades}
             historyRef={game.historyRef}
             onCopy={game.copyHistory}
           />

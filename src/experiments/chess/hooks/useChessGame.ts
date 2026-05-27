@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import type { Color, GameMode, GameStatus, Move, Piece, PieceType, Position } from '../types';
-import { applyMove, findKing, getLegalMoves, getGameStatus, initialPosition, positionKey } from '../engine';
+import { applyMove, findKing, getLegalMoves, getGameStatus, initialPosition, isInCheck, positionKey } from '../engine';
 import { PIECE_SORT, PIECE_VAL, SYMBOLS } from '../constants';
-import { computeGrade, moveLabel } from '../utils';
+import { computeGrade, gradeInfo, moveLabel } from '../utils';
 import { clearTT } from '../ai';
 
 export interface SlideInfo {
@@ -31,6 +31,7 @@ export function useChessGame(mode: GameMode | null) {
   const [castleRookSlide, setCastleRookSlide] = useState<SlideInfo | null>(null);
   const [flyingPieces, setFlyingPieces] = useState<FlyingPiece[]>([]);
   const [copied, setCopied] = useState(false);
+  const [copyGrades, setCopyGrades] = useState(true);
 
   const historyRef = useRef<HTMLDivElement>(null);
   const posHistoryRef = useRef<Map<string, number>>(new Map());
@@ -214,8 +215,13 @@ export function useChessGame(mode: GameMode | null) {
   }
 
   function copyHistory() {
+    const cell = (m: Move, idx: number) => {
+      if (!copyGrades) return moveLabel(m);
+      const g = gradeInfo(moveGrades[idx]);
+      return g ? `${moveLabel(m)}${g.sym}` : moveLabel(m);
+    };
     const text = rounds
-      .map(([w, b], i) => `${i + 1}. ${moveLabel(w)}${b ? ` ${moveLabel(b)}` : ''}`)
+      .map(([w, b], i) => `${i + 1}. ${cell(w, i * 2)}${b ? ` ${cell(b, i * 2 + 1)}` : ''}`)
       .join('\n');
     navigator.clipboard.writeText(text).then(() => {
       setCopied(true);
@@ -231,9 +237,10 @@ export function useChessGame(mode: GameMode | null) {
       : [],
   );
 
-  const checkKingSq = (status === 'check' || status === 'checkmate')
-    ? findKing(pos.board, pos.turn)
-    : null;
+  // Derive directly from pos (not status) — status is updated in a useEffect
+  // and lags one render behind pos, which would otherwise flash the red square
+  // on the wrong king for one frame after a king moves out of check.
+  const checkKingSq = isInCheck(pos, pos.turn) ? findKing(pos.board, pos.turn) : null;
 
   const isGameOver = status === 'checkmate' || status === 'stalemate' || status === 'draw';
 
@@ -251,6 +258,8 @@ export function useChessGame(mode: GameMode | null) {
     castleRookSlide,
     flyingPieces,
     copied,
+    copyGrades,
+    setCopyGrades,
     historyRef,
     posHistoryRef,
     boardGridRef,

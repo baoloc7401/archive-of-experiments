@@ -104,7 +104,28 @@ const en = {
     history_title: "Move history",
     copy: "copy",
     copied: "✓ copied",
+    copy_grades: "grades",
+    copy_grades_hint: "Include move grades (!!, !, ?!, etc.) when copying",
     no_moves: "No moves yet.",
+    skill: {
+      title: "AI skill",
+      white: "White AI",
+      black: "Black AI",
+      start: "Start game",
+      back: "Back",
+      beginner: "Beginner",
+      casual: "Casual",
+      intermediate: "Intermediate",
+      advanced: "Advanced",
+      master: "Master",
+      desc: {
+        beginner: "Looks one move ahead. Blunders freely.",
+        casual: "Sees two moves. Misses most tactics.",
+        intermediate: "Club-strength. Catches simple combos.",
+        advanced: "Strong. Rare inaccuracies, deep search.",
+        master: "Full engine. No noise, deepest search.",
+      },
+    },
   },
 } as const;
 
