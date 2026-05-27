@@ -1,29 +1,44 @@
-import type { SimState } from '../types';
+import type { ElevatorRequest, RequestOrigin } from '../types';
 
 interface Props {
-  state: SimState;
+  activeCalls: ElevatorRequest[];
+  tick: number;
 }
 
-export default function Queue({ state }: Props) {
-  const upcoming = state.pending;
+const ORIGIN_GLYPH: Record<RequestOrigin, string> = {
+  'hall-up': '▲',
+  'hall-down': '▼',
+  car: '●',
+};
+
+const ORIGIN_LABEL: Record<RequestOrigin, string> = {
+  'hall-up': 'hall call, going up',
+  'hall-down': 'hall call, going down',
+  car: 'in-car destination',
+};
+
+export default function Queue({ activeCalls, tick }: Props) {
   return (
     <div className="elev-queue">
       <div className="elev-queue-head">
-        <span>queue</span>
-        <span className="elev-queue-count">{upcoming.length}</span>
+        <span>outstanding calls</span>
+        <span className="elev-queue-count">{activeCalls.length}</span>
       </div>
-      {upcoming.length === 0 ? (
+      {activeCalls.length === 0 ? (
         <div className="elev-queue-empty">no pending calls</div>
       ) : (
         <ul className="elev-queue-list">
-          {upcoming.map(r => {
-            const wait = state.tick - r.bornTick;
+          {activeCalls.map(r => {
+            const wait = tick - r.bornTick;
             return (
-              <li key={r.id} className="elev-queue-item">
+              <li
+                key={`${r.floor}:${r.origin}`}
+                className={`elev-queue-item elev-queue-item--${r.origin}`}
+                title={ORIGIN_LABEL[r.origin]}
+              >
+                <span className="elev-queue-origin">{ORIGIN_GLYPH[r.origin]}</span>
                 <span className="elev-queue-floor">F{String(r.floor).padStart(2, '0')}</span>
-                <span className="elev-queue-wait" title="ticks waiting">
-                  {wait}t
-                </span>
+                <span className="elev-queue-wait" title="ticks waiting">{wait}t</span>
               </li>
             );
           })}

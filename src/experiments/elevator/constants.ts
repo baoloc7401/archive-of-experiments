@@ -12,6 +12,17 @@ export const SPEED_PRESETS: { label: string; ms: number }[] = [
 
 export const DEFAULT_SPEED_INDEX = 1;
 
+/** One colour per elevator in comparison mode (by selection order). The first
+ *  three reuse theme tokens so they stay theme-aware; the rest are fixed. */
+export const SHAFT_COLORS = [
+  'var(--accent)',
+  'var(--accent2)',
+  'var(--wip)',
+  '#4da8ff',
+  '#ff5d9e',
+  '#ff9f43',
+];
+
 export const ALGORITHMS: AlgorithmInfo[] = [
   {
     id: 'fcfs',
@@ -51,7 +62,7 @@ export const ALGORITHMS: AlgorithmInfo[] = [
     short: 'circular SCAN',
     tagline: 'one-way express',
     description:
-      'Only services requests while going up. At the top floor it jumps back to the bottom without serving anyone, then sweeps up again. Fairer wait times.',
+      'Only services requests while going up. At the top it runs non-stop straight back down to the ground floor (serving no one), then sweeps up again. Fairer wait times.',
   },
   {
     id: 'c-look',
@@ -59,7 +70,7 @@ export const ALGORITHMS: AlgorithmInfo[] = [
     short: 'circular LOOK',
     tagline: 'rewind to lowest request',
     description:
-      'Like C-SCAN but skips the dead-zone trip to the building edge. After serving the highest pending request, it jumps straight to the lowest one.',
+      'Like C-SCAN but skips the dead-zone trip to the building edge. After serving the highest pending request, it runs non-stop straight down to the lowest one, then sweeps up.',
   },
 ];
 

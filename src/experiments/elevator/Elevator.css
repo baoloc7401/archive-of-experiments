@@ -13,8 +13,6 @@
   --elev-car-glow:   rgba(0, 245, 196, 0.55);
   --elev-grid-line:  rgba(124, 108, 250, 0.05);
   --elev-stage-glow: radial-gradient(60% 50% at 50% 0%, rgba(124, 108, 250, 0.10), transparent 60%);
-  --elev-call-idle:  #1a1e30;
-  --elev-call-ring:  rgba(0, 245, 196, 0.0);
   --elev-info-bg:    linear-gradient(180deg, rgba(124, 108, 250, 0.08), rgba(124, 108, 250, 0.02));
 }
 
@@ -27,8 +25,6 @@
   --elev-car-glow:   rgba(0, 184, 153, 0.45);
   --elev-grid-line:  rgba(108, 92, 231, 0.07);
   --elev-stage-glow: radial-gradient(60% 50% at 50% 0%, rgba(108, 92, 231, 0.10), transparent 60%);
-  --elev-call-idle:  #e2e6f3;
-  --elev-call-ring:  rgba(0, 184, 153, 0.0);
   --elev-info-bg:    linear-gradient(180deg, rgba(108, 92, 231, 0.08), rgba(108, 92, 231, 0.02));
 }
 
@@ -89,15 +85,23 @@
   align-items: center;
 }
 
-/* ── Algorithm picker (top pill row) ─────────────────────────── */
+/* ── Algorithm picker (top pill row + compare toggle) ────────── */
+.elev-algo-bar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.5rem 0.65rem;
+  flex-wrap: wrap;
+}
 .elev-algo-picker {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-  padding: 1rem 1.5rem 0.65rem;
 }
 
 .elev-algo-pill {
+  --shaft-color: var(--accent);
   position: relative;
   display: flex;
   flex-direction: column;
@@ -117,7 +121,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 28%, transparent), transparent 55%);
+  background: linear-gradient(135deg, color-mix(in srgb, var(--shaft-color) 28%, transparent), transparent 55%);
   opacity: 0;
   transition: opacity 0.2s;
   pointer-events: none;
@@ -127,11 +131,32 @@
   transform: translateY(-1px);
 }
 .elev-algo-pill--on {
-  border-color: var(--accent);
+  border-color: var(--shaft-color);
   color: var(--text-hi);
-  box-shadow: 0 0 0 1px var(--accent), 0 6px 18px -10px var(--accent);
+  box-shadow: 0 0 0 1px var(--shaft-color), 0 6px 18px -10px var(--shaft-color);
 }
 .elev-algo-pill--on::before { opacity: 1; }
+
+.elev-algo-badge {
+  position: absolute;
+  top: 4px;
+  right: 5px;
+  min-width: 14px;
+  height: 14px;
+  padding: 0 3px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  font-size: 0.56rem;
+  font-weight: 700;
+  color: var(--bg);
+  background: var(--shaft-color);
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity 0.15s, transform 0.15s;
+}
+.elev-algo-pill--on .elev-algo-badge { opacity: 1; transform: scale(1); }
 
 .elev-algo-pill-name {
   font-size: 0.74rem;
@@ -144,7 +169,61 @@
   color: var(--text-dim);
   letter-spacing: 0.04em;
 }
-.elev-algo-pill--on .elev-algo-pill-tag { color: var(--accent); }
+.elev-algo-pill--on .elev-algo-pill-tag { color: var(--shaft-color); }
+
+/* compare toggle (slider) */
+.elev-compare-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  user-select: none;
+  padding: 0.3rem 0;
+}
+.elev-compare-toggle input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.elev-compare-track {
+  position: relative;
+  width: 38px;
+  height: 20px;
+  border-radius: 999px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  transition: background 0.18s, border-color 0.18s;
+  flex-shrink: 0;
+}
+.elev-compare-knob {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--text-dim);
+  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), background 0.18s;
+}
+.elev-compare-toggle input:checked + .elev-compare-track {
+  background: color-mix(in srgb, var(--accent2) 28%, var(--bg2));
+  border-color: var(--accent2);
+}
+.elev-compare-toggle input:checked + .elev-compare-track .elev-compare-knob {
+  transform: translateX(18px);
+  background: var(--accent2);
+}
+.elev-compare-toggle input:focus-visible + .elev-compare-track {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.elev-compare-label {
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  color: var(--text);
+}
+.elev-compare-hint { color: var(--text-dim); font-size: 0.66rem; }
 
 /* ── Info strip (tagline + description) ──────────────────────── */
 .elev-info-strip {
@@ -162,12 +241,16 @@
   from { opacity: 0; transform: translateY(-4px); }
   to   { opacity: 1; transform: translateY(0); }
 }
+.elev-info-strip--cmp {
+  border-color: color-mix(in srgb, var(--accent) 30%, var(--border));
+}
 .elev-info-tagline {
   font-size: 0.74rem;
   letter-spacing: 0.06em;
   color: var(--accent2);
   text-transform: lowercase;
 }
+.elev-info-strip--cmp .elev-info-tagline { color: var(--accent); }
 .elev-info-desc {
   font-size: 0.78rem;
   color: var(--text);
@@ -224,22 +307,85 @@
   opacity: 0.45;
 }
 
-/* ── Building (shaft + floors) ───────────────────────────────── */
+/* ── Building (shared floor axis + one shaft per elevator) ───── */
 .elev-building {
   position: relative;
   z-index: 1;
   height: 100%;
   min-height: 540px;
-  display: grid;
-  grid-template-columns: 110px minmax(0, 1fr);
-  gap: 1rem;
+  display: flex;
+  gap: 0.75rem;
   padding: 1.25rem 1.25rem 1.25rem 1rem;
   /* `--elev-rows` is set inline on this element. */
+}
+
+/* shared left axis: floor numbers + hall-call buttons */
+.elev-axis {
+  flex: 0 0 auto;
+  width: 132px;
+  display: flex;
+  flex-direction: column;
+}
+.elev-axis-head {
+  height: 24px;
+  margin-bottom: 0.3rem; /* match .elev-shaft-header so floor rows align */
+  display: flex;
+  align-items: center;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-dim);
+  padding-left: 0.2rem;
+}
+
+/* the row of shafts (scrolls horizontally if there are many) */
+.elev-shafts {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  gap: 0.6rem;
+  overflow-x: auto;
+}
+.elev-shafts--multi { padding-bottom: 0.2rem; }
+.elev-shaft-col {
+  --shaft-color: var(--accent);
+  flex: 1 1 0;
+  min-width: 58px;
+  display: flex;
+  flex-direction: column;
+}
+.elev-shafts--multi .elev-shaft-col { flex: 0 0 auto; min-width: 72px; }
+
+.elev-shaft-header {
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.3rem;
+  padding: 0 0.15rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--shaft-color) 30%, transparent);
+  margin-bottom: 0.3rem;
+}
+.elev-shaft-name {
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--shaft-color);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.elev-shaft-metric {
+  font-size: 0.58rem;
+  color: var(--text-dim);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 
 /* ── Shaft ──────────────────────────────────────────────────── */
 .elev-shaft-frame {
   position: relative;
+  flex: 1;
   padding: 8px;
   border: 1px solid var(--elev-shaft-edge);
   border-radius: 10px;
@@ -247,7 +393,7 @@
     linear-gradient(180deg, color-mix(in srgb, var(--elev-shaft-bg) 92%, transparent), var(--elev-shaft-bg));
   box-shadow:
     inset 0 1px 0 color-mix(in srgb, var(--text-hi) 6%, transparent),
-    0 12px 28px -22px var(--accent2);
+    0 12px 28px -22px var(--shaft-color);
 }
 .elev-shaft {
   position: relative;
@@ -262,28 +408,57 @@
   border-bottom: 1px dashed var(--elev-rail);
 }
 .elev-shaft-cell--top { border-top: 1px dashed var(--elev-rail); }
+/* a small marker on the shaft edge for floors this car still owes a stop */
+.elev-shaft-cell--target::before {
+  content: "";
+  position: absolute;
+  left: 3px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--shaft-color);
+  box-shadow: 0 0 6px 0 color-mix(in srgb, var(--shaft-color) 70%, transparent);
+  opacity: 0.85;
+}
+.elev-shaft-cell--flash {
+  animation: elev-cell-flash var(--elev-move-ms, 450ms) ease-out;
+}
+@keyframes elev-cell-flash {
+  0%   { background: color-mix(in srgb, var(--shaft-color) 40%, transparent); }
+  100% { background: transparent; }
+}
 
 /* ── Elevator car ───────────────────────────────────────────── */
 .elev-car {
   position: absolute;
   left: 50%;
   width: 80%;
-  /* The car occupies one full row, translated down by `--elev-row` rows.
-     This keeps the car perfectly aligned with the corresponding floor on
-     the right column even when the shaft height changes. */
+  /* The car occupies one full row; the concrete translateY (set inline as a
+     percentage of the car's own height) moves it down by that many rows, so
+     it stays aligned with the matching floor on the axis. The transform value
+     is set inline (NOT via a CSS var) on purpose: unregistered custom
+     properties resolve at used-value time, so a var-driven transform's
+     computed value never changes and the transition would never fire. */
   top: 0;
   height: calc(100% / var(--elev-rows));
-  transform: translate(-50%, calc(var(--elev-row) * 100%));
-  transition:
-    transform 0.45s cubic-bezier(0.42, 0, 0.18, 1);
+  transform: translate(-50%, 0);
+  /* Duration tracks the live tick interval (`--elev-move-ms`) so a one-floor
+     move lands exactly as the next tick fires — the car never desyncs from
+     its logical floor or snaps to catch up. */
+  transition: transform var(--elev-move-ms, 450ms) cubic-bezier(0.45, 0.05, 0.2, 1);
   z-index: 2;
-  filter: drop-shadow(0 6px 14px color-mix(in srgb, var(--accent) 25%, transparent));
+  filter: drop-shadow(0 6px 14px color-mix(in srgb, var(--shaft-color) 30%, transparent));
 }
-.elev-car--jumping {
-  /* C-SCAN / C-LOOK warp move: longer easing + extra glow */
-  transition:
-    transform 0.55s cubic-bezier(0.85, 0.0, 0.15, 1.0);
-  filter: drop-shadow(0 10px 22px color-mix(in srgb, var(--accent2) 60%, transparent));
+.elev-car--express {
+  /* C-SCAN / C-LOOK circular return: a real, non-stop downward run. The car
+     glides floor-by-floor exactly like any other move (same transition) — it
+     simply doesn't stop to serve. The only cue is a faint downward-trailing
+     glow so you can tell it's expressing past floors rather than serving. */
+  filter:
+    drop-shadow(0 6px 14px color-mix(in srgb, var(--shaft-color) 30%, transparent))
+    drop-shadow(0 -10px 16px color-mix(in srgb, var(--shaft-color) 45%, transparent));
 }
 .elev-car--idle .elev-car-arrow { color: var(--text-dim); }
 
@@ -297,7 +472,7 @@
   border-radius: 7px;
   background:
     linear-gradient(180deg,
-      color-mix(in srgb, var(--elev-car-base) 70%, var(--accent)),
+      color-mix(in srgb, var(--elev-car-base) 70%, var(--shaft-color)),
       var(--elev-car-base) 35%,
       color-mix(in srgb, var(--elev-car-base) 92%, #000) 100%);
   border: 1px solid var(--elev-car-edge);
@@ -329,17 +504,17 @@
   padding: 0.12rem 0.45rem;
   border-radius: 4px;
   background: color-mix(in srgb, #000 40%, transparent);
-  border: 1px solid color-mix(in srgb, var(--accent) 30%, var(--elev-car-edge));
+  border: 1px solid color-mix(in srgb, var(--shaft-color) 35%, var(--elev-car-edge));
   font-size: 0.82rem;
   font-weight: 600;
-  color: var(--accent);
+  color: var(--shaft-color);
   letter-spacing: 0.04em;
-  text-shadow: 0 0 8px color-mix(in srgb, var(--accent) 60%, transparent);
+  text-shadow: 0 0 8px color-mix(in srgb, var(--shaft-color) 60%, transparent);
 }
 .elev-car-floor-num { min-width: 1.3em; text-align: center; }
 .elev-car-arrow {
   font-size: 0.7rem;
-  color: var(--accent);
+  color: var(--shaft-color);
   animation: elev-arrow-pulse 1.05s ease-in-out infinite;
 }
 .elev-car--idle .elev-car-arrow { animation: none; }
@@ -352,7 +527,8 @@
   position: absolute;
   inset: -8px -4px;
   border-radius: 14px;
-  background: radial-gradient(60% 60% at 50% 50%, var(--elev-car-glow), transparent 70%);
+  background: radial-gradient(60% 60% at 50% 50%,
+    color-mix(in srgb, var(--shaft-color) 50%, transparent), transparent 70%);
   z-index: -1;
   opacity: 0.65;
   pointer-events: none;
@@ -363,26 +539,25 @@
   50%      { opacity: 0.85; }
 }
 
-/* ── Floors panel (right of shaft) ───────────────────────────── */
+/* ── Floor axis (shared hall-call column) ────────────────────── */
 .elev-floors {
+  flex: 1;
   display: grid;
   grid-template-rows: repeat(var(--elev-rows), 1fr);
+  /* match the shaft frame's 8px vertical padding so floor rows line up
+     exactly with the shaft grid rows (and therefore the car) */
+  padding: 8px 0;
 }
 .elev-floor {
   position: relative;
   display: flex;
   align-items: center;
-  gap: 0.7rem;
-  padding: 0 0.65rem;
-  margin: 2px 0;
+  gap: 0.45rem;
+  padding: 0 0.4rem;
   border: 1px solid transparent;
   border-radius: 5px;
   transition: background 0.18s, border-color 0.18s;
 }
-.elev-floor--here {
-  background: color-mix(in srgb, var(--accent) 5%, transparent);
-}
-.elev-floor--here .elev-floor-num { color: var(--accent); }
 .elev-floor-num {
   font-size: 0.7rem;
   font-weight: 600;
@@ -393,8 +568,8 @@
 }
 
 .elev-floor--pending {
-  background: color-mix(in srgb, var(--accent2) 8%, transparent);
-  border-color: color-mix(in srgb, var(--accent2) 45%, var(--border));
+  background: color-mix(in srgb, var(--accent2) 7%, transparent);
+  border-color: color-mix(in srgb, var(--accent2) 35%, var(--border));
 }
 .elev-floor--pending .elev-floor-num { color: var(--accent2); }
 
@@ -407,51 +582,198 @@
   100% { background: transparent; }
 }
 
-/* ── Call button (the dot) ───────────────────────────────────── */
-.elev-call-btn {
-  --dot-color: var(--elev-call-idle);
-  position: relative;
-  flex: 1;
+/* ── In-car destination tag (shows on a floor when set from the cab) ─ */
+.elev-floor-car-tag {
+  font-size: 0.54rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 0.05rem 0.28rem;
+  border-radius: 3px;
+  border: 1px solid transparent;
+  color: transparent;
+  background: transparent;
+  transition: color 0.18s, background 0.18s, border-color 0.18s;
+  user-select: none;
+}
+.elev-floor-car-tag--on {
+  color: var(--accent);
+  border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+}
+
+/* ── Hall-call buttons (the "outside" interface) ─────────────── */
+.elev-hall {
+  display: flex;
+  gap: 0.3rem;
+  margin-left: auto;
+}
+.elev-hall-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  font-size: 0.62rem;
+  line-height: 1;
+  background:
+    radial-gradient(circle at 50% 35%, color-mix(in srgb, var(--text-hi) 6%, var(--bg2)), var(--bg));
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  color: var(--text-dim);
+  cursor: pointer;
+  font-family: inherit;
+  transition: border-color 0.15s, color 0.15s, box-shadow 0.18s, transform 0.1s;
+}
+.elev-hall-btn:hover {
+  color: var(--text-hi);
+  border-color: color-mix(in srgb, var(--accent2) 50%, var(--border));
+}
+.elev-hall-btn:active { transform: translateY(1px); }
+.elev-hall-btn--on {
+  color: var(--accent2);
+  border-color: var(--accent2);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--accent2) 60%, transparent),
+    0 0 10px 0 color-mix(in srgb, var(--accent2) 50%, transparent);
+  animation: elev-hall-pulse 1.15s ease-in-out infinite;
+}
+@keyframes elev-hall-pulse {
+  0%, 100% { filter: brightness(1);    box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent2) 55%, transparent), 0 0 8px 0 color-mix(in srgb, var(--accent2) 40%, transparent); }
+  50%      { filter: brightness(1.3);  box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent2) 75%, transparent), 0 0 14px 1px color-mix(in srgb, var(--accent2) 60%, transparent); }
+}
+.elev-floor--flash .elev-hall-btn--on {
+  color: var(--accent);
+  border-color: var(--accent);
+  animation: none;
+  box-shadow: 0 0 0 1px var(--accent), 0 0 14px 1px color-mix(in srgb, var(--accent) 55%, transparent);
+}
+
+/* ── Outside / inside section labels ─────────────────────────── */
+.elev-side { display: flex; flex-direction: column; gap: 0.5rem; min-width: 0; }
+.elev-side--outside { min-width: 0; }
+.elev-side-label {
+  display: flex;
+  align-items: baseline;
+  gap: 0.55rem;
+  flex-wrap: wrap;
+}
+.elev-side-tag {
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 600;
+  padding: 0.12rem 0.5rem;
+  border-radius: 999px;
+}
+.elev-side--outside .elev-side-tag {
+  color: var(--accent2);
+  background: color-mix(in srgb, var(--accent2) 14%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent2) 40%, transparent);
+}
+.elev-side--inside .elev-side-tag {
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+}
+.elev-side-desc {
+  font-size: 0.68rem;
+  color: var(--text-dim);
+  letter-spacing: 0.02em;
+}
+
+/* ── Car operating panel (the "inside" interface) ────────────── */
+.elev-cop {
+  border: 1px solid var(--elev-car-edge);
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--text-hi) 4%, var(--bg2)), var(--bg2));
+  padding: 0.7rem;
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--text-hi) 8%, transparent);
+}
+.elev-cop-head {
   display: flex;
   align-items: center;
-  height: 22px;
-  padding: 0 6px;
-  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--border) 50%, transparent));
-  border: 1px solid var(--border);
-  border-radius: 3px;
-  cursor: pointer;
-  color: inherit;
-  font-family: inherit;
-  transition: border-color 0.15s, background 0.15s;
+  justify-content: space-between;
+  margin-bottom: 0.6rem;
 }
-.elev-call-btn:hover {
-  border-color: color-mix(in srgb, var(--accent2) 45%, var(--border));
+.elev-cop-title {
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
 }
-.elev-call-dot {
-  display: inline-block;
-  width: 10px;
-  height: 10px;
+.elev-cop-readout {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.12rem 0.5rem;
+  border-radius: 4px;
+  background: color-mix(in srgb, #000 40%, var(--bg));
+  border: 1px solid color-mix(in srgb, var(--accent) 30%, var(--elev-car-edge));
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.82rem;
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 0 8px color-mix(in srgb, var(--accent) 55%, transparent);
+}
+.elev-cop-readout-dir { font-size: 0.68rem; }
+.elev-cop-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.4rem;
+}
+.elev-cop-btn {
+  position: relative;
+  height: 38px;
   border-radius: 50%;
-  background: var(--dot-color);
-  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--text-hi) 18%, transparent);
-  transition: background 0.18s, box-shadow 0.18s;
+  aspect-ratio: 1;
+  margin: 0 auto;
+  width: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(circle at 50% 32%, color-mix(in srgb, var(--text-hi) 10%, var(--bg)), var(--bg));
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.78rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s, box-shadow 0.18s, transform 0.1s;
 }
-.elev-floor--pending .elev-call-dot {
-  background: var(--accent2);
+.elev-cop-btn:hover {
+  color: var(--text-hi);
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
+}
+.elev-cop-btn:active { transform: translateY(1px); }
+.elev-cop-btn--lit {
+  color: var(--accent);
+  border-color: var(--accent);
   box-shadow:
-    0 0 0 1px color-mix(in srgb, var(--accent2) 70%, transparent),
-    0 0 10px 1px color-mix(in srgb, var(--accent2) 55%, transparent);
-  animation: elev-dot-pulse 1.1s ease-in-out infinite;
+    0 0 0 1px color-mix(in srgb, var(--accent) 55%, transparent),
+    0 0 12px 0 color-mix(in srgb, var(--accent) 45%, transparent),
+    inset 0 0 8px color-mix(in srgb, var(--accent) 22%, transparent);
 }
-@keyframes elev-dot-pulse {
-  0%, 100% { transform: scale(1);   filter: brightness(1); }
-  50%      { transform: scale(1.18); filter: brightness(1.25); }
+.elev-cop-btn--here {
+  border-style: dashed;
+  border-color: color-mix(in srgb, var(--text-hi) 40%, var(--border));
 }
-.elev-floor--flash .elev-call-dot {
-  background: var(--accent);
-  box-shadow:
-    0 0 0 1px color-mix(in srgb, var(--accent) 70%, transparent),
-    0 0 14px 2px color-mix(in srgb, var(--accent) 60%, transparent);
+.elev-cop-btn--here::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+  opacity: 0.6;
+}
+.elev-cop-hint {
+  margin-top: 0.55rem;
+  font-size: 0.62rem;
+  color: var(--text-dim);
+  text-align: center;
+  letter-spacing: 0.02em;
 }
 
 /* ── Sidebar ─────────────────────────────────────────────────── */
@@ -497,6 +819,71 @@
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--text-dim);
+}
+
+/* ── Comparison table (multi-elevator stats) ─────────────────── */
+.elev-cmp {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg2);
+  padding: 0.6rem 0.65rem;
+}
+.elev-cmp-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-dim);
+  margin-bottom: 0.5rem;
+}
+.elev-cmp-hint { font-size: 0.56rem; color: var(--text-dim); text-transform: none; letter-spacing: 0.02em; }
+.elev-cmp-table { display: flex; flex-direction: column; gap: 0.2rem; }
+.elev-cmp-row {
+  --shaft-color: var(--accent);
+  display: grid;
+  grid-template-columns: 1fr 2.1rem 1.9rem 2.2rem 2rem 1.7rem;
+  align-items: center;
+  gap: 0.2rem;
+  font-size: 0.7rem;
+  font-variant-numeric: tabular-nums;
+}
+.elev-cmp-row--head {
+  font-size: 0.56rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-dim);
+  padding-bottom: 0.15rem;
+  border-bottom: 1px solid var(--border);
+}
+.elev-cmp-row--head span { text-align: right; }
+.elev-cmp-row--head span:first-child { text-align: left; }
+.elev-cmp-algo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--text-hi);
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.elev-cmp-swatch {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  flex-shrink: 0;
+  background: var(--shaft-color);
+  box-shadow: 0 0 6px 0 color-mix(in srgb, var(--shaft-color) 60%, transparent);
+}
+.elev-cmp-cell {
+  text-align: right;
+  color: var(--text);
+}
+.elev-cmp-cell--best {
+  color: var(--accent);
+  font-weight: 700;
 }
 
 /* ── Controls ────────────────────────────────────────────────── */
@@ -624,23 +1011,30 @@
   gap: 0.32rem;
 }
 .elev-queue-item {
+  --q-color: var(--accent2);
   display: inline-flex;
   align-items: center;
   gap: 0.3rem;
   padding: 0.18rem 0.42rem;
   background: var(--bg);
-  border: 1px solid color-mix(in srgb, var(--accent2) 38%, var(--border));
+  border: 1px solid color-mix(in srgb, var(--q-color) 38%, var(--border));
   border-radius: 3px;
   font-size: 0.7rem;
   color: var(--text);
   animation: elev-queue-pop 0.22s cubic-bezier(0.22, 1, 0.36, 1);
 }
+.elev-queue-item--car { --q-color: var(--accent); }
 @keyframes elev-queue-pop {
   from { opacity: 0; transform: translateY(-3px) scale(0.96); }
   to   { opacity: 1; transform: translateY(0) scale(1); }
 }
+.elev-queue-origin {
+  color: var(--q-color);
+  font-size: 0.6rem;
+  line-height: 1;
+}
 .elev-queue-floor {
-  color: var(--accent2);
+  color: var(--q-color);
   font-weight: 600;
   font-variant-numeric: tabular-nums;
 }
@@ -649,6 +1043,96 @@
   color: var(--text-dim);
   font-variant-numeric: tabular-nums;
 }
+
+/* ── History (copyable debug log) ────────────────────────────── */
+.elev-history {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg2);
+  padding: 0.6rem 0.65rem;
+}
+.elev-history-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-dim);
+  margin-bottom: 0.45rem;
+}
+.elev-history-actions { display: flex; align-items: center; gap: 0.45rem; }
+.elev-history-count {
+  padding: 0.1rem 0.4rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--text-dim) 22%, var(--bg));
+  color: var(--text);
+  font-size: 0.6rem;
+}
+.elev-history-copy {
+  padding: 0.18rem 0.55rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.64rem;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+}
+.elev-history-copy:hover:not(:disabled) {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.elev-history-copy:disabled { opacity: 0.4; cursor: not-allowed; }
+.elev-history-copy--ok {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 12%, var(--bg));
+}
+.elev-history-list {
+  max-height: 168px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  font-size: 0.66rem;
+  line-height: 1.4;
+}
+.elev-history-empty {
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  padding: 0.3rem 0;
+}
+.elev-history-row {
+  display: grid;
+  grid-template-columns: 2.2rem 3.1rem 1fr;
+  gap: 0.4rem;
+  padding: 0.08rem 0.15rem;
+  border-radius: 3px;
+  align-items: baseline;
+}
+.elev-history-row--serve { background: color-mix(in srgb, var(--accent) 7%, transparent); }
+.elev-history-row--reverse { background: color-mix(in srgb, var(--wip) 8%, transparent); }
+.elev-history-row--express { background: color-mix(in srgb, var(--accent2) 9%, transparent); }
+.elev-history-t {
+  color: var(--text-dim);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+.elev-history-algo {
+  color: var(--text-hi);
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.elev-history-algo--sys { color: var(--text-dim); font-weight: 400; }
+.elev-history-text { color: var(--text); }
+.elev-history-row--serve .elev-history-text { color: var(--accent); }
+.elev-history-row--reverse .elev-history-text { color: var(--wip); }
+.elev-history-row--express .elev-history-text { color: var(--accent2); }
 
 /* ── Hint ────────────────────────────────────────────────────── */
 .elev-hint {
@@ -666,9 +1150,10 @@
 
 /* ── Motion preference ───────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
-  .elev-car,
-  .elev-car--jumping { transition-duration: 0.01ms; }
+  /* The elevator's glide IS the content, so keep it — forcing an instant
+     transition here just turns every move into a disorienting teleport.
+     Only the purely decorative looping animations are disabled. */
   .elev-car-glow,
-  .elev-floor--pending .elev-call-dot,
+  .elev-hall-btn--on,
   .elev-car-arrow { animation: none; }
 }

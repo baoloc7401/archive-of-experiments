@@ -4,6 +4,7 @@ import { SPEED_PRESETS } from '../constants';
 interface Props {
   status: SimStatus;
   speedIndex: number;
+  playDisabled: boolean;
   onSpeedChange: (i: number) => void;
   onPlayPause: () => void;
   onReset: () => void;
@@ -12,7 +13,7 @@ interface Props {
 }
 
 export default function Controls({
-  status, speedIndex, onSpeedChange, onPlayPause, onReset, onRandom, onClear,
+  status, speedIndex, playDisabled, onSpeedChange, onPlayPause, onReset, onRandom, onClear,
 }: Props) {
   const isRunning = status === 'running';
 
@@ -23,6 +24,7 @@ export default function Controls({
           type="button"
           className={`elev-btn elev-btn--primary${isRunning ? ' elev-btn--pause' : ''}`}
           onClick={onPlayPause}
+          disabled={playDisabled}
         >
           {isRunning ? '⏸ pause' : '▶ play'}
         </button>
