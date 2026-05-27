@@ -1,11 +1,35 @@
 const en = {
   hero: {
     prefix: "baoloc7401 /",
-    subtitle: "A sandbox for algorithms, curiosity, and deliberate learning.",
+    subtitle_0: "A sandbox for algorithms, curiosity, and deliberate learning.",
+    subtitle_1: "Half-baked ideas. Fully-baked bugs.",
+    subtitle_2: "Where O(n) goes to die and segfaults come to play.",
+    subtitle_3: "I built these instead of touching grass.",
+    subtitle_4: "Sponsored by caffeine and a vague sense of dread.",
+    subtitle_5: "404: a productive weekend not found.",
+    subtitle_6: "Works on my machine. ¯\\_(ツ)_/¯",
+    subtitle_7: "Powered by Stack Overflow and stubbornness.",
+    subtitle_8: "Move fast and refactor things.",
+    subtitle_9: "A graveyard of side projects that almost happened.",
   },
   section: {
     count_one: "{{count}} experiment",
     count_other: "{{count}} experiments",
+    showing: "showing {{count}} / {{total}}",
+  },
+  filter: {
+    title: "filters",
+    rail_label: "FILTERS",
+    search_placeholder: "search...",
+    all: "all",
+    no_results: "nothing matches those filters.",
+    clear: "clear",
+    reset: "reset filters",
+    tags_label: "by tag",
+    status_label: "by status",
+    sidebar_label: "filter sidebar",
+    expand: "expand filters",
+    collapse: "collapse filters",
   },
   footer: {
     github: "github",
@@ -15,6 +39,35 @@ const en = {
     active: "LIVE",
     wip: "WIP",
     planned: "PLANNED",
+  },
+  card_stop: {
+    active: {
+      "0": { face: "(づ ◕‿◕ )づ", shout: "COME IN" },
+      "1": { face: "(^▽^)/", shout: "WELCOME" },
+      "2": { face: "(⌐■_■)", shout: "LET'S GO" },
+      "3": { face: "╰(°▽°)╯", shout: "READY!" },
+      "4": { face: "(｡♥‿♥｡)", shout: "I'M HERE" },
+      "5": { face: "( ´ ▽ ` )ﾉ", shout: "HEY YOU" },
+      "6": { face: "(¬‿¬)", shout: "TRY ME" },
+    },
+    wip: {
+      "0": { face: "┌( ಠ_ಠ)┘", shout: "HOLD UP" },
+      "1": { face: "(╯°□°)╯", shout: "NOT NOW" },
+      "2": { face: "(눈_눈)", shout: "BUSY" },
+      "3": { face: "┐(￣ヘ￣)┌", shout: "BRB" },
+      "4": { face: "ヽ(`Д´)ﾉ", shout: "STOP" },
+      "5": { face: "(・_・;)", shout: "WAIT" },
+      "6": { face: "(¬_¬)", shout: "NOPE" },
+    },
+    planned: {
+      "0": { face: "( •̀_•́ )", shout: "NOT YET" },
+      "1": { face: "( ｰ̀εｰ́ )", shout: "SOON™" },
+      "2": { face: "(¬_¬ )", shout: "PATIENCE" },
+      "3": { face: "(-_- )", shout: "ZZZ" },
+      "4": { face: "(￣ω￣;)", shout: "NO RUSH" },
+      "5": { face: "( ´_ゝ`)", shout: "DREAMING" },
+      "6": { face: "(｡-_-｡)", shout: "IDLE" },
+    },
   },
   aria: {
     theme_light: "Switch to light mode",
@@ -35,6 +88,11 @@ const en = {
     pathfinding: {
       title: "Pathfinding",
       description: "A* and Dijkstra navigating mazes on an interactive grid.",
+    },
+    elevator: {
+      title: "Elevator Scheduling",
+      description:
+        "FCFS, SSTF, SCAN, LOOK, C-SCAN, C-LOOK — watch each disk-scheduling cousin ride the building.",
     },
     "binary-tree": {
       title: "Binary Tree Explorer",

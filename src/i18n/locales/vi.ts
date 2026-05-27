@@ -1,12 +1,36 @@
 const vi = {
   hero: {
     prefix: "baoloc7401 /",
-    subtitle:
+    subtitle_0:
       "Không gian thử nghiệm cho các thuật toán, sự tò mò, và học tập có chủ đích.",
+    subtitle_1: "Ý tưởng nửa vời. Bug thì trọn vẹn.",
+    subtitle_2: "Nơi O(n) đến để chết và segfault đến để chơi.",
+    subtitle_3: "Xây mấy cái này thay vì ra ngoài đi chơi.",
+    subtitle_4: "Tài trợ bởi cà phê và sự khủng hoảng hiện sinh.",
+    subtitle_5: "404: không tìm thấy cuối tuần năng suất.",
+    subtitle_6: "Chạy được trên máy tôi thôi. ¯\\_(ツ)_/¯",
+    subtitle_7: "Vận hành bằng Stack Overflow và sự bướng bỉnh.",
+    subtitle_8: "Đi nhanh, sửa nhiều, hối hận sau.",
+    subtitle_9: "Nghĩa địa của các dự án dở dang.",
   },
   section: {
     count_one: "{{count}} thí nghiệm",
     count_other: "{{count}} thí nghiệm",
+    showing: "hiển thị {{count}} / {{total}}",
+  },
+  filter: {
+    title: "bộ lọc",
+    rail_label: "BỘ LỌC",
+    search_placeholder: "tìm kiếm...",
+    all: "tất cả",
+    no_results: "không có thí nghiệm nào khớp.",
+    clear: "xóa",
+    reset: "đặt lại bộ lọc",
+    tags_label: "theo nhãn",
+    status_label: "theo trạng thái",
+    sidebar_label: "thanh bộ lọc",
+    expand: "mở bộ lọc",
+    collapse: "thu bộ lọc",
   },
   footer: {
     github: "github",
@@ -16,6 +40,35 @@ const vi = {
     active: "LIVE",
     wip: "ĐANG LÀM",
     planned: "DỰ KIẾN",
+  },
+  card_stop: {
+    active: {
+      "0": { face: "(づ ◕‿◕ )づ", shout: "MỜI VÀO" },
+      "1": { face: "(^▽^)/", shout: "CHÀO BẠN" },
+      "2": { face: "(⌐■_■)", shout: "VÀO ĐI" },
+      "3": { face: "╰(°▽°)╯", shout: "SẴN SÀNG" },
+      "4": { face: "(｡♥‿♥｡)", shout: "TUI ĐÂY" },
+      "5": { face: "( ´ ▽ ` )ﾉ", shout: "HÊ LÔ" },
+      "6": { face: "(¬‿¬)", shout: "THỬ XEM" },
+    },
+    wip: {
+      "0": { face: "┌( ಠ_ಠ)┘", shout: "KHOAN ĐÃ" },
+      "1": { face: "(╯°□°)╯", shout: "CHƯA XONG" },
+      "2": { face: "(눈_눈)", shout: "BẬN" },
+      "3": { face: "┐(￣ヘ￣)┌", shout: "QUAY LẠI SAU" },
+      "4": { face: "ヽ(`Д´)ﾉ", shout: "DỪNG" },
+      "5": { face: "(・_・;)", shout: "ĐỢI" },
+      "6": { face: "(¬_¬)", shout: "KHÔNG" },
+    },
+    planned: {
+      "0": { face: "( •̀_•́ )", shout: "CHƯA ĐÂU" },
+      "1": { face: "( ｰ̀εｰ́ )", shout: "SẮP MÀ" },
+      "2": { face: "(¬_¬ )", shout: "KIÊN NHẪN" },
+      "3": { face: "(-_- )", shout: "ZZZ" },
+      "4": { face: "(￣ω￣;)", shout: "TỪ TỪ" },
+      "5": { face: "( ´_ゝ`)", shout: "MƠ TƯỞNG" },
+      "6": { face: "(｡-_-｡)", shout: "NGỦ ĐÂY" },
+    },
   },
   aria: {
     theme_light: "Chuyển sang chế độ sáng",
@@ -37,6 +90,11 @@ const vi = {
       title: "Tìm Đường",
       description:
         "A* và Dijkstra điều hướng mê cung trên lưới tương tác.",
+    },
+    elevator: {
+      title: "Lập Lịch Thang Máy",
+      description:
+        "FCFS, SSTF, SCAN, LOOK, C-SCAN, C-LOOK — xem các thuật toán lập lịch đĩa cưỡi thang máy.",
     },
     "binary-tree": {
       title: "Khám Phá Cây Nhị Phân",

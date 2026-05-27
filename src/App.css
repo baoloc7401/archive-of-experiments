@@ -1,6 +1,6 @@
 /* ── Layout ─────────────────────────────────────────────────── */
 .root {
-  max-width: 1100px;
+  max-width: 1180px;
   margin: 0 auto;
   padding: 0 24px;
   display: flex;
@@ -20,12 +20,85 @@
   background-size: 128px 128px;
 }
 
-/* ── Hero ───────────────────────────────────────────────────── */
+/* ── Scroll progress ────────────────────────────────────────── */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  z-index: 101;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+  will-change: transform;
+}
+
+/* ── Hero (compact) ─────────────────────────────────────────── */
 .hero {
-  padding: 80px 0 56px;
+  position: relative;
+  padding: 44px 0 20px;
+  --mx: 50%;
+  --my: 50%;
+}
+
+.hero-grid,
+.hero-spotlight {
+  position: absolute;
+  inset: -40px -32px 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero-grid {
+  background-image:
+    linear-gradient(
+      to right,
+      color-mix(in srgb, var(--accent) 32%, var(--text-dim)) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--accent) 32%, var(--text-dim)) 1px,
+      transparent 1px
+    );
+  background-size: 32px 32px;
+  background-position: -1px -1px;
+  opacity: 0;
+  mask-image: radial-gradient(
+    260px circle at var(--mx) var(--my),
+    black 0%,
+    transparent 75%
+  );
+  -webkit-mask-image: radial-gradient(
+    260px circle at var(--mx) var(--my),
+    black 0%,
+    transparent 75%
+  );
+  transition: opacity 0.4s ease;
+}
+
+.hero-spotlight {
+  background: radial-gradient(
+    380px circle at var(--mx) var(--my),
+    color-mix(in srgb, var(--accent) 9%, transparent),
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.hero:hover .hero-grid {
+  opacity: 0.55;
+}
+
+.hero:hover .hero-spotlight {
+  opacity: 1;
 }
 
 .hero-top {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
@@ -37,19 +110,38 @@
 }
 
 .hero-prefix {
-  font-size: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.7rem;
   color: var(--text-dim);
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
+  animation: fade-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+
+.hero-prefix-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 8px color-mix(in srgb, var(--accent) 70%, transparent);
+  animation: prefix-pulse 2.2s ease-in-out infinite;
+}
+
+@keyframes prefix-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.5; transform: scale(0.85); }
 }
 
 .hero-title {
-  font-size: clamp(1.8rem, 5vw, 3rem);
+  font-size: clamp(1.9rem, 5.2vw, 3rem);
   font-weight: 700;
   color: var(--text-hi);
   letter-spacing: -0.02em;
   line-height: 1.1;
+  font-feature-settings: "ss01" on;
 }
 
 .accent {
@@ -57,19 +149,57 @@
   text-shadow: 0 0 28px color-mix(in srgb, var(--accent) 40%, transparent);
 }
 
-.hero-sub {
-  margin-top: 16px;
-  font-size: 0.9rem;
-  color: var(--text);
-  max-width: 480px;
-  line-height: 1.7;
+.hero-cursor {
+  display: inline-block;
+  margin-left: 0.05em;
+  color: var(--accent);
+  animation: caret 1s steps(1) infinite;
+  font-weight: 400;
+  transform: translateY(-0.05em);
 }
 
-.hero-bar {
-  margin-top: 40px;
-  height: 1px;
-  background: linear-gradient(90deg, var(--accent) 0%, var(--accent2) 40%, transparent 100%);
-  opacity: 0.4;
+@keyframes caret {
+  0%, 49%   { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+/* Subtitle is a button — click to roll a new variant */
+.hero-sub {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 0;
+  font: inherit;
+  font-size: 0.88rem;
+  color: var(--text);
+  max-width: 520px;
+  line-height: 1.65;
+  text-align: left;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  border-bottom: 1px dashed transparent;
+  transition: color 0.2s ease, border-color 0.2s ease;
+  animation: fade-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.85s backwards;
+}
+
+.hero-sub:hover {
+  color: var(--text-hi);
+  border-bottom-color: color-mix(in srgb, var(--accent2) 50%, transparent);
+}
+
+.hero-sub:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+.hero-sub:active {
+  transform: translateY(1px);
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 .hero-controls {
@@ -78,26 +208,59 @@
   gap: 8px;
   flex-shrink: 0;
   margin-top: 4px;
+  position: relative;
+  z-index: 2;
 }
 
-/* ── Section label ──────────────────────────────────────────── */
+.hero-bar {
+  position: relative;
+  z-index: 1;
+  margin-top: 22px;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    var(--accent) 0%,
+    var(--accent2) 40%,
+    transparent 100%
+  );
+  opacity: 0.45;
+}
+
+/* ── Grid section: sidebar + content ────────────────────────── */
 .grid-section {
   flex: 1;
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  padding-top: 24px;
   padding-bottom: 64px;
 }
 
+.grid-content {
+  flex: 1;
+  min-width: 0;
+}
+
+/* ── Section label ──────────────────────────────────────────── */
 .section-label {
   display: flex;
   align-items: center;
-  gap: 14px;
-  margin-bottom: 32px;
+  gap: 12px;
+  margin-bottom: 22px;
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.label-bracket {
+  color: var(--accent);
+  letter-spacing: 0;
+  opacity: 0.6;
+  font-weight: 700;
 }
 
 .label-text {
-  font-size: 0.7rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--text-dim);
   white-space: nowrap;
 }
 
@@ -106,6 +269,56 @@
   height: 1px;
   background: var(--border);
   transition: background-color 0.18s ease;
+}
+
+/* ── No results ─────────────────────────────────────────────── */
+.no-results {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 56px 16px;
+  border: 1px dashed var(--border);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--bg2) 60%, transparent);
+  text-align: center;
+  animation: fade-up 0.4s ease;
+}
+
+.no-results-glyph {
+  font-size: 2.4rem;
+  color: var(--text-dim);
+  opacity: 0.6;
+  line-height: 1;
+}
+
+.no-results-text {
+  font-size: 0.85rem;
+  color: var(--text);
+}
+
+.no-results-clear {
+  margin-top: 6px;
+  padding: 8px 14px;
+  background: transparent;
+  border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+  border-radius: 6px;
+  color: var(--accent);
+  font: inherit;
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    background-color 0.18s ease,
+    color 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.no-results-clear:hover {
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+  border-color: var(--accent);
+  color: var(--text-hi);
 }
 
 /* ── Footer ─────────────────────────────────────────────────── */
@@ -128,8 +341,115 @@
   opacity: 0.4;
 }
 
+/* ── View Transitions (filter / search) ────────────────────────
+   Cards are tagged with unique view-transition-name="card-<id>".
+   Existing cards' group pseudo interpolates position; removed
+   cards puff out, new cards spring in. The (*) selectors match
+   root too, so the (root) overrides must come LAST to win at
+   equal specificity. */
+::view-transition-group(*) {
+  animation-duration: 0.45s;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Pure opacity-only crossfade. NO transforms here — old + new for an
+   *existing* card play simultaneously and cancel out (1-t + t = 1) so
+   the card visually stays still while the group pseudo slides it to
+   its new position. Removed cards fade out; added cards fade in. */
+::view-transition-old(*) {
+  animation: vt-card-out 0.32s ease both;
+}
+
+::view-transition-new(*) {
+  animation: vt-card-in 0.32s ease both;
+}
+
+@keyframes vt-card-out {
+  to { opacity: 0; }
+}
+
+@keyframes vt-card-in {
+  from { opacity: 0; }
+}
+
+/* Cards marked .is-leaving carry view-transition-class: leaving onto
+   their OLD snapshot, so we can override (*) for *only* the snapshots
+   of removed cards. Pure-CSS keyframes — transform, opacity, filter
+   blur/brightness only — so every property is GPU-composited and
+   60fps stays solid even on big cards. */
+.card.is-leaving {
+  view-transition-class: leaving;
+}
+
+::view-transition-old(.leaving) {
+  animation: thanos-snap 0.7s cubic-bezier(0.4, 0, 0.2, 1) both;
+  will-change: transform, opacity, filter;
+  transform-origin: center 60%;
+}
+
+@keyframes thanos-snap {
+  0% {
+    opacity: 1;
+    transform: scale(1) translate3d(0, 0, 0) rotate(0);
+    filter: blur(0) brightness(1) saturate(1);
+  }
+  25% {
+    opacity: 0.92;
+    transform: scale(1.03) translate3d(-2px, -8px, 0) rotate(0.5deg);
+    filter: blur(1px) brightness(1.08) saturate(1.15);
+  }
+  55% {
+    opacity: 0.5;
+    transform: scale(1.12) translate3d(3px, -28px, 0) rotate(1.4deg);
+    filter: blur(4px) brightness(1.25) saturate(1.4);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.32) translate3d(-4px, -70px, 0) rotate(2.8deg);
+    filter: blur(16px) brightness(1.55) saturate(1.6);
+  }
+}
+
+/* Root (rest of the page) — instant crossfade so only cards
+   carry the visible motion. MUST stay after the (*) rules. */
+::view-transition-group(root) {
+  animation-duration: 0.001s;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-name: vt-root-snap;
+  animation-duration: 0.001s;
+}
+
+@keyframes vt-root-snap {
+  from, to { opacity: 1; }
+}
+
 /* ── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 760px) {
+  .grid-section {
+    flex-direction: column;
+    gap: 16px;
+  }
+}
+
 @media (max-width: 600px) {
-  .hero { padding: 48px 0 40px; }
+  .hero { padding: 32px 0 16px; }
   .card-grid { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-grid,
+  .hero-spotlight {
+    display: none;
+  }
+  .hero-prefix-dot,
+  .hero-cursor {
+    animation: none;
+  }
+  .hero-sub,
+  .hero-prefix {
+    animation: none;
+  }
 }
