@@ -1,0 +1,674 @@
+/* =============================================================
+   Elevator scheduling — fancy visualisation styles
+   All classes are prefixed with `elev-` to avoid collisions.
+   ============================================================= */
+
+/* ── Local theme tokens (theme-aware) ─────────────────────────── */
+[data-theme="dark"] {
+  --elev-shaft-bg:   #06080f;
+  --elev-shaft-edge: #14182a;
+  --elev-rail:       rgba(124, 108, 250, 0.10);
+  --elev-car-base:   #161a2e;
+  --elev-car-edge:   #2a2f4f;
+  --elev-car-glow:   rgba(0, 245, 196, 0.55);
+  --elev-grid-line:  rgba(124, 108, 250, 0.05);
+  --elev-stage-glow: radial-gradient(60% 50% at 50% 0%, rgba(124, 108, 250, 0.10), transparent 60%);
+  --elev-call-idle:  #1a1e30;
+  --elev-call-ring:  rgba(0, 245, 196, 0.0);
+  --elev-info-bg:    linear-gradient(180deg, rgba(124, 108, 250, 0.08), rgba(124, 108, 250, 0.02));
+}
+
+[data-theme="light"] {
+  --elev-shaft-bg:   #e7eaf5;
+  --elev-shaft-edge: #c9cfe4;
+  --elev-rail:       rgba(108, 92, 231, 0.18);
+  --elev-car-base:   #ffffff;
+  --elev-car-edge:   #c9cfe4;
+  --elev-car-glow:   rgba(0, 184, 153, 0.45);
+  --elev-grid-line:  rgba(108, 92, 231, 0.07);
+  --elev-stage-glow: radial-gradient(60% 50% at 50% 0%, rgba(108, 92, 231, 0.10), transparent 60%);
+  --elev-call-idle:  #e2e6f3;
+  --elev-call-ring:  rgba(0, 184, 153, 0.0);
+  --elev-info-bg:    linear-gradient(180deg, rgba(108, 92, 231, 0.08), rgba(108, 92, 231, 0.02));
+}
+
+/* ── Page shell ─────────────────────────────────────────────── */
+.elev-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background:
+    var(--elev-stage-glow),
+    var(--bg);
+  color: var(--text);
+}
+
+/* ── Topbar ─────────────────────────────────────────────────── */
+.elev-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0 1.5rem;
+  height: 52px;
+  border-bottom: 1px solid var(--border);
+  background: color-mix(in srgb, var(--bg) 92%, transparent);
+  backdrop-filter: blur(8px);
+}
+.elev-back {
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  letter-spacing: 0.06em;
+  transition: color 0.15s;
+  white-space: nowrap;
+}
+.elev-back:hover { color: var(--accent); }
+
+.elev-topbar-title {
+  flex: 1;
+  display: flex;
+  align-items: baseline;
+  gap: 0.55rem;
+}
+.elev-topbar-main {
+  font-size: 0.88rem;
+  color: var(--text-hi);
+  letter-spacing: 0.06em;
+}
+.elev-topbar-sub {
+  font-size: 0.72rem;
+  color: var(--accent);
+  letter-spacing: 0.06em;
+}
+.elev-topbar-controls {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+/* ── Algorithm picker (top pill row) ─────────────────────────── */
+.elev-algo-picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 1rem 1.5rem 0.65rem;
+}
+
+.elev-algo-pill {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.1rem;
+  padding: 0.45rem 0.85rem;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  cursor: pointer;
+  font-family: inherit;
+  transition: transform 0.15s ease, border-color 0.18s, color 0.18s, box-shadow 0.2s;
+  overflow: hidden;
+}
+.elev-algo-pill::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 28%, transparent), transparent 55%);
+  opacity: 0;
+  transition: opacity 0.2s;
+  pointer-events: none;
+}
+.elev-algo-pill:hover {
+  border-color: color-mix(in srgb, var(--accent) 35%, var(--border));
+  transform: translateY(-1px);
+}
+.elev-algo-pill--on {
+  border-color: var(--accent);
+  color: var(--text-hi);
+  box-shadow: 0 0 0 1px var(--accent), 0 6px 18px -10px var(--accent);
+}
+.elev-algo-pill--on::before { opacity: 1; }
+
+.elev-algo-pill-name {
+  font-size: 0.74rem;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+  color: var(--text-hi);
+}
+.elev-algo-pill-tag {
+  font-size: 0.62rem;
+  color: var(--text-dim);
+  letter-spacing: 0.04em;
+}
+.elev-algo-pill--on .elev-algo-pill-tag { color: var(--accent); }
+
+/* ── Info strip (tagline + description) ──────────────────────── */
+.elev-info-strip {
+  margin: 0 1.5rem 1rem;
+  padding: 0.7rem 0.95rem;
+  background: var(--elev-info-bg);
+  border: 1px solid color-mix(in srgb, var(--accent2) 22%, var(--border));
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  animation: elev-info-in 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+@keyframes elev-info-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.elev-info-tagline {
+  font-size: 0.74rem;
+  letter-spacing: 0.06em;
+  color: var(--accent2);
+  text-transform: lowercase;
+}
+.elev-info-desc {
+  font-size: 0.78rem;
+  color: var(--text);
+  line-height: 1.45;
+}
+
+/* ── Layout ─────────────────────────────────────────────────── */
+.elev-layout {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 1.5rem;
+  padding: 0 1.5rem 1.5rem;
+}
+@media (max-width: 920px) {
+  .elev-layout { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ── Stage (building container) ──────────────────────────────── */
+.elev-stage {
+  position: relative;
+  min-height: 540px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg2);
+  overflow: hidden;
+  isolation: isolate;
+}
+.elev-stage-grid {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  pointer-events: none;
+  opacity: 0.85;
+}
+.elev-stage-grid-cell {
+  border-right: 1px dashed var(--elev-grid-line);
+}
+.elev-stage-grid-cell:last-child { border-right: none; }
+.elev-stage::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent 0,
+      transparent calc(100% / 12 - 1px),
+      var(--elev-grid-line) calc(100% / 12 - 1px),
+      var(--elev-grid-line) calc(100% / 12)
+    );
+  pointer-events: none;
+  opacity: 0.45;
+}
+
+/* ── Building (shaft + floors) ───────────────────────────────── */
+.elev-building {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  min-height: 540px;
+  display: grid;
+  grid-template-columns: 110px minmax(0, 1fr);
+  gap: 1rem;
+  padding: 1.25rem 1.25rem 1.25rem 1rem;
+  /* `--elev-rows` is set inline on this element. */
+}
+
+/* ── Shaft ──────────────────────────────────────────────────── */
+.elev-shaft-frame {
+  position: relative;
+  padding: 8px;
+  border: 1px solid var(--elev-shaft-edge);
+  border-radius: 10px;
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--elev-shaft-bg) 92%, transparent), var(--elev-shaft-bg));
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--text-hi) 6%, transparent),
+    0 12px 28px -22px var(--accent2);
+}
+.elev-shaft {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-rows: repeat(var(--elev-rows), 1fr);
+}
+
+.elev-shaft-cell {
+  position: relative;
+  border-bottom: 1px dashed var(--elev-rail);
+}
+.elev-shaft-cell--top { border-top: 1px dashed var(--elev-rail); }
+
+/* ── Elevator car ───────────────────────────────────────────── */
+.elev-car {
+  position: absolute;
+  left: 50%;
+  width: 80%;
+  /* The car occupies one full row, translated down by `--elev-row` rows.
+     This keeps the car perfectly aligned with the corresponding floor on
+     the right column even when the shaft height changes. */
+  top: 0;
+  height: calc(100% / var(--elev-rows));
+  transform: translate(-50%, calc(var(--elev-row) * 100%));
+  transition:
+    transform 0.45s cubic-bezier(0.42, 0, 0.18, 1);
+  z-index: 2;
+  filter: drop-shadow(0 6px 14px color-mix(in srgb, var(--accent) 25%, transparent));
+}
+.elev-car--jumping {
+  /* C-SCAN / C-LOOK warp move: longer easing + extra glow */
+  transition:
+    transform 0.55s cubic-bezier(0.85, 0.0, 0.15, 1.0);
+  filter: drop-shadow(0 10px 22px color-mix(in srgb, var(--accent2) 60%, transparent));
+}
+.elev-car--idle .elev-car-arrow { color: var(--text-dim); }
+
+.elev-car-body {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(100% - 6px);
+  margin: 3px 0;
+  border-radius: 7px;
+  background:
+    linear-gradient(180deg,
+      color-mix(in srgb, var(--elev-car-base) 70%, var(--accent)),
+      var(--elev-car-base) 35%,
+      color-mix(in srgb, var(--elev-car-base) 92%, #000) 100%);
+  border: 1px solid var(--elev-car-edge);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, #ffffff 18%, transparent),
+    inset 0 -1px 0 color-mix(in srgb, #000000 30%, transparent);
+  overflow: hidden;
+}
+.elev-car-door {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  width: 22%;
+  background: linear-gradient(180deg,
+    color-mix(in srgb, var(--text-hi) 10%, var(--elev-car-base)),
+    color-mix(in srgb, var(--text-hi) 4%, var(--elev-car-base)));
+  border: 1px solid color-mix(in srgb, var(--accent) 25%, var(--elev-car-edge));
+  border-radius: 2px;
+}
+.elev-car-door--l { left: 6%; }
+.elev-car-door--r { right: 6%; }
+
+.elev-car-display {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.12rem 0.45rem;
+  border-radius: 4px;
+  background: color-mix(in srgb, #000 40%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 30%, var(--elev-car-edge));
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 0.04em;
+  text-shadow: 0 0 8px color-mix(in srgb, var(--accent) 60%, transparent);
+}
+.elev-car-floor-num { min-width: 1.3em; text-align: center; }
+.elev-car-arrow {
+  font-size: 0.7rem;
+  color: var(--accent);
+  animation: elev-arrow-pulse 1.05s ease-in-out infinite;
+}
+.elev-car--idle .elev-car-arrow { animation: none; }
+@keyframes elev-arrow-pulse {
+  0%, 100% { opacity: 0.55; transform: translateY(0); }
+  50%      { opacity: 1.0;  transform: translateY(-1px); }
+}
+
+.elev-car-glow {
+  position: absolute;
+  inset: -8px -4px;
+  border-radius: 14px;
+  background: radial-gradient(60% 60% at 50% 50%, var(--elev-car-glow), transparent 70%);
+  z-index: -1;
+  opacity: 0.65;
+  pointer-events: none;
+  animation: elev-car-glow-pulse 2.2s ease-in-out infinite;
+}
+@keyframes elev-car-glow-pulse {
+  0%, 100% { opacity: 0.45; }
+  50%      { opacity: 0.85; }
+}
+
+/* ── Floors panel (right of shaft) ───────────────────────────── */
+.elev-floors {
+  display: grid;
+  grid-template-rows: repeat(var(--elev-rows), 1fr);
+}
+.elev-floor {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0 0.65rem;
+  margin: 2px 0;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  transition: background 0.18s, border-color 0.18s;
+}
+.elev-floor--here {
+  background: color-mix(in srgb, var(--accent) 5%, transparent);
+}
+.elev-floor--here .elev-floor-num { color: var(--accent); }
+.elev-floor-num {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text-dim);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.05em;
+  min-width: 1.7em;
+}
+
+.elev-floor--pending {
+  background: color-mix(in srgb, var(--accent2) 8%, transparent);
+  border-color: color-mix(in srgb, var(--accent2) 45%, var(--border));
+}
+.elev-floor--pending .elev-floor-num { color: var(--accent2); }
+
+.elev-floor--flash {
+  animation: elev-floor-flash 0.42s ease-out;
+}
+@keyframes elev-floor-flash {
+  0%   { background: color-mix(in srgb, var(--accent) 38%, transparent); }
+  50%  { background: color-mix(in srgb, var(--accent) 18%, transparent); }
+  100% { background: transparent; }
+}
+
+/* ── Call button (the dot) ───────────────────────────────────── */
+.elev-call-btn {
+  --dot-color: var(--elev-call-idle);
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  height: 22px;
+  padding: 0 6px;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--border) 50%, transparent));
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  cursor: pointer;
+  color: inherit;
+  font-family: inherit;
+  transition: border-color 0.15s, background 0.15s;
+}
+.elev-call-btn:hover {
+  border-color: color-mix(in srgb, var(--accent2) 45%, var(--border));
+}
+.elev-call-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--dot-color);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--text-hi) 18%, transparent);
+  transition: background 0.18s, box-shadow 0.18s;
+}
+.elev-floor--pending .elev-call-dot {
+  background: var(--accent2);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--accent2) 70%, transparent),
+    0 0 10px 1px color-mix(in srgb, var(--accent2) 55%, transparent);
+  animation: elev-dot-pulse 1.1s ease-in-out infinite;
+}
+@keyframes elev-dot-pulse {
+  0%, 100% { transform: scale(1);   filter: brightness(1); }
+  50%      { transform: scale(1.18); filter: brightness(1.25); }
+}
+.elev-floor--flash .elev-call-dot {
+  background: var(--accent);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--accent) 70%, transparent),
+    0 0 14px 2px color-mix(in srgb, var(--accent) 60%, transparent);
+}
+
+/* ── Sidebar ─────────────────────────────────────────────────── */
+.elev-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+/* ── Stats ───────────────────────────────────────────────────── */
+.elev-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.45rem;
+}
+.elev-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0.55rem 0.65rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg2);
+  position: relative;
+  overflow: hidden;
+}
+.elev-stat::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent2), transparent);
+  opacity: 0.6;
+}
+.elev-stat-num {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-hi);
+  font-variant-numeric: tabular-nums;
+}
+.elev-stat-lbl {
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-dim);
+}
+
+/* ── Controls ────────────────────────────────────────────────── */
+.elev-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg2);
+}
+.elev-ctrl-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.4rem;
+}
+.elev-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.74rem;
+  letter-spacing: 0.04em;
+  transition: border-color 0.15s, color 0.15s, background 0.15s, transform 0.1s;
+}
+.elev-btn:hover {
+  border-color: color-mix(in srgb, var(--accent) 50%, var(--border));
+  color: var(--text-hi);
+}
+.elev-btn:active { transform: translateY(1px); }
+
+.elev-btn--primary {
+  border-color: var(--accent);
+  color: var(--accent);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 25%, transparent),
+              0 0 14px -8px var(--accent);
+}
+.elev-btn--primary:hover {
+  background: color-mix(in srgb, var(--accent) 10%, var(--bg));
+}
+.elev-btn--pause {
+  border-color: var(--wip);
+  color: var(--wip);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--wip) 25%, transparent);
+}
+.elev-btn--accent {
+  border-color: var(--accent2);
+  color: var(--accent2);
+}
+.elev-btn--accent:hover {
+  background: color-mix(in srgb, var(--accent2) 10%, var(--bg));
+}
+
+.elev-speed { display: flex; flex-direction: column; gap: 0.32rem; }
+.elev-speed-label {
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-dim);
+}
+.elev-speed-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.25rem;
+}
+.elev-speed-btn {
+  height: 24px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  color: var(--text-dim);
+  font-family: inherit;
+  font-size: 0.66rem;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+}
+.elev-speed-btn:hover { color: var(--text-hi); }
+.elev-speed-btn--on {
+  background: color-mix(in srgb, var(--accent) 14%, var(--bg));
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ── Queue ───────────────────────────────────────────────────── */
+.elev-queue {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg2);
+  padding: 0.6rem 0.7rem;
+}
+.elev-queue-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-dim);
+  margin-bottom: 0.45rem;
+}
+.elev-queue-count {
+  padding: 0.1rem 0.4rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent2) 16%, var(--bg));
+  color: var(--accent2);
+  font-size: 0.62rem;
+}
+.elev-queue-empty {
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  padding: 0.3rem 0;
+}
+.elev-queue-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.32rem;
+}
+.elev-queue-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.18rem 0.42rem;
+  background: var(--bg);
+  border: 1px solid color-mix(in srgb, var(--accent2) 38%, var(--border));
+  border-radius: 3px;
+  font-size: 0.7rem;
+  color: var(--text);
+  animation: elev-queue-pop 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+}
+@keyframes elev-queue-pop {
+  from { opacity: 0; transform: translateY(-3px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+.elev-queue-floor {
+  color: var(--accent2);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.elev-queue-wait {
+  font-size: 0.62rem;
+  color: var(--text-dim);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Hint ────────────────────────────────────────────────────── */
+.elev-hint {
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  line-height: 1.5;
+  padding: 0.5rem 0.6rem;
+  border-left: 2px solid color-mix(in srgb, var(--accent) 45%, var(--border));
+  background: color-mix(in srgb, var(--accent) 5%, transparent);
+}
+.elev-hint em {
+  color: var(--accent);
+  font-style: normal;
+}
+
+/* ── Motion preference ───────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .elev-car,
+  .elev-car--jumping { transition-duration: 0.01ms; }
+  .elev-car-glow,
+  .elev-floor--pending .elev-call-dot,
+  .elev-car-arrow { animation: none; }
+}

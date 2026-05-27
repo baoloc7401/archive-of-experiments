@@ -6,6 +6,7 @@ import "./index.css";
 import App from "./App";
 import ChessGame from "./experiments/chess";
 import Pathfinding from "./experiments/pathfinding";
+import Elevator from "./experiments/elevator";
 
 const root = document.getElementById("root");
 if (!root) throw new Error("Root element not found");
@@ -17,6 +18,7 @@ createRoot(root).render(
         <Route path="/" element={<App />} />
         <Route path="/experiments/chess" element={<ChessGame />} />
         <Route path="/experiments/pathfinding" element={<Pathfinding />} />
+        <Route path="/experiments/elevator" element={<Elevator />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>

@@ -27,6 +27,12 @@ export const experiments: Experiment[] = [
     path: "/experiments/pathfinding",
   },
   {
+    id: "elevator",
+    tags: ["algorithms", "simulation", "visualization"],
+    status: "active",
+    path: "/experiments/elevator",
+  },
+  {
     id: "binary-tree",
     tags: ["data structures", "trees"],
     status: "planned",
