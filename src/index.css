@@ -58,3 +58,19 @@ a {
   outline-offset: 2px;
   border-radius: 2px;
 }
+
+/* ── Language switch: slide-up reveal, no background flash ── */
+#root.lang-entering {
+  animation: lang-slide-in 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes lang-slide-in {
+  from {
+    opacity: 0.65;
+    transform: translateY(7px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

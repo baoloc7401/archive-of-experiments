@@ -1,0 +1,323 @@
+/* ── Page ───────────────────────────────────────────────────── */
+.chess-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px 80px;
+  min-height: 100vh;
+}
+
+/* ── Mode screen back row ───────────────────────────────────── */
+.chess-back-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 28px 0 0;
+}
+
+/* ── Top bar ────────────────────────────────────────────────── */
+.chess-topbar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 28px 0 28px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 36px;
+}
+
+.chess-back {
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  letter-spacing: 0.08em;
+  transition: color 0.15s;
+}
+
+.chess-back:hover { color: var(--accent); }
+
+.chess-topbar-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-hi);
+  letter-spacing: -0.01em;
+}
+
+.chess-topbar-mode {
+  font-size: 0.65rem;
+  color: var(--text-dim);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-left: auto;
+}
+
+.chess-topbar-controls,
+.chess-back-row-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ── Mode selection screen ──────────────────────────────────── */
+.chess-mode-screen {
+  padding: 72px 0;
+  max-width: 440px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.chess-mode-title {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+
+.chess-title-text {
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: var(--text-hi);
+  letter-spacing: -0.03em;
+}
+
+.chess-title-badge {
+  font-size: 0.6rem;
+  color: var(--accent);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+  background: color-mix(in srgb, var(--accent) 6%, transparent);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.chess-mode-desc {
+  font-size: 0.82rem;
+  color: var(--text);
+  margin-bottom: 36px;
+  line-height: 1.6;
+}
+
+.chess-mode-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.chess-mode-btn {
+  padding: 14px 24px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg2);
+  color: var(--text-hi);
+  font-family: inherit;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s, transform 0.15s, color 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.chess-mode-btn:hover:not(:disabled) {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 6%, var(--bg2));
+  transform: translateY(-2px);
+}
+
+.chess-mode-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.chess-mode-btn--planned {
+  color: var(--text-dim);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.chess-planned-tag {
+  font-size: 0.58rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--planned);
+  border: 1px solid var(--planned);
+  padding: 1px 6px;
+  border-radius: 3px;
+}
+
+/* ── Skill picker (phase 2 of ModeScreen) ───────────────────── */
+.chess-skill-picker {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.chess-skill-picker-mode {
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 2px;
+}
+
+.chess-skill-row {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px 18px 14px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--bg2);
+}
+
+.chess-skill-row-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.chess-skill-row-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  font-weight: 500;
+}
+
+.chess-skill-row-value {
+  font-size: 0.9rem;
+  color: var(--text-hi);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.chess-skill-pieces {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 4px;
+  overflow: hidden;
+}
+
+.chess-skill-pieces-indicator {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  background: color-mix(in srgb, var(--accent) 18%, var(--bg2));
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  box-shadow: 0 0 12px color-mix(in srgb, var(--accent) 35%, transparent);
+  transition: left 0.22s cubic-bezier(0.4, 0.0, 0.2, 1),
+              width 0.22s cubic-bezier(0.4, 0.0, 0.2, 1);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.chess-skill-piece {
+  position: relative;
+  z-index: 1;
+  background: transparent;
+  border: 0;
+  padding: 8px 0;
+  font-size: 1.7rem;
+  line-height: 1;
+  color: var(--text-dim);
+  cursor: pointer;
+  transition: color 0.15s, transform 0.15s;
+  font-family: inherit;
+}
+
+.chess-skill-piece:hover:not(.chess-skill-piece--active) {
+  color: var(--text);
+  transform: scale(1.1);
+}
+
+.chess-skill-piece:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+  border-radius: 6px;
+}
+
+.chess-skill-piece--active {
+  color: var(--text-hi);
+  text-shadow: 0 0 12px color-mix(in srgb, var(--accent) 55%, transparent);
+}
+
+.chess-skill-row-desc {
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--text);
+  line-height: 1.5;
+  min-height: 1.5em;
+}
+
+.chess-skill-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.chess-mode-btn--primary {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 12%, var(--bg2));
+  color: var(--text-hi);
+}
+
+.chess-mode-btn--primary:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--accent) 22%, var(--bg2));
+}
+
+.chess-mode-btn--dim {
+  color: var(--text-dim);
+}
+
+/* ── Game layout ────────────────────────────────────────────── */
+.chess-layout {
+  display: flex;
+  gap: 28px;
+  align-items: flex-start;
+}
+
+/* ── Board column (board + captures stacked) ────────────────── */
+.chess-board-col {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+}
+
+/* ── Responsive ──────────────────────────────────────────────── */
+@media (max-width: 700px) {
+  .chess-layout {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .chess-board {
+    width: 100%;
+  }
+
+  .chess-sidebar {
+    max-width: 100%;
+  }
+
+  .chess-controls {
+    flex-direction: row;
+  }
+
+  .chess-btn {
+    flex: 1;
+    text-align: center;
+  }
+
+  .chess-history-list {
+    max-height: 160px;
+  }
+}
