@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import ScrambleText from '../../../components/ScrambleText';
 import type { GameMode } from '../types';
 
 interface Props {
@@ -22,7 +23,7 @@ export function GameControls({ mode, isGameOver, paused, thinking, onReset, onMo
             className={`chess-btn chess-btn--ava ${paused ? 'chess-btn--play' : 'chess-btn--pause'}`}
             onClick={onPauseToggle}
           >
-            {paused ? t('chess.resume') : t('chess.pause')}
+            <ScrambleText text={paused ? t('chess.resume') : t('chess.pause')} duration={600} />
           </button>
           {paused && (
             <button
@@ -30,15 +31,15 @@ export function GameControls({ mode, isGameOver, paused, thinking, onReset, onMo
               onClick={onStep}
               disabled={thinking}
             >
-              {t('chess.step')}
+              <ScrambleText text={t('chess.step')} duration={600} />
             </button>
           )}
         </div>
       )}
       <div className="chess-controls">
-        <button className="chess-btn" onClick={onReset}>{t('chess.reset')}</button>
+        <button className="chess-btn" onClick={onReset}><ScrambleText text={t('chess.reset')} duration={600} /></button>
         <button className="chess-btn chess-btn--dim" onClick={onModeBack}>
-          {t('chess.mode_back')}
+          <ScrambleText text={t('chess.mode_back')} duration={600} />
         </button>
       </div>
     </>

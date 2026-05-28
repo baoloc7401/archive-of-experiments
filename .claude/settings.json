@@ -1,4 +1,7 @@
 {
+  "env": {
+    "CLAUDE_CODE_EXTRA_BODY": "{\"thinking\":{\"type\":\"adaptive\",\"display\":\"summarized\"}}"
+  },
   "permissions": {
     "allow": [
       "Bash(npm run lint)",

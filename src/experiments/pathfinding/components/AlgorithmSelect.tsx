@@ -1,3 +1,4 @@
+import ScrambleText from '../../../components/ScrambleText';
 import { ALGORITHMS } from '../constants';
 import type { AlgorithmId } from '../types';
 
@@ -17,9 +18,9 @@ export default function AlgorithmSelect({ selected, onToggle, onContinue }: Prop
   return (
     <div className="pf-algo-select">
       <div className="pf-section-header">
-        <h2 className="pf-section-title">select algorithms</h2>
+        <h2 className="pf-section-title"><ScrambleText text="select algorithms" duration={600} /></h2>
         <p className="pf-section-sub">
-          pick one or more to run side-by-side on your maze
+          <ScrambleText text="pick one or more to run side-by-side on your maze" duration={600} />
         </p>
       </div>
 
@@ -35,15 +36,15 @@ export default function AlgorithmSelect({ selected, onToggle, onContinue }: Prop
             >
               <div className="pf-algo-card-top">
                 <span className={`pf-cat-badge pf-cat-${algo.category}`}>
-                  {CATEGORY_LABEL[algo.category]}
+                  <ScrambleText text={CATEGORY_LABEL[algo.category]} duration={600} />
                 </span>
                 <span className={`pf-check-mark${isSelected ? ' pf-check-mark--visible' : ''}`}>
                   ✓
                 </span>
               </div>
 
-              <h3 className="pf-algo-name">{algo.name}</h3>
-              <p className="pf-algo-desc">{algo.description}</p>
+              <h3 className="pf-algo-name"><ScrambleText text={algo.name} duration={600} /></h3>
+              <p className="pf-algo-desc"><ScrambleText text={algo.description} duration={600} /></p>
 
               <div className="pf-algo-meta">
                 <span className="pf-badge pf-badge-dim">T: {algo.timeComplexity}</span>
@@ -53,7 +54,7 @@ export default function AlgorithmSelect({ selected, onToggle, onContinue }: Prop
                     algo.guaranteesShortest ? 'pf-badge-optimal' : 'pf-badge-suboptimal'
                   }`}
                 >
-                  {algo.guaranteesShortest ? '✓ optimal' : '✗ optimal'}
+                  <ScrambleText text={algo.guaranteesShortest ? '✓ optimal' : '✗ optimal'} duration={600} />
                 </span>
               </div>
             </button>
@@ -63,16 +64,19 @@ export default function AlgorithmSelect({ selected, onToggle, onContinue }: Prop
 
       <div className="pf-algo-footer">
         <span className="pf-sel-count">
-          {selected.size === 0
-            ? 'no algorithms selected'
-            : `${selected.size} algorithm${selected.size > 1 ? 's' : ''} selected`}
+          <ScrambleText
+            text={selected.size === 0
+              ? 'no algorithms selected'
+              : `${selected.size} algorithm${selected.size > 1 ? 's' : ''} selected`}
+            duration={600}
+          />
         </span>
         <button
           className="pf-btn pf-btn-primary"
           disabled={selected.size === 0}
           onClick={onContinue}
         >
-          build maze →
+          <ScrambleText text="build maze →" duration={600} />
         </button>
       </div>
     </div>

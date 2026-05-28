@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import ScrambleText from '../../../components/ScrambleText';
 import type { ElevatorRequest, SimState } from '../types';
 
 interface Props {
@@ -25,7 +26,7 @@ export default function CarPanel({ state, activeCalls, onCarCall }: Props) {
   return (
     <div className="elev-cop">
       <div className="elev-cop-head">
-        <span className="elev-cop-title">car panel</span>
+        <span className="elev-cop-title"><ScrambleText text="car panel" duration={600} /></span>
         <span className="elev-cop-readout">
           <span className="elev-cop-readout-num">{readout}</span>
           <span className="elev-cop-readout-dir">{dirGlyph}</span>
@@ -50,7 +51,7 @@ export default function CarPanel({ state, activeCalls, onCarCall }: Props) {
         })}
       </div>
       <div className="elev-cop-hint">
-        {single ? 'press a floor — like standing inside the cab' : 'destinations apply to every car'}
+        <ScrambleText text={single ? 'press a floor — like standing inside the cab' : 'destinations apply to every car'} duration={600} />
       </div>
     </div>
   );

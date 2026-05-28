@@ -13,6 +13,7 @@ import { CapturedPieces } from './components/CapturedPieces';
 import { ModeScreen } from './components/ModeScreen';
 import ThemeToggle from '../../components/ThemeToggle';
 import LangToggle from '../../components/LangToggle';
+import ScrambleText from '../../components/ScrambleText';
 import { useTheme } from '../../hooks/useTheme';
 import './Chess.css';
 import './chess-board.css';
@@ -69,9 +70,9 @@ export default function ChessGame() {
   return (
     <div className="chess-page">
       <div className="chess-topbar">
-        <a href={import.meta.env.BASE_URL} className="chess-back">{t('chess.back')}</a>
-        <div className="chess-topbar-title">chess</div>
-        <div className="chess-topbar-mode">{t(`chess.modes.${mode}`)}</div>
+        <a href={import.meta.env.BASE_URL} className="chess-back"><ScrambleText text={t('chess.back')} duration={600} /></a>
+        <div className="chess-topbar-title"><ScrambleText text="chess" duration={600} /></div>
+        <div className="chess-topbar-mode"><ScrambleText text={t(`chess.modes.${mode}`)} duration={600} /></div>
         <div className="chess-topbar-controls">
           <LangToggle />
           <ThemeToggle theme={theme} onToggle={toggle} />

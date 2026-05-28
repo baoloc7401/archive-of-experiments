@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import ScrambleText from '../../../components/ScrambleText';
 import type { ElevatorState, SimState } from '../types';
 import { ALGORITHM_BY_ID, SHAFT_COLORS } from '../constants';
 
@@ -54,7 +55,7 @@ export default function StatsPanel({ state }: Props) {
         {cards.map(([num, lbl]) => (
           <div className="elev-stat" key={lbl}>
             <span className="elev-stat-num">{num}</span>
-            <span className="elev-stat-lbl">{lbl}</span>
+            <span className="elev-stat-lbl"><ScrambleText text={lbl} duration={600} /></span>
           </div>
         ))}
       </div>
@@ -69,8 +70,8 @@ export default function StatsPanel({ state }: Props) {
   return (
     <div className="elev-cmp">
       <div className="elev-cmp-head">
-        <span>comparison</span>
-        <span className="elev-cmp-hint">lower = better</span>
+        <span><ScrambleText text="comparison" duration={600} /></span>
+        <span className="elev-cmp-hint"><ScrambleText text="lower = better" duration={600} /></span>
       </div>
       <div className="elev-cmp-table" role="table">
         <div className="elev-cmp-row elev-cmp-row--head" role="row">
@@ -90,7 +91,7 @@ export default function StatsPanel({ state }: Props) {
           >
             <span className="elev-cmp-algo" role="cell">
               <span className="elev-cmp-swatch" aria-hidden="true" />
-              {ALGORITHM_BY_ID[r.algorithm].name}
+              <ScrambleText text={ALGORITHM_BY_ID[r.algorithm].name} duration={600} />
             </span>
             <span className={`elev-cmp-cell${r.travel === bestTravel ? ' elev-cmp-cell--best' : ''}`} role="cell">{r.travel}</span>
             <span className="elev-cmp-cell" role="cell">{r.served}</span>

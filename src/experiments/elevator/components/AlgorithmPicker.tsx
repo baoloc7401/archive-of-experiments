@@ -1,4 +1,5 @@
 import type { MouseEvent } from 'react';
+import ScrambleText from '../../../components/ScrambleText';
 import type { AlgorithmId } from '../types';
 import { ALGORITHMS, SHAFT_COLORS } from '../constants';
 
@@ -41,8 +42,8 @@ export default function AlgorithmPicker({
                   {active ? order : ''}
                 </span>
               )}
-              <span className="elev-algo-pill-name">{algo.name}</span>
-              <span className="elev-algo-pill-tag">{algo.short}</span>
+              <span className="elev-algo-pill-name"><ScrambleText text={algo.name} duration={600} /></span>
+              <span className="elev-algo-pill-tag"><ScrambleText text={algo.short} duration={600} /></span>
             </button>
           );
         })}
@@ -56,9 +57,9 @@ export default function AlgorithmPicker({
         />
         <span className="elev-compare-track"><span className="elev-compare-knob" /></span>
         <span className="elev-compare-label">
-          compare
-          {compareMode && <span className="elev-compare-hint"> · click to add/remove</span>}
-          {!compareMode && <span className="elev-compare-hint"> · or hold ⌃/⌘</span>}
+          <ScrambleText text="compare" duration={600} />
+          {compareMode && <span className="elev-compare-hint"> · <ScrambleText text="click to add/remove" duration={600} /></span>}
+          {!compareMode && <span className="elev-compare-hint"> · <ScrambleText text="or hold ⌃/⌘" duration={600} /></span>}
         </span>
       </label>
     </div>

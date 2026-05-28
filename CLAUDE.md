@@ -1,67 +1,67 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Guidance for Claude Code working in this repo.
 
 ## Commands
 
 ```bash
-npm run dev        # start Vite dev server
-npm run build      # production build (runs tsc + vite build)
+npm run dev        # Vite dev server
+npm run build      # tsc + vite build
 npm run lint       # ESLint
-npx tsc --noEmit   # type-check only, no emit
+npx tsc --noEmit   # type-check only
 ```
 
-There are no tests yet. Always run `npx tsc --noEmit && npm run build` before committing to confirm zero errors.
+No tests. Run `npx tsc --noEmit && npm run build` before committing.
 
 ## Git
 
-Commit format: `type: short description` — lowercase, imperative, no period.  
-Types used in this repo: `feat`, `fix`, `refactor`, `chore`, `docs`.
-
-**Only the user pushes.** Never run `git push`.
+Commit format: `type: short description` — lowercase, imperative, no period. Types: `feat`, `fix`, `refactor`, `chore`, `docs`. **Never run `git push`** — only the user pushes.
 
 ## Architecture
 
-The app is a single-page gateway that lists experiments. There is no router — each experiment card links out to its own path when ready.
+Single-page gateway listing experiments via [src/experiments.ts](src/experiments.ts). Statuses: `active` (full-card link), `wip`, `planned`.
 
-**Adding an experiment:** add one entry to [src/experiments.ts](src/experiments.ts). The card renders automatically. Statuses: `active` (renders a full-card link), `wip`, `planned`.
+**Theme:** CSS custom props in two `[data-theme]` blocks in [src/index.css](src/index.css). `data-theme` set on `<html>`; inline script in [index.html](index.html) applies it pre-mount. [useTheme](src/hooks/useTheme.ts) reads attribute as initial state, writes on toggle. No context/provider.
 
-**Theme system:** theme tokens live as CSS custom properties in two `[data-theme]` blocks in [src/index.css](src/index.css). The active theme is set as a `data-theme` attribute on `<html>`. An inline script in [index.html](index.html) applies the stored theme before React mounts to prevent flash. `useTheme` in [src/hooks/useTheme.ts](src/hooks/useTheme.ts) reads the already-set attribute as initial state and writes back on toggle — no React context, no provider.
+**Card link:** active cards use `position: absolute; inset: 0` anchor (`.card-link`) inside `<article>`. Hover on `.card-active:hover`, not the link.
 
-**Card link pattern:** active cards render a `position: absolute; inset: 0` anchor (`.card-link`) inside the `<article>`. This makes the whole card clickable without wrapping the card in `<a>` or using `:has()`. Hover styles are triggered on `.card-active:hover` (the article), not the link.
+## Adding an experiment
 
-## Adding a new experiment (full checklist)
+1. [src/experiments.ts](src/experiments.ts) — add `{id, tags, status: "active", path: "/experiments/{id}"}`.
+2. [src/main.tsx](src/main.tsx) — import default from `./experiments/{id}` and add `<Route path="/experiments/{id}" element={<Component />} />`.
+3. `src/experiments/{id}/index.tsx` — default-export page component.
+4. `src/i18n/locales/{en,vi}.ts` — add `experiments.{id}.title` and `.description`.
 
-1. **`src/experiments.ts`** — add entry (`id`, `tags`, `status: "active"`, `path: "/experiments/{id}"`).
-2. **`src/main.tsx`** — import the default export from `./experiments/{id}` and add `<Route path="/experiments/{id}" element={<Component />} />`.
-3. **`src/experiments/{id}/index.tsx`** — default-export the page component.
-4. **`src/i18n/locales/en.ts` and `vi.ts`** — add `experiments.{id}.title` and `experiments.{id}.description` keys (used by `ExperimentCard`).
+Folder convention: `index.tsx` (entry), `{Name}.css`, `types.ts`, `constants.ts`, `components/`. Only `index.tsx` is mandatory.
 
-Experiment folder convention: `src/experiments/{id}/index.tsx` (entry), `{Name}.css` (styles), `types.ts`, `constants.ts`, `components/` (sub-components). No mandatory structure beyond `index.tsx`.
+## Shared imports (from inside an experiment)
 
-## Shared components & hooks
+- `../../components/ThemeToggle` — needs `theme` + `onToggle` from `useTheme`
+- `../../components/LangToggle` — no props
+- `../../components/ScrambleText` — see below
+- `../../hooks/useTheme` — returns `{theme, toggle}`
 
-| Import path (from inside an experiment) | What it is |
-|---|---|
-| `../../components/ThemeToggle` | Theme toggle button; needs `theme` + `onToggle` props from `useTheme` |
-| `../../components/LangToggle` | Language toggle; no props |
-| `../../hooks/useTheme` | Returns `{ theme, toggle }` |
+## CSS
 
-## CSS conventions
+Plain CSS, no modules/Tailwind. Prefix classes per experiment (e.g. `chess-`, `pf-`). Tokens in [src/index.css](src/index.css): `--bg`, `--bg2`, `--border`, `--text`, `--text-dim`, `--text-hi`, `--accent` (green), `--accent2` (purple), `--wip` (yellow), `--planned`.
 
-- Plain CSS files, no CSS modules or Tailwind.
-- Prefix every class with a short experiment slug (e.g. `chess-`, `pf-`) to avoid collisions.
-- All colour/spacing tokens come from `index.css`. Key variables: `--bg`, `--bg2`, `--border`, `--text`, `--text-dim`, `--text-hi`, `--accent` (green), `--accent2` (purple), `--wip` (yellow), `--planned`.
-- Topbar pattern used by every experiment: sticky bar with `← experiments` link (`href="/"`), experiment title, and `<ThemeToggle />` on the right.
+Topbar pattern: sticky bar with `← experiments` link (`href="/"`), title, `<ThemeToggle />` right.
 
 ## i18n
 
-Translations live in `src/i18n/locales/en.ts` and `vi.ts` (must stay in sync). Use `useTranslation` + `t('key')` inside components. Experiment card text is keyed at `experiments.{id}.title` and `experiments.{id}.description`. Experiment-internal strings (UI labels, status text) can be hardcoded in English if i18n support is not yet needed.
+`src/i18n/locales/{en,vi}.ts` (must stay in sync). Use `useTranslation` + `t('key')`. Card text at `experiments.{id}.{title,description}`. Experiment-internal strings can be hardcoded English if i18n not needed.
+
+## ScrambleText
+
+Wrap visible UI text from [src/components/ScrambleText.tsx](src/components/ScrambleText.tsx) when i18n-driven or mutating. Re-animates on `text` prop change. Default: `<ScrambleText text={...} duration={600} />`. For attribute values (e.g. `placeholder`), use `useScrambledText` hook.
+
+**Wrap:** `t(...)` text nodes; toggling labels (play/pause, copy/copied); per-iteration text from runtime data (algorithm names).
+
+**Don't wrap:** per-tick numeric values (thrashes UI); `aria-label`/`title`/non-visible attrs; kaomoji/emoticons (garbles shape); single-glyph icon labels (too short).
 
 ## Code rules
 
-- TypeScript strict mode, no `any`.
-- No default `export` for types — use `export type`.
-- Icons and other static JSX with no props are JSX constants, not function components.
-- Heading hierarchy: `<h1>` in the hero, `<h2>` in cards.
-- All interactive elements need a `:focus-visible` style. The global reset in `index.css` covers most; component-level overrides live in `App.css`.
+- TS strict, no `any`. No default-export for types — use `export type`.
+- Static propless JSX → JSX constants, not function components.
+- Headings: `<h1>` hero, `<h2>` cards.
+- All interactives need `:focus-visible`. Global reset in `index.css`; overrides in `App.css`.

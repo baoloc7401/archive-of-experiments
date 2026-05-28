@@ -1,3 +1,4 @@
+import ScrambleText from '../../../components/ScrambleText';
 import type { ElevatorRequest, RequestOrigin } from '../types';
 
 interface Props {
@@ -21,11 +22,11 @@ export default function Queue({ activeCalls, tick }: Props) {
   return (
     <div className="elev-queue">
       <div className="elev-queue-head">
-        <span>outstanding calls</span>
+        <span><ScrambleText text="outstanding calls" duration={600} /></span>
         <span className="elev-queue-count">{activeCalls.length}</span>
       </div>
       {activeCalls.length === 0 ? (
-        <div className="elev-queue-empty">no pending calls</div>
+        <div className="elev-queue-empty"><ScrambleText text="no pending calls" duration={600} /></div>
       ) : (
         <ul className="elev-queue-list">
           {activeCalls.map(r => {

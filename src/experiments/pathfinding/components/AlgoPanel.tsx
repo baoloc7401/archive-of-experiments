@@ -1,4 +1,5 @@
 import { memo, useMemo } from 'react';
+import ScrambleText from '../../../components/ScrambleText';
 import type { AlgoState } from '../algorithms';
 import type { AlgorithmId, CellState, GridConfig } from '../types';
 import { ALGORITHMS, CELL_WEIGHT } from '../constants';
@@ -74,7 +75,7 @@ export default function AlgoPanel({ algoId, grid, state, cellPx }: Props) {
     <div className={`pf-panel pf-panel--${state.status}`}>
       {/* Header */}
       <div className="pf-panel-head">
-        <div className="pf-panel-name">{def.name}</div>
+        <div className="pf-panel-name"><ScrambleText text={def.name} duration={600} /></div>
         {showWeightWarning && (
           <span
             className="pf-panel-warn-icon"
@@ -82,7 +83,7 @@ export default function AlgoPanel({ algoId, grid, state, cellPx }: Props) {
           >⚠</span>
         )}
         <span className={`pf-panel-status pf-panel-status--${state.status}`}>
-          {statusLabel}
+          <ScrambleText text={statusLabel} duration={600} />
         </span>
       </div>
 
@@ -115,25 +116,25 @@ export default function AlgoPanel({ algoId, grid, state, cellPx }: Props) {
       {/* Stats */}
       <div className="pf-panel-stats">
         <span className="pf-stat">
-          <span className="pf-stat-label">steps</span>
+          <span className="pf-stat-label"><ScrambleText text="steps" duration={600} /></span>
           <span className="pf-stat-val">{state.steps.toLocaleString()}</span>
         </span>
         {state.status === 'found' && state.path && (
           <>
             <span className="pf-stat">
-              <span className="pf-stat-label">path len</span>
+              <span className="pf-stat-label"><ScrambleText text="path len" duration={600} /></span>
               <span className="pf-stat-val">{state.path.length - 1}</span>
             </span>
             {isWeighted && algoId !== 'jps' && (
               <span className="pf-stat">
-                <span className="pf-stat-label">cost</span>
+                <span className="pf-stat-label"><ScrambleText text="cost" duration={600} /></span>
                 <span className="pf-stat-val">{state.pathCost.toFixed(0)}</span>
               </span>
             )}
           </>
         )}
         <span className="pf-stat">
-          <span className="pf-stat-label">visited</span>
+          <span className="pf-stat-label"><ScrambleText text="visited" duration={600} /></span>
           <span className="pf-stat-val">{state.visited.size.toLocaleString()}</span>
         </span>
       </div>

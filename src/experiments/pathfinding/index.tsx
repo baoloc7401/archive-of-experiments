@@ -6,6 +6,7 @@ import AlgorithmSelect from './components/AlgorithmSelect';
 import MazeBuilder from './components/MazeBuilder';
 import Run from './components/Run';
 import ThemeToggle from '../../components/ThemeToggle';
+import ScrambleText from '../../components/ScrambleText';
 import { useTheme } from '../../hooks/useTheme';
 import './Pathfinding.css';
 
@@ -107,11 +108,11 @@ export default function Pathfinding() {
   return (
     <div className="pf-page">
       <div className="pf-topbar">
-        <a href={import.meta.env.BASE_URL} className="pf-back">← experiments</a>
+        <a href={import.meta.env.BASE_URL} className="pf-back"><ScrambleText text="← experiments" duration={600} /></a>
         <div className="pf-topbar-center">
-          <span className="pf-topbar-title">pathfinding</span>
+          <span className="pf-topbar-title"><ScrambleText text="pathfinding" duration={600} /></span>
           {STEP_LABEL[screen] && (
-            <span className="pf-topbar-step">{STEP_LABEL[screen]}</span>
+            <span className="pf-topbar-step"><ScrambleText text={STEP_LABEL[screen]} duration={600} /></span>
           )}
         </div>
         <ThemeToggle theme={theme} onToggle={toggle} />
