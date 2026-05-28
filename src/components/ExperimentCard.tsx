@@ -77,7 +77,7 @@ export default function ExperimentCard({ experiment, leaving = false }: Props) {
       onMouseEnter={rollShout}
     >
       {isActive && !leaving && (
-        <a href={path} className="card-link" aria-label={title} />
+        <a href={import.meta.env.BASE_URL + path.replace(/^\//, "")} className="card-link" aria-label={title} />
       )}
       <div className="card-spot" aria-hidden="true" />
       <div className="card-glow" aria-hidden="true" />

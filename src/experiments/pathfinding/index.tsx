@@ -107,7 +107,7 @@ export default function Pathfinding() {
   return (
     <div className="pf-page">
       <div className="pf-topbar">
-        <a href="/" className="pf-back">← experiments</a>
+        <a href={import.meta.env.BASE_URL} className="pf-back">← experiments</a>
         <div className="pf-topbar-center">
           <span className="pf-topbar-title">pathfinding</span>
           {STEP_LABEL[screen] && (

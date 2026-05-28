@@ -69,7 +69,7 @@ export default function ChessGame() {
   return (
     <div className="chess-page">
       <div className="chess-topbar">
-        <a href="/" className="chess-back">{t('chess.back')}</a>
+        <a href={import.meta.env.BASE_URL} className="chess-back">{t('chess.back')}</a>
         <div className="chess-topbar-title">chess</div>
         <div className="chess-topbar-mode">{t(`chess.modes.${mode}`)}</div>
         <div className="chess-topbar-controls">

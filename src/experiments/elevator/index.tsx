@@ -59,7 +59,7 @@ export default function Elevator() {
   return (
     <div className="elev-page">
       <div className="elev-topbar">
-        <a href="/" className="elev-back">← experiments</a>
+        <a href={import.meta.env.BASE_URL} className="elev-back">← experiments</a>
         <div className="elev-topbar-title">
           <span className="elev-topbar-main">{t('experiments.elevator.title').toLowerCase()}</span>
           <span className="elev-topbar-sub">/ {headTitle}</span>

@@ -35,7 +35,7 @@ export function ModeScreen({ onStart }: Props) {
   return (
     <div className="chess-page">
       <div className="chess-back-row">
-        <a href="/" className="chess-back">{t('chess.back')}</a>
+        <a href={import.meta.env.BASE_URL} className="chess-back">{t('chess.back')}</a>
         <div className="chess-back-row-controls">
           <LangToggle />
           <ThemeToggle theme={theme} onToggle={toggle} />
