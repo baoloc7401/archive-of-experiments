@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import ScrambleText from '../../../components/ScrambleText';
 import type { ElevatorRequest, ElevatorState, RequestOrigin, SimState } from '../types';
 import { ALGORITHM_BY_ID, SHAFT_COLORS } from '../constants';
 
@@ -40,7 +41,7 @@ export default function Building({ state, activeCalls, tickMs, onHallCall }: Pro
   return (
     <div className="elev-building" style={buildingStyle} aria-label="elevator building">
       <div className="elev-axis">
-        <div className="elev-axis-head" aria-hidden="true">floor</div>
+        <div className="elev-axis-head" aria-hidden="true"><ScrambleText text="floor" duration={600} /></div>
         <div className="elev-floors">
           {floors.map(f => {
             const calls = callsByFloor.get(f);
@@ -52,7 +53,7 @@ export default function Building({ state, activeCalls, tickMs, onHallCall }: Pro
                   className={`elev-floor-car-tag${calls?.car ? ' elev-floor-car-tag--on' : ''}`}
                   title="destination set from inside the car"
                 >
-                  car
+                  <ScrambleText text="car" duration={600} />
                 </span>
                 <div className="elev-hall" aria-label={`hall call panel, floor ${f}`}>
                   {f < top && (
@@ -120,7 +121,7 @@ function Shaft({ elevator, totalFloors, index }: ShaftProps) {
       style={{ '--elev-shaft-i': index, '--shaft-color': SHAFT_COLORS[index % SHAFT_COLORS.length] } as React.CSSProperties}
     >
       <div className="elev-shaft-header">
-        <span className="elev-shaft-name">{info.name}</span>
+        <span className="elev-shaft-name"><ScrambleText text={info.name} duration={600} /></span>
         <span className="elev-shaft-metric">{elevator.totalTravel}f</span>
       </div>
       <div className="elev-shaft-frame">

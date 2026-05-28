@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import ScrambleText from '../../../components/ScrambleText';
 import type { Move } from '../types';
 import { gradeInfo, moveLabel } from '../utils';
 
@@ -27,7 +28,7 @@ export function MoveHistory({ rounds, moveGrades, copied, copyGrades, onToggleCo
   return (
     <div className="chess-history">
       <div className="chess-history-header">
-        <span>{t('chess.history_title')}</span>
+        <span><ScrambleText text={t('chess.history_title')} duration={600} /></span>
         {rounds.length > 0 && (
           <div className="chess-history-actions">
             <label className="chess-copy-toggle" title={t('chess.copy_grades_hint')}>
@@ -36,17 +37,17 @@ export function MoveHistory({ rounds, moveGrades, copied, copyGrades, onToggleCo
                 checked={copyGrades}
                 onChange={e => onToggleCopyGrades(e.target.checked)}
               />
-              <span>{t('chess.copy_grades')}</span>
+              <span><ScrambleText text={t('chess.copy_grades')} duration={600} /></span>
             </label>
             <button className="chess-copy-btn" onClick={onCopy}>
-              {copied ? t('chess.copied') : t('chess.copy')}
+              <ScrambleText text={copied ? t('chess.copied') : t('chess.copy')} duration={600} />
             </button>
           </div>
         )}
       </div>
       <div className="chess-history-list" ref={historyRef}>
         {rounds.length === 0
-          ? <div className="chess-history-empty">{t('chess.no_moves')}</div>
+          ? <div className="chess-history-empty"><ScrambleText text={t('chess.no_moves')} duration={600} /></div>
           : rounds.map(([w, b], i) => (
               <div key={i} className={`chess-move-row${i === rounds.length - 1 ? ' chess-move-row--last' : ''}`}>
                 <span className="chess-move-num">{i + 1}</span>

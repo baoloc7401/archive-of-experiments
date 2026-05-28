@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import ThemeToggle from '../../components/ThemeToggle';
 import LangToggle from '../../components/LangToggle';
+import ScrambleText from '../../components/ScrambleText';
 import { useTheme } from '../../hooks/useTheme';
 import type { AlgorithmId } from './types';
 import { ALGORITHM_BY_ID, SPEED_PRESETS, DEFAULT_SPEED_INDEX } from './constants';
@@ -59,10 +60,10 @@ export default function Elevator() {
   return (
     <div className="elev-page">
       <div className="elev-topbar">
-        <a href={import.meta.env.BASE_URL} className="elev-back">← experiments</a>
+        <a href={import.meta.env.BASE_URL} className="elev-back"><ScrambleText text="← experiments" duration={600} /></a>
         <div className="elev-topbar-title">
-          <span className="elev-topbar-main">{t('experiments.elevator.title').toLowerCase()}</span>
-          <span className="elev-topbar-sub">/ {headTitle}</span>
+          <span className="elev-topbar-main"><ScrambleText text={t('experiments.elevator.title').toLowerCase()} duration={600} /></span>
+          <span className="elev-topbar-sub">/ <ScrambleText text={headTitle} duration={600} /></span>
         </div>
         <div className="elev-topbar-controls">
           <LangToggle />
@@ -79,16 +80,18 @@ export default function Elevator() {
 
       {!comparing && (
         <div className="elev-info-strip">
-          <div className="elev-info-tagline">{ALGORITHM_BY_ID[selected[0]].tagline}</div>
-          <div className="elev-info-desc">{ALGORITHM_BY_ID[selected[0]].description}</div>
+          <div className="elev-info-tagline"><ScrambleText text={ALGORITHM_BY_ID[selected[0]].tagline} duration={600} /></div>
+          <div className="elev-info-desc"><ScrambleText text={ALGORITHM_BY_ID[selected[0]].description} duration={600} /></div>
         </div>
       )}
       {comparing && (
         <div className="elev-info-strip elev-info-strip--cmp">
-          <div className="elev-info-tagline">comparison mode</div>
+          <div className="elev-info-tagline"><ScrambleText text="comparison mode" duration={600} /></div>
           <div className="elev-info-desc">
-            {selected.map(id => ALGORITHM_BY_ID[id].name).join(' · ')} — same calls, separate cars.
-            watch the stats table to see who wins.
+            <ScrambleText
+              text={`${selected.map(id => ALGORITHM_BY_ID[id].name).join(' · ')} — same calls, separate cars. watch the stats table to see who wins.`}
+              duration={600}
+            />
           </div>
         </div>
       )}
@@ -96,8 +99,10 @@ export default function Elevator() {
       <div className="elev-layout">
         <section className="elev-side elev-side--outside">
           <div className="elev-side-label">
-            <span className="elev-side-tag">outside</span>
-            <span className="elev-side-desc">hall calls — press ▲ / ▼ to summon the car{comparing ? 's' : ''}</span>
+            <span className="elev-side-tag"><ScrambleText text="outside" duration={600} /></span>
+            <span className="elev-side-desc">
+              <ScrambleText text={`hall calls — press ▲ / ▼ to summon the car${comparing ? 's' : ''}`} duration={600} />
+            </span>
           </div>
           <div className="elev-stage">
             <Building
@@ -112,8 +117,8 @@ export default function Elevator() {
         <aside className="elev-sidebar">
           <section className="elev-side elev-side--inside">
             <div className="elev-side-label">
-              <span className="elev-side-tag">inside</span>
-              <span className="elev-side-desc">car panel — pick your destination</span>
+              <span className="elev-side-tag"><ScrambleText text="inside" duration={600} /></span>
+              <span className="elev-side-desc"><ScrambleText text="car panel — pick your destination" duration={600} /></span>
             </div>
             <CarPanel
               state={sim.state}
@@ -136,8 +141,10 @@ export default function Elevator() {
           <Queue activeCalls={sim.activeCalls} tick={sim.state.tick} />
           <History state={sim.state} speedLabel={SPEED_PRESETS[speedIndex].label} />
           <div className="elev-hint">
-            <em>outside</em> riders tap the hall buttons; <em>inside</em> riders use the car panel.
-            toggle <em>compare</em> (or hold ⌃/⌘) to race algorithms on the same calls.
+            <ScrambleText
+              text="outside riders tap the hall buttons; inside riders use the car panel. toggle compare (or hold ⌃/⌘) to race algorithms on the same calls."
+              duration={600}
+            />
           </div>
         </aside>
       </div>

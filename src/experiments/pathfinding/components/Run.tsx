@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, useCallback, useMemo } from 'react';
+import ScrambleText from '../../../components/ScrambleText';
 import type { AlgorithmId, GridConfig } from '../types';
 import type { AlgoGen, AlgoState } from '../algorithms';
 import { ALGO_FACTORIES } from '../algorithms';
@@ -182,10 +183,10 @@ export default function Run({ grid, selected, onBack }: Props) {
     <div className="pf-run">
       {/* Controls */}
       <div className="pf-run-controls">
-        <button className="pf-btn pf-btn-ghost" onClick={onBack}>← back</button>
+        <button className="pf-btn pf-btn-ghost" onClick={onBack}><ScrambleText text="← back" duration={600} /></button>
 
         <div className="pf-run-btns">
-          <button className="pf-btn pf-btn-ghost" onClick={resetAll} title="Reset">⏮ reset</button>
+          <button className="pf-btn pf-btn-ghost" onClick={resetAll} title="Reset"><ScrambleText text="⏮ reset" duration={600} /></button>
           <button
             className="pf-btn pf-btn-accent"
             onClick={() => {
@@ -193,18 +194,18 @@ export default function Run({ grid, selected, onBack }: Props) {
               else setPlaying((p) => !p);
             }}
           >
-            {finished ? '⏮ replay' : playing ? '⏸ pause' : '▶ play'}
+            <ScrambleText text={finished ? '⏮ replay' : playing ? '⏸ pause' : '▶ play'} duration={600} />
           </button>
           <button
             className="pf-btn pf-btn-ghost"
             disabled={playing || finished}
             onClick={() => stepAll(1)}
             title="Step once"
-          >step</button>
+          ><ScrambleText text="step" duration={600} /></button>
         </div>
 
         <div className="pf-run-speed">
-          <span className="pf-speed-label">speed</span>
+          <span className="pf-speed-label"><ScrambleText text="speed" duration={600} /></span>
           <input
             type="range"
             min={1} max={100}
@@ -222,12 +223,14 @@ export default function Run({ grid, selected, onBack }: Props) {
               const s = states[id];
               if (!s) return null;
               const def = ALGORITHMS.find((a) => a.id === id)!;
+              const summaryText = `${def.name.split(' ')[0]}: ${
+                s.status === 'found'
+                  ? `${s.path!.length - 1} hops · ${s.steps} steps`
+                  : s.status
+              }`;
               return (
                 <span key={id} className={`pf-summary-chip pf-summary-chip--${s.status}`}>
-                  {def.name.split(' ')[0]}:{' '}
-                  {s.status === 'found'
-                    ? `${s.path!.length - 1} hops · ${s.steps} steps`
-                    : s.status}
+                  <ScrambleText text={summaryText} duration={600} />
                 </span>
               );
             })}
@@ -252,7 +255,7 @@ export default function Run({ grid, selected, onBack }: Props) {
       {finished && (
         <div className="pf-rankings">
           <div className="pf-rank-header">
-            <span className="pf-rank-title">rankings</span>
+            <span className="pf-rank-title"><ScrambleText text="rankings" duration={600} /></span>
             <div className="pf-rank-aspects">
               {RANK_META.filter((m) => m.id !== 'cost' || isWeighted).map((m) => (
                 <button
@@ -260,7 +263,7 @@ export default function Run({ grid, selected, onBack }: Props) {
                   className={`pf-rank-aspect-btn${activeAspects.has(m.id) ? ' pf-rank-aspect-btn--on' : ''}`}
                   onClick={() => toggleAspect(m.id)}
                 >
-                  {m.label}
+                  <ScrambleText text={m.label} duration={600} />
                 </button>
               ))}
             </div>
@@ -276,8 +279,8 @@ export default function Run({ grid, selected, onBack }: Props) {
             return (
               <div key={meta.id} className="pf-rank-metric">
                 <div className="pf-rank-metric-label">
-                  {meta.label}
-                  <span className="pf-rank-metric-hint">fewer = better</span>
+                  <ScrambleText text={meta.label} duration={600} />
+                  <span className="pf-rank-metric-hint"><ScrambleText text="fewer = better" duration={600} /></span>
                 </div>
                 <div className="pf-rank-rows">
                   {ranked.map((entry) => {
@@ -291,8 +294,8 @@ export default function Run({ grid, selected, onBack }: Props) {
                         key={entry.id}
                         className={`pf-rank-row${noVal ? ' pf-rank-row--nopath' : ''}${entry.rank === 1 && !noVal ? ' pf-rank-row--best' : ''}`}
                       >
-                        <span className={`pf-rank-pos pf-rank-pos--${label}`}>{label}</span>
-                        <span className="pf-rank-name">{def.name}</span>
+                        <span className={`pf-rank-pos pf-rank-pos--${label}`}><ScrambleText text={label} duration={600} /></span>
+                        <span className="pf-rank-name"><ScrambleText text={def.name} duration={600} /></span>
                         <div className="pf-rank-bar-wrap">
                           <div
                             className="pf-rank-bar"
@@ -300,11 +303,14 @@ export default function Run({ grid, selected, onBack }: Props) {
                           />
                         </div>
                         <span className="pf-rank-val">
-                          {noVal
-                            ? 'no path'
-                            : meta.unit
-                              ? `${entry.value.toLocaleString()} ${meta.unit}`
-                              : entry.value.toLocaleString()}
+                          <ScrambleText
+                            text={noVal
+                              ? 'no path'
+                              : meta.unit
+                                ? `${entry.value.toLocaleString()} ${meta.unit}`
+                                : entry.value.toLocaleString()}
+                            duration={600}
+                          />
                         </span>
                       </div>
                     );

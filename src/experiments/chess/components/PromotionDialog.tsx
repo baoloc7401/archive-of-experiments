@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import ScrambleText from '../../../components/ScrambleText';
 import type { Color, PieceType } from '../types';
 import { SYMBOLS } from '../constants';
 
@@ -12,7 +13,7 @@ export function PromotionDialog({ turn, onPromote }: Props) {
   return (
     <div className="chess-promotion-overlay">
       <div className="chess-promotion-dialog">
-        <p className="chess-promotion-label">{t('chess.promote_to')}</p>
+        <p className="chess-promotion-label"><ScrambleText text={t('chess.promote_to')} duration={600} /></p>
         <div className="chess-promotion-options">
           {(['Q', 'R', 'B', 'N'] as PieceType[]).map(pt => (
             <button

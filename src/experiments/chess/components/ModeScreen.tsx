@@ -4,6 +4,7 @@ import type { GameMode, SkillLevel } from '../types';
 import { DEFAULT_SKILL, SKILL_LEVELS, SKILL_PIECES } from '../ai/skill';
 import LangToggle from '../../../components/LangToggle';
 import ThemeToggle from '../../../components/ThemeToggle';
+import ScrambleText from '../../../components/ScrambleText';
 import { useTheme } from '../../../hooks/useTheme';
 
 interface Props {
@@ -35,7 +36,7 @@ export function ModeScreen({ onStart }: Props) {
   return (
     <div className="chess-page">
       <div className="chess-back-row">
-        <a href={import.meta.env.BASE_URL} className="chess-back">{t('chess.back')}</a>
+        <a href={import.meta.env.BASE_URL} className="chess-back"><ScrambleText text={t('chess.back')} duration={600} /></a>
         <div className="chess-back-row-controls">
           <LangToggle />
           <ThemeToggle theme={theme} onToggle={toggle} />
@@ -43,22 +44,22 @@ export function ModeScreen({ onStart }: Props) {
       </div>
       <div className="chess-mode-screen">
         <div className="chess-mode-title">
-          <span className="chess-title-text">chess</span>
-          <span className="chess-title-badge">{t('chess.badge')}</span>
+          <span className="chess-title-text"><ScrambleText text="chess" duration={600} /></span>
+          <span className="chess-title-badge"><ScrambleText text={t('chess.badge')} duration={600} /></span>
         </div>
         <p className="chess-mode-desc">
-          {t('chess.desc1')}<br />{t('chess.desc2')}
+          <ScrambleText text={t('chess.desc1')} duration={600} /><br /><ScrambleText text={t('chess.desc2')} duration={600} />
         </p>
 
         {!pickedMode && (
           <div className="chess-mode-buttons">
             {(['hva', 'hvh', 'ava'] as GameMode[]).map(m => (
               <button key={m} className="chess-mode-btn" onClick={() => handleModeClick(m)}>
-                {t(`chess.modes.${m}`)}
+                <ScrambleText text={t(`chess.modes.${m}`)} duration={600} />
               </button>
             ))}
             <button className="chess-mode-btn chess-mode-btn--planned" disabled>
-              {t('chess.puzzle_mode')} <span className="chess-planned-tag">{t('chess.planned_tag')}</span>
+              <ScrambleText text={t('chess.puzzle_mode')} duration={600} /> <span className="chess-planned-tag"><ScrambleText text={t('chess.planned_tag')} duration={600} /></span>
             </button>
           </div>
         )}
@@ -66,7 +67,7 @@ export function ModeScreen({ onStart }: Props) {
         {pickedMode && (
           <div className="chess-skill-picker">
             <div className="chess-skill-picker-mode">
-              {t(`chess.modes.${pickedMode}`)}
+              <ScrambleText text={t(`chess.modes.${pickedMode}`)} duration={600} />
             </div>
 
             {pickedMode === 'hva' && (
@@ -94,13 +95,13 @@ export function ModeScreen({ onStart }: Props) {
 
             <div className="chess-skill-actions">
               <button className="chess-mode-btn chess-mode-btn--primary" onClick={handleStart}>
-                {t('chess.skill.start')}
+                <ScrambleText text={t('chess.skill.start')} duration={600} />
               </button>
               <button
                 className="chess-mode-btn chess-mode-btn--dim"
                 onClick={() => setPickedMode(null)}
               >
-                {t('chess.skill.back')}
+                <ScrambleText text={t('chess.skill.back')} duration={600} />
               </button>
             </div>
           </div>
@@ -129,8 +130,8 @@ function SkillRow({ label, value, onChange }: SkillRowProps) {
   return (
     <div className="chess-skill-row">
       <div className="chess-skill-row-header">
-        <span className="chess-skill-row-label">{label}</span>
-        <span className="chess-skill-row-value">{t(`chess.skill.${value}`)}</span>
+        <span className="chess-skill-row-label"><ScrambleText text={label} duration={600} /></span>
+        <span className="chess-skill-row-value"><ScrambleText text={t(`chess.skill.${value}`)} duration={600} /></span>
       </div>
       <div className="chess-skill-pieces" role="radiogroup" aria-label={label}>
         <span className="chess-skill-pieces-indicator" style={indicatorStyle} aria-hidden="true" />
@@ -151,7 +152,7 @@ function SkillRow({ label, value, onChange }: SkillRowProps) {
           );
         })}
       </div>
-      <p className="chess-skill-row-desc">{t(`chess.skill.desc.${value}`)}</p>
+      <p className="chess-skill-row-desc"><ScrambleText text={t(`chess.skill.desc.${value}`)} duration={600} /></p>
     </div>
   );
 }

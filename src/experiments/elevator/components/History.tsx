@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import ScrambleText from '../../../components/ScrambleText';
 import type { LogEntry, SimState } from '../types';
 import { ALGORITHM_BY_ID } from '../constants';
 
@@ -59,7 +60,7 @@ export default function History({ state, speedLabel }: Props) {
   return (
     <div className="elev-history">
       <div className="elev-history-head">
-        <span>history</span>
+        <span><ScrambleText text="history" duration={600} /></span>
         <div className="elev-history-actions">
           <span className="elev-history-count">{state.log.length}</span>
           <button
@@ -68,13 +69,13 @@ export default function History({ state, speedLabel }: Props) {
             onClick={copy}
             disabled={state.log.length === 0}
           >
-            {copied ? '✓ copied' : 'copy'}
+            <ScrambleText text={copied ? '✓ copied' : 'copy'} duration={600} />
           </button>
         </div>
       </div>
       <div className="elev-history-list" ref={listRef}>
         {state.log.length === 0 ? (
-          <div className="elev-history-empty">no events yet — make a call</div>
+          <div className="elev-history-empty"><ScrambleText text="no events yet — make a call" duration={600} /></div>
         ) : (
           /* Only the most recent slice is rendered to keep per-tick re-renders
              cheap in compare mode; `copy` still exports the full log. */

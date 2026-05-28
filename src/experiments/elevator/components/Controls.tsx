@@ -1,3 +1,4 @@
+import ScrambleText from '../../../components/ScrambleText';
 import type { SimStatus } from '../types';
 import { SPEED_PRESETS } from '../constants';
 
@@ -26,22 +27,22 @@ export default function Controls({
           onClick={onPlayPause}
           disabled={playDisabled}
         >
-          {isRunning ? '⏸ pause' : '▶ play'}
+          <ScrambleText text={isRunning ? '⏸ pause' : '▶ play'} duration={600} />
         </button>
-        <button type="button" className="elev-btn" onClick={onReset}>↺ reset</button>
+        <button type="button" className="elev-btn" onClick={onReset}><ScrambleText text="↺ reset" duration={600} /></button>
       </div>
 
       <div className="elev-ctrl-row">
         <button type="button" className="elev-btn elev-btn--accent" onClick={onRandom}>
-          ✦ random
+          <ScrambleText text="✦ random" duration={600} />
         </button>
         <button type="button" className="elev-btn" onClick={onClear}>
-          ⌫ clear
+          <ScrambleText text="⌫ clear" duration={600} />
         </button>
       </div>
 
       <div className="elev-speed">
-        <span className="elev-speed-label">speed</span>
+        <span className="elev-speed-label"><ScrambleText text="speed" duration={600} /></span>
         <div className="elev-speed-row">
           {SPEED_PRESETS.map((s, i) => (
             <button
