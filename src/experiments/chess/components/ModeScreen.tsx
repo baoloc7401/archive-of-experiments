@@ -2,10 +2,8 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { GameMode, SkillLevel } from '../types';
 import { DEFAULT_SKILL, SKILL_LEVELS, SKILL_PIECES } from '../ai/skill';
-import LangToggle from '../../../components/LangToggle';
-import ThemeToggle from '../../../components/ThemeToggle';
+import ExperimentHeader from '../../../components/ExperimentHeader';
 import ScrambleText from '../../../components/ScrambleText';
-import { useTheme } from '../../../hooks/useTheme';
 
 interface Props {
   onStart: (mode: GameMode, whiteSkill: SkillLevel, blackSkill: SkillLevel) => void;
@@ -13,7 +11,6 @@ interface Props {
 
 export function ModeScreen({ onStart }: Props) {
   const { t } = useTranslation();
-  const { theme, toggle } = useTheme();
   const [pickedMode, setPickedMode] = useState<GameMode | null>(null);
   const [whiteSkill, setWhiteSkill] = useState<SkillLevel>(DEFAULT_SKILL);
   const [blackSkill, setBlackSkill] = useState<SkillLevel>(DEFAULT_SKILL);
@@ -35,13 +32,8 @@ export function ModeScreen({ onStart }: Props) {
 
   return (
     <div className="chess-page">
-      <div className="chess-back-row">
-        <a href={import.meta.env.BASE_URL} className="chess-back"><ScrambleText text={t('chess.back')} duration={600} /></a>
-        <div className="chess-back-row-controls">
-          <LangToggle />
-          <ThemeToggle theme={theme} onToggle={toggle} />
-        </div>
-      </div>
+      <ExperimentHeader title="chess" />
+      <div className="chess-content">
       <div className="chess-mode-screen">
         <div className="chess-mode-title">
           <span className="chess-title-text"><ScrambleText text="chess" duration={600} /></span>
@@ -106,6 +98,7 @@ export function ModeScreen({ onStart }: Props) {
             </div>
           </div>
         )}
+      </div>
       </div>
     </div>
   );

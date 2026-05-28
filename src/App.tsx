@@ -202,16 +202,8 @@ export default function App() {
       el!.style.setProperty("--mx", `${e.clientX - rect.left}px`);
       el!.style.setProperty("--my", `${e.clientY - rect.top}px`);
     }
-    function onLeave() {
-      el!.style.setProperty("--mx", `50%`);
-      el!.style.setProperty("--my", `50%`);
-    }
     el.addEventListener("mousemove", onMove);
-    el.addEventListener("mouseleave", onLeave);
-    return () => {
-      el.removeEventListener("mousemove", onMove);
-      el.removeEventListener("mouseleave", onLeave);
-    };
+    return () => el.removeEventListener("mousemove", onMove);
   }, []);
 
   // Scroll progress bar

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import ScrambleText from '../../../components/ScrambleText';
 import type { LogEntry, SimState } from '../types';
 import { ALGORITHM_BY_ID } from '../constants';
@@ -27,6 +28,7 @@ function buildClipboardText(state: SimState, speedLabel: string): string {
 }
 
 export default function History({ state, speedLabel }: Props) {
+  const { t } = useTranslation();
   const listRef = useRef<HTMLDivElement | null>(null);
   const [copied, setCopied] = useState(false);
 
@@ -60,7 +62,7 @@ export default function History({ state, speedLabel }: Props) {
   return (
     <div className="elev-history">
       <div className="elev-history-head">
-        <span><ScrambleText text="history" duration={600} /></span>
+        <span><ScrambleText text={t('experiments.elevator.history')} duration={600} /></span>
         <div className="elev-history-actions">
           <span className="elev-history-count">{state.log.length}</span>
           <button
@@ -69,13 +71,18 @@ export default function History({ state, speedLabel }: Props) {
             onClick={copy}
             disabled={state.log.length === 0}
           >
-            <ScrambleText text={copied ? '✓ copied' : 'copy'} duration={600} />
+            <ScrambleText
+              text={copied ? t('experiments.elevator.copied') : t('experiments.elevator.copy')}
+              duration={600}
+            />
           </button>
         </div>
       </div>
       <div className="elev-history-list" ref={listRef}>
         {state.log.length === 0 ? (
-          <div className="elev-history-empty"><ScrambleText text="no events yet — make a call" duration={600} /></div>
+          <div className="elev-history-empty">
+            <ScrambleText text={t('experiments.elevator.no_events')} duration={600} />
+          </div>
         ) : (
           /* Only the most recent slice is rendered to keep per-tick re-renders
              cheap in compare mode; `copy` still exports the full log. */

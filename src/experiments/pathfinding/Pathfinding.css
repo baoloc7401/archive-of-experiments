@@ -50,51 +50,10 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: var(--bg);
+  background:
+    radial-gradient(60% 50% at 50% 0%, color-mix(in srgb, var(--accent2) 10%, transparent), transparent 60%),
+    var(--bg);
   color: var(--text);
-}
-
-/* ── Topbar ─────────────────────────────────────────────────── */
-.pf-topbar {
-  position: sticky;
-  top: 0;
-  z-index: 20;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 0 1.5rem;
-  height: 52px;
-  border-bottom: 1px solid var(--border);
-  background: var(--bg);
-}
-
-.pf-back {
-  font-size: 0.72rem;
-  color: var(--text-dim);
-  letter-spacing: 0.06em;
-  transition: color 0.15s;
-  white-space: nowrap;
-}
-.pf-back:hover { color: var(--accent); }
-
-.pf-topbar-center {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-}
-
-.pf-topbar-title {
-  font-size: 0.88rem;
-  color: var(--text-hi);
-  letter-spacing: 0.06em;
-}
-
-.pf-topbar-step {
-  font-size: 0.75rem;
-  color: var(--text-dim);
-  letter-spacing: 0.04em;
 }
 
 /* ── Content ─────────────────────────────────────────────────── */

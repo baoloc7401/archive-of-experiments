@@ -5,9 +5,7 @@ import { makeDefaultGrid, computeTerrainWeights } from './maze';
 import AlgorithmSelect from './components/AlgorithmSelect';
 import MazeBuilder from './components/MazeBuilder';
 import Run from './components/Run';
-import ThemeToggle from '../../components/ThemeToggle';
-import ScrambleText from '../../components/ScrambleText';
-import { useTheme } from '../../hooks/useTheme';
+import ExperimentHeader from '../../components/ExperimentHeader';
 import './Pathfinding.css';
 
 // ---------------------------------------------------------------------------
@@ -57,7 +55,6 @@ function loadOptions(): MazeOptions {
 // ---------------------------------------------------------------------------
 
 export default function Pathfinding() {
-  const { theme, toggle } = useTheme();
   const [screen, setScreen] = useState<AppScreen>('algorithm-select');
   const [selected, setSelected] = useState<Set<AlgorithmId>>(loadSelected);
   const [grid, setGrid] = useState<GridConfig>(loadGrid);
@@ -101,22 +98,13 @@ export default function Pathfinding() {
 
   const STEP_LABEL: Record<AppScreen, string> = {
     'algorithm-select': '',
-    'maze-builder': '/ maze builder',
-    run: '/ run',
+    'maze-builder': 'maze builder',
+    run: 'run',
   };
 
   return (
     <div className="pf-page">
-      <div className="pf-topbar">
-        <a href={import.meta.env.BASE_URL} className="pf-back"><ScrambleText text="← experiments" duration={600} /></a>
-        <div className="pf-topbar-center">
-          <span className="pf-topbar-title"><ScrambleText text="pathfinding" duration={600} /></span>
-          {STEP_LABEL[screen] && (
-            <span className="pf-topbar-step"><ScrambleText text={STEP_LABEL[screen]} duration={600} /></span>
-          )}
-        </div>
-        <ThemeToggle theme={theme} onToggle={toggle} />
-      </div>
+      <ExperimentHeader title="pathfinding" subtitle={STEP_LABEL[screen] || undefined} />
 
       <div className="pf-content">
         {screen === 'algorithm-select' && (

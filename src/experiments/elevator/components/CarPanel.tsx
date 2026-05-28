@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import ScrambleText from '../../../components/ScrambleText';
 import type { ElevatorRequest, SimState } from '../types';
 
@@ -9,6 +10,7 @@ interface Props {
 }
 
 export default function CarPanel({ state, activeCalls, onCarCall }: Props) {
+  const { t } = useTranslation();
   const carFloors = useMemo(() => {
     const set = new Set<number>();
     for (const r of activeCalls) if (r.origin === 'car') set.add(r.floor);
@@ -26,7 +28,9 @@ export default function CarPanel({ state, activeCalls, onCarCall }: Props) {
   return (
     <div className="elev-cop">
       <div className="elev-cop-head">
-        <span className="elev-cop-title"><ScrambleText text="car panel" duration={600} /></span>
+        <span className="elev-cop-title">
+          <ScrambleText text={t('experiments.elevator.cop_label')} duration={600} />
+        </span>
         <span className="elev-cop-readout">
           <span className="elev-cop-readout-num">{readout}</span>
           <span className="elev-cop-readout-dir">{dirGlyph}</span>
@@ -42,7 +46,7 @@ export default function CarPanel({ state, activeCalls, onCarCall }: Props) {
               type="button"
               className={`elev-cop-btn${lit ? ' elev-cop-btn--lit' : ''}${here ? ' elev-cop-btn--here' : ''}`}
               onClick={() => onCarCall(f)}
-              aria-label={`go to floor ${f}`}
+              aria-label={t('experiments.elevator.go_to_floor', { n: f })}
               aria-pressed={lit}
             >
               {f}
@@ -51,7 +55,10 @@ export default function CarPanel({ state, activeCalls, onCarCall }: Props) {
         })}
       </div>
       <div className="elev-cop-hint">
-        <ScrambleText text={single ? 'press a floor — like standing inside the cab' : 'destinations apply to every car'} duration={600} />
+        <ScrambleText
+          text={single ? t('experiments.elevator.cop_hint_single') : t('experiments.elevator.cop_hint_multi')}
+          duration={600}
+        />
       </div>
     </div>
   );

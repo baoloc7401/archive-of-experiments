@@ -54,7 +54,4 @@ export interface SimState {
 export interface AlgorithmInfo {
   id: AlgorithmId;
   name: string;
-  short: string;
-  tagline: string;
-  description: string;
 }

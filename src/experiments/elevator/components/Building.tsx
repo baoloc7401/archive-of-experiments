@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import ScrambleText from '../../../components/ScrambleText';
 import type { ElevatorRequest, ElevatorState, RequestOrigin, SimState } from '../types';
 import { ALGORITHM_BY_ID, SHAFT_COLORS } from '../constants';
@@ -17,6 +18,7 @@ interface Props {
 }
 
 export default function Building({ state, activeCalls, tickMs, onHallCall }: Props) {
+  const { t } = useTranslation();
   // Shared hall-call panel reflects the master workload (union across cars).
   const callsByFloor = useMemo(() => {
     const map = new Map<number, FloorCalls>();
@@ -39,9 +41,11 @@ export default function Building({ state, activeCalls, tickMs, onHallCall }: Pro
   } as React.CSSProperties;
 
   return (
-    <div className="elev-building" style={buildingStyle} aria-label="elevator building">
+    <div className="elev-building" style={buildingStyle} aria-label={t('experiments.elevator.building_label')}>
       <div className="elev-axis">
-        <div className="elev-axis-head" aria-hidden="true"><ScrambleText text="floor" duration={600} /></div>
+        <div className="elev-axis-head" aria-hidden="true">
+          <ScrambleText text={t('experiments.elevator.floor')} duration={600} />
+        </div>
         <div className="elev-floors">
           {floors.map(f => {
             const calls = callsByFloor.get(f);
@@ -51,17 +55,17 @@ export default function Building({ state, activeCalls, tickMs, onHallCall }: Pro
                 <span className="elev-floor-num">{String(f).padStart(2, '0')}</span>
                 <span
                   className={`elev-floor-car-tag${calls?.car ? ' elev-floor-car-tag--on' : ''}`}
-                  title="destination set from inside the car"
+                  title={t('experiments.elevator.car_dest_tag')}
                 >
-                  <ScrambleText text="car" duration={600} />
+                  <ScrambleText text={t('experiments.elevator.car')} duration={600} />
                 </span>
-                <div className="elev-hall" aria-label={`hall call panel, floor ${f}`}>
+                <div className="elev-hall" aria-label={t('experiments.elevator.hall_panel_label', { n: f })}>
                   {f < top && (
                     <button
                       type="button"
                       className={`elev-hall-btn elev-hall-btn--up${calls?.up ? ' elev-hall-btn--on' : ''}`}
                       onClick={() => onHallCall(f, 'hall-up')}
-                      aria-label={`call elevator going up from floor ${f}`}
+                      aria-label={t('experiments.elevator.call_up', { n: f })}
                       aria-pressed={!!calls?.up}
                     >
                       ▲
@@ -72,7 +76,7 @@ export default function Building({ state, activeCalls, tickMs, onHallCall }: Pro
                       type="button"
                       className={`elev-hall-btn elev-hall-btn--down${calls?.down ? ' elev-hall-btn--on' : ''}`}
                       onClick={() => onHallCall(f, 'hall-down')}
-                      aria-label={`call elevator going down from floor ${f}`}
+                      aria-label={t('experiments.elevator.call_down', { n: f })}
                       aria-pressed={!!calls?.down}
                     >
                       ▼
