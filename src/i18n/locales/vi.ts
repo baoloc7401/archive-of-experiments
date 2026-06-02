@@ -75,6 +75,16 @@ const vi = {
     theme_dark: "Chuyển sang chế độ tối",
     lang_switch: "Đổi ngôn ngữ",
   },
+  header: {
+    back: "← thí nghiệm",
+    already_here: [
+      "bạn đang ở đây rồi mà ¯\\_(ツ)_/¯",
+      "ĐÂY chính là trang đó (・_・)",
+      "cố làm gì, bạn ở đây rồi ( ͡° ͜ʖ ͡°)",
+      "không thể \"ở đây\" hơn được nữa đâu (╯°□°)╯",
+      "đang dịch chuyển bạn tới… à mà cũng chỗ này",
+    ],
+  },
   experiments: {
     chess: {
       title: "Cờ Vua",
@@ -95,6 +105,102 @@ const vi = {
       title: "Lập Lịch Thang Máy",
       description:
         "FCFS, SSTF, SCAN, LOOK, C-SCAN, C-LOOK — xem các thuật toán lập lịch đĩa cưỡi thang máy.",
+      algo_label: "thuật toán lập lịch thang máy",
+      outside: "bên ngoài",
+      inside: "bên trong",
+      hall_calls_one: "gọi tầng — bấm ▲ / ▼ để gọi cabin",
+      hall_calls_other: "gọi tầng — bấm ▲ / ▼ để gọi các cabin",
+      cop_label: "bảng cabin",
+      cop_desc: "bảng cabin — chọn đích đến",
+      cop_hint_single: "bấm một tầng — như đang đứng trong cabin",
+      cop_hint_multi: "đích áp dụng cho mọi cabin",
+      go_to_floor: "đến tầng {{n}}",
+      comparison_mode: "chế độ so sánh",
+      comparison_intro:
+        "{{algos}} — cùng yêu cầu, các cabin riêng. xem bảng để biết thuật toán nào thắng.",
+      compare_count: "so sánh ×{{n}}",
+      hint: "người ngoài bấm nút tầng; người trong dùng bảng cabin. bật so sánh (hoặc giữ ⌃/⌘) để chạy đua các thuật toán trên cùng yêu cầu.",
+      compare: "so sánh",
+      compare_hint_add: "bấm để thêm/bớt",
+      compare_hint_hold: "hoặc giữ ⌃/⌘",
+      compare_tooltip: "Chạy nhiều thuật toán song song trên cùng yêu cầu",
+      play: "▶ chạy",
+      pause: "⏸ tạm dừng",
+      reset: "↺ đặt lại",
+      random: "✦ ngẫu nhiên",
+      clear: "⌫ xóa",
+      speed: "tốc độ",
+      outstanding_calls: "yêu cầu đang chờ",
+      no_pending: "không có yêu cầu chờ",
+      hall_up_label: "gọi tầng, đi lên",
+      hall_down_label: "gọi tầng, đi xuống",
+      car_dest_label: "đích từ trong cabin",
+      floor: "tầng",
+      car: "cab",
+      car_dest_tag: "đích đặt từ bên trong cabin",
+      hall_panel_label: "bảng gọi tầng, tầng {{n}}",
+      call_up: "gọi thang máy đi lên từ tầng {{n}}",
+      call_down: "gọi thang máy đi xuống từ tầng {{n}}",
+      building_label: "tòa nhà thang máy",
+      floors_traveled: "tầng đã đi",
+      served: "đã phục vụ",
+      pending: "đang chờ",
+      avg_wait: "chờ TB",
+      max_wait: "chờ lâu nhất",
+      reversals: "lần đổi chiều",
+      comparison: "so sánh",
+      lower_better: "thấp hơn = tốt hơn",
+      history: "lịch sử",
+      copy: "sao chép",
+      copied: "✓ đã chép",
+      no_events: "chưa có sự kiện — hãy tạo yêu cầu",
+      algos: {
+        fcfs: {
+          short: "đến trước phục vụ trước",
+          tagline: "công bằng nhưng lười",
+          description:
+            "Phục vụ yêu cầu theo đúng thứ tự được tạo. Đơn giản, dễ đoán, nhưng bỏ qua hình học — thang có thể chạy zigzag.",
+        },
+        sstf: {
+          short: "thời gian seek ngắn nhất",
+          tagline: "tham lam & vội vàng",
+          description:
+            "Luôn chọn yêu cầu gần nhất. Trung bình nhanh nhưng có thể bỏ đói các tầng xa khi liên tục có yêu cầu gần.",
+        },
+        scan: {
+          short: "quét kinh điển",
+          tagline: "đến tận tường",
+          description:
+            "Đi tới đầu này, rồi đảo chiều — như cần gạt mưa. Luôn chạm biên dù không ai ở đó.",
+        },
+        look: {
+          short: "quét nhưng thông minh hơn",
+          tagline: "quay đầu khi không còn ai phía trên",
+          description:
+            "Giống SCAN, nhưng đảo chiều tại yêu cầu cuối cùng thay vì biên tòa nhà. Thuật toán thường gặp.",
+        },
+        "c-scan": {
+          short: "SCAN vòng",
+          tagline: "một chiều tốc hành",
+          description:
+            "Chỉ phục vụ khi đi lên. Lên đỉnh xong chạy thẳng xuống tầng trệt (không phục vụ ai), rồi quét lên lại. Thời gian chờ công bằng hơn.",
+        },
+        "c-look": {
+          short: "LOOK vòng",
+          tagline: "quay về yêu cầu thấp nhất",
+          description:
+            "Giống C-SCAN nhưng bỏ chuyến chạy chết đến biên. Sau khi phục vụ yêu cầu cao nhất, chạy thẳng xuống yêu cầu thấp nhất, rồi quét lên.",
+        },
+      },
+    },
+    aco: {
+      title: "Tối Ưu Đàn Kiến",
+      description:
+        "Đàn kiến ảo để lại vệt pheromone, dần hội tụ về hành trình ngắn cho bài toán Người Giao Hàng (TSP).",
+      tagline: "trí tuệ bầy đàn, đường đi tự hiện",
+      intro:
+        "Mỗi con kiến dựng một hành trình, thiên về pheromone (đã học) và khoảng cách (tham lam). Hành trình ngắn được củng cố; mọi vệt đều bay hơi. Cả đàn hội tụ về vòng gần tối ưu mà không con kiến đơn lẻ nào tự vạch được.",
+      hint: "xem mạng pheromone xanh sắc lại thành hành trình tốt nhất màu tím. kéo thanh trượt trực tiếp: α cao đi theo số đông, β cao bám cạnh ngắn, ρ điều khiển sự lãng quên. bấm vào bảng để thêm thành phố.",
     },
     "binary-tree": {
       title: "Khám Phá Cây Nhị Phân",

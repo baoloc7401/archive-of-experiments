@@ -1,7 +1,8 @@
 import { useTranslation } from "react-i18next";
 import type { CSSProperties } from "react";
 import "./FilterBar.css";
-import ScrambleText, { useScrambledText } from "./ScrambleText";
+import ScrambleText from "./ScrambleText";
+import { useScrambledText } from "./useScrambledText";
 import type { ExperimentStatus } from "../experiments";
 
 const SCRAMBLE_DURATION = 600;

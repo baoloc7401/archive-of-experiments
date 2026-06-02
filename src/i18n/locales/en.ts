@@ -74,6 +74,16 @@ const en = {
     theme_dark: "Switch to dark mode",
     lang_switch: "Switch language",
   },
+  header: {
+    back: "← experiments",
+    already_here: [
+      "you are already here ¯\\_(ツ)_/¯",
+      "this IS the page (・_・)",
+      "nice try, you're already here ( ͡° ͜ʖ ͡°)",
+      "you can't go more here than this (╯°□°)╯",
+      "teleporting you to… oh wait, same spot",
+    ],
+  },
   experiments: {
     chess: {
       title: "Chess",
@@ -93,6 +103,102 @@ const en = {
       title: "Elevator Scheduling",
       description:
         "FCFS, SSTF, SCAN, LOOK, C-SCAN, C-LOOK — watch each disk-scheduling cousin ride the building.",
+      algo_label: "elevator scheduling algorithm",
+      outside: "outside",
+      inside: "inside",
+      hall_calls_one: "hall calls — press ▲ / ▼ to summon the car",
+      hall_calls_other: "hall calls — press ▲ / ▼ to summon the cars",
+      cop_label: "car panel",
+      cop_desc: "car panel — pick your destination",
+      cop_hint_single: "press a floor — like standing inside the cab",
+      cop_hint_multi: "destinations apply to every car",
+      go_to_floor: "go to floor {{n}}",
+      comparison_mode: "comparison mode",
+      comparison_intro:
+        "{{algos}} — same calls, separate cars. watch the stats table to see who wins.",
+      compare_count: "compare ×{{n}}",
+      hint: "outside riders tap the hall buttons; inside riders use the car panel. toggle compare (or hold ⌃/⌘) to race algorithms on the same calls.",
+      compare: "compare",
+      compare_hint_add: "click to add/remove",
+      compare_hint_hold: "or hold ⌃/⌘",
+      compare_tooltip: "Run several algorithms side by side on the same calls",
+      play: "▶ play",
+      pause: "⏸ pause",
+      reset: "↺ reset",
+      random: "✦ random",
+      clear: "⌫ clear",
+      speed: "speed",
+      outstanding_calls: "outstanding calls",
+      no_pending: "no pending calls",
+      hall_up_label: "hall call, going up",
+      hall_down_label: "hall call, going down",
+      car_dest_label: "in-car destination",
+      floor: "floor",
+      car: "car",
+      car_dest_tag: "destination set from inside the car",
+      hall_panel_label: "hall call panel, floor {{n}}",
+      call_up: "call elevator going up from floor {{n}}",
+      call_down: "call elevator going down from floor {{n}}",
+      building_label: "elevator building",
+      floors_traveled: "floors traveled",
+      served: "served",
+      pending: "pending",
+      avg_wait: "avg wait",
+      max_wait: "max wait",
+      reversals: "reversals",
+      comparison: "comparison",
+      lower_better: "lower = better",
+      history: "history",
+      copy: "copy",
+      copied: "✓ copied",
+      no_events: "no events yet — make a call",
+      algos: {
+        fcfs: {
+          short: "first-come, first-served",
+          tagline: "fair but lazy",
+          description:
+            "Serves requests strictly in the order they were made. Simple, predictable, but ignores geometry — the elevator can zigzag wildly.",
+        },
+        sstf: {
+          short: "shortest seek time first",
+          tagline: "greedy & impatient",
+          description:
+            "Always picks the closest pending request. Fast on average but can starve distant floors when nearby requests keep arriving.",
+        },
+        scan: {
+          short: "the classic elevator sweep",
+          tagline: "all the way to the wall",
+          description:
+            "Travels to one end of the building, then reverses — like a windscreen wiper. Always touches the boundary even when nobody is there.",
+        },
+        look: {
+          short: "sweep, but smarter",
+          tagline: "turn back when nobody is up there",
+          description:
+            "Just like SCAN, but reverses direction at the last pending request instead of the building edge. The everyday-elevator algorithm.",
+        },
+        "c-scan": {
+          short: "circular SCAN",
+          tagline: "one-way express",
+          description:
+            "Only services requests while going up. At the top it runs non-stop straight back down to the ground floor (serving no one), then sweeps up again. Fairer wait times.",
+        },
+        "c-look": {
+          short: "circular LOOK",
+          tagline: "rewind to lowest request",
+          description:
+            "Like C-SCAN but skips the dead-zone trip to the building edge. After serving the highest pending request, it runs non-stop straight down to the lowest one, then sweeps up.",
+        },
+      },
+    },
+    aco: {
+      title: "Ant Colony Optimization",
+      description:
+        "Virtual ants lay pheromone trails to converge on short tours through the Traveling Salesman Problem.",
+      tagline: "swarm intelligence, emergent paths",
+      intro:
+        "Each ant builds a tour biased by pheromone (learned) and distance (greedy). Short tours get reinforced; every trail evaporates. The colony settles on a near-optimal loop no single ant could plan.",
+      hint: "watch the green pheromone web sharpen into the purple best tour. drag the sliders live: high α follows the crowd, high β chases short edges, ρ controls forgetting. click the board to add cities.",
     },
     "binary-tree": {
       title: "Binary Tree Explorer",

@@ -1,4 +1,5 @@
 import type { MouseEvent } from 'react';
+import { useTranslation } from 'react-i18next';
 import ScrambleText from '../../../components/ScrambleText';
 import type { AlgorithmId } from '../types';
 import { ALGORITHMS, SHAFT_COLORS } from '../constants';
@@ -14,6 +15,7 @@ interface Props {
 export default function AlgorithmPicker({
   selected, compareMode, onCompareModeChange, onSelect,
 }: Props) {
+  const { t } = useTranslation();
   const selectedSet = new Set(selected);
 
   function handleClick(e: MouseEvent, id: AlgorithmId) {
@@ -23,7 +25,7 @@ export default function AlgorithmPicker({
 
   return (
     <div className="elev-algo-bar">
-      <div className="elev-algo-picker" role="tablist" aria-label="elevator scheduling algorithm">
+      <div className="elev-algo-picker" role="tablist" aria-label={t('experiments.elevator.algo_label')}>
         {ALGORITHMS.map((algo) => {
           const active = selectedSet.has(algo.id);
           const order = active ? selected.indexOf(algo.id) + 1 : 0;
@@ -43,13 +45,15 @@ export default function AlgorithmPicker({
                 </span>
               )}
               <span className="elev-algo-pill-name"><ScrambleText text={algo.name} duration={600} /></span>
-              <span className="elev-algo-pill-tag"><ScrambleText text={algo.short} duration={600} /></span>
+              <span className="elev-algo-pill-tag">
+                <ScrambleText text={t(`experiments.elevator.algos.${algo.id}.short`)} duration={600} />
+              </span>
             </button>
           );
         })}
       </div>
 
-      <label className="elev-compare-toggle" title="Run several algorithms side by side on the same calls">
+      <label className="elev-compare-toggle" title={t('experiments.elevator.compare_tooltip')}>
         <input
           type="checkbox"
           checked={compareMode}
@@ -57,9 +61,19 @@ export default function AlgorithmPicker({
         />
         <span className="elev-compare-track"><span className="elev-compare-knob" /></span>
         <span className="elev-compare-label">
-          <ScrambleText text="compare" duration={600} />
-          {compareMode && <span className="elev-compare-hint"> · <ScrambleText text="click to add/remove" duration={600} /></span>}
-          {!compareMode && <span className="elev-compare-hint"> · <ScrambleText text="or hold ⌃/⌘" duration={600} /></span>}
+          <ScrambleText text={t('experiments.elevator.compare')} duration={600} />
+          {compareMode && (
+            <span className="elev-compare-hint">
+              {' · '}
+              <ScrambleText text={t('experiments.elevator.compare_hint_add')} duration={600} />
+            </span>
+          )}
+          {!compareMode && (
+            <span className="elev-compare-hint">
+              {' · '}
+              <ScrambleText text={t('experiments.elevator.compare_hint_hold')} duration={600} />
+            </span>
+          )}
         </span>
       </label>
     </div>

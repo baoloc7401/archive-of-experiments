@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import ScrambleText from '../../../components/ScrambleText';
 import type { SimStatus } from '../types';
 import { SPEED_PRESETS } from '../constants';
@@ -16,6 +17,7 @@ interface Props {
 export default function Controls({
   status, speedIndex, playDisabled, onSpeedChange, onPlayPause, onReset, onRandom, onClear,
 }: Props) {
+  const { t } = useTranslation();
   const isRunning = status === 'running';
 
   return (
@@ -27,22 +29,29 @@ export default function Controls({
           onClick={onPlayPause}
           disabled={playDisabled}
         >
-          <ScrambleText text={isRunning ? '⏸ pause' : '▶ play'} duration={600} />
+          <ScrambleText
+            text={isRunning ? t('experiments.elevator.pause') : t('experiments.elevator.play')}
+            duration={600}
+          />
         </button>
-        <button type="button" className="elev-btn" onClick={onReset}><ScrambleText text="↺ reset" duration={600} /></button>
+        <button type="button" className="elev-btn" onClick={onReset}>
+          <ScrambleText text={t('experiments.elevator.reset')} duration={600} />
+        </button>
       </div>
 
       <div className="elev-ctrl-row">
         <button type="button" className="elev-btn elev-btn--accent" onClick={onRandom}>
-          <ScrambleText text="✦ random" duration={600} />
+          <ScrambleText text={t('experiments.elevator.random')} duration={600} />
         </button>
         <button type="button" className="elev-btn" onClick={onClear}>
-          <ScrambleText text="⌫ clear" duration={600} />
+          <ScrambleText text={t('experiments.elevator.clear')} duration={600} />
         </button>
       </div>
 
       <div className="elev-speed">
-        <span className="elev-speed-label"><ScrambleText text="speed" duration={600} /></span>
+        <span className="elev-speed-label">
+          <ScrambleText text={t('experiments.elevator.speed')} duration={600} />
+        </span>
         <div className="elev-speed-row">
           {SPEED_PRESETS.map((s, i) => (
             <button

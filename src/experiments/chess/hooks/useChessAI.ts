@@ -17,8 +17,12 @@ interface Props {
 
 export function useChessAI({ mode, pos, status, promotionPending, paused, posHistoryRef, applyGameMove, whiteConfig, blackConfig }: Props) {
   const [thinking, setThinking] = useState(false);
+  // Keep the latest applyGameMove in a ref so async worker callbacks invoke the
+  // current closure without re-subscribing. Updated in an effect, not render.
   const applyRef = useRef(applyGameMove);
-  applyRef.current = applyGameMove;
+  useEffect(() => {
+    applyRef.current = applyGameMove;
+  });
 
   // Persistent worker: keeps the per-game TT and history heuristic between
   // searches, and runs alpha-beta off the UI thread so the board stays

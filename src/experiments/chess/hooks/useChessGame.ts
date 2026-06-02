@@ -19,13 +19,10 @@ export interface FlyingPiece {
 
 export function useChessGame(mode: GameMode | null) {
   const [pos, setPos] = useState<Position>(initialPosition());
-  const [legalMoves, setLegalMoves] = useState<Move[]>([]);
-  const [status, setStatus] = useState<GameStatus>('playing');
   const [selected, setSelected] = useState<[number, number] | null>(null);
   const [lastMove, setLastMove] = useState<Move | null>(null);
   const [history, setHistory] = useState<Move[]>([]);
   const [promotionPending, setPromotionPending] = useState<{ from: [number, number]; to: [number, number] } | null>(null);
-  const [drawReason, setDrawReason] = useState<'repetition' | '50-move' | null>(null);
   const [moveGrades, setMoveGrades] = useState<(number | undefined)[]>([]);
   const [slideInfo, setSlideInfo] = useState<SlideInfo | null>(null);
   const [castleRookSlide, setCastleRookSlide] = useState<SlideInfo | null>(null);
@@ -35,56 +32,58 @@ export function useChessGame(mode: GameMode | null) {
 
   const historyRef = useRef<HTMLDivElement>(null);
   const posHistoryRef = useRef<Map<string, number>>(new Map());
-  const posBeforeRef = useRef<Position[]>([]);
   const boardGridRef = useRef<HTMLDivElement>(null);
   const boardColRef = useRef<HTMLDivElement>(null);
   const flyIdRef = useRef(0);
 
-  // Recompute legal moves, status, and position history when position changes.
-  // Replay from history (ground truth) rather than incrementally counting —
-  // avoids double-counting in React StrictMode and is always correct.
-  useEffect(() => {
-    const moves = getLegalMoves(pos);
-    setLegalMoves(moves);
+  // Legal moves, repetition history, and game status are pure derivations of
+  // (pos, history). Replaying history from the start (rather than counting
+  // incrementally) is idempotent, so deriving during render is always correct —
+  // and immune to React StrictMode double-invocation.
+  const legalMoves = useMemo(() => getLegalMoves(pos), [pos]);
 
-    const posMap = new Map<string, number>();
-    const posArr: Position[] = [];
+  const { posMap, posArr } = useMemo(() => {
+    const map = new Map<string, number>();
+    const arr: Position[] = [];
     let p = initialPosition();
     for (const move of history) {
-      posArr.push(p);
+      arr.push(p);
       p = applyMove(p, move);
       const k = positionKey(p);
-      posMap.set(k, (posMap.get(k) ?? 0) + 1);
+      map.set(k, (map.get(k) ?? 0) + 1);
     }
+    return { posMap: map, posArr: arr };
+  }, [history]);
+
+  const [status, drawReason] = useMemo<[GameStatus, 'repetition' | '50-move' | null]>(() => {
+    if ((posMap.get(positionKey(pos)) ?? 0) >= 3) return ['draw', 'repetition'];
+    const s = getGameStatus(pos, legalMoves);
+    return [s, s === 'draw' ? '50-move' : null];
+  }, [pos, legalMoves, posMap]);
+
+  // Mirror the repetition map into a ref so the off-thread AI search can read
+  // the current history without the hook re-subscribing.
+  useEffect(() => {
     posHistoryRef.current = posMap;
-    posBeforeRef.current = posArr;
+  }, [posMap]);
 
-    const count = posMap.get(positionKey(pos)) ?? 0;
-    if (count >= 3) {
-      setStatus('draw');
-      setDrawReason('repetition');
-    } else {
-      const s = getGameStatus(pos, moves);
-      setStatus(s);
-      setDrawReason(s === 'draw' ? '50-move' : null);
-    }
-
+  // Grade the latest move once, deferred off the commit (computeGrade runs a
+  // short search). The setState lives in the timeout, never synchronously here.
+  useEffect(() => {
     const lastIdx = history.length - 1;
-    if (lastIdx >= 0) {
-      const posBefore = posArr[lastIdx];
-      const move = history[lastIdx];
-      const idx = lastIdx;
-      setTimeout(() => {
-        const grade = computeGrade(posBefore, move);
-        setMoveGrades(prev => {
-          if (prev[idx] !== undefined) return prev;
-          const next = [...prev];
-          next[idx] = grade;
-          return next;
-        });
-      }, 0);
-    }
-  }, [pos, history]);
+    if (lastIdx < 0) return;
+    const posBefore = posArr[lastIdx];
+    const move = history[lastIdx];
+    setTimeout(() => {
+      const grade = computeGrade(posBefore, move);
+      setMoveGrades(prev => {
+        if (prev[lastIdx] !== undefined) return prev;
+        const next = [...prev];
+        next[lastIdx] = grade;
+        return next;
+      });
+    }, 0);
+  }, [history, posArr]);
 
   useEffect(() => {
     if (historyRef.current) {
@@ -182,14 +181,12 @@ export function useChessGame(mode: GameMode | null) {
   function resetGame() {
     clearTT();
     posHistoryRef.current = new Map();
-    posBeforeRef.current = [];
     setPos(initialPosition());
     setSelected(null);
     setLastMove(null);
     setHistory([]);
     setMoveGrades([]);
     setPromotionPending(null);
-    setDrawReason(null);
     setSlideInfo(null);
     setCastleRookSlide(null);
     setFlyingPieces([]);

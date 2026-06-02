@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import type { GameMode, SkillLevel } from './types';
 import { DEFAULT_SKILL, SKILL_PRESETS } from './ai/skill';
@@ -11,31 +12,41 @@ import { GameControls } from './components/GameControls';
 import { MoveHistory } from './components/MoveHistory';
 import { CapturedPieces } from './components/CapturedPieces';
 import { ModeScreen } from './components/ModeScreen';
-import ThemeToggle from '../../components/ThemeToggle';
-import LangToggle from '../../components/LangToggle';
-import ScrambleText from '../../components/ScrambleText';
-import { useTheme } from '../../hooks/useTheme';
+import ExperimentHeader from '../../components/ExperimentHeader';
 import './Chess.css';
 import './chess-board.css';
 import './chess-sidebar.css';
 
+const GAME_MODES: GameMode[] = ['hvh', 'hva', 'ava'];
+const isGameMode = (m: string | undefined): m is GameMode =>
+  m !== undefined && (GAME_MODES as string[]).includes(m);
+
 export default function ChessGame() {
-  const { theme, toggle } = useTheme();
   const { t } = useTranslation();
-  const [mode, setMode] = useState<GameMode | null>(null);
+  const navigate = useNavigate();
+  const { mode: modeParam } = useParams();
+  const mode: GameMode | null = isGameMode(modeParam) ? modeParam : null;
   const [whiteSkill, setWhiteSkill] = useState<SkillLevel>(DEFAULT_SKILL);
   const [blackSkill, setBlackSkill] = useState<SkillLevel>(DEFAULT_SKILL);
   const [paused, setPaused] = useState(false);
 
-  const game = useChessGame(mode);
+  const {
+    pos, status, selected, lastMove, history,
+    promotionPending, drawReason, moveGrades, slideInfo, castleRookSlide,
+    flyingPieces, copied, copyGrades, setCopyGrades,
+    historyRef, posHistoryRef, boardGridRef, boardColRef,
+    moveTos, checkKingSq, isGameOver, rounds,
+    whiteCaptured, blackCaptured, materialAdv,
+    handleSquareClick: selectSquare, handlePromotion, resetGame, applyGameMove, copyHistory,
+  } = useChessGame(mode);
   const { thinking, stepAI, clearAI } = useChessAI({
     mode,
-    pos: game.pos,
-    status: game.status,
-    promotionPending: game.promotionPending,
+    pos,
+    status,
+    promotionPending,
     paused,
-    posHistoryRef: game.posHistoryRef,
-    applyGameMove: game.applyGameMove,
+    posHistoryRef,
+    applyGameMove,
     whiteConfig: SKILL_PRESETS[whiteSkill],
     blackConfig: SKILL_PRESETS[blackSkill],
   });
@@ -43,64 +54,66 @@ export default function ChessGame() {
   function handleStart(m: GameMode, w: SkillLevel, b: SkillLevel) {
     setWhiteSkill(w);
     setBlackSkill(b);
-    setMode(m);
+    navigate(`/experiments/chess/${m}`);
   }
 
+  // An unrecognized mode in the URL falls back to the mode picker.
+  if (modeParam !== undefined && !isGameMode(modeParam)) {
+    return <Navigate to="/experiments/chess" replace />;
+  }
   if (!mode) return <ModeScreen onStart={handleStart} />;
 
   function handleReset() {
-    game.resetGame();
+    resetGame();
     clearAI();
     setPaused(false);
   }
 
   function handleSquareClick(r: number, c: number) {
     if (thinking) return;
-    game.handleSquareClick(r, c);
+    selectSquare(r, c);
   }
 
   const statusLine = {
     playing:   '',
     check:     t('chess.status.check'),
-    checkmate: game.pos.turn === 'w' ? t('chess.status.black_wins') : t('chess.status.white_wins'),
+    checkmate: pos.turn === 'w' ? t('chess.status.black_wins') : t('chess.status.white_wins'),
     stalemate: t('chess.status.stalemate'),
-    draw:      game.drawReason === 'repetition' ? t('chess.status.draw_repetition') : t('chess.status.draw_50move'),
-  }[game.status];
+    draw:      drawReason === 'repetition' ? t('chess.status.draw_repetition') : t('chess.status.draw_50move'),
+  }[status];
 
   return (
     <div className="chess-page">
-      <div className="chess-topbar">
-        <a href={import.meta.env.BASE_URL} className="chess-back"><ScrambleText text={t('chess.back')} duration={600} /></a>
-        <div className="chess-topbar-title"><ScrambleText text="chess" duration={600} /></div>
-        <div className="chess-topbar-mode"><ScrambleText text={t(`chess.modes.${mode}`)} duration={600} /></div>
-        <div className="chess-topbar-controls">
-          <LangToggle />
-          <ThemeToggle theme={theme} onToggle={toggle} />
-        </div>
-      </div>
+      <ExperimentHeader
+        crumbs={[
+          { label: 'chess', to: '/experiments/chess' },
+          { label: t(`chess.modes.${mode}`).toLowerCase(), to: `/experiments/chess/${mode}` },
+        ]}
+      />
 
-      <div className="chess-layout">
-        <div className="chess-board-col" ref={game.boardColRef}>
+      <div className="chess-content">
+        <div className="chess-layout">
+        <div className="chess-board-col" ref={boardColRef}>
           <div className="chess-board-area">
             <Board
-              pos={game.pos}
-              selected={game.selected}
-              lastMove={game.lastMove}
-              moveTos={game.moveTos}
-              checkKingSq={game.checkKingSq}
-              slideInfo={game.slideInfo}
-              castleRookSlide={game.castleRookSlide}
-              historyLength={game.history.length}
-              boardGridRef={game.boardGridRef}
+              pos={pos}
+              selected={selected}
+              lastMove={lastMove}
+              moveTos={moveTos}
+              checkKingSq={checkKingSq}
+              slideInfo={slideInfo}
+              castleRookSlide={castleRookSlide}
+              historyLength={history.length}
+              boardGridRef={boardGridRef}
               onSquareClick={handleSquareClick}
             />
-            {game.promotionPending && (
-              <PromotionDialog turn={game.pos.turn} onPromote={game.handlePromotion} />
+            {promotionPending && (
+              <PromotionDialog turn={pos.turn} onPromote={handlePromotion} />
             )}
           </div>
 
           <div className="chess-anim-overlay">
-            {game.flyingPieces.map(fp => (
+            {flyingPieces.map(fp => (
               <div
                 key={fp.id}
                 className="chess-flying-piece"
@@ -117,40 +130,41 @@ export default function ChessGame() {
           </div>
 
           <CapturedPieces
-            whiteCaptured={game.whiteCaptured}
-            blackCaptured={game.blackCaptured}
-            materialAdv={game.materialAdv}
+            whiteCaptured={whiteCaptured}
+            blackCaptured={blackCaptured}
+            materialAdv={materialAdv}
           />
         </div>
 
         <aside className="chess-sidebar">
           <PlayerStatus
-            status={game.status}
-            turn={game.pos.turn}
+            status={status}
+            turn={pos.turn}
             thinking={thinking}
-            isGameOver={game.isGameOver}
+            isGameOver={isGameOver}
             drawLine={statusLine}
           />
           <GameControls
             mode={mode}
-            isGameOver={game.isGameOver}
+            isGameOver={isGameOver}
             paused={paused}
             thinking={thinking}
             onReset={handleReset}
-            onModeBack={() => { handleReset(); setMode(null); }}
+            onModeBack={() => { handleReset(); navigate('/experiments/chess'); }}
             onPauseToggle={() => setPaused(p => !p)}
             onStep={stepAI}
           />
           <MoveHistory
-            rounds={game.rounds}
-            moveGrades={game.moveGrades}
-            copied={game.copied}
-            copyGrades={game.copyGrades}
-            onToggleCopyGrades={game.setCopyGrades}
-            historyRef={game.historyRef}
-            onCopy={game.copyHistory}
+            rounds={rounds}
+            moveGrades={moveGrades}
+            copied={copied}
+            copyGrades={copyGrades}
+            onToggleCopyGrades={setCopyGrades}
+            historyRef={historyRef}
+            onCopy={copyHistory}
           />
         </aside>
+        </div>
       </div>
     </div>
   );

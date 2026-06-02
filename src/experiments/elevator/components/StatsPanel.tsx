@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import ScrambleText from '../../../components/ScrambleText';
 import type { ElevatorState, SimState } from '../types';
 import { ALGORITHM_BY_ID, SHAFT_COLORS } from '../constants';
@@ -35,6 +36,7 @@ function metricsFor(el: ElevatorState, tick: number): Metrics {
 }
 
 export default function StatsPanel({ state }: Props) {
+  const { t } = useTranslation();
   const rows = useMemo(
     () => state.elevators.map(el => metricsFor(el, state.tick)),
     [state.elevators, state.tick],
@@ -43,12 +45,12 @@ export default function StatsPanel({ state }: Props) {
   if (rows.length === 1) {
     const m = rows[0];
     const cards: [string, string][] = [
-      [String(m.travel), 'floors traveled'],
-      [String(m.served), 'served'],
-      [String(m.pending), 'pending'],
-      [m.avgWait ? m.avgWait.toFixed(1) : '–', 'avg wait'],
-      [m.maxWait ? String(m.maxWait) : '–', 'max wait'],
-      [String(m.reversals), 'reversals'],
+      [String(m.travel), t('experiments.elevator.floors_traveled')],
+      [String(m.served), t('experiments.elevator.served')],
+      [String(m.pending), t('experiments.elevator.pending')],
+      [m.avgWait ? m.avgWait.toFixed(1) : '–', t('experiments.elevator.avg_wait')],
+      [m.maxWait ? String(m.maxWait) : '–', t('experiments.elevator.max_wait')],
+      [String(m.reversals), t('experiments.elevator.reversals')],
     ];
     return (
       <div className="elev-stats">
@@ -70,8 +72,10 @@ export default function StatsPanel({ state }: Props) {
   return (
     <div className="elev-cmp">
       <div className="elev-cmp-head">
-        <span><ScrambleText text="comparison" duration={600} /></span>
-        <span className="elev-cmp-hint"><ScrambleText text="lower = better" duration={600} /></span>
+        <span><ScrambleText text={t('experiments.elevator.comparison')} duration={600} /></span>
+        <span className="elev-cmp-hint">
+          <ScrambleText text={t('experiments.elevator.lower_better')} duration={600} />
+        </span>
       </div>
       <div className="elev-cmp-table" role="table">
         <div className="elev-cmp-row elev-cmp-row--head" role="row">
