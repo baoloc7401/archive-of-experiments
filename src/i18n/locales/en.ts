@@ -184,6 +184,15 @@ const en = {
         },
       },
     },
+    aco: {
+      title: "Ant Colony Optimization",
+      description:
+        "Virtual ants lay pheromone trails to converge on short tours through the Traveling Salesman Problem.",
+      tagline: "swarm intelligence, emergent paths",
+      intro:
+        "Each ant builds a tour biased by pheromone (learned) and distance (greedy). Short tours get reinforced; every trail evaporates. The colony settles on a near-optimal loop no single ant could plan.",
+      hint: "watch the green pheromone web sharpen into the purple best tour. drag the sliders live: high α follows the crowd, high β chases short edges, ρ controls forgetting. click the board to add cities.",
+    },
     "binary-tree": {
       title: "Binary Tree Explorer",
       description:

@@ -186,6 +186,15 @@ const vi = {
         },
       },
     },
+    aco: {
+      title: "Tối Ưu Đàn Kiến",
+      description:
+        "Đàn kiến ảo để lại vệt pheromone, dần hội tụ về hành trình ngắn cho bài toán Người Giao Hàng (TSP).",
+      tagline: "trí tuệ bầy đàn, đường đi tự hiện",
+      intro:
+        "Mỗi con kiến dựng một hành trình, thiên về pheromone (đã học) và khoảng cách (tham lam). Hành trình ngắn được củng cố; mọi vệt đều bay hơi. Cả đàn hội tụ về vòng gần tối ưu mà không con kiến đơn lẻ nào tự vạch được.",
+      hint: "xem mạng pheromone xanh sắc lại thành hành trình tốt nhất màu tím. kéo thanh trượt trực tiếp: α cao đi theo số đông, β cao bám cạnh ngắn, ρ điều khiển sự lãng quên. bấm vào bảng để thêm thành phố.",
+    },
     "binary-tree": {
       title: "Khám Phá Cây Nhị Phân",
       description:

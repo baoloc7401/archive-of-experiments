@@ -5,13 +5,13 @@ Guidance for Claude Code working in this repo.
 ## Commands
 
 ```bash
-npm run dev        # Vite dev server
+npm run dev        # Vite dev server — NEVER run this; the user runs it themselves
 npm run build      # tsc + vite build
-npm run lint       # ESLint
+npm run lint       # ESLint (lints .ts/.tsx/.js/.jsx)
 npx tsc --noEmit   # type-check only
 ```
 
-No tests. Run `npx tsc --noEmit && npm run build` before committing.
+No tests. Run `npx tsc --noEmit && npm run build` before committing. **Never run `npm run dev`** — it's a long-running server the user manages, not yours to start.
 
 ## Git
 
@@ -53,7 +53,7 @@ Topbar pattern: sticky bar with `← experiments` link (`href="/"`), title, `<Th
 
 ## ScrambleText
 
-Wrap visible UI text from [src/components/ScrambleText.tsx](src/components/ScrambleText.tsx) when i18n-driven or mutating. Re-animates on `text` prop change. Default: `<ScrambleText text={...} duration={600} />`. For attribute values (e.g. `placeholder`), use `useScrambledText` hook.
+Wrap visible UI text from [src/components/ScrambleText.tsx](src/components/ScrambleText.tsx) when i18n-driven or mutating. Re-animates on `text` prop change. Default: `<ScrambleText text={...} duration={600} />`. For attribute values (e.g. `placeholder`), use the `useScrambledText` hook from [src/components/useScrambledText.ts](src/components/useScrambledText.ts).
 
 **Wrap:** `t(...)` text nodes; toggling labels (play/pause, copy/copied); per-iteration text from runtime data (algorithm names).
 
@@ -61,6 +61,7 @@ Wrap visible UI text from [src/components/ScrambleText.tsx](src/components/Scram
 
 ## Code rules
 
+- **Never use `eslint-disable` (any form) to silence a warning.** Fix the underlying issue. ESLint runs the strict react-hooks v7 set (`refs`, `set-state-in-effect`, `purity`, `exhaustive-deps`) on all `.ts`/`.tsx`; treat its findings as real and resolve them in code. `npm run lint` must pass with zero warnings.
 - TS strict, no `any`. No default-export for types — use `export type`.
 - Static propless JSX → JSX constants, not function components.
 - Headings: `<h1>` hero, `<h2>` cards.

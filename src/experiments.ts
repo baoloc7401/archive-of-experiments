@@ -33,6 +33,12 @@ export const experiments: Experiment[] = [
     path: "/experiments/elevator",
   },
   {
+    id: "aco",
+    tags: ["algorithms", "AI", "simulation", "visualization"],
+    status: "active",
+    path: "/experiments/aco",
+  },
+  {
     id: "binary-tree",
     tags: ["data structures", "trees"],
     status: "planned",
