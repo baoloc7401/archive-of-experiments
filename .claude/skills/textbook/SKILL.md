@@ -48,6 +48,20 @@ and [`docs/aco/TEXTBOOK.md`](../../../docs/aco/TEXTBOOK.md).
    needs no build. Re-check that code links resolve and constants match.
 5. **Maintain.** End with a one-line maintenance note tying sections to the code
    they describe.
+6. **Always sync the wiki.** After finishing (or materially updating) a
+   `TEXTBOOK.md`, update the staged wiki pages in [`wiki/`](../../../wiki/) so
+   the human-facing portal stays in step with the code-adjacent doc. Minimum
+   set to touch:
+   - `wiki/Home.md` — the "Experiment status" table's *Research docs* column
+     for that experiment should list `TEXTBOOK` alongside ISSUES/IMPROVEMENT.
+   - `wiki/Experiment-<Name>.md` — add (or refresh) a deep-dive link to the
+     new `TEXTBOOK.md`; while you're there, sanity-check the prose summary
+     against what the TEXTBOOK actually says.
+   - `wiki/Documentation-Conventions.md` — flip the TEXTBOOK column for that
+     experiment from `—` to a ✓ pointing at the new doc.
+   The wiki itself is published with [`scripts/sync-wiki.ps1`](../../../scripts/sync-wiki.ps1)
+   — do not run it; the user does. Just commit the `wiki/` edits with the
+   `docs/<id>/TEXTBOOK.md` change so they ship together.
 
 ## House style (match the two examples exactly)
 
