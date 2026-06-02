@@ -10,6 +10,11 @@ import { makeDefaultGrid, generateMaze, computeTerrainWeights } from '../maze';
 
 const NON_PLAIN_TERRAINS: TerrainType[] = ['grass', 'sand', 'water', 'mountain'];
 
+// Longest path length the dimension sliders permit for an r×c board.
+function getMaxPath(r: number, c: number) {
+  return Math.min(100, Math.floor((r + c) * 1.8));
+}
+
 interface Props {
   grid: GridConfig;
   selected: Set<AlgorithmId>;
@@ -70,25 +75,22 @@ export default function MazeBuilder({ grid, selected, options, onGridChange, onO
   const dragAction = useRef<CellState>('wall');
   const lastKey = useRef<string | null>(null);
 
-  // Clamp minPathLength when dimensions change
-  useEffect(() => {
-    const max = getMaxPath(rows, cols);
+  // Clamp minPathLength so it never exceeds what the new dimensions allow.
+  function clampMinPath(r: number, c: number) {
+    const max = getMaxPath(r, c);
     if (options.minPathLength > max) {
       onOptionsChange({ ...options, minPathLength: max });
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [rows, cols]);
+  }
 
-  // When weighted is toggled off, reset terrain draw modes to 'plain'
-  useEffect(() => {
-    if (!options.weighted && NON_PLAIN_TERRAINS.includes(mode as TerrainType)) {
+  // Toggle terrain weighting; turning it off drops any active terrain draw mode
+  // back to 'plain' so the user can't paint terrain that no longer applies.
+  function handleWeightedToggle() {
+    const weighted = !options.weighted;
+    onOptionsChange({ ...options, weighted });
+    if (!weighted && NON_PLAIN_TERRAINS.includes(mode as TerrainType)) {
       setMode('plain');
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [options.weighted]);
-
-  function getMaxPath(r: number, c: number) {
-    return Math.min(100, Math.floor((r + c) * 1.8));
   }
 
   // Build grid with current terrain weights embedded
@@ -104,11 +106,13 @@ export default function MazeBuilder({ grid, selected, options, onGridChange, onO
   function handleRowsChange(val: number) {
     setRows(val);
     resizeTo(val, cols);
+    clampMinPath(val, cols);
   }
 
   function handleColsChange(val: number) {
     setCols(val);
     resizeTo(rows, val);
+    clampMinPath(rows, val);
   }
 
   function handleRandomize() {
@@ -326,7 +330,7 @@ export default function MazeBuilder({ grid, selected, options, onGridChange, onO
             </div>
             <button
               className={`pf-toggle${options.weighted ? ' pf-toggle--on' : ''}`}
-              onClick={() => onOptionsChange({ ...options, weighted: !options.weighted })}
+              onClick={handleWeightedToggle}
               aria-pressed={options.weighted}
             >
               <span className="pf-toggle-knob" />

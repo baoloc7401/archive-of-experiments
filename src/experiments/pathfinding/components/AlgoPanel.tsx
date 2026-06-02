@@ -2,7 +2,7 @@ import { memo, useMemo } from 'react';
 import ScrambleText from '../../../components/ScrambleText';
 import type { AlgoState } from '../algorithms';
 import type { AlgorithmId, CellState, GridConfig } from '../types';
-import { ALGORITHMS, CELL_WEIGHT } from '../constants';
+import { ALGORITHMS } from '../constants';
 
 interface Props {
   algoId: AlgorithmId;

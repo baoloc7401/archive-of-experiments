@@ -73,19 +73,21 @@ export default function Pathfinding() {
     localStorage.setItem('pf-options', JSON.stringify(options));
   }, [options]);
 
-  // When terrain weights change, sync them into the grid so algorithms use them
-  useEffect(() => {
-    if (options.weighted) {
-      const weights = computeTerrainWeights(options.terrainConfig);
-      setGrid((prev) => ({ ...prev, terrainWeights: weights }));
-    } else {
-      setGrid((prev) => {
-        if (!prev.terrainWeights) return prev;
-        return { ...prev, terrainWeights: undefined };
-      });
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [options.terrainConfig, options.weighted]);
+  // Keep terrain weights baked into the grid in sync with options. Done in the
+  // change handler (not an effect) so both states update together, and only
+  // when the weighting actually changed.
+  function handleOptionsChange(next: MazeOptions) {
+    const weightsChanged =
+      next.weighted !== options.weighted || next.terrainConfig !== options.terrainConfig;
+    setOptions(next);
+    if (!weightsChanged) return;
+    setGrid((prev) => {
+      if (!next.weighted) {
+        return prev.terrainWeights ? { ...prev, terrainWeights: undefined } : prev;
+      }
+      return { ...prev, terrainWeights: computeTerrainWeights(next.terrainConfig) };
+    });
+  }
 
   function toggleAlgorithm(id: AlgorithmId) {
     setSelected((prev) => {
@@ -120,7 +122,7 @@ export default function Pathfinding() {
             selected={selected}
             options={options}
             onGridChange={setGrid}
-            onOptionsChange={setOptions}
+            onOptionsChange={handleOptionsChange}
             onBack={() => setScreen('algorithm-select')}
             onRun={() => setScreen('run')}
           />

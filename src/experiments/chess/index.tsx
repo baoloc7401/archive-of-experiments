@@ -23,15 +23,23 @@ export default function ChessGame() {
   const [blackSkill, setBlackSkill] = useState<SkillLevel>(DEFAULT_SKILL);
   const [paused, setPaused] = useState(false);
 
-  const game = useChessGame(mode);
+  const {
+    pos, status, selected, lastMove, history,
+    promotionPending, drawReason, moveGrades, slideInfo, castleRookSlide,
+    flyingPieces, copied, copyGrades, setCopyGrades,
+    historyRef, posHistoryRef, boardGridRef, boardColRef,
+    moveTos, checkKingSq, isGameOver, rounds,
+    whiteCaptured, blackCaptured, materialAdv,
+    handleSquareClick: selectSquare, handlePromotion, resetGame, applyGameMove, copyHistory,
+  } = useChessGame(mode);
   const { thinking, stepAI, clearAI } = useChessAI({
     mode,
-    pos: game.pos,
-    status: game.status,
-    promotionPending: game.promotionPending,
+    pos,
+    status,
+    promotionPending,
     paused,
-    posHistoryRef: game.posHistoryRef,
-    applyGameMove: game.applyGameMove,
+    posHistoryRef,
+    applyGameMove,
     whiteConfig: SKILL_PRESETS[whiteSkill],
     blackConfig: SKILL_PRESETS[blackSkill],
   });
@@ -45,23 +53,23 @@ export default function ChessGame() {
   if (!mode) return <ModeScreen onStart={handleStart} />;
 
   function handleReset() {
-    game.resetGame();
+    resetGame();
     clearAI();
     setPaused(false);
   }
 
   function handleSquareClick(r: number, c: number) {
     if (thinking) return;
-    game.handleSquareClick(r, c);
+    selectSquare(r, c);
   }
 
   const statusLine = {
     playing:   '',
     check:     t('chess.status.check'),
-    checkmate: game.pos.turn === 'w' ? t('chess.status.black_wins') : t('chess.status.white_wins'),
+    checkmate: pos.turn === 'w' ? t('chess.status.black_wins') : t('chess.status.white_wins'),
     stalemate: t('chess.status.stalemate'),
-    draw:      game.drawReason === 'repetition' ? t('chess.status.draw_repetition') : t('chess.status.draw_50move'),
-  }[game.status];
+    draw:      drawReason === 'repetition' ? t('chess.status.draw_repetition') : t('chess.status.draw_50move'),
+  }[status];
 
   return (
     <div className="chess-page">
@@ -69,27 +77,27 @@ export default function ChessGame() {
 
       <div className="chess-content">
         <div className="chess-layout">
-        <div className="chess-board-col" ref={game.boardColRef}>
+        <div className="chess-board-col" ref={boardColRef}>
           <div className="chess-board-area">
             <Board
-              pos={game.pos}
-              selected={game.selected}
-              lastMove={game.lastMove}
-              moveTos={game.moveTos}
-              checkKingSq={game.checkKingSq}
-              slideInfo={game.slideInfo}
-              castleRookSlide={game.castleRookSlide}
-              historyLength={game.history.length}
-              boardGridRef={game.boardGridRef}
+              pos={pos}
+              selected={selected}
+              lastMove={lastMove}
+              moveTos={moveTos}
+              checkKingSq={checkKingSq}
+              slideInfo={slideInfo}
+              castleRookSlide={castleRookSlide}
+              historyLength={history.length}
+              boardGridRef={boardGridRef}
               onSquareClick={handleSquareClick}
             />
-            {game.promotionPending && (
-              <PromotionDialog turn={game.pos.turn} onPromote={game.handlePromotion} />
+            {promotionPending && (
+              <PromotionDialog turn={pos.turn} onPromote={handlePromotion} />
             )}
           </div>
 
           <div className="chess-anim-overlay">
-            {game.flyingPieces.map(fp => (
+            {flyingPieces.map(fp => (
               <div
                 key={fp.id}
                 className="chess-flying-piece"
@@ -106,23 +114,23 @@ export default function ChessGame() {
           </div>
 
           <CapturedPieces
-            whiteCaptured={game.whiteCaptured}
-            blackCaptured={game.blackCaptured}
-            materialAdv={game.materialAdv}
+            whiteCaptured={whiteCaptured}
+            blackCaptured={blackCaptured}
+            materialAdv={materialAdv}
           />
         </div>
 
         <aside className="chess-sidebar">
           <PlayerStatus
-            status={game.status}
-            turn={game.pos.turn}
+            status={status}
+            turn={pos.turn}
             thinking={thinking}
-            isGameOver={game.isGameOver}
+            isGameOver={isGameOver}
             drawLine={statusLine}
           />
           <GameControls
             mode={mode}
-            isGameOver={game.isGameOver}
+            isGameOver={isGameOver}
             paused={paused}
             thinking={thinking}
             onReset={handleReset}
@@ -131,13 +139,13 @@ export default function ChessGame() {
             onStep={stepAI}
           />
           <MoveHistory
-            rounds={game.rounds}
-            moveGrades={game.moveGrades}
-            copied={game.copied}
-            copyGrades={game.copyGrades}
-            onToggleCopyGrades={game.setCopyGrades}
-            historyRef={game.historyRef}
-            onCopy={game.copyHistory}
+            rounds={rounds}
+            moveGrades={moveGrades}
+            copied={copied}
+            copyGrades={copyGrades}
+            onToggleCopyGrades={setCopyGrades}
+            historyRef={historyRef}
+            onCopy={copyHistory}
           />
         </aside>
         </div>

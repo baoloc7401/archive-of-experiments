@@ -83,7 +83,7 @@ function rankLabel(rank: number) {
 // ---------------------------------------------------------------------------
 
 export default function Run({ grid, selected, onBack }: Props) {
-  const ids = [...selected];
+  const ids = useMemo(() => [...selected], [selected]);
 
   const gens = useRef<Partial<Record<AlgorithmId, AlgoGen>>>({});
   const doneFlags = useRef<Partial<Record<AlgorithmId, boolean>>>({});
@@ -97,20 +97,28 @@ export default function Run({ grid, selected, onBack }: Props) {
     () => new Set<RankAspect>(['visited', 'path-length', 'steps']),
   );
 
-  const resetAll = useCallback(() => {
+  // Build a fresh generator + done-flag for every selected algorithm. Ref-only,
+  // so it's safe to call from an effect without triggering a render.
+  const buildGenerators = useCallback(() => {
     gens.current = {};
     doneFlags.current = {};
     for (const id of ids) {
       gens.current[id] = ALGO_FACTORIES[id](grid);
       doneFlags.current[id] = false;
     }
+  }, [ids, grid]);
+
+  const resetAll = useCallback(() => {
+    buildGenerators();
     setStates(Object.fromEntries(ids.map((id) => [id, makeInitialState(grid)])));
     setPlaying(false);
-  }, [grid, ids.join(',')]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [buildGenerators, ids, grid]);
 
+  // Prime the generators on mount; `states` is already lazy-initialized to the
+  // matching initial snapshots, so no setState is needed here.
   useEffect(() => {
-    resetAll();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    buildGenerators();
+  }, [buildGenerators]);
 
   const allDone = useCallback(() =>
     ids.every((id) => doneFlags.current[id] === true),
@@ -140,7 +148,7 @@ export default function Run({ grid, selected, onBack }: Props) {
     if (Object.keys(updates).length > 0) {
       setStates((prev) => ({ ...prev, ...updates }));
     }
-  }, [ids]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [ids]);
 
   useEffect(() => {
     if (!playing) return;
