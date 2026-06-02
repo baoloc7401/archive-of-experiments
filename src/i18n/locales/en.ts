@@ -76,6 +76,13 @@ const en = {
   },
   header: {
     back: "← experiments",
+    already_here: [
+      "you are already here ¯\\_(ツ)_/¯",
+      "this IS the page (・_・)",
+      "nice try, you're already here ( ͡° ͜ʖ ͡°)",
+      "you can't go more here than this (╯°□°)╯",
+      "teleporting you to… oh wait, same spot",
+    ],
   },
   experiments: {
     chess: {

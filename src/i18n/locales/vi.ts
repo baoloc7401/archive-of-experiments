@@ -77,6 +77,13 @@ const vi = {
   },
   header: {
     back: "← thí nghiệm",
+    already_here: [
+      "bạn đang ở đây rồi mà ¯\\_(ツ)_/¯",
+      "ĐÂY chính là trang đó (・_・)",
+      "cố làm gì, bạn ở đây rồi ( ͡° ͜ʖ ͡°)",
+      "không thể \"ở đây\" hơn được nữa đâu (╯°□°)╯",
+      "đang dịch chuyển bạn tới… à mà cũng chỗ này",
+    ],
   },
   experiments: {
     chess: {

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import type { GameMode, SkillLevel } from './types';
 import { DEFAULT_SKILL, SKILL_PRESETS } from './ai/skill';
@@ -16,9 +17,15 @@ import './Chess.css';
 import './chess-board.css';
 import './chess-sidebar.css';
 
+const GAME_MODES: GameMode[] = ['hvh', 'hva', 'ava'];
+const isGameMode = (m: string | undefined): m is GameMode =>
+  m !== undefined && (GAME_MODES as string[]).includes(m);
+
 export default function ChessGame() {
   const { t } = useTranslation();
-  const [mode, setMode] = useState<GameMode | null>(null);
+  const navigate = useNavigate();
+  const { mode: modeParam } = useParams();
+  const mode: GameMode | null = isGameMode(modeParam) ? modeParam : null;
   const [whiteSkill, setWhiteSkill] = useState<SkillLevel>(DEFAULT_SKILL);
   const [blackSkill, setBlackSkill] = useState<SkillLevel>(DEFAULT_SKILL);
   const [paused, setPaused] = useState(false);
@@ -47,9 +54,13 @@ export default function ChessGame() {
   function handleStart(m: GameMode, w: SkillLevel, b: SkillLevel) {
     setWhiteSkill(w);
     setBlackSkill(b);
-    setMode(m);
+    navigate(`/experiments/chess/${m}`);
   }
 
+  // An unrecognized mode in the URL falls back to the mode picker.
+  if (modeParam !== undefined && !isGameMode(modeParam)) {
+    return <Navigate to="/experiments/chess" replace />;
+  }
   if (!mode) return <ModeScreen onStart={handleStart} />;
 
   function handleReset() {
@@ -73,7 +84,12 @@ export default function ChessGame() {
 
   return (
     <div className="chess-page">
-      <ExperimentHeader title="chess" subtitle={t(`chess.modes.${mode}`).toLowerCase()} />
+      <ExperimentHeader
+        crumbs={[
+          { label: 'chess', to: '/experiments/chess' },
+          { label: t(`chess.modes.${mode}`).toLowerCase(), to: `/experiments/chess/${mode}` },
+        ]}
+      />
 
       <div className="chess-content">
         <div className="chess-layout">
@@ -134,7 +150,7 @@ export default function ChessGame() {
             paused={paused}
             thinking={thinking}
             onReset={handleReset}
-            onModeBack={() => { handleReset(); setMode(null); }}
+            onModeBack={() => { handleReset(); navigate('/experiments/chess'); }}
             onPauseToggle={() => setPaused(p => !p)}
             onStep={stepAI}
           />

@@ -332,18 +332,32 @@ const ColonyCanvas = forwardRef<ColonyHandle, Props>(function ColonyCanvas(
     const wrap = wrapRef.current;
     const canvas = canvasRef.current;
     if (!wrap || !canvas) return;
-    const ro = new ResizeObserver(() => {
+    let pending = 0;
+    const apply = () => {
+      pending = 0;
       const r = wrap.getBoundingClientRect();
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const bw = Math.round(r.width * dpr);
+      const bh = Math.round(r.height * dpr);
+      // Skip no-op resizes so we never write the backing store (and thus never
+      // re-touch layout) when nothing actually changed.
+      if (bw === canvas.width && bh === canvas.height) return;
       sizeRef.current = { w: r.width, h: r.height, dpr };
-      canvas.width = Math.round(r.width * dpr);
-      canvas.height = Math.round(r.height * dpr);
-      canvas.style.width = `${r.width}px`;
-      canvas.style.height = `${r.height}px`;
+      canvas.width = bw;
+      canvas.height = bh;
       draw();
+    };
+    // Defer the measure+resize out of the observer callback to avoid the
+    // "ResizeObserver loop" error and any same-frame feedback.
+    const ro = new ResizeObserver(() => {
+      if (pending) return;
+      pending = requestAnimationFrame(apply);
     });
     ro.observe(wrap);
-    return () => ro.disconnect();
+    return () => {
+      if (pending) cancelAnimationFrame(pending);
+      ro.disconnect();
+    };
   }, [draw]);
 
   function handleClick(e: React.MouseEvent<HTMLCanvasElement>) {

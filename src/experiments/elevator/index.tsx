@@ -57,8 +57,10 @@ export default function Elevator() {
   return (
     <div className="elev-page">
       <ExperimentHeader
-        title={t('experiments.elevator.title').toLowerCase()}
-        subtitle={headTitle}
+        crumbs={[
+          { label: t('experiments.elevator.title').toLowerCase(), to: '/experiments/elevator' },
+          { label: headTitle },
+        ]}
       />
 
       <AlgorithmPicker

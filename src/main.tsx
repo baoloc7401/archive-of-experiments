@@ -17,8 +17,8 @@ createRoot(root).render(
     <BrowserRouter basename={import.meta.env.BASE_URL}>
       <Routes>
         <Route path="/" element={<App />} />
-        <Route path="/experiments/chess" element={<ChessGame />} />
-        <Route path="/experiments/pathfinding" element={<Pathfinding />} />
+        <Route path="/experiments/chess/:mode?" element={<ChessGame />} />
+        <Route path="/experiments/pathfinding/:screen?" element={<Pathfinding />} />
         <Route path="/experiments/elevator" element={<Elevator />} />
         <Route path="/experiments/aco" element={<Aco />} />
       </Routes>

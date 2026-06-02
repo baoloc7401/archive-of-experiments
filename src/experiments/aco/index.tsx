@@ -181,8 +181,10 @@ export default function Aco() {
   return (
     <div className="aco-page">
       <ExperimentHeader
-        title={t("experiments.aco.title").toLowerCase()}
-        subtitle="traveling salesman"
+        crumbs={[
+          { label: t("experiments.aco.title").toLowerCase(), to: "/experiments/aco" },
+          { label: "traveling salesman" },
+        ]}
       />
 
       <div className="aco-info-strip">

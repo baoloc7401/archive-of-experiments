@@ -32,7 +32,7 @@ export function ModeScreen({ onStart }: Props) {
 
   return (
     <div className="chess-page">
-      <ExperimentHeader title="chess" />
+      <ExperimentHeader crumbs={[{ label: 'chess', to: '/experiments/chess' }]} />
       <div className="chess-content">
       <div className="chess-mode-screen">
         <div className="chess-mode-title">

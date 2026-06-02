@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import type { AlgorithmId, AppScreen, GridConfig, MazeOptions } from './types';
 import { DEFAULT_ROWS, DEFAULT_COLS, DEFAULT_MAZE_OPTIONS } from './constants';
 import { makeDefaultGrid, computeTerrainWeights } from './maze';
@@ -54,8 +55,35 @@ function loadOptions(): MazeOptions {
 // Component
 // ---------------------------------------------------------------------------
 
+// URL segment <-> screen mapping. The first screen lives at the experiment
+// root (no segment); the rest get a path segment so navigation is linkable.
+const SCREEN_SLUG: Record<AppScreen, string> = {
+  'algorithm-select': '',
+  'maze-builder': 'maze-builder',
+  run: 'run',
+};
+const SLUG_SCREEN: Record<string, AppScreen> = {
+  'maze-builder': 'maze-builder',
+  run: 'run',
+};
+
+// Ordered steps of the flow. The header renders the trail up to the current
+// step (e.g. on "run": pathfinding / maze builder / run).
+const PF_STEPS: { screen: AppScreen; label: string }[] = [
+  { screen: 'algorithm-select', label: 'pathfinding' },
+  { screen: 'maze-builder', label: 'maze builder' },
+  { screen: 'run', label: 'run' },
+];
+
+function pathFor(screen: AppScreen) {
+  const seg = SCREEN_SLUG[screen];
+  return seg ? `/experiments/pathfinding/${seg}` : '/experiments/pathfinding';
+}
+
 export default function Pathfinding() {
-  const [screen, setScreen] = useState<AppScreen>('algorithm-select');
+  const navigate = useNavigate();
+  const { screen: slug } = useParams();
+  const screen: AppScreen = slug ? SLUG_SCREEN[slug] : 'algorithm-select';
   const [selected, setSelected] = useState<Set<AlgorithmId>>(loadSelected);
   const [grid, setGrid] = useState<GridConfig>(loadGrid);
   const [options, setOptions] = useState<MazeOptions>(loadOptions);
@@ -98,22 +126,32 @@ export default function Pathfinding() {
     });
   }
 
-  const STEP_LABEL: Record<AppScreen, string> = {
-    'algorithm-select': '',
-    'maze-builder': 'maze builder',
-    run: 'run',
-  };
+  function goScreen(next: AppScreen) {
+    navigate(pathFor(next));
+  }
+
+  // Unknown slug, or a deep-link into a later step before any algorithm has
+  // been picked — bounce back to the start of the flow.
+  if ((slug && !SLUG_SCREEN[slug]) || (screen !== 'algorithm-select' && selected.size === 0)) {
+    return <Navigate to="/experiments/pathfinding" replace />;
+  }
+
+  const currentStep = PF_STEPS.findIndex((s) => s.screen === screen);
+  const crumbs = PF_STEPS.slice(0, currentStep + 1).map((s) => ({
+    label: s.label,
+    to: pathFor(s.screen),
+  }));
 
   return (
     <div className="pf-page">
-      <ExperimentHeader title="pathfinding" subtitle={STEP_LABEL[screen] || undefined} />
+      <ExperimentHeader crumbs={crumbs} />
 
       <div className="pf-content">
         {screen === 'algorithm-select' && (
           <AlgorithmSelect
             selected={selected}
             onToggle={toggleAlgorithm}
-            onContinue={() => setScreen('maze-builder')}
+            onContinue={() => goScreen('maze-builder')}
           />
         )}
         {screen === 'maze-builder' && (
@@ -123,15 +161,15 @@ export default function Pathfinding() {
             options={options}
             onGridChange={setGrid}
             onOptionsChange={handleOptionsChange}
-            onBack={() => setScreen('algorithm-select')}
-            onRun={() => setScreen('run')}
+            onBack={() => goScreen('algorithm-select')}
+            onRun={() => goScreen('run')}
           />
         )}
         {screen === 'run' && (
           <Run
             grid={grid}
             selected={selected}
-            onBack={() => setScreen('maze-builder')}
+            onBack={() => goScreen('maze-builder')}
           />
         )}
       </div>
