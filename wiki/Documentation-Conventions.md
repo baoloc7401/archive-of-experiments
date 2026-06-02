@@ -21,6 +21,7 @@ they cross-link, they don't duplicate.
 | Experiment | TEXTBOOK | ISSUES | IMPROVEMENT |
 |---|---|---|---|
 | [[Experiment ACO]] | [✓](https://github.com/baoloc7401/archive-of-experiments/blob/main/docs/aco/TEXTBOOK.md) | — | — |
+| [[Experiment River Crossing]] | [✓](https://github.com/baoloc7401/archive-of-experiments/blob/main/docs/river-crossing/TEXTBOOK.md) | — | — |
 | [[Experiment Elevator]] | [✓](https://github.com/baoloc7401/archive-of-experiments/blob/main/docs/elevator/TEXTBOOK.md) | [✓](https://github.com/baoloc7401/archive-of-experiments/blob/main/docs/elevator/ISSUES.md) | — |
 | [[Experiment Chess]] | [✓](https://github.com/baoloc7401/archive-of-experiments/blob/main/docs/chess/TEXTBOOK.md) | [✓](https://github.com/baoloc7401/archive-of-experiments/blob/main/docs/chess/ISSUES.md) | [✓](https://github.com/baoloc7401/archive-of-experiments/blob/main/docs/chess/IMPROVEMENT.md) |
 | [[Experiment Pathfinding]] | — | — | — |

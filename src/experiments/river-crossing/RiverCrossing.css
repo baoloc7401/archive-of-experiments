@@ -1,0 +1,829 @@
+/* =============================================================
+   River Crossing — Missionaries & Cannibals state-space puzzle
+   All classes prefixed `rc-` to avoid collisions.
+   ============================================================= */
+
+/* ── Local theme tokens ───────────────────────────────────────── */
+[data-theme="dark"] {
+  --rc-mis:        #2ee6a6;
+  --rc-mis-deep:   #0c5f44;
+  --rc-can:        #ff6b6b;
+  --rc-can-deep:   #7a1f22;
+  --rc-sky:        linear-gradient(180deg, #0a1326 0%, #0d1b34 100%);
+  --rc-water:      linear-gradient(180deg, #0e2b46 0%, #0a2138 100%);
+  --rc-water-line: rgba(120, 200, 255, 0.10);
+  --rc-land:       linear-gradient(180deg, #1c2a18, #14210f);
+  --rc-land-edge:  #2c3f22;
+  --rc-boat-body:  linear-gradient(180deg, #6b4a2a, #4a3018);
+  --rc-boat-edge:  #2c1c0d;
+  --rc-panel:      var(--bg2);
+}
+
+[data-theme="light"] {
+  --rc-mis:        #0f9d63;
+  --rc-mis-deep:   #b9f0d6;
+  --rc-can:        #d6453f;
+  --rc-can-deep:   #f6cdcb;
+  --rc-sky:        linear-gradient(180deg, #cfe4ff 0%, #b6d4f5 100%);
+  --rc-water:      linear-gradient(180deg, #7fb4e6 0%, #5f9bd6 100%);
+  --rc-water-line: rgba(255, 255, 255, 0.30);
+  --rc-land:       linear-gradient(180deg, #b7d99a, #98c178);
+  --rc-land-edge:  #7da75e;
+  --rc-boat-body:  linear-gradient(180deg, #b07a44, #8a5a2c);
+  --rc-boat-edge:  #5e3c1a;
+  --rc-panel:      var(--bg2);
+}
+
+/* ── Page shell ───────────────────────────────────────────────── */
+.rc-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background:
+    radial-gradient(60% 50% at 50% 0%, color-mix(in srgb, var(--accent) 10%, transparent), transparent 60%),
+    var(--bg);
+  color: var(--text);
+}
+
+/* ── Info strip ───────────────────────────────────────────────── */
+.rc-info-strip {
+  margin: 1rem 1.5rem;
+  padding: 0.7rem 0.95rem;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 8%, transparent), transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 22%, var(--border));
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  animation: rc-fade-in 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+@keyframes rc-fade-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.rc-info-tagline {
+  font-size: 0.74rem;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+  text-transform: lowercase;
+}
+.rc-info-desc { font-size: 0.78rem; color: var(--text); line-height: 1.45; }
+
+/* ── Layout ───────────────────────────────────────────────────── */
+.rc-layout {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 1.5rem;
+  padding: 0 1.5rem 1.5rem;
+}
+@media (max-width: 940px) {
+  .rc-layout { grid-template-columns: minmax(0, 1fr); }
+}
+
+.rc-stage { display: flex; flex-direction: column; gap: 0.7rem; min-width: 0; }
+
+/* ── Legend ───────────────────────────────────────────────────── */
+.rc-legend {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.68rem;
+  color: var(--text-dim);
+  letter-spacing: 0.04em;
+}
+.rc-legend-item { display: inline-flex; align-items: center; gap: 0.35rem; }
+.rc-legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+.rc-legend-item--m .rc-legend-dot { background: var(--rc-mis); }
+.rc-legend-item--c .rc-legend-dot { background: var(--rc-can); }
+
+/* ── Scene ────────────────────────────────────────────────────── */
+.rc-scene {
+  position: relative;
+  height: clamp(330px, 50vh, 470px);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--rc-sky);
+  isolation: isolate;
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--text-hi) 6%, transparent);
+  transition: box-shadow 0.3s;
+}
+.rc-scene[data-status="won"]  { box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--accent) 55%, transparent); }
+.rc-scene[data-status="lost"] { box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--rc-can) 55%, transparent); }
+
+/* sky fills everything above the river band */
+.rc-sky { position: absolute; inset: 0 0 40% 0; background: var(--rc-sky); z-index: 0; }
+
+/* ── Celestial bodies: a day/night cycle ──────────────────────────
+   Both the sun and moon are always present. The theme only sets each
+   body's `top`: the active one rides high in the sky, the other sinks
+   below the horizon (behind the water/banks, which paint above it).
+   Transitioning `top` makes a theme switch animate as a sunset/sunrise. */
+.rc-celestial {
+  position: absolute;
+  right: 14%;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  z-index: 0; /* below the water (1) & banks (2) so it sets behind the horizon */
+  pointer-events: none;
+  transition: top 1.15s cubic-bezier(0.45, 0.05, 0.3, 1);
+}
+
+/* risen by day, set by night (and vice-versa for the moon) */
+[data-theme="light"] .rc-sun,
+[data-theme="dark"]  .rc-moon { top: 9%; }
+[data-theme="light"] .rc-moon,
+[data-theme="dark"]  .rc-sun  { top: 82%; }
+
+/* ☀ warm disc with a soft halo and slow-turning rays */
+.rc-sun {
+  background: radial-gradient(circle at 50% 42%, #fff6c4 0%, #ffd24d 55%, #ffb52e 100%);
+  box-shadow:
+    0 0 26px 6px rgba(255, 196, 64, 0.6),
+    0 0 70px 22px rgba(255, 178, 46, 0.22);
+}
+.rc-sun::before {
+  content: "";
+  position: absolute;
+  inset: -11px;
+  border-radius: 50%;
+  background: repeating-conic-gradient(
+    from 0deg,
+    rgba(255, 198, 70, 0.45) 0deg 5deg,
+    transparent 5deg 18deg
+  );
+  -webkit-mask: radial-gradient(circle, transparent 56%, #000 58%, transparent 78%);
+  mask: radial-gradient(circle, transparent 56%, #000 58%, transparent 78%);
+  animation: rc-sun-rays 36s linear infinite;
+}
+@keyframes rc-sun-rays {
+  from { transform: rotate(0); }
+  to   { transform: rotate(360deg); }
+}
+
+/* ☾ pale cratered disc with a cool glow */
+.rc-moon {
+  background:
+    radial-gradient(circle at 34% 38%, #b9c3da 0 4px, transparent 5px),
+    radial-gradient(circle at 63% 58%, #b9c3da 0 5px, transparent 6px),
+    radial-gradient(circle at 54% 26%, #b9c3da 0 3px, transparent 4px),
+    radial-gradient(circle at 50% 50%, #eef2fb 0%, #cdd6ea 100%);
+  box-shadow:
+    0 0 20px 4px rgba(214, 226, 255, 0.4),
+    inset -4px -4px 6px rgba(120, 132, 160, 0.35);
+}
+
+/* the river runs as a band along the bottom; banks rise above it on each side,
+   the boat floats on its surface. WATER_H (36%) is the shared reference height. */
+.rc-water {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 40%;
+  background: var(--rc-water);
+  z-index: 1;
+  overflow: hidden;
+}
+.rc-water::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      transparent 0,
+      transparent 34px,
+      var(--rc-water-line) 34px,
+      var(--rc-water-line) 35px
+    );
+  opacity: 0.6;
+  animation: rc-current 6s linear infinite;
+}
+/* bright surface line where water meets air */
+.rc-water::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 2px;
+  background: var(--rc-water-line);
+  opacity: 0.9;
+}
+@keyframes rc-current {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-35px); }
+}
+
+/* ── Banks (land platforms, people stand on the flat top) ─────── */
+.rc-bank {
+  position: absolute;
+  bottom: 0;
+  width: 27%;
+  height: 100%;
+  z-index: 2;
+}
+.rc-bank--left  { left: 0; }
+.rc-bank--right { right: 0; }
+/* the land mass rises from the floor up past the waterline */
+.rc-bank-land {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 52%;
+  background: var(--rc-land);
+}
+.rc-bank--left .rc-bank-land  { border-top-right-radius: 34px; border-right: 2px solid var(--rc-land-edge); }
+.rc-bank--right .rc-bank-land { border-top-left-radius: 34px; border-left: 2px solid var(--rc-land-edge); }
+
+/* crowd is anchored to the land's top edge and stacks upward */
+.rc-bank-crowd {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 52%;
+  max-height: 44%;
+  display: flex;
+  flex-wrap: wrap-reverse;
+  align-content: flex-end;
+  gap: 0.3rem 0.35rem;
+  padding: 0 0.65rem 0.15rem;
+}
+.rc-bank--left .rc-bank-crowd  { justify-content: flex-start; }
+.rc-bank--right .rc-bank-crowd { justify-content: flex-end; }
+.rc-bank-empty {
+  font-size: 0.62rem;
+  color: var(--text-dim);
+  opacity: 0.6;
+}
+
+/* ── Person figure ────────────────────────────────────────────── */
+.rc-person {
+  --rc-color: var(--rc-mis);
+  --rc-deep: var(--rc-mis-deep);
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  padding: 0;
+  width: 26px;
+  background: none;
+  border: none;
+  cursor: default;
+  font-family: inherit;
+  animation: rc-pop 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.rc-person--c { --rc-color: var(--rc-can); --rc-deep: var(--rc-can-deep); }
+button.rc-person { cursor: pointer; }
+button.rc-person:disabled { cursor: not-allowed; opacity: 0.45; }
+@keyframes rc-pop {
+  from { opacity: 0; transform: translateY(4px) scale(0.8); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+.rc-person-head {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--rc-color);
+  box-shadow: 0 0 5px -1px var(--rc-color);
+}
+.rc-person-body {
+  width: 17px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 7px 7px 4px 4px;
+  background: linear-gradient(180deg, var(--rc-color), var(--rc-deep));
+  color: #fff;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
+  border: 1px solid color-mix(in srgb, #000 25%, var(--rc-deep));
+}
+button.rc-person:not(:disabled):hover { transform: translateY(-2px); }
+button.rc-person:not(:disabled):hover .rc-person-body {
+  box-shadow: 0 4px 10px -4px var(--rc-color);
+}
+.rc-person:focus-visible {
+  outline: 2px solid var(--text-hi);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* ── Death throes (missionary outnumbered → eaten) ────────────── */
+.rc-person--doomed {
+  transform-origin: 50% 100%;
+  animation: rc-die 1s cubic-bezier(0.3, 0.7, 0.4, 1) forwards;
+  z-index: 4;
+}
+/* shake in panic, keel over, fade to a grey husk */
+@keyframes rc-die {
+  0%   { transform: translateY(0) rotate(0); }
+  10%  { transform: translateY(-2px) rotate(-12deg); }
+  20%  { transform: translateY(-2px) rotate(12deg); }
+  32%  { transform: translateY(-2px) rotate(-10deg); }
+  44%  { transform: translateY(0) rotate(8deg); }
+  60%  { transform: translateY(2px) rotate(-4deg); }
+  100% { transform: translateY(9px) rotate(88deg); opacity: 0.3; filter: grayscale(1); }
+}
+.rc-person--doomed .rc-person-head { background: var(--text-dim); box-shadow: none; }
+/* the culprits lunge forward for a bite */
+.rc-bank[data-doomed] .rc-person--c {
+  animation: rc-nom 0.45s ease-in-out 2;
+}
+@keyframes rc-nom {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50%      { transform: translateY(-3px) scale(1.14); }
+}
+
+/* ── Comic speech bubble ──────────────────────────────────────── */
+.rc-deathbubble {
+  position: absolute;
+  left: 50%;
+  bottom: 72%;
+  transform: translateX(-50%);
+  z-index: 6;
+  max-width: 150px;
+  padding: 0.35rem 0.55rem;
+  border-radius: 12px;
+  background: #fff7e6;
+  border: 1.5px solid #1a1a1a;
+  color: #1a1a1a;
+  font-size: 0.66rem;
+  font-weight: 700;
+  line-height: 1.25;
+  text-align: center;
+  white-space: normal;
+  box-shadow: 0 6px 16px -8px rgba(0, 0, 0, 0.55);
+  animation: rc-bubble-in 0.32s cubic-bezier(0.22, 1, 0.36, 1) both,
+    rc-bubble-wobble 1.6s ease-in-out 0.32s infinite;
+}
+/* speech-bubble tail */
+.rc-deathbubble::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -9px;
+  transform: translateX(-50%);
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-top: 9px solid #1a1a1a;
+}
+.rc-deathbubble::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -6px;
+  transform: translateX(-50%);
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 7px solid #fff7e6;
+  z-index: 1;
+}
+@keyframes rc-bubble-in {
+  from { opacity: 0; transform: translateX(-50%) translateY(8px) scale(0.8); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
+}
+@keyframes rc-bubble-wobble {
+  0%, 100% { rotate: -2deg; }
+  50%      { rotate: 2deg; }
+}
+
+/* ── Boat ─────────────────────────────────────────────────────── */
+.rc-boat {
+  position: absolute;
+  /* hull straddles the water surface (top of the 40% band) */
+  bottom: 37%;
+  width: 20%;
+  min-width: 116px;
+  transform: translateX(-50%);
+  /* above the banks (z 2) so it visibly docks at the shore, never tucks behind */
+  z-index: 5;
+  transition: left var(--rc-cross-ms, 900ms) cubic-bezier(0.45, 0.05, 0.3, 1);
+}
+/* docked just off each shore, gliding through the open channel between banks */
+.rc-boat--left  { left: 31%; }
+.rc-boat--right { left: 69%; }
+.rc-boat-deck {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  padding: 0.2rem 0.5rem 0.35rem;
+}
+.rc-boat-seat {
+  width: 17px;
+  height: 18px;
+  border-radius: 5px;
+  border: 1px dashed color-mix(in srgb, #fff 35%, transparent);
+  opacity: 0.4;
+}
+.rc-boat-hull {
+  height: 16px;
+  border-radius: 0 0 14px 14px / 0 0 22px 22px;
+  background: var(--rc-boat-body);
+  border: 1px solid var(--rc-boat-edge);
+  border-top: none;
+  box-shadow:
+    inset 0 2px 0 color-mix(in srgb, #fff 18%, transparent),
+    0 6px 14px -6px rgba(0, 0, 0, 0.6);
+}
+.rc-boat-wake {
+  position: absolute;
+  left: 50%;
+  bottom: -6px;
+  width: 70%;
+  height: 8px;
+  transform: translateX(-50%);
+  background: radial-gradient(50% 100% at 50% 0%, color-mix(in srgb, #fff 45%, transparent), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.rc-boat--crossing .rc-boat-wake { opacity: 0.7; animation: rc-wake 0.4s ease-in-out infinite; }
+@keyframes rc-wake {
+  0%, 100% { transform: translateX(-50%) scaleX(1); }
+  50%      { transform: translateX(-50%) scaleX(1.25); }
+}
+.rc-boat--crossing { filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.35)); }
+
+/* ── Sidebar ──────────────────────────────────────────────────── */
+.rc-sidebar { display: flex; flex-direction: column; gap: 0.85rem; }
+
+.rc-panel-head {
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-dim);
+  margin-bottom: 0.5rem;
+}
+
+/* ── Controls ─────────────────────────────────────────────────── */
+.rc-controls,
+.rc-setup,
+.rc-solver {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--rc-panel);
+  padding: 0.75rem 0.8rem;
+}
+.rc-controls { display: flex; flex-direction: column; gap: 0.6rem; }
+
+.rc-banner {
+  font-size: 0.74rem;
+  padding: 0.45rem 0.6rem;
+  border-radius: 5px;
+  border-left: 2px solid var(--border);
+  background: color-mix(in srgb, var(--text-dim) 8%, transparent);
+  color: var(--text);
+  letter-spacing: 0.02em;
+}
+.rc-banner--won {
+  border-left-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  color: var(--accent);
+}
+.rc-banner--lost {
+  border-left-color: var(--rc-can);
+  background: color-mix(in srgb, var(--rc-can) 14%, transparent);
+  color: var(--rc-can);
+}
+
+.rc-ctrl-row {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: 0.4rem;
+}
+.rc-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  padding: 0 0.5rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  color: var(--text);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.74rem;
+  letter-spacing: 0.03em;
+  transition: border-color 0.15s, color 0.15s, background 0.15s, transform 0.1s;
+}
+.rc-btn:hover:not(:disabled) {
+  border-color: color-mix(in srgb, var(--accent) 50%, var(--border));
+  color: var(--text-hi);
+}
+.rc-btn:active:not(:disabled) { transform: translateY(1px); }
+.rc-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.rc-btn--primary {
+  border-color: var(--accent);
+  color: var(--accent);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 25%, transparent), 0 0 14px -8px var(--accent);
+}
+.rc-btn--primary:hover:not(:disabled) { background: color-mix(in srgb, var(--accent) 10%, var(--bg)); }
+.rc-btn--pause { border-color: var(--wip); color: var(--wip); }
+.rc-btn--accent { border-color: var(--accent2); color: var(--accent2); }
+.rc-btn--accent:hover:not(:disabled) { background: color-mix(in srgb, var(--accent2) 10%, var(--bg)); }
+
+.rc-speed { display: flex; flex-direction: column; gap: 0.32rem; }
+.rc-speed-label {
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-dim);
+}
+.rc-speed-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.25rem; }
+.rc-speed-btn {
+  height: 24px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text-dim);
+  font-family: inherit;
+  font-size: 0.66rem;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+}
+.rc-speed-btn:hover { color: var(--text-hi); }
+.rc-speed-btn--on {
+  background: color-mix(in srgb, var(--accent) 14%, var(--bg));
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ── Setup (steppers) ─────────────────────────────────────────── */
+.rc-steppers { display: flex; flex-direction: column; gap: 0.5rem; }
+.rc-stepper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+.rc-stepper-label { font-size: 0.72rem; color: var(--text); letter-spacing: 0.02em; }
+.rc-stepper-ctrl {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.rc-stepper-btn {
+  width: 26px;
+  height: 26px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+}
+.rc-stepper-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+.rc-stepper-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+.rc-stepper-value {
+  min-width: 1.4em;
+  text-align: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-hi);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Solver ───────────────────────────────────────────────────── */
+.rc-solver { display: flex; flex-direction: column; gap: 0.6rem; }
+.rc-algo-row { display: flex; flex-direction: column; gap: 0.35rem; }
+.rc-algo-pill {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.05rem;
+  padding: 0.4rem 0.6rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  cursor: pointer;
+  font-family: inherit;
+  text-align: left;
+  transition: border-color 0.18s, color 0.18s, box-shadow 0.2s, transform 0.12s;
+}
+.rc-algo-pill:hover { transform: translateY(-1px); border-color: color-mix(in srgb, var(--accent2) 40%, var(--border)); }
+.rc-algo-pill--on {
+  border-color: var(--accent2);
+  box-shadow: 0 0 0 1px var(--accent2), 0 6px 18px -12px var(--accent2);
+}
+.rc-algo-name {
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--text-hi);
+}
+.rc-algo-tag { font-size: 0.62rem; color: var(--text-dim); }
+.rc-algo-pill--on .rc-algo-tag { color: var(--accent2); }
+
+.rc-solver-actions { display: grid; grid-template-columns: 1.4fr 1fr; gap: 0.4rem; }
+
+.rc-solver-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.4rem; }
+.rc-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0.45rem 0.6rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg);
+  position: relative;
+  overflow: hidden;
+}
+.rc-stat::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), transparent);
+  opacity: 0.55;
+}
+.rc-stat-num {
+  font-size: 1.0rem;
+  font-weight: 600;
+  color: var(--text-hi);
+  font-variant-numeric: tabular-nums;
+}
+.rc-stat-lbl {
+  font-size: 0.56rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-dim);
+}
+
+.rc-solver-note {
+  font-size: 0.7rem;
+  padding: 0.4rem 0.55rem;
+  border-radius: 5px;
+  letter-spacing: 0.02em;
+}
+.rc-solver-note--stuck {
+  color: var(--rc-can);
+  background: color-mix(in srgb, var(--rc-can) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--rc-can) 35%, var(--border));
+}
+.rc-solver-note--win {
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, var(--border));
+}
+
+/* ── Plan list ────────────────────────────────────────────────── */
+.rc-plan { border-top: 1px solid var(--border); padding-top: 0.55rem; }
+.rc-plan-head {
+  font-size: 0.58rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-dim);
+  margin-bottom: 0.4rem;
+}
+.rc-plan-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  max-height: 132px;
+  overflow-y: auto;
+  counter-reset: step;
+}
+.rc-plan-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.15rem 0.4rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-size: 0.68rem;
+  font-variant-numeric: tabular-nums;
+}
+.rc-plan-arrow { color: var(--accent2); font-weight: 700; }
+.rc-plan-load { color: var(--text); }
+
+/* ── Debug log (copyable report) ──────────────────────────────── */
+.rc-debug {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--rc-panel);
+  padding: 0.75rem 0.8rem;
+}
+.rc-debug-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+.rc-panel-head--inline { margin-bottom: 0; }
+.rc-debug-actions { display: flex; align-items: center; gap: 0.4rem; }
+.rc-debug-count {
+  padding: 0.1rem 0.4rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--text-dim) 22%, var(--bg));
+  color: var(--text);
+  font-size: 0.6rem;
+  font-variant-numeric: tabular-nums;
+}
+.rc-debug-clear,
+.rc-debug-copy {
+  padding: 0.18rem 0.5rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.64rem;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+}
+.rc-debug-clear:hover:not(:disabled) { border-color: var(--accent2); color: var(--accent2); }
+.rc-debug-clear:disabled { opacity: 0.4; cursor: not-allowed; }
+.rc-debug-copy:hover { border-color: var(--accent); color: var(--accent); }
+.rc-debug-copy--ok {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 12%, var(--bg));
+}
+.rc-debug-list {
+  max-height: 176px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  font-size: 0.66rem;
+  line-height: 1.45;
+}
+.rc-debug-empty { font-size: 0.7rem; color: var(--text-dim); padding: 0.3rem 0; }
+.rc-debug-row {
+  display: grid;
+  grid-template-columns: 1.1rem 1.9rem 1fr;
+  gap: 0.35rem;
+  align-items: baseline;
+  padding: 0.08rem 0.15rem;
+  border-radius: 3px;
+}
+.rc-debug-row--win   { background: color-mix(in srgb, var(--accent) 9%, transparent); }
+.rc-debug-row--lost  { background: color-mix(in srgb, var(--rc-can) 10%, transparent); }
+.rc-debug-row--solver { background: color-mix(in srgb, var(--accent2) 8%, transparent); }
+.rc-debug-mark { color: var(--text-dim); text-align: center; }
+.rc-debug-row--win .rc-debug-mark   { color: var(--accent); }
+.rc-debug-row--lost .rc-debug-mark  { color: var(--rc-can); }
+.rc-debug-row--solver .rc-debug-mark { color: var(--accent2); }
+.rc-debug-n {
+  color: var(--text-dim);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+.rc-debug-text { color: var(--text); word-break: break-word; }
+.rc-debug-row--win .rc-debug-text  { color: var(--accent); }
+.rc-debug-row--lost .rc-debug-text { color: var(--rc-can); }
+
+/* ── Hint ─────────────────────────────────────────────────────── */
+.rc-hint {
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  line-height: 1.5;
+  padding: 0.5rem 0.6rem;
+  border-left: 2px solid color-mix(in srgb, var(--accent) 45%, var(--border));
+  background: color-mix(in srgb, var(--accent) 5%, transparent);
+}
+
+/* ── Motion preference ────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  /* the boat's glide IS the content — keep it; only kill decorative loops */
+  .rc-water::before,
+  .rc-boat--crossing .rc-boat-wake { animation: none; }
+  .rc-person { animation: none; }
+  .rc-sun::before { animation: none; }
+  .rc-celestial { transition: none; }
+  /* keep the death read (a quiet keel-over) but drop the looping flourishes */
+  .rc-person--doomed {
+    animation: none;
+    transform: translateY(9px) rotate(88deg);
+    opacity: 0.3;
+    filter: grayscale(1);
+  }
+  .rc-bank[data-doomed] .rc-person--c { animation: none; }
+  .rc-deathbubble { animation: rc-bubble-in 0.3s ease both; }
+}

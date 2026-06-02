@@ -29,6 +29,7 @@ experiments — each a self-contained, themed, bilingual (EN/VI) visualization.
 | [[Experiment Pathfinding]] | 🟢 live | [[Experiment Pathfinding]] | — |
 | [[Experiment Elevator]] | 🟢 live | [[Experiment Elevator]] | TEXTBOOK · ISSUES |
 | [[Experiment ACO]] | 🟢 live | [[Experiment ACO]] | TEXTBOOK |
+| [[Experiment River Crossing]] | 🟢 live | [[Experiment River Crossing]] | TEXTBOOK |
 | Sorting Visualizer | 🟡 wip | — | — |
 | Binary Tree Explorer | ⚪ planned | — | — |
 | Bloom Filter | ⚪ planned | — | — |

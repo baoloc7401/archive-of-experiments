@@ -202,6 +202,33 @@ const vi = {
         "Mỗi con kiến dựng một hành trình, thiên về pheromone (đã học) và khoảng cách (tham lam). Hành trình ngắn được củng cố; mọi vệt đều bay hơi. Cả đàn hội tụ về vòng gần tối ưu mà không con kiến đơn lẻ nào tự vạch được.",
       hint: "xem mạng pheromone xanh sắc lại thành hành trình tốt nhất màu tím. kéo thanh trượt trực tiếp: α cao đi theo số đông, β cao bám cạnh ngắn, ρ điều khiển sự lãng quên. bấm vào bảng để thêm thành phố.",
     },
+    "river-crossing": {
+      title: "Qua Sông",
+      description:
+        "Câu đố giáo sĩ & ăn thịt người, giải bằng BFS / DFS / A* trên không gian trạng thái — tự chơi hoặc xem thuật toán tìm.",
+      tagline: "tìm kiếm không gian trạng thái mà bạn chèo qua được",
+      intro:
+        "Đưa 3 giáo sĩ và 3 kẻ ăn thịt người qua sông. Thuyền chở 1–2 người và không tự sang được, và kẻ ăn thịt người không bao giờ được đông hơn giáo sĩ trên mỗi bờ. Đằng sau, mỗi cách sắp xếp hợp lệ là một nút và mỗi lần qua sông là một cạnh — BFS tìm ra số chuyến ít nhất.",
+      hint: "bấm vào người để lên thuyền, rồi qua sông. đổi số người hoặc sức chứa thuyền để biến đổi câu đố — cùng một thuật toán giải mọi biến thể, hoặc chứng minh là vô nghiệm. bí? bấm gợi ý một bước.",
+      death_shouts: [
+        "Tờ rơi đâu có ghi vụ này!",
+        "Biết vậy tôi đi làm kế toán!",
+        "Nhắn con dê là tôi yêu nó!",
+        "Bảo là thuyền AN TOÀN cơ mà!",
+        "Đừng cắn mặt! ĐỪNG—",
+        "Tại cái thuật toán hết!",
+        "5 sao, nhưng không qua sông lần nữa đâu.",
+        "Tôi vốn dốt toán mà!",
+        "Tôi còn vợ và 0.7 bài giảng!",
+        "Tại tôi nói gì sai à?!",
+        "Gửi cứu viện và đồ ăn vặt!",
+        "Nguyền rủa cái khâu phà này!",
+        "Biết ngay là quên gì đó mà!",
+        "Lát quay lại, đang bị ăn thịt.",
+        "Chuyến. Hành hương. Tệ nhất.",
+        "Tôi chẳng hối hận gì! ...chắc vậy!",
+      ],
+    },
     "binary-tree": {
       title: "Khám Phá Cây Nhị Phân",
       description:

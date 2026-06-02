@@ -13,6 +13,7 @@ Source of truth for the list + statuses:
 | [[Experiment Pathfinding]] | 🟢 live | algorithms, graphs | [play](https://baoloc7401.github.io/archive-of-experiments/experiments/pathfinding) |
 | [[Experiment Elevator]] | 🟢 live | algorithms, simulation, visualization | [play](https://baoloc7401.github.io/archive-of-experiments/experiments/elevator) |
 | [[Experiment ACO]] | 🟢 live | algorithms, AI, simulation, visualization | [play](https://baoloc7401.github.io/archive-of-experiments/experiments/aco) |
+| [[Experiment River Crossing]] | 🟢 live | algorithms, AI, graphs, game | [play](https://baoloc7401.github.io/archive-of-experiments/experiments/river-crossing) |
 | Sorting Visualizer | 🟡 wip | algorithms, visualization | — |
 | Binary Tree Explorer | ⚪ planned | data structures, trees | — |
 | Bloom Filter | ⚪ planned | data structures, probabilistic | — |

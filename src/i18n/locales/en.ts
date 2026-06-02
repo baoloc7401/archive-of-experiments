@@ -200,6 +200,33 @@ const en = {
         "Each ant builds a tour biased by pheromone (learned) and distance (greedy). Short tours get reinforced; every trail evaporates. The colony settles on a near-optimal loop no single ant could plan.",
       hint: "watch the green pheromone web sharpen into the purple best tour. drag the sliders live: high α follows the crowd, high β chases short edges, ρ controls forgetting. click the board to add cities.",
     },
+    "river-crossing": {
+      title: "River Crossing",
+      description:
+        "The missionaries & cannibals puzzle, solved by BFS / DFS / A* over the state space — play it or watch the search.",
+      tagline: "state-space search you can paddle through",
+      intro:
+        "Ferry 3 missionaries and 3 cannibals across the river. The boat holds 1–2 and can't sail empty, and cannibals must never outnumber missionaries on either bank. Behind the scenes every legal arrangement is a node and every crossing an edge — BFS finds the fewest trips.",
+      hint: "tap people to load the boat, then cross. change the headcount or boat size to morph the puzzle — the same search solves every variant, or proves none exists. stuck? hit a hint step.",
+      death_shouts: [
+        "This wasn't in the brochure!",
+        "I should've been an accountant!",
+        "Tell my goat I love her!",
+        "You said the boat was SAFE!",
+        "Not the face! NOT THE—",
+        "I blame the algorithm!",
+        "5 stars, would not cross again.",
+        "Math was never my strong suit!",
+        "I have a wife and 0.7 sermons!",
+        "Was it something I said?!",
+        "Send help and snacks!",
+        "Curse you, ferry logistics!",
+        "I knew I forgot something!",
+        "BRB getting eaten.",
+        "Worst. Pilgrimage. Ever.",
+        "I regret nothing! ...mostly!",
+      ],
+    },
     "binary-tree": {
       title: "Binary Tree Explorer",
       description:
