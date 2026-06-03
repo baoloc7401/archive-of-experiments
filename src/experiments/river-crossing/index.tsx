@@ -6,6 +6,8 @@ import RiverScene from "./components/RiverScene";
 import Controls from "./components/Controls";
 import SetupPanel from "./components/SetupPanel";
 import SolverPanel from "./components/SolverPanel";
+import SearchGraph from "./components/SearchGraph";
+import StoryPanel from "./components/StoryPanel";
 import DebugLog from "./components/DebugLog";
 import "./RiverCrossing.css";
 
@@ -27,7 +29,10 @@ export default function RiverCrossing() {
           <ScrambleText text={t("experiments.river-crossing.tagline")} duration={600} />
         </div>
         <div className="rc-info-desc">
-          <ScrambleText text={t("experiments.river-crossing.intro")} duration={600} />
+          <ScrambleText
+            text={t("experiments.river-crossing.intro", { m: rc.cfg.m, c: rc.cfg.c, k: rc.cfg.k })}
+            duration={600}
+          />
         </div>
       </div>
 
@@ -58,6 +63,16 @@ export default function RiverCrossing() {
           <div className="rc-hint">
             <ScrambleText text={t("experiments.river-crossing.hint")} duration={600} />
           </div>
+          <SearchGraph
+            key={rc.searchKey}
+            cfg={rc.cfg}
+            graph={rc.graph}
+            steps={rc.searchTrace}
+            solution={rc.solution}
+            algo={rc.algo}
+            speedIndex={rc.speedIndex}
+          />
+          <StoryPanel cfg={rc.cfg} moves={rc.moveLog} status={rc.status} />
         </section>
 
         <aside className="rc-sidebar">

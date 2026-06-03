@@ -7,6 +7,9 @@ import type {
   Move,
   PuzzleState,
   SearchAlgo,
+  SearchResult,
+  SearchStep,
+  StateGraph,
   Status,
 } from "./types";
 import {
@@ -15,9 +18,11 @@ import {
   loadLabel,
   moveArrow,
   rawApply,
+  reachableGraph,
   rightBank,
-  solveFrom,
+  searchSteps,
   startState,
+  stateKey,
 } from "./solver";
 import {
   DEFAULT_CONFIG,
@@ -47,7 +52,13 @@ export interface RiverCrossing {
   /** moves the player has actually made */
   moveLog: Move[];
   /** the solver's continuation from the *current* state, under the chosen algorithm */
-  solution: ReturnType<typeof solveFrom>;
+  solution: SearchResult;
+  /** the reachable state graph for the current config (for the search view) */
+  graph: StateGraph;
+  /** the materialized search trace from the current state (one frame per expansion) */
+  searchTrace: SearchStep[];
+  /** identity of the current search — change it to remount/reset the search view */
+  searchKey: string;
   /** remaining moves of the plan currently being followed (empty when idle) */
   plan: Move[];
   algo: SearchAlgo;
@@ -109,7 +120,21 @@ export function useRiverCrossing(): RiverCrossing {
 
   const crossMs = SPEED_PRESETS[speedIndex].ms;
 
-  const solution = useMemo(() => solveFrom(cfg, state, algo), [cfg, state, algo]);
+  // One generator run feeds both the answer and the animated trace, so the
+  // step-by-step view can never disagree with the plan the solver hands back.
+  const trace = useMemo(() => {
+    const steps: SearchStep[] = [];
+    const gen = searchSteps(cfg, state, algo);
+    let r = gen.next();
+    while (!r.done) {
+      steps.push(r.value);
+      r = gen.next();
+    }
+    return { steps, result: r.value };
+  }, [cfg, state, algo]);
+  const solution = trace.result;
+  const graph = useMemo(() => reachableGraph(cfg), [cfg]);
+  const searchKey = `${cfg.m}-${cfg.c}-${cfg.k}-${algo}-${stateKey(state)}`;
 
   const dock = state.boat;
   const right = rightBank(cfg, state);
@@ -306,6 +331,9 @@ export function useRiverCrossing(): RiverCrossing {
       `  optimal crossings remaining: ${solution.solvable ? solution.moves.length : "—"}`,
       `  nodes expanded: ${solution.expanded} · discovered: ${solution.discovered} · frontier peak: ${solution.frontierPeak}`,
     ];
+    if (algo === "ucs" && solution.solvable) {
+      lines.push(`  least path cost (people ferried): ${solution.cost}`);
+    }
     if (solution.solvable && solution.moves.length > 0) {
       lines.push(
         `  optimal plan: ${solution.moves
@@ -349,6 +377,9 @@ export function useRiverCrossing(): RiverCrossing {
     rightBank: rightBankShown,
     moveLog,
     solution,
+    graph,
+    searchTrace: trace.steps,
+    searchKey,
     plan,
     algo,
     speedIndex,

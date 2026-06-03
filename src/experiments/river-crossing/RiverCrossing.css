@@ -721,6 +721,128 @@ button.rc-person:not(:disabled):hover .rc-person-body {
 .rc-plan-arrow { color: var(--accent2); font-weight: 700; }
 .rc-plan-load { color: var(--text); }
 
+.rc-solver-note--cost {
+  color: var(--accent2);
+  background: color-mix(in srgb, var(--accent2) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent2) 35%, var(--border));
+}
+
+/* ── Search graph (state-space visualization) ─────────────────────── */
+.rc-graph {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--rc-panel);
+  padding: 0.75rem 0.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+.rc-graph-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+.rc-graph-algo {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: var(--accent2);
+}
+.rc-graph-svg {
+  width: 100%;
+  height: auto;
+  max-height: 360px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background:
+    radial-gradient(80% 70% at 0% 100%, color-mix(in srgb, var(--accent) 7%, transparent), transparent 60%),
+    radial-gradient(80% 70% at 100% 0%, color-mix(in srgb, var(--accent2) 8%, transparent), transparent 60%),
+    var(--bg);
+}
+
+.rc-gedge {
+  stroke: color-mix(in srgb, var(--text-dim) 30%, transparent);
+  stroke-width: 0.28;
+}
+.rc-gedge--path {
+  stroke: var(--accent2);
+  stroke-width: 0.7;
+}
+
+.rc-gnode {
+  fill: var(--bg2);
+  stroke: var(--border);
+  stroke-width: 0.4;
+  transition: fill 0.18s, stroke 0.18s;
+}
+/* fill + stroke priority is governed by CSS source order (later wins) */
+.rc-gnode--unseen {
+  fill: color-mix(in srgb, var(--text-dim) 10%, var(--bg));
+  stroke: color-mix(in srgb, var(--border) 55%, transparent);
+}
+.rc-gnode--closed {
+  fill: color-mix(in srgb, var(--accent) 34%, var(--bg));
+  stroke: color-mix(in srgb, var(--accent) 55%, var(--border));
+}
+.rc-gnode--frontier {
+  fill: color-mix(in srgb, var(--accent2) 26%, var(--bg));
+  stroke: var(--accent2);
+  stroke-width: 0.55;
+}
+.rc-gnode--start { stroke: var(--rc-mis); stroke-width: 0.85; }
+.rc-gnode--goal  { stroke: var(--wip);    stroke-width: 0.85; }
+.rc-gnode--path {
+  fill: color-mix(in srgb, var(--accent2) 55%, var(--bg));
+  stroke: var(--accent2);
+  stroke-width: 0.7;
+}
+.rc-gnode--current {
+  fill: var(--text-hi);
+  stroke: var(--accent);
+  stroke-width: 1;
+}
+
+.rc-graph-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem 0.8rem;
+  font-size: 0.6rem;
+  color: var(--text-dim);
+  letter-spacing: 0.03em;
+}
+.rc-glegend { display: inline-flex; align-items: center; gap: 0.3rem; }
+.rc-glegend::before {
+  content: "";
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border);
+}
+.rc-glegend--frontier::before { background: color-mix(in srgb, var(--accent2) 26%, var(--bg)); border-color: var(--accent2); }
+.rc-glegend--closed::before   { background: color-mix(in srgb, var(--accent) 34%, var(--bg)); border-color: color-mix(in srgb, var(--accent) 55%, var(--border)); }
+.rc-glegend--current::before  { background: var(--text-hi); border-color: var(--accent); }
+.rc-glegend--path::before     { background: color-mix(in srgb, var(--accent2) 55%, var(--bg)); border-color: var(--accent2); }
+.rc-glegend--start::before    { background: var(--bg2); border-color: var(--rc-mis); }
+.rc-glegend--goal::before     { background: var(--bg2); border-color: var(--wip); }
+
+.rc-graph-controls {
+  display: grid;
+  grid-template-columns: 1fr 1.8fr 1fr 1fr;
+  gap: 0.4rem;
+}
+
+.rc-graph-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.9rem;
+  font-size: 0.66rem;
+  color: var(--text-dim);
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums;
+}
+.rc-graph-stats b { color: var(--text-hi); font-weight: 600; }
+
 /* ── Debug log (copyable report) ──────────────────────────────── */
 .rc-debug {
   border: 1px solid var(--border);
@@ -798,6 +920,106 @@ button.rc-person:not(:disabled):hover .rc-person-body {
 .rc-debug-text { color: var(--text); word-break: break-word; }
 .rc-debug-row--win .rc-debug-text  { color: var(--accent); }
 .rc-debug-row--lost .rc-debug-text { color: var(--rc-can); }
+
+/* ── Story (live narrative) ───────────────────────────────────── */
+.rc-story {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--rc-panel);
+  padding: 0.75rem 0.8rem;
+}
+.rc-story-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+.rc-story-actions { display: flex; align-items: center; gap: 0.4rem; }
+.rc-story-btn {
+  padding: 0.18rem 0.55rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.64rem;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+}
+.rc-story-btn:hover { border-color: var(--accent2); color: var(--accent2); }
+.rc-story-btn--ok {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 12%, var(--bg));
+}
+
+.rc-story-list {
+  max-height: 230px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.rc-story-beat {
+  position: relative;
+  margin: 0;
+  padding: 0.3rem 0.5rem 0.3rem 0.7rem;
+  border-left: 2px solid var(--border);
+  border-radius: 0 4px 4px 0;
+  font-size: 0.76rem;
+  line-height: 1.5;
+  color: var(--text);
+  animation: rc-story-in 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+}
+@keyframes rc-story-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.rc-story-n {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.1rem;
+  height: 1.1rem;
+  margin-right: 0.4rem;
+  padding: 0 0.25rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent2) 16%, var(--bg));
+  color: var(--accent2);
+  font-size: 0.58rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  vertical-align: 1px;
+}
+
+/* tension bands tint the rail from calm → dire */
+.rc-story-beat--calm   { border-left-color: color-mix(in srgb, var(--accent) 45%, var(--border)); }
+.rc-story-beat--uneasy { border-left-color: color-mix(in srgb, var(--wip) 50%, var(--border)); }
+.rc-story-beat--tense  { border-left-color: color-mix(in srgb, var(--rc-can) 55%, var(--border)); }
+.rc-story-beat--dire   { border-left-color: var(--rc-can); }
+
+/* the framing beats read as narration, set apart from the action */
+.rc-story-beat--intro,
+.rc-story-beat--win,
+.rc-story-beat--loss {
+  font-style: italic;
+  background: color-mix(in srgb, var(--text-dim) 6%, transparent);
+}
+.rc-story-beat--win {
+  border-left-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 9%, transparent);
+  color: var(--accent);
+}
+.rc-story-beat--loss {
+  border-left-color: var(--rc-can);
+  background: color-mix(in srgb, var(--rc-can) 10%, transparent);
+  color: var(--rc-can);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rc-story-beat { animation: none; }
+}
 
 /* ── Hint ─────────────────────────────────────────────────────── */
 .rc-hint {

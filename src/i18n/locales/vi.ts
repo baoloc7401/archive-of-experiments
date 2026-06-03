@@ -208,7 +208,7 @@ const vi = {
         "Câu đố giáo sĩ & ăn thịt người, giải bằng BFS / DFS / A* trên không gian trạng thái — tự chơi hoặc xem thuật toán tìm.",
       tagline: "tìm kiếm không gian trạng thái mà bạn chèo qua được",
       intro:
-        "Đưa 3 giáo sĩ và 3 kẻ ăn thịt người qua sông. Thuyền chở 1–2 người và không tự sang được, và kẻ ăn thịt người không bao giờ được đông hơn giáo sĩ trên mỗi bờ. Đằng sau, mỗi cách sắp xếp hợp lệ là một nút và mỗi lần qua sông là một cạnh — BFS tìm ra số chuyến ít nhất.",
+        "Đưa {{m}} giáo sĩ và {{c}} kẻ ăn thịt người qua sông. Thuyền chở 1–{{k}} người và không tự sang được, và kẻ ăn thịt người không bao giờ được đông hơn giáo sĩ trên mỗi bờ. Đằng sau, mỗi cách sắp xếp hợp lệ là một nút và mỗi lần qua sông là một cạnh — BFS tìm ra số chuyến ít nhất.",
       hint: "bấm vào người để lên thuyền, rồi qua sông. đổi số người hoặc sức chứa thuyền để biến đổi câu đố — cùng một thuật toán giải mọi biến thể, hoặc chứng minh là vô nghiệm. bí? bấm gợi ý một bước.",
       death_shouts: [
         "Tờ rơi đâu có ghi vụ này!",
@@ -228,6 +228,14 @@ const vi = {
         "Chuyến. Hành hương. Tệ nhất.",
         "Tôi chẳng hối hận gì! ...chắc vậy!",
       ],
+      story: {
+        title: "câu chuyện",
+        retell: "↻ kể lại",
+        retell_hint: "Đổi vai và kể lại cùng các chuyến qua sông",
+        copy: "sao chép",
+        copied: "✓ đã chép",
+        copy_hint: "Sao chép toàn bộ câu chuyện vào bộ nhớ tạm",
+      },
     },
     "binary-tree": {
       title: "Khám Phá Cây Nhị Phân",

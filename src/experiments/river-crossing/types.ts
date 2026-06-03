@@ -2,7 +2,14 @@ export type Side = "L" | "R";
 
 export type Status = "playing" | "won" | "lost";
 
-export type SearchAlgo = "bfs" | "dfs" | "astar";
+export type SearchAlgo =
+  | "bfs"
+  | "dfs"
+  | "iddfs"
+  | "greedy"
+  | "astar"
+  | "ucs"
+  | "bidir";
 
 /** A puzzle configuration. The boat carries 1..k people per crossing. */
 export interface Config {
@@ -58,4 +65,36 @@ export interface SearchResult {
   discovered: number;
   /** largest the frontier ever grew. */
   frontierPeak: number;
+  /** total path cost — crossings for unit-cost algorithms, summed edge weights
+   *  (people ferried) for the weighted UCS / Dijkstra search. */
+  cost: number;
+}
+
+/**
+ * One frame of a search animation: a snapshot of the search after a single node
+ * was pulled off the frontier and expanded. State keys (`stateKey`) classify
+ * every node of the graph into closed / frontier / unseen for the visualization.
+ */
+export interface SearchStep {
+  /** the node just taken off the frontier this step (null on the seed frame) */
+  expanded: PuzzleState | null;
+  /** keys waiting to be expanded (discovered − closed; the DFS path for IDDFS) */
+  frontier: string[];
+  /** keys already expanded (the closed set) */
+  closed: string[];
+  /** every key discovered so far */
+  discovered: string[];
+  /** running expansion count (mirrors SearchResult.expanded) */
+  expandedCount: number;
+  /** running frontier-size peak */
+  frontierPeak: number;
+  /** current depth limit, for iterative deepening only */
+  limit?: number;
+}
+
+/** The reachable state graph for a config — nodes plus undirected edges. */
+export interface StateGraph {
+  nodes: PuzzleState[];
+  /** undirected edges between state keys, each listed once */
+  edges: { a: string; b: string }[];
 }

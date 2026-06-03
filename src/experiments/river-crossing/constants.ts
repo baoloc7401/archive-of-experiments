@@ -19,10 +19,48 @@ export const DEFAULT_SPEED_INDEX = 1;
 /** Pause between consecutive auto-played crossings. */
 export const PLAY_GAP = 360;
 
-export const ALGOS: { id: SearchAlgo; name: string; tagline: string }[] = [
-  { id: "bfs", name: "Breadth-First", tagline: "fewest crossings, guaranteed" },
-  { id: "dfs", name: "Depth-First", tagline: "any solution, dives deep first" },
-  { id: "astar", name: "A*", tagline: "guided by a people-left heuristic" },
+/** Per-speed delay between animated search-graph steps (matches SPEED_PRESETS order). */
+export const SEARCH_STEP_MS = [620, 380, 210, 120];
+
+/**
+ * `kind` drives the plan label and which searches we call "optimal":
+ * - `optimal` — returns a fewest-crossings path (BFS, IDDFS, A*, bidirectional)
+ * - `cost`    — returns a least-weight path (UCS / Dijkstra, weighted by people ferried)
+ * - `any`     — returns *a* valid path, not necessarily shortest (DFS, greedy)
+ */
+export const ALGOS: {
+  id: SearchAlgo;
+  name: string;
+  tagline: string;
+  kind: "optimal" | "cost" | "any";
+}[] = [
+  { id: "bfs", name: "Breadth-First", tagline: "fewest crossings, guaranteed", kind: "optimal" },
+  { id: "dfs", name: "Depth-First", tagline: "any solution, dives deep first", kind: "any" },
+  {
+    id: "iddfs",
+    name: "Iterative Deepening",
+    tagline: "DFS memory, BFS-optimal depth",
+    kind: "optimal",
+  },
+  {
+    id: "greedy",
+    name: "Greedy Best-First",
+    tagline: "chase the heuristic, ignore the cost",
+    kind: "any",
+  },
+  { id: "astar", name: "A*", tagline: "guided by a people-left heuristic", kind: "optimal" },
+  {
+    id: "ucs",
+    name: "Uniform-Cost",
+    tagline: "least people ferried — weighted edges",
+    kind: "cost",
+  },
+  {
+    id: "bidir",
+    name: "Bidirectional",
+    tagline: "search from both shores, meet in the middle",
+    kind: "optimal",
+  },
 ];
 
 export const ALGO_BY_ID = Object.fromEntries(

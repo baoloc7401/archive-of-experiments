@@ -1,6 +1,6 @@
 import ScrambleText from "../../../components/ScrambleText";
 import type { Move, SearchAlgo, SearchResult, Status } from "../types";
-import { ALGOS } from "../constants";
+import { ALGO_BY_ID, ALGOS } from "../constants";
 import { loadLabel, moveArrow } from "../solver";
 
 interface Props {
@@ -35,8 +35,15 @@ export default function SolverPanel({
   // While a plan executes, show *it* so the list matches what's running; DFS's
   // recomputed solution-from-here would otherwise disagree move to move.
   const planMoves = plan.length > 0 ? plan : solution.moves;
-  // BFS/A* return shortest paths; DFS does not, so only call it "optimal" then.
-  const optimal = algo !== "dfs";
+  const meta = ALGO_BY_ID[algo];
+  // Only the shortest-path searches earn "optimal"; UCS is least-cost, the rest
+  // return *a* valid path.
+  const planHead =
+    meta.kind === "optimal"
+      ? "optimal plan from here"
+      : meta.kind === "cost"
+        ? "least-cost plan from here"
+        : `${meta.name.toLowerCase()} plan from here`;
 
   return (
     <section className="rc-solver">
@@ -116,9 +123,18 @@ export default function SolverPanel({
         </div>
       )}
 
+      {meta.kind === "cost" && solution.solvable && (
+        <div className="rc-solver-note rc-solver-note--cost">
+          <ScrambleText
+            text={`least cost: ${solution.cost} people ferried (weighted edges)`}
+            duration={500}
+          />
+        </div>
+      )}
+
       {solution.solvable && planMoves.length > 0 && (
         <div className="rc-plan">
-          <div className="rc-plan-head">{optimal ? "optimal plan from here" : "DFS plan from here"}</div>
+          <div className="rc-plan-head">{planHead}</div>
           <ol className="rc-plan-list">
             {planMoves.map((mv, i) => (
               <li key={i} className="rc-plan-item">

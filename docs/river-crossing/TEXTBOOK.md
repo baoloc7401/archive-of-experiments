@@ -112,13 +112,14 @@ in your head, yet BFS/DFS/A\* visibly differ on it. Config bounds keep it small:
 
 ---
 
-## 2. The three search algorithms
+## 2. The search algorithms (three core, four more)
 
-All three share the graph (`successors`) and differ only in frontier discipline.
-Each call returns the path, the moves, and **search-cost telemetry** —
-`expanded` (nodes pulled off the frontier), `discovered` (distinct states ever
-seen), and `frontierPeak` (largest the frontier grew) — which the panel surfaces
-so you can *watch the cost*, not just the answer.
+The three classic searches below — plus the four added later (greedy, IDDFS,
+bidirectional, UCS) — all share the graph (`successors`) and differ only in
+frontier discipline. Each call returns the path, the moves, and **search-cost
+telemetry** — `expanded` (nodes pulled off the frontier), `discovered` (distinct
+states ever seen), `frontierPeak` (largest the frontier grew), and `cost` (path
+weight) — which the panel surfaces so you can *watch the cost*, not just the answer.
 
 ### BFS — Breadth-First Search
 **Definition.** Expand the frontier in FIFO order; the first time you reach the
@@ -158,6 +159,36 @@ across, and one forward trip removes at most `K` people, so at least
 `ceil((ml + cl) / K)` forward crossings remain. It ignores the return trips the
 boat must also make, so it never *over*estimates → A\* stays optimal and agrees
 with BFS on length (11 on 3/3/2).
+
+### Four more, sharing the same graph
+The same `successors()` graph drives four further searches (see
+[IMPROVEMENTS.md](IMPROVEMENTS.md) Tier 2), all funneled through one stepping
+generator so the answer and the animation can't diverge:
+
+- **Greedy best-first** — orders by `h` alone (drop the `g`). Few expansions,
+  but the path is *not* optimal: the cleanest foil to A\*'s `g + h`.
+- **Iterative-deepening DFS** — depth-limited DFS with a rising limit; the first
+  limit to reach the goal gives a **BFS-optimal depth** with only the current
+  path in memory. Within an iteration a state is re-expanded only when reached at
+  a strictly *shallower* depth — that transposition-by-depth pruning is what keeps
+  it from re-enumerating exponentially many paths on so cyclic a graph.
+- **Bidirectional BFS** — grows a frontier from each shore and stops when they
+  meet (the graph is undirected — any crossing rows back). Shortest, with far
+  fewer expansions. **Subtlety:** when the goal itself is illegal (`C > M`), edges
+  *out of* it aren't real reverse edges, so a naïve backward search falsely
+  connects; we bail the backward search when the goal is invalid. Same flavour as
+  §0 — a structural fact about the graph, not a coding slip.
+- **Uniform-Cost (Dijkstra)** — the one **weighted** search: edge cost is *people
+  ferried* (`m + c`), so it minimises bodies carried rather than crossings, and
+  its least-cost path can differ from the fewest-crossings one. This is the
+  boundary §9 flags where BFS stops being automatically optimal.
+
+### Watching the search, not just the answer
+The reachable state graph (`reachableGraph()`) is drawn as a node-link diagram and
+the per-expansion trace is replayed step by step, so the §3 contrast below — BFS
+fanning wide, DFS diving — is something you *see*, not just read off
+`frontierPeak`. An unsolvable instance simply shows the goal as a detached,
+unreachable node: the impossibility proof of §4, made visual.
 
 ---
 
@@ -315,6 +346,12 @@ report.)
 | BFS optimal (fewest crossings) | ✅ | 11 on 3/3/2 |
 | DFS any-solution | ✅ | non-optimal by design |
 | A\* with admissible `h = ceil((ml+cl)/K)` | ✅ | optimal, agrees with BFS |
+| Greedy best-first (`h` only) | ✅ | non-optimal by design — the A\* foil |
+| Iterative-deepening DFS | ✅ | BFS-optimal depth; depth-pruned to stay polynomial |
+| Bidirectional BFS | ✅ | shortest; bails when the goal is illegal (`C > M`) |
+| Uniform-Cost / Dijkstra (weighted) | ✅\* | optimises *people ferried*, not crossings |
+| Search visualization (frontier/closed over the state graph) | ✅ | one trace generator feeds both the answer and the animation |
+| All seven verified vs BFS across every in-bounds config | ✅ | solvability + valid paths + optimal-set length match |
 | Solvability as output (impossible instances proved) | ✅ | no hardcoded table |
 | Arbitrary `M, C, K` reconfiguration | ✅\* | bounded `M,C∈[1,5]`, `K∈[2,4]` for a small, watchable space |
 | Manual illegal move allowed → loss | ✅\* | deliberate: search generates legal-only, the *human* may err |
