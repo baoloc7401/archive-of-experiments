@@ -33,8 +33,19 @@ shortest path.
 - Algorithms: [`src/experiments/pathfinding/algorithms/`](https://github.com/baoloc7401/archive-of-experiments/tree/main/src/experiments/pathfinding/algorithms)
 - Maze generation: [`src/experiments/pathfinding/maze.ts`](https://github.com/baoloc7401/archive-of-experiments/blob/main/src/experiments/pathfinding/maze.ts)
 
-> No `TEXTBOOK.md` yet — a good candidate for the textbook treatment (see
-> [[Documentation Conventions]]): BFS/Dijkstra/A\* equivalences, the
-> JPS-ignores-weights caveat, heuristic admissibility.
+## Research doc
+
+[`docs/pathfinding/TEXTBOOK.md`](https://github.com/baoloc7401/archive-of-experiments/blob/main/docs/pathfinding/TEXTBOOK.md)
+covers: canonical definitions for all seven algorithms, the 4-directional JPS
+adaptation (and the open-grid "no path" bug it fixed), weighted terrain and
+heuristic admissibility, maze generation, and a full fidelity scorecard.
+
+Key findings documented there:
+- JPS silently reports "no path" on wall-free grids unless vertical scans
+  include a cross-scan for horizontal jump points (§0 and §4.1).
+- JPS path renders as disconnected dots without interpolating intermediate
+  cells between jump-point waypoints (§4.2).
+- The `flex: 1; min-height: 0` flex-collapse trap that prevented page scrolling
+  when the options panel expanded (§4.5).
 
 See also: [[Experiments]]

@@ -38,7 +38,7 @@ AI vs AI — with five selectable skill tiers from Beginner to Master.
   encoding, king-restriction term, static-eval tiebreak) works, the
   cross-thread Zobrist hazard and its deterministic-seed fix, and the
   difficulty-scaling design.
-- 🛠 **[docs/chess/IMPROVEMENT.md](https://github.com/baoloc7401/archive-of-experiments/blob/main/docs/chess/IMPROVEMENT.md)**
+- 🛠 **[docs/chess/IMPROVEMENTS.md](https://github.com/baoloc7401/archive-of-experiments/blob/main/docs/chess/IMPROVEMENTS.md)**
   — the engine-strength roadmap: what the engine does today and what's
   planned next (with notes on what was tried and reverted, e.g. aspiration
   windows), referenced against the Chess Programming Wiki.
