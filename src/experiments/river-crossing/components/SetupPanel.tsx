@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import type { Config } from "../types";
 import { MAX_CAP, MAX_PEOPLE, MIN_CAP, MIN_PEOPLE } from "../constants";
 
@@ -15,6 +16,7 @@ interface StepperProps {
 }
 
 function Stepper({ label, value, min, max, onChange }: StepperProps) {
+  const { t } = useTranslation();
   return (
     <div className="rc-stepper">
       <span className="rc-stepper-label">{label}</span>
@@ -24,7 +26,7 @@ function Stepper({ label, value, min, max, onChange }: StepperProps) {
           className="rc-stepper-btn"
           onClick={() => onChange(value - 1)}
           disabled={value <= min}
-          aria-label={`decrease ${label}`}
+          aria-label={t("experiments.river-crossing.setup.decrease", { label })}
         >
           −
         </button>
@@ -34,7 +36,7 @@ function Stepper({ label, value, min, max, onChange }: StepperProps) {
           className="rc-stepper-btn"
           onClick={() => onChange(value + 1)}
           disabled={value >= max}
-          aria-label={`increase ${label}`}
+          aria-label={t("experiments.river-crossing.setup.increase", { label })}
         >
           +
         </button>
@@ -48,26 +50,27 @@ function Stepper({ label, value, min, max, onChange }: StepperProps) {
  * of the state-space framing: the same solver handles every variant.
  */
 export default function SetupPanel({ cfg, onChange }: Props) {
+  const { t } = useTranslation();
   return (
     <section className="rc-setup">
-      <div className="rc-panel-head">setup</div>
+      <div className="rc-panel-head">{t("experiments.river-crossing.setup.title")}</div>
       <div className="rc-steppers">
         <Stepper
-          label="missionaries"
+          label={t("experiments.river-crossing.setup.missionaries")}
           value={cfg.m}
           min={MIN_PEOPLE}
           max={MAX_PEOPLE}
           onChange={(m) => onChange({ m })}
         />
         <Stepper
-          label="cannibals"
+          label={t("experiments.river-crossing.setup.cannibals")}
           value={cfg.c}
           min={MIN_PEOPLE}
           max={MAX_PEOPLE}
           onChange={(c) => onChange({ c })}
         />
         <Stepper
-          label="boat seats"
+          label={t("experiments.river-crossing.setup.boat_seats")}
           value={cfg.k}
           min={MIN_CAP}
           max={MAX_CAP}

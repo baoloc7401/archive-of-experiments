@@ -68,9 +68,14 @@ export default function RiverCrossing() {
             cfg={rc.cfg}
             graph={rc.graph}
             steps={rc.searchTrace}
-            solution={rc.solution}
             algo={rc.algo}
             speedIndex={rc.speedIndex}
+            crossMs={rc.crossMs}
+            state={rc.state}
+            crossing={rc.crossing}
+            crossTarget={rc.crossTarget}
+            isPlaying={rc.isPlaying}
+            traveled={rc.traveled}
           />
           <StoryPanel cfg={rc.cfg} moves={rc.moveLog} status={rc.status} />
         </section>

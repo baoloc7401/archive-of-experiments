@@ -22,7 +22,6 @@ import {
   rightBank,
   searchSteps,
   startState,
-  stateKey,
 } from "./solver";
 import {
   DEFAULT_CONFIG,
@@ -46,6 +45,8 @@ export interface RiverCrossing {
   dock: PuzzleState["boat"];
   /** where the boat is drawn — flips to the destination during a crossing */
   boatSide: PuzzleState["boat"];
+  /** the state the boat is gliding toward mid-crossing (drives the graph token) */
+  crossTarget: PuzzleState | null;
   /** people standing on each bank, minus anyone already aboard */
   leftBank: Load;
   rightBank: Load;
@@ -59,6 +60,8 @@ export interface RiverCrossing {
   searchTrace: SearchStep[];
   /** identity of the current search — change it to remount/reset the search view */
   searchKey: string;
+  /** the states the boat has actually visited, start → current (grows per crossing) */
+  traveled: PuzzleState[];
   /** remaining moves of the plan currently being followed (empty when idle) */
   plan: Move[];
   algo: SearchAlgo;
@@ -133,8 +136,13 @@ export function useRiverCrossing(): RiverCrossing {
     return { steps, result: r.value };
   }, [cfg, state, algo]);
   const solution = trace.result;
+  // The boat's actual trajectory: each `history` entry is the state before a
+  // crossing, so history + current is the visited path, start → here.
+  const traveled = useMemo(() => [...history, state], [history, state]);
   const graph = useMemo(() => reachableGraph(cfg), [cfg]);
-  const searchKey = `${cfg.m}-${cfg.c}-${cfg.k}-${algo}-${stateKey(state)}`;
+  // Keyed on config + algorithm only (not `state`), so the graph view persists
+  // across crossings — the live route and boat token glide instead of remounting.
+  const searchKey = `${cfg.m}-${cfg.c}-${cfg.k}-${algo}`;
 
   const dock = state.boat;
   const right = rightBank(cfg, state);
@@ -147,6 +155,10 @@ export function useRiverCrossing(): RiverCrossing {
   };
 
   const seats = board.m + board.c;
+  // While a crossing is in flight, `board` holds the load and `state` is the
+  // origin, so the destination is just the raw-applied move (skips the safety
+  // check, like the boat in the scene — the graph token glides there).
+  const crossTarget = crossing ? rawApply(cfg, state, board) : null;
   const canCross = !crossing && status === "playing" && seats >= 1;
   const canUndo = !crossing && history.length > 0;
   const isPlaying = playIntent && status === "playing" && plan.length > 0;
@@ -373,6 +385,7 @@ export function useRiverCrossing(): RiverCrossing {
     crossing,
     dock,
     boatSide: crossing ? (dock === "L" ? "R" : "L") : dock,
+    crossTarget,
     leftBank,
     rightBank: rightBankShown,
     moveLog,
@@ -380,6 +393,7 @@ export function useRiverCrossing(): RiverCrossing {
     graph,
     searchTrace: trace.steps,
     searchKey,
+    traveled,
     plan,
     algo,
     speedIndex,
