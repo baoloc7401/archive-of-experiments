@@ -8,6 +8,7 @@ import ChessGame from "./experiments/chess";
 import Pathfinding from "./experiments/pathfinding";
 import Elevator from "./experiments/elevator";
 import Aco from "./experiments/aco";
+import RiverCrossing from "./experiments/river-crossing";
 
 const root = document.getElementById("root");
 if (!root) throw new Error("Root element not found");
@@ -21,6 +22,7 @@ createRoot(root).render(
         <Route path="/experiments/pathfinding/:screen?" element={<Pathfinding />} />
         <Route path="/experiments/elevator" element={<Elevator />} />
         <Route path="/experiments/aco" element={<Aco />} />
+        <Route path="/experiments/river-crossing" element={<RiverCrossing />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>

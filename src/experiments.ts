@@ -39,6 +39,12 @@ export const experiments: Experiment[] = [
     path: "/experiments/aco",
   },
   {
+    id: "river-crossing",
+    tags: ["algorithms", "AI", "graphs", "game"],
+    status: "active",
+    path: "/experiments/river-crossing",
+  },
+  {
     id: "binary-tree",
     tags: ["data structures", "trees"],
     status: "planned",
