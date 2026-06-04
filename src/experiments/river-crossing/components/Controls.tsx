@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import ScrambleText from "../../../components/ScrambleText";
 import type { Status } from "../types";
 import { SPEED_PRESETS } from "../constants";
@@ -29,14 +30,15 @@ export default function Controls({
   onReset,
   onSpeed,
 }: Props) {
+  const { t } = useTranslation();
   const banner =
     status === "won"
-      ? `✓ all across, safe — ${moveCount} crossings`
+      ? t("experiments.river-crossing.controls.won", { n: moveCount })
       : status === "lost"
-        ? "✖ missionaries outnumbered — someone got eaten"
+        ? t("experiments.river-crossing.controls.lost")
         : seats === 0
-          ? "tap people to load the boat"
-          : `${seats}/${capacity} aboard — ready to cross`;
+          ? t("experiments.river-crossing.controls.load_prompt")
+          : t("experiments.river-crossing.controls.ready", { n: seats, k: capacity });
 
   return (
     <section className="rc-controls">
@@ -51,18 +53,18 @@ export default function Controls({
           onClick={onCross}
           disabled={!canCross}
         >
-          ⛴ cross river
+          <ScrambleText text={t("experiments.river-crossing.controls.cross")} duration={450} />
         </button>
         <button type="button" className="rc-btn" onClick={onUndo} disabled={!canUndo}>
-          ↩ undo
+          <ScrambleText text={t("experiments.river-crossing.controls.undo")} duration={450} />
         </button>
         <button type="button" className="rc-btn rc-btn--accent" onClick={onReset}>
-          ↺ reset
+          <ScrambleText text={t("experiments.river-crossing.controls.reset")} duration={450} />
         </button>
       </div>
 
       <div className="rc-speed">
-        <span className="rc-speed-label">speed</span>
+        <span className="rc-speed-label">{t("experiments.river-crossing.controls.speed")}</span>
         <div className="rc-speed-row">
           {SPEED_PRESETS.map((s, i) => (
             <button

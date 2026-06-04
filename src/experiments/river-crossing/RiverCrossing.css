@@ -762,45 +762,107 @@ button.rc-person:not(:disabled):hover .rc-person-body {
 }
 
 .rc-gedge {
-  stroke: color-mix(in srgb, var(--text-dim) 30%, transparent);
-  stroke-width: 0.28;
+  stroke: color-mix(in srgb, var(--text-dim) 28%, transparent);
+  stroke-width: 0.26;
+  transition: stroke 0.3s, stroke-width 0.3s;
 }
-.rc-gedge--path {
+/* the trail already walked: a solid glowing line laid down behind the boat */
+.rc-gedge--route {
   stroke: var(--accent2);
-  stroke-width: 0.7;
+  stroke-width: 0.85;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 1.2px color-mix(in srgb, var(--accent2) 70%, transparent));
+}
+/* the in-flight segment: drawn on, in step with the gliding boat token */
+.rc-gedge--drawing {
+  stroke: var(--accent2);
+  stroke-width: 0.95;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 1.4px color-mix(in srgb, var(--accent2) 80%, transparent));
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation-name: rc-gdraw;
+  animation-fill-mode: forwards;
+  animation-timing-function: cubic-bezier(0.45, 0.05, 0.3, 1);
+}
+@keyframes rc-gdraw {
+  to { stroke-dashoffset: 0; }
 }
 
 .rc-gnode {
   fill: var(--bg2);
   stroke: var(--border);
   stroke-width: 0.4;
-  transition: fill 0.18s, stroke 0.18s;
+  transition: fill 0.32s ease, stroke 0.32s ease, stroke-width 0.32s ease;
 }
-/* fill + stroke priority is governed by CSS source order (later wins) */
 .rc-gnode--unseen {
-  fill: color-mix(in srgb, var(--text-dim) 10%, var(--bg));
-  stroke: color-mix(in srgb, var(--border) 55%, transparent);
+  fill: color-mix(in srgb, var(--text-dim) 9%, var(--bg));
+  stroke: color-mix(in srgb, var(--border) 50%, transparent);
+}
+.rc-gnode--idle {
+  fill: color-mix(in srgb, var(--text-dim) 16%, var(--bg));
+  stroke: color-mix(in srgb, var(--border) 80%, transparent);
 }
 .rc-gnode--closed {
   fill: color-mix(in srgb, var(--accent) 34%, var(--bg));
   stroke: color-mix(in srgb, var(--accent) 55%, var(--border));
 }
 .rc-gnode--frontier {
-  fill: color-mix(in srgb, var(--accent2) 26%, var(--bg));
+  fill: color-mix(in srgb, var(--accent2) 28%, var(--bg));
   stroke: var(--accent2);
   stroke-width: 0.55;
 }
-.rc-gnode--start { stroke: var(--rc-mis); stroke-width: 0.85; }
-.rc-gnode--goal  { stroke: var(--wip);    stroke-width: 0.85; }
-.rc-gnode--path {
-  fill: color-mix(in srgb, var(--accent2) 55%, var(--bg));
+.rc-gnode--route {
+  fill: color-mix(in srgb, var(--accent2) 60%, var(--bg));
   stroke: var(--accent2);
   stroke-width: 0.7;
+  filter: drop-shadow(0 0 1px color-mix(in srgb, var(--accent2) 60%, transparent));
 }
-.rc-gnode--current {
+
+/* start / goal markers — outline rings, separate from node tint */
+.rc-gmark { fill: none; stroke-width: 0.6; }
+.rc-gmark--start { stroke: var(--rc-mis); }
+.rc-gmark--goal {
+  stroke: var(--wip);
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: rc-gbreathe 2.4s ease-in-out infinite;
+}
+@keyframes rc-gbreathe {
+  0%, 100% { opacity: 0.6; }
+  50%      { opacity: 1; }
+}
+
+/* expansion pulse ring (explore mode) */
+.rc-gring circle {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 0.6;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: rc-gpulse 0.9s ease-out infinite;
+}
+@keyframes rc-gpulse {
+  0%   { transform: scale(0.8); opacity: 0.9; }
+  100% { transform: scale(2.6); opacity: 0; }
+}
+
+/* the boat token — glides edge to edge (inline transition), with a soft halo */
+.rc-gtoken-dot {
   fill: var(--text-hi);
   stroke: var(--accent);
-  stroke-width: 1;
+  stroke-width: 0.7;
+}
+.rc-gtoken-halo {
+  fill: color-mix(in srgb, var(--accent) 38%, transparent);
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: rc-gtoken-breathe 1.8s ease-in-out infinite;
+}
+.rc-gtoken--crossing .rc-gtoken-halo { animation-duration: 0.6s; }
+@keyframes rc-gtoken-breathe {
+  0%, 100% { transform: scale(0.7); opacity: 0.55; }
+  50%      { transform: scale(1.15); opacity: 0.15; }
 }
 
 .rc-graph-legend {
@@ -819,12 +881,22 @@ button.rc-person:not(:disabled):hover .rc-person-body {
   border-radius: 50%;
   border: 1.5px solid var(--border);
 }
-.rc-glegend--frontier::before { background: color-mix(in srgb, var(--accent2) 26%, var(--bg)); border-color: var(--accent2); }
-.rc-glegend--closed::before   { background: color-mix(in srgb, var(--accent) 34%, var(--bg)); border-color: color-mix(in srgb, var(--accent) 55%, var(--border)); }
-.rc-glegend--current::before  { background: var(--text-hi); border-color: var(--accent); }
-.rc-glegend--path::before     { background: color-mix(in srgb, var(--accent2) 55%, var(--bg)); border-color: var(--accent2); }
-.rc-glegend--start::before    { background: var(--bg2); border-color: var(--rc-mis); }
-.rc-glegend--goal::before     { background: var(--bg2); border-color: var(--wip); }
+.rc-glegend--frontier::before { background: color-mix(in srgb, var(--accent2) 28%, var(--bg)); border-color: var(--accent2); }
+.rc-glegend--expanded::before { background: color-mix(in srgb, var(--accent) 34%, var(--bg)); border-color: color-mix(in srgb, var(--accent) 55%, var(--border)); }
+.rc-glegend--current::before  { background: none; border-color: var(--accent); }
+.rc-glegend--route::before    { background: color-mix(in srgb, var(--accent2) 60%, var(--bg)); border-color: var(--accent2); }
+.rc-glegend--live::before     { background: var(--text-hi); border-color: var(--accent); }
+.rc-glegend--start::before    { background: none; border-color: var(--rc-mis); }
+.rc-glegend--goal::before     { background: none; border-color: var(--wip); }
+
+@media (prefers-reduced-motion: reduce) {
+  .rc-gmark--goal,
+  .rc-gring circle,
+  .rc-gtoken-halo { animation: none; }
+  .rc-gtoken { transition: none; }
+  /* snap the in-flight segment fully drawn instead of leaving it dashed off */
+  .rc-gedge--drawing { animation: none; stroke-dashoffset: 0; }
+}
 
 .rc-graph-controls {
   display: grid;

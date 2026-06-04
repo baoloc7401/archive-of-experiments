@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import ScrambleText from "../../../components/ScrambleText";
 import type { DebugEntry } from "../types";
 
@@ -19,6 +20,7 @@ const KIND_MARK: Record<DebugEntry["kind"], string> = {
 };
 
 export default function DebugLog({ entries, buildReport, onClear }: Props) {
+  const { t } = useTranslation();
   const listRef = useRef<HTMLDivElement | null>(null);
   const [copied, setCopied] = useState(false);
 
@@ -57,7 +59,7 @@ export default function DebugLog({ entries, buildReport, onClear }: Props) {
     <section className="rc-debug">
       <div className="rc-debug-head">
         <span className="rc-panel-head rc-panel-head--inline">
-          <ScrambleText text="debug log" duration={500} />
+          <ScrambleText text={t("experiments.river-crossing.debug.title")} duration={500} />
         </span>
         <div className="rc-debug-actions">
           <span className="rc-debug-count">{entries.length}</span>
@@ -66,17 +68,24 @@ export default function DebugLog({ entries, buildReport, onClear }: Props) {
             className="rc-debug-clear"
             onClick={onClear}
             disabled={entries.length === 0}
-            title="Clear the event log"
+            title={t("experiments.river-crossing.debug.clear_hint")}
           >
-            <ScrambleText text="clear" duration={500} />
+            <ScrambleText text={t("experiments.river-crossing.debug.clear")} duration={500} />
           </button>
           <button
             type="button"
             className={`rc-debug-copy${copied ? " rc-debug-copy--ok" : ""}`}
             onClick={copy}
-            title="Copy a full debug report (config, banks, solver, move history, events) to share"
+            title={t("experiments.river-crossing.debug.copy_hint")}
           >
-            <ScrambleText text={copied ? "✓ copied" : "copy report"} duration={500} />
+            <ScrambleText
+              text={
+                copied
+                  ? t("experiments.river-crossing.debug.copied")
+                  : t("experiments.river-crossing.debug.copy")
+              }
+              duration={500}
+            />
           </button>
         </div>
       </div>
@@ -84,7 +93,7 @@ export default function DebugLog({ entries, buildReport, onClear }: Props) {
       <div className="rc-debug-list" ref={listRef}>
         {entries.length === 0 ? (
           <div className="rc-debug-empty">
-            <ScrambleText text="no events yet — cross, solve, or change the setup" duration={500} />
+            <ScrambleText text={t("experiments.river-crossing.debug.empty")} duration={500} />
           </div>
         ) : (
           entries.slice(-120).map((e) => (
