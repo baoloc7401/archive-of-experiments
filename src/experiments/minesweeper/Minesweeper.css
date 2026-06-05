@@ -1,0 +1,749 @@
+/* ── Minesweeper palette (theme-aware) ──────────────────────────── */
+[data-theme="dark"] {
+  --ms-hidden: #1b2030;
+  --ms-hidden-hi: #252b3e;
+  --ms-open: #0c0f18;
+  --ms-grid: rgba(255, 255, 255, 0.05);
+  --ms-n1: #5b8cff;
+  --ms-n2: #4fb477;
+  --ms-n3: #ff6b6b;
+  --ms-n4: #b07bff;
+  --ms-n5: #e0a44f;
+  --ms-n6: #46c7c7;
+  --ms-n7: #c9d1e6;
+  --ms-n8: #8a93a8;
+}
+[data-theme="light"] {
+  --ms-hidden: #d4dae8;
+  --ms-hidden-hi: #e6ebf5;
+  --ms-open: #f3f6fc;
+  --ms-grid: rgba(0, 0, 0, 0.07);
+  --ms-n1: #1f5fe0;
+  --ms-n2: #1f8a4c;
+  --ms-n3: #d92020;
+  --ms-n4: #7a30d0;
+  --ms-n5: #a85a00;
+  --ms-n6: #0f9494;
+  --ms-n7: #2a3142;
+  --ms-n8: #6b7384;
+}
+
+/* ── Page shell ─────────────────────────────────────────────────── */
+.ms-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background:
+    radial-gradient(65% 55% at 50% 0%, color-mix(in srgb, var(--accent2) 11%, transparent), transparent 62%),
+    var(--bg);
+  color: var(--text);
+}
+
+/* ── Intro strip ────────────────────────────────────────────────── */
+.ms-info-strip {
+  padding: 1.1rem 1.5rem 0.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  max-width: 70ch;
+}
+.ms-info-tagline {
+  color: var(--accent);
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+}
+.ms-info-desc {
+  color: var(--text-dim);
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+/* ── Layout ─────────────────────────────────────────────────────── */
+.ms-layout {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 330px;
+  gap: 1.25rem;
+  padding: 1rem 1.5rem 2rem;
+  align-items: start;
+}
+
+.ms-stage {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  min-width: 0;
+}
+
+/* ── HUD ────────────────────────────────────────────────────────── */
+.ms-hud {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.4rem;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+}
+
+/* ── Board toolbar (view toggles) ──────────────────────────────── */
+.ms-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+.ms-hud-counter {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-variant-numeric: tabular-nums;
+}
+.ms-hud-mine {
+  color: var(--accent2);
+}
+.ms-hud-num {
+  font-size: 1.1rem;
+  letter-spacing: 0.08em;
+  color: var(--text-hi);
+}
+.ms-face {
+  font-family: inherit;
+  font-size: 1rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text-hi);
+  cursor: pointer;
+  transition: border-color 0.14s, transform 0.1s;
+}
+.ms-face:hover { border-color: var(--text-dim); }
+.ms-face:active { transform: scale(0.94); }
+
+/* ── Board ──────────────────────────────────────────────────────── */
+.ms-board-wrap {
+  position: relative;
+  width: 100%;
+}
+/* Horizontal scroll for wide boards on narrow viewports; centres otherwise. */
+.ms-board-scroll {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  display: flex;
+  justify-content: center;
+}
+.ms-board {
+  display: grid;
+  grid-template-columns: repeat(var(--cols), 1fr);
+  gap: 2px;
+  width: 100%;
+  /* Don't let cells shrink below ~24px (Expert stays legible & scrolls);
+     cap so a small board fills with presence instead of looking tiny. */
+  min-width: calc(var(--cols) * 24px);
+  max-width: calc(var(--cols) * 46px);
+  padding: 4px;
+  background: var(--ms-grid);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+.ms-board--over { opacity: 0.96; }
+
+.ms-cell {
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: clamp(0.5rem, 1.6vw, 0.95rem);
+  line-height: 1;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  padding: 0;
+  color: var(--text-hi);
+  user-select: none;
+  transition: background 0.1s;
+}
+.ms-cell--hidden {
+  background: var(--ms-hidden);
+  box-shadow: inset 1px 1px 0 color-mix(in srgb, var(--ms-hidden-hi) 80%, transparent);
+}
+.ms-cell--hidden:hover {
+  background: var(--ms-hidden-hi);
+}
+.ms-cell--open {
+  background: var(--ms-open);
+  cursor: default;
+}
+.ms-cell--flag {
+  color: var(--accent2);
+}
+.ms-cell--wrong {
+  background: color-mix(in srgb, var(--ms-n3) 30%, var(--ms-hidden));
+  text-decoration: line-through;
+}
+.ms-cell--mine {
+  background: var(--ms-open);
+  color: var(--text-dim);
+}
+.ms-cell--boom {
+  background: var(--ms-n3);
+  color: #fff;
+}
+.ms-cell--peek-mine {
+  background: color-mix(in srgb, var(--accent2) 38%, var(--ms-hidden));
+}
+.ms-cell--peek-undecided {
+  background: color-mix(in srgb, var(--wip) 34%, var(--ms-hidden));
+}
+/* Auto-solver overlays */
+.ms-cell--prob {
+  color: #fff;
+  font-size: clamp(0.4rem, 1.3vw, 0.68rem);
+  font-weight: 700;
+}
+.ms-cell--guess {
+  outline: 2px solid var(--accent2);
+  outline-offset: -2px;
+  box-shadow: 0 0 9px color-mix(in srgb, var(--accent2) 75%, transparent);
+  z-index: 1;
+}
+.ms-cell:disabled { cursor: default; }
+
+.ms-n1 { color: var(--ms-n1); }
+.ms-n2 { color: var(--ms-n2); }
+.ms-n3 { color: var(--ms-n3); }
+.ms-n4 { color: var(--ms-n4); }
+.ms-n5 { color: var(--ms-n5); }
+.ms-n6 { color: var(--ms-n6); }
+.ms-n7 { color: var(--ms-n7); }
+.ms-n8 { color: var(--ms-n8); }
+
+/* ── Banner / overlay ───────────────────────────────────────────── */
+.ms-banner,
+.ms-overlay {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding: 0.55rem 1rem;
+  border-radius: 5px;
+  font-size: 0.85rem;
+  text-align: center;
+  pointer-events: none;
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--bg2) 92%, transparent);
+  backdrop-filter: blur(2px);
+}
+.ms-banner--won {
+  color: var(--accent);
+  border-color: color-mix(in srgb, var(--accent) 55%, var(--border));
+}
+.ms-banner--lost {
+  color: var(--ms-n3);
+  border-color: color-mix(in srgb, var(--ms-n3) 55%, var(--border));
+}
+.ms-overlay {
+  color: var(--text-dim);
+  font-size: 0.78rem;
+  max-width: 80%;
+}
+
+/* ── Hint ───────────────────────────────────────────────────────── */
+.ms-hint {
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  line-height: 1.5;
+  padding: 0 0.2rem;
+}
+
+/* ── Sidebar + panels ───────────────────────────────────────────── */
+.ms-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  position: sticky;
+  top: 1rem;
+  min-width: 0;
+}
+/* ── Collapsible sections ───────────────────────────────────────── */
+.ms-section {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+.ms-section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.65rem 0.9rem;
+  cursor: pointer;
+  list-style: none;
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  user-select: none;
+}
+.ms-section-head::-webkit-details-marker {
+  display: none;
+}
+.ms-section[open] > .ms-section-head {
+  color: var(--text-hi);
+  border-bottom: 1px solid var(--border);
+}
+.ms-section-caret {
+  font-size: 0.62rem;
+  color: var(--text-dim);
+  transition: transform 0.15s;
+}
+.ms-section[open] > .ms-section-head .ms-section-caret {
+  transform: rotate(180deg);
+}
+.ms-section-body {
+  padding: 0.85rem 0.9rem;
+}
+
+/* Panel roots stack their own rows (section provides the box + padding). */
+.ms-setup,
+.ms-genstats,
+.ms-solver,
+.ms-debug {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+.ms-inspect,
+.ms-setup-new {
+  width: 100%;
+}
+
+/* ── Buttons ────────────────────────────────────────────────────── */
+.ms-btn {
+  font-family: inherit;
+  font-size: 0.78rem;
+  padding: 0.5rem 0.7rem;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  cursor: pointer;
+  transition: border-color 0.14s, background 0.14s, color 0.14s;
+  white-space: nowrap;
+}
+.ms-btn:hover:not(:disabled) { border-color: var(--text-dim); color: var(--text-hi); }
+.ms-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.ms-btn-accent {
+  border-color: color-mix(in srgb, var(--accent) 55%, var(--border));
+  background: color-mix(in srgb, var(--accent) 12%, var(--bg2));
+  color: var(--text-hi);
+}
+.ms-btn-accent:hover:not(:disabled) {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 20%, var(--bg2));
+}
+
+.ms-mini {
+  font-family: inherit;
+  font-size: 0.7rem;
+  padding: 0.32rem 0.55rem;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text-dim);
+  cursor: pointer;
+  transition: border-color 0.14s, color 0.14s, background 0.14s;
+  white-space: nowrap;
+}
+.ms-mini:hover { color: var(--text-hi); border-color: var(--text-dim); }
+.ms-mini--on {
+  color: var(--text-hi);
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 12%, var(--bg2));
+}
+.ms-peek { align-self: flex-start; }
+
+/* ── Chips ──────────────────────────────────────────────────────── */
+.ms-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+.ms-chip {
+  font-family: inherit;
+  font-size: 0.72rem;
+  padding: 0.34rem 0.58rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text-dim);
+  cursor: pointer;
+  transition: border-color 0.14s, color 0.14s, background 0.14s;
+}
+.ms-chip:hover { color: var(--text); border-color: var(--text-dim); }
+.ms-chip--on {
+  color: var(--text-hi);
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 10%, var(--bg2));
+}
+
+/* ── Sliders / params ───────────────────────────────────────────── */
+.ms-param {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.ms-param-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 0.76rem;
+}
+.ms-param-label { color: var(--text); }
+.ms-param-val { color: var(--accent); font-variant-numeric: tabular-nums; }
+.ms-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--border);
+  outline: none;
+  cursor: pointer;
+}
+.ms-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--bg2);
+  cursor: pointer;
+}
+.ms-slider::-moz-range-thumb {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--bg2);
+  cursor: pointer;
+}
+
+.ms-density {
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  font-variant-numeric: tabular-nums;
+}
+.ms-density-cap { opacity: 0.7; }
+
+.ms-field-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.76rem;
+}
+.ms-field-label { color: var(--text); }
+.ms-toggle-pair { display: flex; gap: 0.3rem; }
+.ms-seed {
+  width: 6.5ch;
+  font-family: inherit;
+  font-size: 0.76rem;
+  padding: 0.25rem 0.4rem;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text-hi);
+  text-align: right;
+}
+
+.ms-setup-btns {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 0.45rem;
+}
+
+/* ── Generation stats ───────────────────────────────────────────── */
+.ms-genstats-empty {
+  color: var(--text-dim);
+  font-size: 0.74rem;
+  line-height: 1.5;
+}
+.ms-verdict {
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 0.4rem 0.6rem;
+  border-radius: 4px;
+  text-align: center;
+  border: 1px solid var(--border);
+}
+.ms-verdict--ok {
+  color: var(--accent);
+  border-color: color-mix(in srgb, var(--accent) 50%, var(--border));
+  background: color-mix(in srgb, var(--accent) 8%, var(--bg2));
+}
+.ms-verdict--bad {
+  color: var(--wip);
+  border-color: color-mix(in srgb, var(--wip) 50%, var(--border));
+  background: color-mix(in srgb, var(--wip) 8%, var(--bg2));
+}
+
+.ms-rating { display: flex; flex-direction: column; gap: 0.3rem; }
+.ms-rating-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 0.72rem;
+}
+.ms-rating-label { color: var(--text-dim); }
+.ms-rating-tier {
+  color: var(--accent2);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.66rem;
+}
+.ms-rating-track {
+  height: 6px;
+  border-radius: 3px;
+  background: var(--border);
+  overflow: hidden;
+}
+.ms-rating-fill {
+  height: 100%;
+  border-radius: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  transition: width 0.3s ease;
+}
+
+.ms-hardest {
+  font-size: 0.72rem;
+  color: var(--text-dim);
+}
+.ms-hardest strong { color: var(--text-hi); }
+
+.ms-stat-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0.4rem;
+}
+.ms-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  padding: 0.4rem 0.45rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+}
+.ms-stat-label {
+  font-size: 0.6rem;
+  letter-spacing: 0.04em;
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+.ms-stat-val {
+  font-size: 0.86rem;
+  color: var(--text-hi);
+  font-variant-numeric: tabular-nums;
+}
+
+.ms-guesspts {
+  font-size: 0.72rem;
+  line-height: 1.5;
+  color: var(--wip);
+  border: 1px dashed color-mix(in srgb, var(--wip) 50%, var(--border));
+  border-radius: 4px;
+  padding: 0.45rem 0.55rem;
+}
+
+/* ── Solver (planned) ───────────────────────────────────────────── */
+.ms-solver-planned {
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--planned);
+}
+.ms-planned-tag {
+  font-size: 0.58rem;
+  letter-spacing: 0.12em;
+  color: var(--planned);
+  border: 1px solid color-mix(in srgb, var(--planned) 50%, var(--border));
+  border-radius: 999px;
+  padding: 0.1rem 0.45rem;
+}
+.ms-solver-face {
+  text-align: center;
+  font-size: 1.3rem;
+  color: var(--text-dim);
+  padding: 0.3rem 0;
+}
+.ms-solver-blurb {
+  margin: 0;
+  font-size: 0.74rem;
+  line-height: 1.55;
+  color: var(--text-dim);
+}
+.ms-solver-tagline {
+  font-size: 0.7rem;
+  color: var(--accent);
+  letter-spacing: 0.02em;
+  min-height: 1em;
+}
+.ms-solver-verdict {
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.4rem 0.6rem;
+  border-radius: 4px;
+  text-align: center;
+  border: 1px solid var(--border);
+}
+.ms-solver-verdict--ok {
+  color: var(--accent);
+  border-color: color-mix(in srgb, var(--accent) 50%, var(--border));
+  background: color-mix(in srgb, var(--accent) 8%, var(--bg2));
+}
+.ms-solver-verdict--bad {
+  color: var(--wip);
+  border-color: color-mix(in srgb, var(--wip) 50%, var(--border));
+  background: color-mix(in srgb, var(--wip) 8%, var(--bg2));
+}
+.ms-solver-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem 0.8rem;
+  font-size: 0.7rem;
+  color: var(--text-dim);
+}
+.ms-solver-stats b {
+  color: var(--text-hi);
+  font-variant-numeric: tabular-nums;
+}
+.ms-solver-guess {
+  font-size: 0.72rem;
+  color: var(--accent2);
+  line-height: 1.5;
+}
+
+/* ── Debug log ──────────────────────────────────────────────────── */
+.ms-debug-head {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.5rem;
+}
+.ms-debug-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.ms-debug-clear,
+.ms-debug-copy {
+  font-family: inherit;
+  font-size: 0.68rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 3px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text-dim);
+  cursor: pointer;
+  transition: border-color 0.14s, color 0.14s, background 0.14s;
+}
+.ms-debug-clear:hover:not(:disabled),
+.ms-debug-copy:hover { color: var(--text-hi); border-color: var(--text-dim); }
+.ms-debug-clear:disabled { opacity: 0.4; cursor: not-allowed; }
+.ms-debug-copy {
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
+  color: var(--text);
+}
+.ms-debug-copy--ok { color: var(--accent); border-color: var(--accent); }
+
+.ms-debug-list {
+  max-height: 170px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  font-size: 0.7rem;
+  line-height: 1.5;
+}
+.ms-debug-empty {
+  color: var(--text-dim);
+  font-size: 0.72rem;
+  padding: 0.4rem 0;
+}
+.ms-debug-row {
+  display: grid;
+  grid-template-columns: 1.2ch 1fr;
+  gap: 0.4rem;
+  align-items: baseline;
+  color: var(--text);
+}
+.ms-debug-mark { color: var(--text-dim); }
+.ms-debug-text { word-break: break-word; }
+.ms-debug-row--gen .ms-debug-mark { color: var(--accent2); }
+.ms-debug-row--gen .ms-debug-text { color: var(--text-hi); }
+.ms-debug-row--win .ms-debug-mark,
+.ms-debug-row--win .ms-debug-text { color: var(--accent); }
+.ms-debug-row--loss .ms-debug-mark,
+.ms-debug-row--loss .ms-debug-text { color: var(--ms-n3); }
+.ms-debug-row--setup .ms-debug-mark { color: var(--accent); }
+.ms-debug-row--warn .ms-debug-mark,
+.ms-debug-row--warn .ms-debug-text { color: var(--wip); }
+
+/* Visually-hidden live region for screen-reader announcements. */
+.ms-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── Focus + responsive ─────────────────────────────────────────── */
+.ms-cell:focus-visible,
+.ms-btn:focus-visible,
+.ms-mini:focus-visible,
+.ms-chip:focus-visible,
+.ms-face:focus-visible,
+.ms-seed:focus-visible,
+.ms-slider:focus-visible,
+.ms-section-head:focus-visible,
+.ms-debug-clear:focus-visible,
+.ms-debug-copy:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+@media (max-width: 860px) {
+  .ms-layout {
+    grid-template-columns: 1fr;
+  }
+  .ms-sidebar {
+    position: static;
+  }
+}
+
+/* Honour reduced-motion: kill decorative transitions (the auto-solver also
+   resolves instantly under this preference — see useMinesweeper). */
+@media (prefers-reduced-motion: reduce) {
+  .ms-cell,
+  .ms-btn,
+  .ms-mini,
+  .ms-chip,
+  .ms-face,
+  .ms-rating-fill,
+  .ms-section-caret {
+    transition: none;
+  }
+}
