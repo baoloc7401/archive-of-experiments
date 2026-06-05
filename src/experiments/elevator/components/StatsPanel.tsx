@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import ScrambleText from '../../../components/ScrambleText';
+import { Tooltip } from '../../../components/ui';
 import type { ElevatorState, SimState } from '../types';
 import { ALGORITHM_BY_ID, SHAFT_COLORS } from '../constants';
 
@@ -80,11 +81,11 @@ export default function StatsPanel({ state }: Props) {
       <div className="elev-cmp-table" role="table">
         <div className="elev-cmp-row elev-cmp-row--head" role="row">
           <span role="columnheader">algo</span>
-          <span role="columnheader" title="floors traveled">trav</span>
-          <span role="columnheader" title="requests served">srv</span>
-          <span role="columnheader" title="average wait (ticks)">avg</span>
-          <span role="columnheader" title="max wait (ticks)">max</span>
-          <span role="columnheader" title="direction reversals">rev</span>
+          <Tooltip label={t('experiments.elevator.cmp_hint.trav')}><span role="columnheader">trav</span></Tooltip>
+          <Tooltip label={t('experiments.elevator.cmp_hint.srv')}><span role="columnheader">srv</span></Tooltip>
+          <Tooltip label={t('experiments.elevator.cmp_hint.avg')}><span role="columnheader">avg</span></Tooltip>
+          <Tooltip label={t('experiments.elevator.cmp_hint.max')}><span role="columnheader">max</span></Tooltip>
+          <Tooltip label={t('experiments.elevator.cmp_hint.rev')}><span role="columnheader">rev</span></Tooltip>
         </div>
         {rows.map((r, i) => (
           <div

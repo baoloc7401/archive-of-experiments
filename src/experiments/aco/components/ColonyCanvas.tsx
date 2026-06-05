@@ -1,4 +1,5 @@
 import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from "react";
+import { useTranslation } from "react-i18next";
 import type { Theme } from "../../../hooks/useTheme";
 import type { AcoDebug, AcoParams, ColonySnapshot, Point, Tour } from "../types";
 import { Colony } from "../aco";
@@ -65,6 +66,7 @@ const ColonyCanvas = forwardRef<ColonyHandle, Props>(function ColonyCanvas(
   { cities, params, running, speed, trail, theme, resetKey, onStats, onAddCity },
   ref,
 ) {
+  const { t } = useTranslation();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const wrapRef = useRef<HTMLDivElement>(null);
 
@@ -156,11 +158,11 @@ const ColonyCanvas = forwardRef<ColonyHandle, Props>(function ColonyCanvas(
           const [xi, yi] = project(colony.cities[i]);
           for (let j = i + 1; j < n; j++) {
             const norm = (colony.pheromone[i * n + j] - minP) / spread; // 0..1
-            const t = Math.pow(norm, gamma); // slider-shaped display intensity
-            if (t <= cutoff) continue;
+            const intensity = Math.pow(norm, gamma); // slider-shaped display intensity
+            if (intensity <= cutoff) continue;
             const [xj, yj] = project(colony.cities[j]);
-            ctx.strokeStyle = `rgba(${accentRgb},${(0.05 + t * 0.6).toFixed(3)})`;
-            ctx.lineWidth = 0.4 + t * 3.4;
+            ctx.strokeStyle = `rgba(${accentRgb},${(0.05 + intensity * 0.6).toFixed(3)})`;
+            ctx.lineWidth = 0.4 + intensity * 3.4;
             ctx.beginPath();
             ctx.moveTo(xi, yi);
             ctx.lineTo(xj, yj);
@@ -455,7 +457,7 @@ const ColonyCanvas = forwardRef<ColonyHandle, Props>(function ColonyCanvas(
         ref={canvasRef}
         className="aco-canvas"
         onClick={handleClick}
-        aria-label="ant colony tour visualization — click to add a city"
+        aria-label={t("experiments.aco.canvas_aria")}
       />
     </div>
   );

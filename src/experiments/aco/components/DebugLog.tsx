@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import ScrambleText from "../../../components/ScrambleText";
+import { Button, Panel } from "../../../components/ui";
 import type { LogEntry } from "../types";
 
 interface Props {
@@ -18,6 +20,7 @@ const KIND_MARK: Record<LogEntry["kind"], string> = {
 };
 
 export default function DebugLog({ entries, buildReport, onClear }: Props) {
+  const { t } = useTranslation();
   const listRef = useRef<HTMLDivElement | null>(null);
   const [copied, setCopied] = useState(false);
 
@@ -52,36 +55,33 @@ export default function DebugLog({ entries, buildReport, onClear }: Props) {
   }
 
   return (
-    <div className="aco-debug">
-      <div className="aco-debug-head">
-        <span className="aco-panel-title">
-          <ScrambleText text="debug log" duration={500} />
-        </span>
-        <div className="aco-debug-actions">
-          <button
-            type="button"
-            className="aco-debug-clear"
-            onClick={onClear}
-            disabled={entries.length === 0}
-            title="Clear the event log"
-          >
-            <ScrambleText text="clear" duration={500} />
-          </button>
-          <button
-            type="button"
-            className={`aco-debug-copy${copied ? " aco-debug-copy--ok" : ""}`}
-            onClick={copy}
-            title="Copy a full debug report (state + colony dump + events) to share"
-          >
-            <ScrambleText text={copied ? "✓ copied" : "copy report"} duration={500} />
-          </button>
-        </div>
+    <Panel title={t("experiments.aco.debug")}>
+      <div className="aco-debug-actions">
+        <Button
+          size="sm"
+          onClick={onClear}
+          disabled={entries.length === 0}
+          tooltip={t("experiments.aco.debug_clear_hint")}
+        >
+          <ScrambleText text={t("experiments.aco.debug_clear")} duration={500} />
+        </Button>
+        <Button
+          size="sm"
+          variant={copied ? "primary" : "ghost"}
+          onClick={copy}
+          tooltip={t("experiments.aco.copy_hint")}
+        >
+          <ScrambleText
+            text={copied ? t("experiments.aco.copied") : t("experiments.aco.copy_report")}
+            duration={500}
+          />
+        </Button>
       </div>
 
       <div className="aco-debug-list" ref={listRef}>
         {entries.length === 0 ? (
           <div className="aco-debug-empty">
-            <ScrambleText text="no events yet — run, reset, or tweak something" duration={500} />
+            <ScrambleText text={t("experiments.aco.debug_empty")} duration={500} />
           </div>
         ) : (
           entries.slice(-120).map((e) => (
@@ -93,6 +93,6 @@ export default function DebugLog({ entries, buildReport, onClear }: Props) {
           ))
         )}
       </div>
-    </div>
+    </Panel>
   );
 }

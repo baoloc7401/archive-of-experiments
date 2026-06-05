@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import ScrambleText from '../../../components/ScrambleText';
 import { ALGORITHMS } from '../constants';
 import type { AlgorithmId } from '../types';
@@ -8,19 +9,16 @@ interface Props {
   onContinue: () => void;
 }
 
-const CATEGORY_LABEL = {
-  unweighted: 'unweighted',
-  weighted: 'weighted',
-  heuristic: 'heuristic',
-} as const;
-
 export default function AlgorithmSelect({ selected, onToggle, onContinue }: Props) {
+  const { t } = useTranslation();
   return (
     <div className="pf-algo-select">
       <div className="pf-section-header">
-        <h2 className="pf-section-title"><ScrambleText text="select algorithms" duration={600} /></h2>
+        <h2 className="pf-section-title">
+          <ScrambleText text={t('experiments.pathfinding.select.title')} duration={600} />
+        </h2>
         <p className="pf-section-sub">
-          <ScrambleText text="pick one or more to run side-by-side on your maze" duration={600} />
+          <ScrambleText text={t('experiments.pathfinding.select.sub')} duration={600} />
         </p>
       </div>
 
@@ -36,7 +34,7 @@ export default function AlgorithmSelect({ selected, onToggle, onContinue }: Prop
             >
               <div className="pf-algo-card-top">
                 <span className={`pf-cat-badge pf-cat-${algo.category}`}>
-                  <ScrambleText text={CATEGORY_LABEL[algo.category]} duration={600} />
+                  <ScrambleText text={t(`experiments.pathfinding.category.${algo.category}`)} duration={600} />
                 </span>
                 <span className={`pf-check-mark${isSelected ? ' pf-check-mark--visible' : ''}`}>
                   ✓
@@ -44,7 +42,9 @@ export default function AlgorithmSelect({ selected, onToggle, onContinue }: Prop
               </div>
 
               <h3 className="pf-algo-name"><ScrambleText text={algo.name} duration={600} /></h3>
-              <p className="pf-algo-desc"><ScrambleText text={algo.description} duration={600} /></p>
+              <p className="pf-algo-desc">
+                <ScrambleText text={t(`experiments.pathfinding.algo.${algo.id}`)} duration={600} />
+              </p>
 
               <div className="pf-algo-meta">
                 <span className="pf-badge pf-badge-dim">T: {algo.timeComplexity}</span>
@@ -54,7 +54,14 @@ export default function AlgorithmSelect({ selected, onToggle, onContinue }: Prop
                     algo.guaranteesShortest ? 'pf-badge-optimal' : 'pf-badge-suboptimal'
                   }`}
                 >
-                  <ScrambleText text={algo.guaranteesShortest ? '✓ optimal' : '✗ optimal'} duration={600} />
+                  <ScrambleText
+                    text={t(
+                      algo.guaranteesShortest
+                        ? 'experiments.pathfinding.select.optimal'
+                        : 'experiments.pathfinding.select.not_optimal',
+                    )}
+                    duration={600}
+                  />
                 </span>
               </div>
             </button>
@@ -66,8 +73,8 @@ export default function AlgorithmSelect({ selected, onToggle, onContinue }: Prop
         <span className="pf-sel-count">
           <ScrambleText
             text={selected.size === 0
-              ? 'no algorithms selected'
-              : `${selected.size} algorithm${selected.size > 1 ? 's' : ''} selected`}
+              ? t('experiments.pathfinding.select.none_selected')
+              : t('experiments.pathfinding.select.count', { count: selected.size })}
             duration={600}
           />
         </span>
@@ -76,7 +83,7 @@ export default function AlgorithmSelect({ selected, onToggle, onContinue }: Prop
           disabled={selected.size === 0}
           onClick={onContinue}
         >
-          <ScrambleText text="build maze →" duration={600} />
+          <ScrambleText text={t('experiments.pathfinding.select.build_maze')} duration={600} />
         </button>
       </div>
     </div>

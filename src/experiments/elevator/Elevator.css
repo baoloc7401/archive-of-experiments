@@ -813,6 +813,9 @@
 }
 .elev-cmp-row--head span { text-align: right; }
 .elev-cmp-row--head span:first-child { text-align: left; }
+/* Tooltip-wrapped headers: let the wrapper fill its grid cell so the existing
+   right-alignment still applies to the header code inside it. */
+.elev-cmp-row--head .ui-tip-wrap { display: block; }
 .elev-cmp-algo {
   display: inline-flex;
   align-items: center;

@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import ScrambleText from '../../../components/ScrambleText';
+import { Tooltip } from '../../../components/ui';
 import type { Move } from '../types';
 import { gradeInfo, moveLabel } from '../utils';
 
@@ -31,14 +32,16 @@ export function MoveHistory({ rounds, moveGrades, copied, copyGrades, onToggleCo
         <span><ScrambleText text={t('chess.history_title')} duration={600} /></span>
         {rounds.length > 0 && (
           <div className="chess-history-actions">
-            <label className="chess-copy-toggle" title={t('chess.copy_grades_hint')}>
-              <input
-                type="checkbox"
-                checked={copyGrades}
-                onChange={e => onToggleCopyGrades(e.target.checked)}
-              />
-              <span><ScrambleText text={t('chess.copy_grades')} duration={600} /></span>
-            </label>
+            <Tooltip label={t('chess.copy_grades_hint')}>
+              <label className="chess-copy-toggle">
+                <input
+                  type="checkbox"
+                  checked={copyGrades}
+                  onChange={e => onToggleCopyGrades(e.target.checked)}
+                />
+                <span><ScrambleText text={t('chess.copy_grades')} duration={600} /></span>
+              </label>
+            </Tooltip>
             <button className="chess-copy-btn" onClick={onCopy}>
               <ScrambleText text={copied ? t('chess.copied') : t('chess.copy')} duration={600} />
             </button>

@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import ScrambleText from "../../../components/ScrambleText";
+import { Tooltip } from "../../../components/ui";
 import type { Config, Move, Status } from "../types";
 import { generateStory, type StoryBeat } from "../narrative/storyEngine";
 
@@ -74,27 +75,29 @@ export default function StoryPanel({ cfg, moves, status }: Props) {
           <ScrambleText text={t("experiments.river-crossing.story.title")} duration={500} />
         </span>
         <div className="rc-story-actions">
-          <button
-            type="button"
-            className={`rc-story-btn${copied ? " rc-story-btn--ok" : ""}`}
-            onClick={copy}
-            title={t("experiments.river-crossing.story.copy_hint")}
-          >
-            <ScrambleText
-              text={t(
-                copied ? "experiments.river-crossing.story.copied" : "experiments.river-crossing.story.copy"
-              )}
-              duration={500}
-            />
-          </button>
-          <button
-            type="button"
-            className="rc-story-btn"
-            onClick={() => setSeed((s) => s + 1)}
-            title={t("experiments.river-crossing.story.retell_hint")}
-          >
-            <ScrambleText text={t("experiments.river-crossing.story.retell")} duration={500} />
-          </button>
+          <Tooltip label={t("experiments.river-crossing.story.copy_hint")}>
+            <button
+              type="button"
+              className={`rc-story-btn${copied ? " rc-story-btn--ok" : ""}`}
+              onClick={copy}
+            >
+              <ScrambleText
+                text={t(
+                  copied ? "experiments.river-crossing.story.copied" : "experiments.river-crossing.story.copy"
+                )}
+                duration={500}
+              />
+            </button>
+          </Tooltip>
+          <Tooltip label={t("experiments.river-crossing.story.retell_hint")}>
+            <button
+              type="button"
+              className="rc-story-btn"
+              onClick={() => setSeed((s) => s + 1)}
+            >
+              <ScrambleText text={t("experiments.river-crossing.story.retell")} duration={500} />
+            </button>
+          </Tooltip>
         </div>
       </div>
 

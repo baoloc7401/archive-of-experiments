@@ -1,4 +1,5 @@
-import ScrambleText from "../../../components/ScrambleText";
+import { useTranslation } from "react-i18next";
+import { ControlBar, Panel, Slider } from "../../../components/ui";
 import { MIN_SPEED, MAX_SPEED } from "../constants";
 
 interface Props {
@@ -24,60 +25,38 @@ export default function Controls({
   onSpeed,
   onTrail,
 }: Props) {
+  const { t } = useTranslation();
   return (
-    <div className="aco-controls">
-      <div className="aco-control-btns">
-        <button
-          className="aco-btn aco-btn-accent"
-          onClick={onPlayPause}
-          disabled={disabled}
-        >
-          <ScrambleText text={running ? "⏸ pause" : "▶ run"} duration={500} />
-        </button>
-        <button
-          className="aco-btn aco-btn-ghost"
-          onClick={onStep}
-          disabled={disabled || running}
-          title="Run one iteration instantly"
-        >
-          <ScrambleText text="step" duration={500} />
-        </button>
-        <button className="aco-btn aco-btn-ghost" onClick={onReset} title="Reset pheromone">
-          <ScrambleText text="↺ reset" duration={500} />
-        </button>
-      </div>
-
-      <label className="aco-speed">
-        <span className="aco-speed-label">
-          <ScrambleText text="speed" duration={500} />
-        </span>
-        <input
-          type="range"
+    <Panel>
+      <ControlBar
+        playing={running}
+        disabled={disabled}
+        onPlayPause={onPlayPause}
+        playLabel={t("experiments.aco.run")}
+        pauseLabel={t("experiments.aco.pause")}
+        onStep={onStep}
+        stepLabel={t("experiments.aco.step")}
+        stepHint={t("experiments.aco.step_hint")}
+        onReset={onReset}
+        resetLabel={t("experiments.aco.reset")}
+        resetHint={t("experiments.aco.reset_hint")}
+      >
+        <Slider
+          label={t("experiments.aco.speed")}
+          value={speed}
           min={MIN_SPEED}
           max={MAX_SPEED}
-          value={speed}
-          onChange={(e) => onSpeed(Number(e.target.value))}
-          className="aco-slider"
-          aria-label="animation speed"
+          onChange={onSpeed}
         />
-        <span className="aco-speed-val">{speed}</span>
-      </label>
-
-      <label className="aco-speed" title="How much of the faint pheromone web to show — low keeps only the strongest trails">
-        <span className="aco-speed-label">
-          <ScrambleText text="trails" duration={500} />
-        </span>
-        <input
-          type="range"
+        <Slider
+          label={t("experiments.aco.trails")}
+          value={trail}
           min={0}
           max={100}
-          value={trail}
-          onChange={(e) => onTrail(Number(e.target.value))}
-          className="aco-slider"
-          aria-label="trail visibility"
+          onChange={onTrail}
+          hint={t("experiments.aco.trails_hint")}
         />
-        <span className="aco-speed-val">{trail}</span>
-      </label>
-    </div>
+      </ControlBar>
+    </Panel>
   );
 }

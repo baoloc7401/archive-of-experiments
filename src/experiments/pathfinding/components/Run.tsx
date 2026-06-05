@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState, useCallback, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import ScrambleText from '../../../components/ScrambleText';
+import { Tooltip } from '../../../components/ui';
 import type { AlgorithmId, GridConfig } from '../types';
 import type { AlgoGen, AlgoState } from '../algorithms';
 import { ALGO_FACTORIES } from '../algorithms';
@@ -30,12 +32,19 @@ function makeInitialState(grid: GridConfig): AlgoState {
 
 type RankAspect = 'visited' | 'path-length' | 'cost' | 'steps';
 
-const RANK_META: { id: RankAspect; label: string; unit: string; pathOnly: boolean }[] = [
-  { id: 'visited',     label: 'explored',    unit: 'nodes',  pathOnly: false },
-  { id: 'path-length', label: 'path length', unit: 'hops',   pathOnly: true  },
-  { id: 'cost',        label: 'path cost',   unit: '',       pathOnly: true  },
-  { id: 'steps',       label: 'steps',       unit: '',       pathOnly: false },
-];
+const RANK_ASPECTS: RankAspect[] = ['visited', 'path-length', 'cost', 'steps'];
+
+// i18n key (under experiments.pathfinding.run) for each aspect's label and unit.
+const ASPECT_LABEL_KEY: Record<RankAspect, string> = {
+  visited: 'explored',
+  'path-length': 'path_length',
+  cost: 'path_cost',
+  steps: 'steps',
+};
+const ASPECT_UNIT_KEY: Partial<Record<RankAspect, string>> = {
+  visited: 'nodes',
+  'path-length': 'hops',
+};
 
 interface RankEntry {
   id: AlgorithmId;
@@ -71,7 +80,8 @@ function withRank(entries: RankEntry[]): (RankEntry & { rank: number })[] {
   });
 }
 
-function rankLabel(rank: number) {
+// Stable English ordinal used only as a CSS modifier (.pf-rank-pos--1st …).
+function ordinalClass(rank: number) {
   if (rank === 1) return '1st';
   if (rank === 2) return '2nd';
   if (rank === 3) return '3rd';
@@ -83,7 +93,15 @@ function rankLabel(rank: number) {
 // ---------------------------------------------------------------------------
 
 export default function Run({ grid, selected, onBack }: Props) {
+  const { t } = useTranslation();
   const ids = useMemo(() => [...selected], [selected]);
+
+  const aspectLabel = (a: RankAspect) =>
+    t(`experiments.pathfinding.run.${ASPECT_LABEL_KEY[a]}`);
+  const ordinalText = (rank: number) =>
+    rank <= 3
+      ? t(`experiments.pathfinding.run.rank_${rank}`)
+      : t('experiments.pathfinding.run.rank_n', { n: rank });
 
   const gens = useRef<Partial<Record<AlgorithmId, AlgoGen>>>({});
   const doneFlags = useRef<Partial<Record<AlgorithmId, boolean>>>({});
@@ -174,8 +192,8 @@ export default function Run({ grid, selected, onBack }: Props) {
     [grid],
   );
 
-  const visibleAspects = RANK_META.filter(
-    (m) => activeAspects.has(m.id) && (m.id !== 'cost' || isWeighted),
+  const visibleAspects = RANK_ASPECTS.filter(
+    (a) => activeAspects.has(a) && (a !== 'cost' || isWeighted),
   );
 
   function toggleAspect(a: RankAspect) {
@@ -191,10 +209,12 @@ export default function Run({ grid, selected, onBack }: Props) {
     <div className="pf-run">
       {/* Controls */}
       <div className="pf-run-controls">
-        <button className="pf-btn pf-btn-ghost" onClick={onBack}><ScrambleText text="← back" duration={600} /></button>
+        <button className="pf-btn pf-btn-ghost" onClick={onBack}><ScrambleText text={t('experiments.pathfinding.run.back')} duration={600} /></button>
 
         <div className="pf-run-btns">
-          <button className="pf-btn pf-btn-ghost" onClick={resetAll} title="Reset"><ScrambleText text="⏮ reset" duration={600} /></button>
+          <Tooltip label={t('experiments.pathfinding.run.reset_hint')}>
+            <button className="pf-btn pf-btn-ghost" onClick={resetAll}><ScrambleText text={t('experiments.pathfinding.run.reset')} duration={600} /></button>
+          </Tooltip>
           <button
             className="pf-btn pf-btn-accent"
             onClick={() => {
@@ -202,18 +222,28 @@ export default function Run({ grid, selected, onBack }: Props) {
               else setPlaying((p) => !p);
             }}
           >
-            <ScrambleText text={finished ? '⏮ replay' : playing ? '⏸ pause' : '▶ play'} duration={600} />
+            <ScrambleText
+              text={t(
+                finished
+                  ? 'experiments.pathfinding.run.replay'
+                  : playing
+                    ? 'experiments.pathfinding.run.pause'
+                    : 'experiments.pathfinding.run.play',
+              )}
+              duration={600}
+            />
           </button>
-          <button
-            className="pf-btn pf-btn-ghost"
-            disabled={playing || finished}
-            onClick={() => stepAll(1)}
-            title="Step once"
-          ><ScrambleText text="step" duration={600} /></button>
+          <Tooltip label={t('experiments.pathfinding.run.step_hint')}>
+            <button
+              className="pf-btn pf-btn-ghost"
+              disabled={playing || finished}
+              onClick={() => stepAll(1)}
+            ><ScrambleText text={t('experiments.pathfinding.run.step')} duration={600} /></button>
+          </Tooltip>
         </div>
 
         <div className="pf-run-speed">
-          <span className="pf-speed-label"><ScrambleText text="speed" duration={600} /></span>
+          <span className="pf-speed-label"><ScrambleText text={t('experiments.pathfinding.run.speed')} duration={600} /></span>
           <input
             type="range"
             min={1} max={100}
@@ -231,11 +261,15 @@ export default function Run({ grid, selected, onBack }: Props) {
               const s = states[id];
               if (!s) return null;
               const def = ALGORITHMS.find((a) => a.id === id)!;
-              const summaryText = `${def.name.split(' ')[0]}: ${
+              const name = def.name.split(' ')[0];
+              const summaryText =
                 s.status === 'found'
-                  ? `${s.path!.length - 1} hops · ${s.steps} steps`
-                  : s.status
-              }`;
+                  ? t('experiments.pathfinding.run.summary_found', {
+                      name,
+                      hops: s.path!.length - 1,
+                      steps: s.steps,
+                    })
+                  : `${name}: ${t('experiments.pathfinding.run.no_path')}`;
               return (
                 <span key={id} className={`pf-summary-chip pf-summary-chip--${s.status}`}>
                   <ScrambleText text={summaryText} duration={600} />
@@ -263,15 +297,15 @@ export default function Run({ grid, selected, onBack }: Props) {
       {finished && (
         <div className="pf-rankings">
           <div className="pf-rank-header">
-            <span className="pf-rank-title"><ScrambleText text="rankings" duration={600} /></span>
+            <span className="pf-rank-title"><ScrambleText text={t('experiments.pathfinding.run.rankings')} duration={600} /></span>
             <div className="pf-rank-aspects">
-              {RANK_META.filter((m) => m.id !== 'cost' || isWeighted).map((m) => (
+              {RANK_ASPECTS.filter((a) => a !== 'cost' || isWeighted).map((a) => (
                 <button
-                  key={m.id}
-                  className={`pf-rank-aspect-btn${activeAspects.has(m.id) ? ' pf-rank-aspect-btn--on' : ''}`}
-                  onClick={() => toggleAspect(m.id)}
+                  key={a}
+                  className={`pf-rank-aspect-btn${activeAspects.has(a) ? ' pf-rank-aspect-btn--on' : ''}`}
+                  onClick={() => toggleAspect(a)}
                 >
-                  <ScrambleText text={m.label} duration={600} />
+                  <ScrambleText text={aspectLabel(a)} duration={600} />
                 </button>
               ))}
             </div>
@@ -284,11 +318,12 @@ export default function Run({ grid, selected, onBack }: Props) {
             const minVal = finiteVals.length > 0 ? Math.min(...finiteVals) : 0;
             const span = maxVal - minVal || 1;
 
+            const unitKey = ASPECT_UNIT_KEY[meta];
             return (
-              <div key={meta.id} className="pf-rank-metric">
+              <div key={meta} className="pf-rank-metric">
                 <div className="pf-rank-metric-label">
-                  <ScrambleText text={meta.label} duration={600} />
-                  <span className="pf-rank-metric-hint"><ScrambleText text="fewer = better" duration={600} /></span>
+                  <ScrambleText text={aspectLabel(meta)} duration={600} />
+                  <span className="pf-rank-metric-hint"><ScrambleText text={t('experiments.pathfinding.run.fewer_better')} duration={600} /></span>
                 </div>
                 <div className="pf-rank-rows">
                   {ranked.map((entry) => {
@@ -296,13 +331,12 @@ export default function Run({ grid, selected, onBack }: Props) {
                     const noVal = entry.value === Infinity;
                     // Bar width proportional to value (longest bar = worst); best gets the visual accent
                     const barPct = noVal ? 0 : ((entry.value - minVal) / span) * 80 + 10;
-                    const label = rankLabel(entry.rank);
                     return (
                       <div
                         key={entry.id}
                         className={`pf-rank-row${noVal ? ' pf-rank-row--nopath' : ''}${entry.rank === 1 && !noVal ? ' pf-rank-row--best' : ''}`}
                       >
-                        <span className={`pf-rank-pos pf-rank-pos--${label}`}><ScrambleText text={label} duration={600} /></span>
+                        <span className={`pf-rank-pos pf-rank-pos--${ordinalClass(entry.rank)}`}><ScrambleText text={ordinalText(entry.rank)} duration={600} /></span>
                         <span className="pf-rank-name"><ScrambleText text={def.name} duration={600} /></span>
                         <div className="pf-rank-bar-wrap">
                           <div
@@ -313,9 +347,9 @@ export default function Run({ grid, selected, onBack }: Props) {
                         <span className="pf-rank-val">
                           <ScrambleText
                             text={noVal
-                              ? 'no path'
-                              : meta.unit
-                                ? `${entry.value.toLocaleString()} ${meta.unit}`
+                              ? t('experiments.pathfinding.run.no_path')
+                              : unitKey
+                                ? `${entry.value.toLocaleString()} ${t(`experiments.pathfinding.run.${unitKey}`)}`
                                 : entry.value.toLocaleString()}
                             duration={600}
                           />

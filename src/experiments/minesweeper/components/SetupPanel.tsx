@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 import ScrambleText from "../../../components/ScrambleText";
+import { Tooltip } from "../../../components/ui";
 import type { Difficulty, FieldConfig } from "../types";
 import { MAX_DENSITY, MAX_DIM, MIN_DIM, MIN_MINES, PRESETS } from "../constants";
 
@@ -56,14 +57,17 @@ export default function SetupPanel({ difficulty, cfg, onDifficulty, onPatch, onN
     <div className="ms-setup">
       <div className="ms-chip-row">
         {PRESETS.map((p) => (
-          <button
+          <Tooltip
             key={p.id}
-            className={`ms-chip${difficulty === p.id ? " ms-chip--on" : ""}`}
-            onClick={() => onDifficulty(p.id)}
-            title={t("experiments.minesweeper.setup.preset_hint", { w: p.width, h: p.height, mines: p.mines })}
+            label={t("experiments.minesweeper.setup.preset_hint", { w: p.width, h: p.height, mines: p.mines })}
           >
-            <ScrambleText text={t(`experiments.minesweeper.presets.${p.id}`)} duration={500} />
-          </button>
+            <button
+              className={`ms-chip${difficulty === p.id ? " ms-chip--on" : ""}`}
+              onClick={() => onDifficulty(p.id)}
+            >
+              <ScrambleText text={t(`experiments.minesweeper.presets.${p.id}`)} duration={500} />
+            </button>
+          </Tooltip>
         ))}
         <button
           className={`ms-chip${difficulty === "custom" ? " ms-chip--on" : ""}`}
@@ -86,20 +90,22 @@ export default function SetupPanel({ difficulty, cfg, onDifficulty, onPatch, onN
           <ScrambleText text={t("experiments.minesweeper.setup.first_click_safety")} duration={500} />
         </span>
         <div className="ms-toggle-pair">
-          <button
-            className={`ms-mini${cfg.safeRadius === 0 ? " ms-mini--on" : ""}`}
-            onClick={() => onPatch({ safeRadius: 0 })}
-            title={t("experiments.minesweeper.setup.safe_cell_hint")}
-          >
-            <ScrambleText text={t("experiments.minesweeper.setup.safe_cell")} duration={500} />
-          </button>
-          <button
-            className={`ms-mini${cfg.safeRadius === 1 ? " ms-mini--on" : ""}`}
-            onClick={() => onPatch({ safeRadius: 1 })}
-            title={t("experiments.minesweeper.setup.safe_neighbours_hint")}
-          >
-            <ScrambleText text={t("experiments.minesweeper.setup.safe_neighbours")} duration={500} />
-          </button>
+          <Tooltip label={t("experiments.minesweeper.setup.safe_cell_hint")}>
+            <button
+              className={`ms-mini${cfg.safeRadius === 0 ? " ms-mini--on" : ""}`}
+              onClick={() => onPatch({ safeRadius: 0 })}
+            >
+              <ScrambleText text={t("experiments.minesweeper.setup.safe_cell")} duration={500} />
+            </button>
+          </Tooltip>
+          <Tooltip label={t("experiments.minesweeper.setup.safe_neighbours_hint")}>
+            <button
+              className={`ms-mini${cfg.safeRadius === 1 ? " ms-mini--on" : ""}`}
+              onClick={() => onPatch({ safeRadius: 1 })}
+            >
+              <ScrambleText text={t("experiments.minesweeper.setup.safe_neighbours")} duration={500} />
+            </button>
+          </Tooltip>
         </div>
       </div>
 
@@ -107,20 +113,23 @@ export default function SetupPanel({ difficulty, cfg, onDifficulty, onPatch, onN
         <span className="ms-field-label">
           <ScrambleText text={t("experiments.minesweeper.setup.seed")} duration={500} />
         </span>
-        <input
-          type="number"
-          className="ms-seed"
-          value={cfg.seed}
-          min={0}
-          onChange={(e) => onPatch({ seed: Math.max(0, Math.floor(Number(e.target.value) || 0)) })}
-          title={t("experiments.minesweeper.setup.seed_hint")}
-          aria-label={t("experiments.minesweeper.setup.seed")}
-        />
+        <Tooltip label={t("experiments.minesweeper.setup.seed_hint")}>
+          <input
+            type="number"
+            className="ms-seed"
+            value={cfg.seed}
+            min={0}
+            onChange={(e) => onPatch({ seed: Math.max(0, Math.floor(Number(e.target.value) || 0)) })}
+            aria-label={t("experiments.minesweeper.setup.seed")}
+          />
+        </Tooltip>
       </label>
 
-      <button className="ms-btn ms-btn-accent ms-setup-new" onClick={onNew} title={t("experiments.minesweeper.setup.new_hint")}>
-        <ScrambleText text={t("experiments.minesweeper.setup.new")} duration={500} />
-      </button>
+      <Tooltip label={t("experiments.minesweeper.setup.new_hint")} block>
+        <button className="ms-btn ms-btn-accent ms-setup-new" onClick={onNew}>
+          <ScrambleText text={t("experiments.minesweeper.setup.new")} duration={500} />
+        </button>
+      </Tooltip>
     </div>
   );
 }

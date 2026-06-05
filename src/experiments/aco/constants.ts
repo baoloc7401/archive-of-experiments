@@ -13,28 +13,28 @@ export const DEFAULT_PARAMS: AcoParams = {
   elitist: true,
 };
 
-// Slider bounds + step for each exposed parameter.
+// Slider bounds + step for each exposed parameter. Labels/hints are i18n keys
+// resolved in the component (experiments.aco.param.<key>[_hint]).
 export interface ParamRange {
   key: "ants" | "alpha" | "beta" | "rho";
-  label: string;
-  hint: string;
   min: number;
   max: number;
   step: number;
 }
 
 export const PARAM_RANGES: ParamRange[] = [
-  { key: "ants", label: "ants", hint: "colony size — more ants explore more, but each iteration costs more", min: 4, max: 60, step: 1 },
-  { key: "alpha", label: "α pheromone", hint: "trail influence — high α makes ants follow the crowd (exploit)", min: 0, max: 5, step: 0.1 },
-  { key: "beta", label: "β distance", hint: "greed for short edges — high β acts like nearest-neighbour", min: 0, max: 8, step: 0.1 },
-  { key: "rho", label: "ρ evaporation", hint: "how fast trails fade — high ρ forgets faster, avoids early lock-in", min: 0.01, max: 0.95, step: 0.01 },
+  { key: "ants", min: 4, max: 60, step: 1 },
+  { key: "alpha", min: 0, max: 5, step: 0.1 },
+  { key: "beta", min: 0, max: 8, step: 0.1 },
+  { key: "rho", min: 0.01, max: 0.95, step: 0.01 },
 ];
 
+// Layout order; labels/hints live in i18n (experiments.aco.layout.<id>[_hint]).
 export const LAYOUTS: LayoutDef[] = [
-  { id: "random", label: "scatter", hint: "uniformly random cities" },
-  { id: "circle", label: "ring", hint: "cities on a circle — optimum is the perimeter" },
-  { id: "clusters", label: "clusters", hint: "a few tight clusters" },
-  { id: "grid", label: "grid", hint: "jittered lattice" },
+  { id: "random" },
+  { id: "circle" },
+  { id: "clusters" },
+  { id: "grid" },
 ];
 
 export const DEFAULT_LAYOUT = "random" as const;

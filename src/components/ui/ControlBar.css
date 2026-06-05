@@ -1,0 +1,17 @@
+.ui-controlbar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.ui-controlbar-row {
+  display: flex;
+  gap: 0.45rem;
+}
+.ui-controlbar-row > * {
+  flex: 1;
+}
+/* The play/pause button gets a touch more room than step/reset. */
+.ui-controlbar-row > :first-child {
+  flex: 1.4;
+}

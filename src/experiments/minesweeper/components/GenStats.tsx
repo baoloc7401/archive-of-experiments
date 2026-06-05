@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 import ScrambleText from "../../../components/ScrambleText";
+import { Tooltip } from "../../../components/ui";
 import type { GenStats } from "../types";
 
 interface Props {
@@ -14,9 +15,11 @@ export default function GenStats({ stats, onInspect }: Props) {
 
   return (
     <div className="ms-genstats">
-      <button className="ms-btn ms-btn-ghost ms-inspect" onClick={onInspect} title={t(k("inspect_hint"))}>
-        <ScrambleText text={t(k("inspect"))} duration={500} />
-      </button>
+      <Tooltip label={t(k("inspect_hint"))} block>
+        <button className="ms-btn ms-inspect" onClick={onInspect}>
+          <ScrambleText text={t(k("inspect"))} duration={500} />
+        </button>
+      </Tooltip>
 
       {!stats ? (
         <div className="ms-genstats-empty">
@@ -42,9 +45,11 @@ export default function GenStats({ stats, onInspect }: Props) {
             </div>
           </div>
 
-          <div className="ms-hardest" title={t(k(`tech_hint.${stats.hardest}`))}>
-            <ScrambleText text={t(k("hardest"))} duration={500} /> <strong>{t(k(`tech.${stats.hardest}`))}</strong>
-          </div>
+          <Tooltip label={t(k(`tech_hint.${stats.hardest}`))} block>
+            <div className="ms-hardest">
+              <ScrambleText text={t(k("hardest"))} duration={500} /> <strong>{t(k(`tech.${stats.hardest}`))}</strong>
+            </div>
+          </Tooltip>
 
           <div className="ms-stat-grid">
             <Stat label={t(k("stats.count"))} value={stats.techniques.count} hint={t(k("stat_hint.count"))} />
@@ -69,9 +74,11 @@ export default function GenStats({ stats, onInspect }: Props) {
 
 function Stat({ label, value, hint }: { label: string; value: string | number; hint: string }) {
   return (
-    <div className="ms-stat" title={hint}>
-      <span className="ms-stat-label">{label}</span>
-      <span className="ms-stat-val">{value}</span>
-    </div>
+    <Tooltip label={hint} block>
+      <div className="ms-stat">
+        <span className="ms-stat-label">{label}</span>
+        <span className="ms-stat-val">{value}</span>
+      </div>
+    </Tooltip>
   );
 }

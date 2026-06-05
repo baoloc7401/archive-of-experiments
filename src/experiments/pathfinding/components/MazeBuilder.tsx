@@ -1,5 +1,7 @@
 import { memo, useRef, useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import ScrambleText from '../../../components/ScrambleText';
+import { Tooltip } from '../../../components/ui';
 import type { CellState, DrawMode, GridConfig, MazeOptions, RouteDensity, TerrainConfig, TerrainType } from '../types';
 import type { AlgorithmId } from '../types';
 import {
@@ -64,6 +66,7 @@ const Cell = memo(function Cell({ state, animKey, row, col, delayMult }: CellPro
 });
 
 export default function MazeBuilder({ grid, selected, options, onGridChange, onOptionsChange, onBack, onRun }: Props) {
+  const { t } = useTranslation();
   const [mode, setMode] = useState<DrawMode>('wall');
   const [rows, setRows] = useState(grid.rows);
   const [cols, setCols] = useState(grid.cols);
@@ -214,18 +217,13 @@ export default function MazeBuilder({ grid, selected, options, onGridChange, onO
   const maxPath = getMaxPath(rows, cols);
 
   const DENSITY_OPTIONS: RouteDensity[] = ['sparse', 'moderate', 'dense'];
-  const DENSITY_DESC: Record<RouteDensity, string> = {
-    sparse:   'tight corridors, few loops',
-    moderate: 'some alternate routes',
-    dense:    'many crossroads',
-  };
 
   return (
     <div className="pf-maze-builder">
       {/* Selected algorithms strip */}
       {selectedNames.length > 0 && (
         <div className="pf-algo-summary">
-          <span className="pf-algo-summary-label"><ScrambleText text="algorithms:" duration={600} /></span>
+          <span className="pf-algo-summary-label"><ScrambleText text={t('experiments.pathfinding.build.algorithms')} duration={600} /></span>
           {selectedNames.map((n) => (
             <span key={n} className="pf-algo-chip"><ScrambleText text={n} duration={600} /></span>
           ))}
@@ -237,7 +235,7 @@ export default function MazeBuilder({ grid, selected, options, onGridChange, onO
         {/* Dimensions */}
         <div className="pf-dim-group">
           <label className="pf-dim-label">
-            <span className="pf-dim-name"><ScrambleText text="rows" duration={600} /></span>
+            <span className="pf-dim-name"><ScrambleText text={t('experiments.pathfinding.build.rows')} duration={600} /></span>
             <span className="pf-dim-val">{rows}</span>
             <input
               type="range" min={MIN_ROWS} max={MAX_ROWS} value={rows}
@@ -245,7 +243,7 @@ export default function MazeBuilder({ grid, selected, options, onGridChange, onO
             />
           </label>
           <label className="pf-dim-label">
-            <span className="pf-dim-name"><ScrambleText text="cols" duration={600} /></span>
+            <span className="pf-dim-name"><ScrambleText text={t('experiments.pathfinding.build.cols')} duration={600} /></span>
             <span className="pf-dim-val">{cols}</span>
             <input
               type="range" min={MIN_COLS} max={MAX_COLS} value={cols}
@@ -258,29 +256,29 @@ export default function MazeBuilder({ grid, selected, options, onGridChange, onO
 
         {/* Draw mode */}
         <div className="pf-mode-group">
-          <span className="pf-group-label"><ScrambleText text="draw" duration={600} /></span>
+          <span className="pf-group-label"><ScrambleText text={t('experiments.pathfinding.build.draw')} duration={600} /></span>
           <button
             className={`pf-mode-btn${mode === 'wall' ? ' pf-mode-btn--active' : ''}`}
             onClick={() => setMode('wall')}
-          ><ScrambleText text="▪ wall" duration={600} /></button>
+          ><ScrambleText text={t('experiments.pathfinding.build.wall')} duration={600} /></button>
           <button
             className={`pf-mode-btn${mode === 'plain' ? ' pf-mode-btn--active' : ''}`}
             onClick={() => setMode('plain')}
-          ><ScrambleText text="✕ erase" duration={600} /></button>
+          ><ScrambleText text={t('experiments.pathfinding.build.erase')} duration={600} /></button>
 
           {/* Terrain buttons — only enabled terrains when weighted */}
           {options.weighted && (
             <>
               <div className="pf-mode-divider" />
-              {TERRAIN_DEFS.filter((t) => t.id !== 'plain' && options.terrainConfig[t.id]?.enabled !== false).map((t) => (
-                <button
-                  key={t.id}
-                  className={`pf-mode-btn pf-terrain-btn pf-terrain-btn-${t.id}${mode === t.id ? ' pf-mode-btn--active' : ''}`}
-                  title={t.desc}
-                  onClick={() => setMode(t.id)}
-                >
-                  <ScrambleText text={`${t.symbol} ${t.label}`} duration={600} />
-                </button>
+              {TERRAIN_DEFS.filter((td) => td.id !== 'plain' && options.terrainConfig[td.id]?.enabled !== false).map((td) => (
+                <Tooltip key={td.id} label={t(`experiments.pathfinding.terrain.${td.id}_desc`)}>
+                  <button
+                    className={`pf-mode-btn pf-terrain-btn pf-terrain-btn-${td.id}${mode === td.id ? ' pf-mode-btn--active' : ''}`}
+                    onClick={() => setMode(td.id)}
+                  >
+                    <ScrambleText text={`${td.symbol} ${t(`experiments.pathfinding.terrain.${td.id}_label`)}`} duration={600} />
+                  </button>
+                </Tooltip>
               ))}
             </>
           )}
@@ -289,11 +287,11 @@ export default function MazeBuilder({ grid, selected, options, onGridChange, onO
           <button
             className={`pf-mode-btn${mode === 'start' ? ' pf-mode-btn--active' : ''}`}
             onClick={() => setMode('start')}
-          ><ScrambleText text="◉ start" duration={600} /></button>
+          ><ScrambleText text={t('experiments.pathfinding.build.start')} duration={600} /></button>
           <button
             className={`pf-mode-btn${mode === 'end' ? ' pf-mode-btn--active' : ''}`}
             onClick={() => setMode('end')}
-          ><ScrambleText text="⬡ end" duration={600} /></button>
+          ><ScrambleText text={t('experiments.pathfinding.build.end')} duration={600} /></button>
         </div>
 
         <div className="pf-divider" />
@@ -304,17 +302,18 @@ export default function MazeBuilder({ grid, selected, options, onGridChange, onO
             className="pf-btn pf-btn-ghost"
             onClick={() => onGridChange(withWeights(makeDefaultGrid(rows, cols)))}
           >
-            <ScrambleText text="clear" duration={600} />
+            <ScrambleText text={t('experiments.pathfinding.build.clear')} duration={600} />
           </button>
-          <button
-            className={`pf-btn pf-btn-ghost pf-btn-options${showOptions ? ' pf-btn-options--active' : ''}`}
-            onClick={() => setShowOptions((s) => !s)}
-            title="Randomize options"
-          >
-            <ScrambleText text="⚙ options" duration={600} />
-          </button>
+          <Tooltip label={t('experiments.pathfinding.build.options_hint')}>
+            <button
+              className={`pf-btn pf-btn-ghost pf-btn-options${showOptions ? ' pf-btn-options--active' : ''}`}
+              onClick={() => setShowOptions((s) => !s)}
+            >
+              <ScrambleText text={t('experiments.pathfinding.build.options')} duration={600} />
+            </button>
+          </Tooltip>
           <button className="pf-btn pf-btn-accent" onClick={handleRandomize}>
-            <ScrambleText text="randomize" duration={600} />
+            <ScrambleText text={t('experiments.pathfinding.build.randomize')} duration={600} />
           </button>
         </div>
       </div>
@@ -325,8 +324,8 @@ export default function MazeBuilder({ grid, selected, options, onGridChange, onO
           {/* Weighted toggle */}
           <div className="pf-opt-row">
             <div className="pf-opt-info">
-              <span className="pf-opt-label"><ScrambleText text="weighted terrain" duration={600} /></span>
-              <span className="pf-opt-desc"><ScrambleText text="assign traversal costs to terrain types" duration={600} /></span>
+              <span className="pf-opt-label"><ScrambleText text={t('experiments.pathfinding.build.weighted_terrain')} duration={600} /></span>
+              <span className="pf-opt-desc"><ScrambleText text={t('experiments.pathfinding.build.weighted_desc')} duration={600} /></span>
             </div>
             <button
               className={`pf-toggle${options.weighted ? ' pf-toggle--on' : ''}`}
@@ -340,9 +339,9 @@ export default function MazeBuilder({ grid, selected, options, onGridChange, onO
           {/* Terrain editor — only when weighted */}
           {options.weighted && (
             <div className="pf-opt-row pf-opt-row--col pf-terrain-editor-wrap">
-              <span className="pf-opt-label"><ScrambleText text="terrain types & weights" duration={600} /></span>
+              <span className="pf-opt-label"><ScrambleText text={t('experiments.pathfinding.build.terrain_weights')} duration={600} /></span>
               <div className="pf-terrain-editor">
-                {TERRAIN_DEFS.filter((t) => t.id !== 'plain').map((def) => {
+                {TERRAIN_DEFS.filter((def) => def.id !== 'plain').map((def) => {
                   const cfg = options.terrainConfig[def.id] ?? { enabled: true, weight: def.weight };
                   return (
                     <div
@@ -350,13 +349,14 @@ export default function MazeBuilder({ grid, selected, options, onGridChange, onO
                       className={`pf-terrain-row pf-terrain-row-${def.id}${!cfg.enabled ? ' pf-terrain-row--off' : ''}`}
                     >
                       {/* Enable toggle chip */}
-                      <button
-                        className={`pf-terrain-chip${cfg.enabled ? ' pf-terrain-chip--on' : ''}`}
-                        onClick={() => setTerrainConfig(def.id, { enabled: !cfg.enabled })}
-                        title={cfg.enabled ? 'Disable this terrain' : 'Enable this terrain'}
-                      >
-                        <ScrambleText text={`${def.symbol} ${def.label}`} duration={600} />
-                      </button>
+                      <Tooltip label={t(cfg.enabled ? 'experiments.pathfinding.build.disable_terrain' : 'experiments.pathfinding.build.enable_terrain')}>
+                        <button
+                          className={`pf-terrain-chip${cfg.enabled ? ' pf-terrain-chip--on' : ''}`}
+                          onClick={() => setTerrainConfig(def.id, { enabled: !cfg.enabled })}
+                        >
+                          <ScrambleText text={`${def.symbol} ${t(`experiments.pathfinding.terrain.${def.id}_label`)}`} duration={600} />
+                        </button>
+                      </Tooltip>
                       {/* Weight control */}
                       <div className={`pf-terrain-weight-wrap${!cfg.enabled ? ' pf-terrain-weight-wrap--disabled' : ''}`}>
                         <input
@@ -379,7 +379,7 @@ export default function MazeBuilder({ grid, selected, options, onGridChange, onO
 
           {/* Route density */}
           <div className="pf-opt-row pf-opt-row--col">
-            <span className="pf-opt-label"><ScrambleText text="route density" duration={600} /></span>
+            <span className="pf-opt-label"><ScrambleText text={t('experiments.pathfinding.build.route_density')} duration={600} /></span>
             <div className="pf-density-group">
               {DENSITY_OPTIONS.map((d) => (
                 <button
@@ -387,8 +387,8 @@ export default function MazeBuilder({ grid, selected, options, onGridChange, onO
                   className={`pf-density-btn${options.routeDensity === d ? ' pf-density-btn--active' : ''}`}
                   onClick={() => onOptionsChange({ ...options, routeDensity: d })}
                 >
-                  <span className="pf-density-name"><ScrambleText text={d} duration={600} /></span>
-                  <span className="pf-density-desc"><ScrambleText text={DENSITY_DESC[d]} duration={600} /></span>
+                  <span className="pf-density-name"><ScrambleText text={t(`experiments.pathfinding.density.${d}_label`)} duration={600} /></span>
+                  <span className="pf-density-desc"><ScrambleText text={t(`experiments.pathfinding.density.${d}_desc`)} duration={600} /></span>
                 </button>
               ))}
             </div>
@@ -397,9 +397,14 @@ export default function MazeBuilder({ grid, selected, options, onGridChange, onO
           {/* Min path length */}
           <div className="pf-opt-row pf-opt-row--col">
             <div className="pf-opt-header">
-              <span className="pf-opt-label"><ScrambleText text="min path length" duration={600} /></span>
+              <span className="pf-opt-label"><ScrambleText text={t('experiments.pathfinding.build.min_path')} duration={600} /></span>
               <span className="pf-opt-value">
-                <ScrambleText text={options.minPathLength === 0 ? 'unconstrained' : `≥ ${options.minPathLength} cells`} duration={600} />
+                <ScrambleText
+                  text={options.minPathLength === 0
+                    ? t('experiments.pathfinding.build.unconstrained')
+                    : t('experiments.pathfinding.build.min_path_val', { n: options.minPathLength })}
+                  duration={600}
+                />
               </span>
             </div>
             <input
@@ -412,11 +417,11 @@ export default function MazeBuilder({ grid, selected, options, onGridChange, onO
             />
             <span className="pf-opt-desc">
               <ScrambleText
-                text={`forces the shortest solution to traverse at least this many cells${
+                text={t(
                   options.minPathLength > Math.floor(maxPath * 0.7)
-                    ? ' — high values may slow generation'
-                    : ''
-                }`}
+                    ? 'experiments.pathfinding.build.min_path_desc_slow'
+                    : 'experiments.pathfinding.build.min_path_desc',
+                )}
                 duration={600}
               />
             </span>
@@ -454,33 +459,33 @@ export default function MazeBuilder({ grid, selected, options, onGridChange, onO
 
       {/* Footer */}
       <div className="pf-builder-footer">
-        <button className="pf-btn pf-btn-ghost" onClick={onBack}><ScrambleText text="← back" duration={600} /></button>
+        <button className="pf-btn pf-btn-ghost" onClick={onBack}><ScrambleText text={t('experiments.pathfinding.build.back')} duration={600} /></button>
 
         <div className="pf-legend">
           <span className="pf-legend-item">
-            <span className="pf-legend-dot pf-cell-start" /><ScrambleText text="start" duration={600} />
+            <span className="pf-legend-dot pf-cell-start" /><ScrambleText text={t('experiments.pathfinding.build.legend_start')} duration={600} />
           </span>
           <span className="pf-legend-item">
-            <span className="pf-legend-dot pf-cell-end" /><ScrambleText text="end" duration={600} />
+            <span className="pf-legend-dot pf-cell-end" /><ScrambleText text={t('experiments.pathfinding.build.legend_end')} duration={600} />
           </span>
           <span className="pf-legend-item">
-            <span className="pf-legend-dot pf-cell-wall" /><ScrambleText text="wall" duration={600} />
+            <span className="pf-legend-dot pf-cell-wall" /><ScrambleText text={t('experiments.pathfinding.build.legend_wall')} duration={600} />
           </span>
-          {options.weighted && TERRAIN_DEFS.filter((t) => t.id !== 'plain').map((t) => {
-            const cfg = options.terrainConfig[t.id];
+          {options.weighted && TERRAIN_DEFS.filter((td) => td.id !== 'plain').map((td) => {
+            const cfg = options.terrainConfig[td.id];
             if (cfg?.enabled === false) return null;
-            const weight = cfg?.weight ?? t.weight;
+            const weight = cfg?.weight ?? td.weight;
             return (
-              <span key={t.id} className="pf-legend-item">
-                <span className={`pf-legend-dot pf-cell-${t.id}`} />
-                <ScrambleText text={t.label} duration={600} /> <span className="pf-legend-weight">×{weight}</span>
+              <span key={td.id} className="pf-legend-item">
+                <span className={`pf-legend-dot pf-cell-${td.id}`} />
+                <ScrambleText text={t(`experiments.pathfinding.terrain.${td.id}_label`)} duration={600} /> <span className="pf-legend-weight">×{weight}</span>
               </span>
             );
           })}
         </div>
 
         <button className="pf-btn pf-btn-primary" onClick={onRun}>
-          <ScrambleText text="run algorithms →" duration={600} />
+          <ScrambleText text={t('experiments.pathfinding.build.run_algorithms')} duration={600} />
         </button>
       </div>
     </div>

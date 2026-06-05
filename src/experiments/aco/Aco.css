@@ -10,25 +10,7 @@
   --aco-grid-line: rgba(0, 0, 0, 0.035);
 }
 
-/* ── Page shell ─────────────────────────────────────────────── */
-.aco-page {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  background:
-    radial-gradient(65% 55% at 50% 0%, color-mix(in srgb, var(--accent2) 11%, transparent), transparent 62%),
-    var(--bg);
-  color: var(--text);
-}
-
-/* ── Intro strip ────────────────────────────────────────────── */
-.aco-info-strip {
-  padding: 1.1rem 1.5rem 0.4rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-  max-width: 70ch;
-}
+/* ── Intro strip (inside the shared ui-info-strip) ──────────── */
 .aco-info-tagline {
   color: var(--accent);
   font-size: 0.82rem;
@@ -41,31 +23,14 @@
   line-height: 1.5;
 }
 
-/* ── Layout ─────────────────────────────────────────────────── */
-.aco-layout {
-  flex: 1;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 320px;
-  gap: 1.25rem;
-  padding: 1rem 1.5rem 2rem;
-  align-items: start;
-}
-
-/* ── Stage ──────────────────────────────────────────────────── */
-.aco-stage {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
-}
-
+/* ── Stage / canvas ─────────────────────────────────────────── */
 .aco-canvas-wrap {
   position: relative;
   width: 100%;
   aspect-ratio: 1 / 1;
   max-height: calc(100vh - 200px);
   border: 1px solid var(--border);
-  border-radius: 6px;
+  border-radius: var(--radius-md);
   overflow: hidden;
   background:
     linear-gradient(var(--aco-grid-line) 1px, transparent 1px) 0 0 / 36px 36px,
@@ -90,7 +55,7 @@
   padding: 0.6rem 1rem;
   background: color-mix(in srgb, var(--bg2) 85%, transparent);
   border: 1px solid var(--border);
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
   color: var(--text-dim);
   font-size: 0.78rem;
   pointer-events: none;
@@ -132,164 +97,12 @@
   border: 1.5px solid var(--text-hi);
 }
 
-/* ── Sidebar ────────────────────────────────────────────────── */
-.aco-sidebar {
-  display: flex;
-  flex-direction: column;
-  gap: 0.85rem;
-  position: sticky;
-  top: 1rem;
-  min-width: 0; /* let panels shrink; never grow to a child's intrinsic size */
-}
-
-.aco-controls,
-.aco-stats,
-.aco-params,
-.aco-setup,
-.aco-debug {
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 0.85rem 0.9rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.7rem;
-}
-
-.aco-panel-title {
-  font-size: 0.7rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--text-dim);
-}
-
-/* ── Buttons ────────────────────────────────────────────────── */
-.aco-btn {
-  font-family: inherit;
-  font-size: 0.78rem;
-  padding: 0.5rem 0.7rem;
-  border-radius: 4px;
-  border: 1px solid var(--border);
-  background: var(--bg);
-  color: var(--text);
-  cursor: pointer;
-  transition: border-color 0.14s, background 0.14s, color 0.14s;
-  white-space: nowrap;
-}
-.aco-btn:hover:not(:disabled) { border-color: var(--text-dim); color: var(--text-hi); }
-.aco-btn:disabled { opacity: 0.4; cursor: not-allowed; }
-.aco-btn-accent {
-  border-color: color-mix(in srgb, var(--accent) 55%, var(--border));
-  background: color-mix(in srgb, var(--accent) 12%, var(--bg2));
-  color: var(--text-hi);
-}
-.aco-btn-accent:hover:not(:disabled) {
-  border-color: var(--accent);
-  background: color-mix(in srgb, var(--accent) 20%, var(--bg2));
-}
-
-.aco-control-btns {
-  display: grid;
-  grid-template-columns: 1.4fr 1fr 1fr;
-  gap: 0.45rem;
-}
+/* ── Setup: layout chips + buttons ──────────────────────────── */
 .aco-setup-btns {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 0.45rem;
 }
-
-/* ── Sliders ────────────────────────────────────────────────── */
-.aco-slider {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 100%;
-  height: 4px;
-  border-radius: 2px;
-  background: var(--border);
-  outline: none;
-  cursor: pointer;
-}
-.aco-slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 13px;
-  height: 13px;
-  border-radius: 50%;
-  background: var(--accent);
-  border: 2px solid var(--bg2);
-  cursor: pointer;
-}
-.aco-slider::-moz-range-thumb {
-  width: 13px;
-  height: 13px;
-  border-radius: 50%;
-  background: var(--accent);
-  border: 2px solid var(--bg2);
-  cursor: pointer;
-}
-
-.aco-speed {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  align-items: center;
-  gap: 0.6rem;
-}
-.aco-speed-label { font-size: 0.74rem; color: var(--text-dim); }
-.aco-speed-val {
-  font-size: 0.74rem;
-  color: var(--text-hi);
-  min-width: 2ch;
-  text-align: right;
-}
-
-/* ── Parameters ─────────────────────────────────────────────── */
-.aco-param {
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-}
-.aco-param-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  font-size: 0.76rem;
-}
-.aco-param-label { color: var(--text); }
-.aco-param-val { color: var(--accent); font-variant-numeric: tabular-nums; }
-
-.aco-toggle {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-family: inherit;
-  font-size: 0.76rem;
-  padding: 0.45rem 0.55rem;
-  border-radius: 4px;
-  border: 1px solid var(--border);
-  background: var(--bg);
-  color: var(--text-dim);
-  cursor: pointer;
-  transition: border-color 0.14s, color 0.14s;
-}
-.aco-toggle-dot {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: var(--text-dim);
-  flex: none;
-  transition: background 0.14s, box-shadow 0.14s;
-}
-.aco-toggle--on {
-  color: var(--text-hi);
-  border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
-}
-.aco-toggle--on .aco-toggle-dot {
-  background: var(--accent);
-  box-shadow: 0 0 6px var(--accent);
-}
-
-/* ── Layout chips ───────────────────────────────────────────── */
 .aco-layout-row {
   display: flex;
   flex-wrap: wrap;
@@ -304,7 +117,7 @@
   background: var(--bg);
   color: var(--text-dim);
   cursor: pointer;
-  transition: border-color 0.14s, color 0.14s, background 0.14s;
+  transition: border-color var(--dur-fast), color var(--dur-fast), background var(--dur-fast);
 }
 .aco-chip:hover { color: var(--text); border-color: var(--text-dim); }
 .aco-chip--on {
@@ -313,12 +126,39 @@
   background: color-mix(in srgb, var(--accent) 10%, var(--bg2));
 }
 
-/* ── Stats ──────────────────────────────────────────────────── */
-.aco-stats-title {
+/* ── Params: elitist toggle ─────────────────────────────────── */
+.aco-toggle {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  gap: 0.5rem;
+  font-family: inherit;
+  font-size: 0.76rem;
+  padding: 0.45rem 0.55rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text-dim);
+  cursor: pointer;
+  transition: border-color var(--dur-fast), color var(--dur-fast);
 }
+.aco-toggle-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--text-dim);
+  flex: none;
+  transition: background var(--dur-fast), box-shadow var(--dur-fast);
+}
+.aco-toggle--on {
+  color: var(--text-hi);
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
+}
+.aco-toggle--on .aco-toggle-dot {
+  background: var(--accent);
+  box-shadow: 0 0 6px var(--accent);
+}
+
+/* ── Stats: converged badge + gain line ─────────────────────── */
 .aco-converged {
   font-size: 0.62rem;
   letter-spacing: 0.1em;
@@ -328,34 +168,6 @@
   padding: 0.1rem 0.5rem;
   text-transform: uppercase;
 }
-.aco-stat-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.5rem;
-}
-.aco-stat {
-  display: flex;
-  flex-direction: column;
-  gap: 0.15rem;
-  padding: 0.5rem 0.6rem;
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: 4px;
-}
-.aco-stat--hi { border-color: color-mix(in srgb, var(--accent2) 45%, var(--border)); }
-.aco-stat-label {
-  font-size: 0.64rem;
-  letter-spacing: 0.06em;
-  color: var(--text-dim);
-  text-transform: uppercase;
-}
-.aco-stat-val {
-  font-size: 1.05rem;
-  color: var(--text-hi);
-  font-variant-numeric: tabular-nums;
-}
-.aco-stat--hi .aco-stat-val { color: var(--accent2); }
-
 .aco-gain {
   font-size: 0.74rem;
   color: var(--text-dim);
@@ -390,38 +202,11 @@
 }
 
 /* ── Debug log ──────────────────────────────────────────────── */
-.aco-debug-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 0.5rem;
-}
 .aco-debug-actions {
   display: flex;
-  align-items: center;
+  justify-content: flex-end;
   gap: 0.4rem;
 }
-.aco-debug-clear,
-.aco-debug-copy {
-  font-family: inherit;
-  font-size: 0.68rem;
-  padding: 0.25rem 0.5rem;
-  border-radius: 3px;
-  border: 1px solid var(--border);
-  background: var(--bg);
-  color: var(--text-dim);
-  cursor: pointer;
-  transition: border-color 0.14s, color 0.14s, background 0.14s;
-}
-.aco-debug-clear:hover:not(:disabled),
-.aco-debug-copy:hover { color: var(--text-hi); border-color: var(--text-dim); }
-.aco-debug-clear:disabled { opacity: 0.4; cursor: not-allowed; }
-.aco-debug-copy {
-  border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
-  color: var(--text);
-}
-.aco-debug-copy--ok { color: var(--accent); border-color: var(--accent); }
-
 .aco-debug-list {
   max-height: 180px;
   overflow-y: auto;
@@ -464,12 +249,6 @@
 
 /* ── Responsive ─────────────────────────────────────────────── */
 @media (max-width: 860px) {
-  .aco-layout {
-    grid-template-columns: 1fr;
-  }
-  .aco-sidebar {
-    position: static;
-  }
   .aco-canvas-wrap {
     max-height: none;
   }

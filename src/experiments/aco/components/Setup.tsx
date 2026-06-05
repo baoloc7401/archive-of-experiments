@@ -1,4 +1,6 @@
+import { useTranslation } from "react-i18next";
 import ScrambleText from "../../../components/ScrambleText";
+import { Button, Panel, Slider, Tooltip } from "../../../components/ui";
 import type { LayoutId } from "../types";
 import { LAYOUTS, MIN_CITIES, MAX_CITIES } from "../constants";
 
@@ -19,51 +21,41 @@ export default function Setup({
   onScatter,
   onClear,
 }: Props) {
+  const { t } = useTranslation();
   return (
-    <div className="aco-setup">
-      <div className="aco-panel-title">
-        <ScrambleText text="cities" duration={500} />
-      </div>
-
+    <Panel title={t("experiments.aco.cities")}>
       <div className="aco-layout-row">
         {LAYOUTS.map((l) => (
-          <button
-            key={l.id}
-            className={`aco-chip${layout === l.id ? " aco-chip--on" : ""}`}
-            onClick={() => onLayout(l.id)}
-            title={l.hint}
-          >
-            <ScrambleText text={l.label} duration={500} />
-          </button>
+          <Tooltip key={l.id} label={t(`experiments.aco.layout.${l.id}_hint`)}>
+            <button
+              className={`aco-chip${layout === l.id ? " aco-chip--on" : ""}`}
+              onClick={() => onLayout(l.id)}
+            >
+              <ScrambleText text={t(`experiments.aco.layout.${l.id}`)} duration={500} />
+            </button>
+          </Tooltip>
         ))}
       </div>
 
-      <label className="aco-param" title="number of cities to scatter">
-        <span className="aco-param-head">
-          <span className="aco-param-label">
-            <ScrambleText text="count" duration={500} />
-          </span>
-          <span className="aco-param-val">{count}</span>
-        </span>
-        <input
-          type="range"
-          min={MIN_CITIES}
-          max={MAX_CITIES}
-          value={count}
-          onChange={(e) => onCount(Number(e.target.value))}
-          className="aco-slider"
-          aria-label="city count"
-        />
-      </label>
+      <Slider
+        stacked
+        label={t("experiments.aco.count")}
+        hint={t("experiments.aco.count_hint")}
+        value={count}
+        min={MIN_CITIES}
+        max={MAX_CITIES}
+        display={count}
+        onChange={onCount}
+      />
 
       <div className="aco-setup-btns">
-        <button className="aco-btn aco-btn-ghost" onClick={onScatter}>
-          <ScrambleText text="✦ scatter" duration={500} />
-        </button>
-        <button className="aco-btn aco-btn-ghost" onClick={onClear} title="Remove all cities">
-          <ScrambleText text="⌫ clear" duration={500} />
-        </button>
+        <Button onClick={onScatter}>
+          <ScrambleText text={t("experiments.aco.scatter")} duration={500} />
+        </Button>
+        <Button onClick={onClear} tooltip={t("experiments.aco.clear_hint")}>
+          <ScrambleText text={t("experiments.aco.clear")} duration={500} />
+        </Button>
       </div>
-    </div>
+    </Panel>
   );
 }

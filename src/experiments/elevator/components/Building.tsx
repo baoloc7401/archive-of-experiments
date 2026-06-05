@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import ScrambleText from '../../../components/ScrambleText';
+import { Tooltip } from '../../../components/ui';
 import type { ElevatorRequest, ElevatorState, RequestOrigin, SimState } from '../types';
 import { ALGORITHM_BY_ID, SHAFT_COLORS } from '../constants';
 
@@ -53,12 +54,11 @@ export default function Building({ state, activeCalls, tickMs, onHallCall }: Pro
             return (
               <div key={f} className={`elev-floor${pending ? ' elev-floor--pending' : ''}`}>
                 <span className="elev-floor-num">{String(f).padStart(2, '0')}</span>
-                <span
-                  className={`elev-floor-car-tag${calls?.car ? ' elev-floor-car-tag--on' : ''}`}
-                  title={t('experiments.elevator.car_dest_tag')}
-                >
-                  <ScrambleText text={t('experiments.elevator.car')} duration={600} />
-                </span>
+                <Tooltip label={t('experiments.elevator.car_dest_tag')}>
+                  <span className={`elev-floor-car-tag${calls?.car ? ' elev-floor-car-tag--on' : ''}`}>
+                    <ScrambleText text={t('experiments.elevator.car')} duration={600} />
+                  </span>
+                </Tooltip>
                 <div className="elev-hall" aria-label={t('experiments.elevator.hall_panel_label', { n: f })}>
                   {f < top && (
                     <button

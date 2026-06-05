@@ -1,0 +1,67 @@
+/* A tooltip "host" is any element that owns a `.ui-tip` bubble child: the
+   wrapper span (arbitrary triggers) or a primitive like Button/Slider. */
+.ui-tip-wrap {
+  position: relative;
+  display: inline-flex;
+}
+/* Full-width trigger: wrapper fills its container and stretches its child. */
+.ui-tip-wrap--block {
+  display: flex;
+  width: 100%;
+}
+.ui-tip-wrap--block > :not(.ui-tip) {
+  flex: 1;
+}
+.ui-tip-host {
+  position: relative;
+}
+
+.ui-tip {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 30;
+  white-space: nowrap;
+  padding: 0.3rem 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg2);
+  color: var(--text-hi);
+  font-size: 0.7rem;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+  opacity: 0;
+  pointer-events: none;
+  /* Positioned at the cursor (via --tip-x/y set on the host) and lifted above
+     it; the short transform transition makes it trail the cursor smoothly. */
+  transform: translate(var(--tip-x, 50%), var(--tip-y, 0px)) translate(-50%, calc(-100% - 14px));
+  transition: opacity var(--dur-fast) var(--ease-spring), transform 80ms ease-out;
+}
+
+/* Arrow pointing down at the cursor. */
+.ui-tip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 4px solid transparent;
+  border-top-color: var(--border);
+}
+
+.ui-tip-wrap:hover > .ui-tip,
+.ui-tip-host:hover > .ui-tip {
+  opacity: 1;
+}
+
+/* Keyboard focus has no cursor — pin the bubble above the trigger's centre. */
+.ui-tip-wrap:focus-within:not(:hover) > .ui-tip,
+.ui-tip-host:focus-visible:not(:hover) > .ui-tip {
+  left: 50%;
+  top: 0;
+  opacity: 1;
+  transform: translate(-50%, calc(-100% - 8px));
+  transition: opacity var(--dur-fast) var(--ease-spring);
+}

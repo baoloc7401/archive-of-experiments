@@ -1,6 +1,7 @@
 const en = {
   hero: {
     prefix: "baoloc7401 /",
+    reroll_hint: "click for a new one",
     subtitle_0: "A sandbox for algorithms, curiosity, and deliberate learning.",
     subtitle_1: "Half-baked ideas. Fully-baked bugs.",
     subtitle_2: "Where O(n) goes to die and segfaults come to play.",
@@ -98,6 +99,119 @@ const en = {
     pathfinding: {
       title: "Pathfinding",
       description: "A* and Dijkstra navigating mazes on an interactive grid.",
+      crumb_maze: "maze builder",
+      crumb_run: "run",
+      category: {
+        unweighted: "unweighted",
+        weighted: "weighted",
+        heuristic: "heuristic",
+      },
+      select: {
+        title: "select algorithms",
+        sub: "pick one or more to run side-by-side on your maze",
+        optimal: "✓ optimal",
+        not_optimal: "✗ optimal",
+        none_selected: "no algorithms selected",
+        count_one: "{{count}} algorithm selected",
+        count_other: "{{count}} algorithms selected",
+        build_maze: "build maze →",
+      },
+      algo: {
+        bfs: "Explores all neighbours level by level using a queue. Guaranteed to find the shortest path in an unweighted graph.",
+        dfs: "Dives as deep as possible along each branch before backtracking. Simple, low memory, but does not guarantee shortest path.",
+        dijkstra:
+          "Always expands the lowest-cost unvisited node. On uniform-cost grids it equals BFS, but shines on weighted terrain.",
+        astar:
+          "Combines path cost with a Manhattan-distance heuristic to steer the search toward the goal. Optimal and usually faster than Dijkstra.",
+        greedy:
+          "Always moves toward the node that looks closest to the goal by heuristic alone, ignoring path cost. Very fast but not optimal.",
+        "bidirectional-bfs":
+          "Runs BFS simultaneously from both start and end, meeting in the middle. Explores roughly the square root of the nodes plain BFS would.",
+        jps: 'Accelerates A* on uniform-cost grids by pruning symmetric, redundant paths via "jump points". Dramatically fewer node expansions on open grids.',
+      },
+      terrain: {
+        plain_label: "plain",
+        plain_desc: "Normal ground — base cost ×1",
+        grass_label: "grass",
+        grass_desc: "Light vegetation — cost ×2",
+        sand_label: "sand",
+        sand_desc: "Sandy terrain — cost ×3",
+        water_label: "water",
+        water_desc: "Shallow water — cost ×5",
+        mountain_label: "mountain",
+        mountain_desc: "Steep slopes — cost ×10",
+      },
+      density: {
+        sparse_label: "sparse",
+        sparse_desc: "tight corridors, few loops",
+        moderate_label: "moderate",
+        moderate_desc: "some alternate routes",
+        dense_label: "dense",
+        dense_desc: "many crossroads",
+      },
+      build: {
+        algorithms: "algorithms:",
+        rows: "rows",
+        cols: "cols",
+        draw: "draw",
+        wall: "▪ wall",
+        erase: "✕ erase",
+        start: "◉ start",
+        end: "⬡ end",
+        clear: "clear",
+        options: "⚙ options",
+        options_hint: "Randomize options",
+        randomize: "randomize",
+        weighted_terrain: "weighted terrain",
+        weighted_desc: "assign traversal costs to terrain types",
+        terrain_weights: "terrain types & weights",
+        enable_terrain: "Enable this terrain",
+        disable_terrain: "Disable this terrain",
+        route_density: "route density",
+        min_path: "min path length",
+        unconstrained: "unconstrained",
+        min_path_val: "≥ {{n}} cells",
+        min_path_desc:
+          "forces the shortest solution to traverse at least this many cells",
+        min_path_desc_slow:
+          "forces the shortest solution to traverse at least this many cells — high values may slow generation",
+        back: "← back",
+        run_algorithms: "run algorithms →",
+        legend_start: "start",
+        legend_end: "end",
+        legend_wall: "wall",
+      },
+      run: {
+        back: "← back",
+        reset: "⏮ reset",
+        reset_hint: "Reset",
+        replay: "⏮ replay",
+        pause: "⏸ pause",
+        play: "▶ play",
+        step: "step",
+        step_hint: "Step once",
+        speed: "speed",
+        searching: "searching…",
+        path_found: "path found",
+        no_path: "no path",
+        steps: "steps",
+        path_len: "path len",
+        cost: "cost",
+        visited: "visited",
+        jps_warn: "JPS ignores terrain weights — path may not be cost-optimal",
+        rankings: "rankings",
+        fewer_better: "fewer = better",
+        explored: "explored",
+        path_length: "path length",
+        path_cost: "path cost",
+        nodes: "nodes",
+        hops: "hops",
+        rank_1: "1st",
+        rank_2: "2nd",
+        rank_3: "3rd",
+        rank_n: "{{n}}th",
+        summary_found: "{{name}}: {{hops}} hops · {{steps}} steps",
+      },
     },
     elevator: {
       title: "Elevator Scheduling",
@@ -148,6 +262,13 @@ const en = {
       reversals: "reversals",
       comparison: "comparison",
       lower_better: "lower = better",
+      cmp_hint: {
+        trav: "floors traveled",
+        srv: "requests served",
+        avg: "average wait (ticks)",
+        max: "max wait (ticks)",
+        rev: "direction reversals",
+      },
       history: "history",
       copy: "copy",
       copied: "✓ copied",
@@ -195,10 +316,81 @@ const en = {
       title: "Ant Colony Optimization",
       description:
         "Virtual ants lay pheromone trails to converge on short tours through the Traveling Salesman Problem.",
+      subtitle: "traveling salesman",
       tagline: "swarm intelligence, emergent paths",
       intro:
         "Each ant builds a tour biased by pheromone (learned) and distance (greedy). Short tours get reinforced; every trail evaporates. The colony settles on a near-optimal loop no single ant could plan.",
       hint: "watch the green pheromone web sharpen into the purple best tour. drag the sliders live: high α follows the crowd, high β chases short edges, ρ controls forgetting. click the board to add cities.",
+      run: "▶ run",
+      pause: "⏸ pause",
+      step: "step",
+      step_hint: "Run one iteration instantly",
+      reset: "↺ reset",
+      reset_hint: "Reset pheromone",
+      speed: "speed",
+      trails: "trails",
+      trails_hint:
+        "How much of the faint pheromone web to show — low keeps only the strongest trails",
+      params: "parameters",
+      elitist: "elitist reinforcement",
+      elitist_hint:
+        "Give the best-so-far tour an extra pheromone dose each iteration — speeds convergence",
+      cities: "cities",
+      count: "count",
+      count_hint: "number of cities to scatter",
+      scatter: "✦ scatter",
+      clear: "⌫ clear",
+      clear_hint: "Remove all cities",
+      colony: "colony",
+      converged: "converged",
+      iteration: "iteration",
+      best_tour: "best tour",
+      gen_avg: "gen avg",
+      greedy: "greedy (NN)",
+      gain: "{{arrow}} {{pct}}% vs greedy baseline",
+      gain_prompt: "run to beat the greedy tour",
+      conv_label: "best tour length →",
+      conv_empty: "convergence curve",
+      empty_place: "click on the board to place cities, or hit scatter",
+      empty_add: "add at least one more city",
+      canvas_aria: "ant colony tour visualization — click to add a city",
+      legend: {
+        pheromone: "pheromone trail",
+        best: "best tour",
+        ant: "ant",
+        city: "city",
+      },
+      debug: "debug log",
+      debug_clear: "clear",
+      debug_clear_hint: "Clear the event log",
+      copy_report: "copy report",
+      copied: "✓ copied",
+      copy_hint:
+        "Copy a full debug report (state + colony dump + events) to share",
+      debug_empty: "no events yet — run, reset, or tweak something",
+      param: {
+        ants: "ants",
+        ants_hint:
+          "colony size — more ants explore more, but each iteration costs more",
+        alpha: "α pheromone",
+        alpha_hint:
+          "trail influence — high α makes ants follow the crowd (exploit)",
+        beta: "β distance",
+        beta_hint: "greed for short edges — high β acts like nearest-neighbour",
+        rho: "ρ evaporation",
+        rho_hint:
+          "how fast trails fade — high ρ forgets faster, avoids early lock-in",
+      },
+      layout: {
+        random: "scatter",
+        random_hint: "uniformly random cities",
+        circle: "ring",
+        circle_hint: "cities on a circle — optimum is the perimeter",
+        clusters: "clusters",
+        clusters_hint: "a few tight clusters",
+        grid: "grid",
+        grid_hint: "jittered lattice",
+      },
     },
     "river-crossing": {
       title: "River Crossing",
@@ -301,6 +493,13 @@ const en = {
         decrease: "decrease {{label}}",
         increase: "increase {{label}}",
       },
+      person: {
+        missionary: "missionary",
+        cannibal: "cannibal",
+        board: "board {{who}}",
+        disembark: "disembark {{who}}",
+        empty: "empty",
+      },
       debug: {
         title: "debug log",
         clear: "clear",
@@ -323,6 +522,15 @@ const en = {
       won: "✓ field cleared — pure logic, no luck",
       lost: "✸ boom — that one was deducible",
       first_click: "click anywhere — the field is forged around your first click, guaranteed safe and solvable",
+      aria: {
+        board: "minefield, {{w}} by {{h}}",
+        cell: "cell {{x}}, {{y}}",
+        mine: "mine",
+        empty: "empty",
+        flagged: "flagged",
+        hidden: "hidden",
+        mine_pct: "{{pct}}% mine",
+      },
       hud: {
         mines_left: "mines minus flags placed",
         reset: "reset board",
@@ -540,5 +748,25 @@ const en = {
     },
   },
 } as const;
+
+/**
+ * The shape every locale must match. `en` is the source of truth; its literal
+ * leaf values are widened to base types so other locales (with different text)
+ * still satisfy the structure. A missing/extra/mistyped key in another locale
+ * becomes a compile error — see `vi satisfies Translation` in vi.ts.
+ *
+ * Arrays/tuples fall through to the homomorphic mapped-type branch, which
+ * preserves tuple length — so an array with the wrong number of elements (e.g. a
+ * locale missing a `death_shouts` entry) is also caught.
+ */
+type Widen<T> = T extends string
+  ? string
+  : T extends number
+    ? number
+    : T extends boolean
+      ? boolean
+      : { [K in keyof T]: Widen<T[K]> };
+
+export type Translation = Widen<typeof en>;
 
 export default en;

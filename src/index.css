@@ -1,3 +1,22 @@
+/* ── Structural tokens (theme-independent) ───────────────────
+   Motion, radius and spacing scales shared by every experiment.
+   Color tokens live in the [data-theme] blocks below. */
+:root {
+  /* Easing */
+  --ease-spring: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-glide:  cubic-bezier(0.45, 0.05, 0.3, 1);
+
+  /* Durations */
+  --dur-fast: 0.18s;
+  --dur-base: 0.28s;
+  --dur-move: 0.45s;
+
+  /* Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+}
+
 /* ── Theme tokens ─────────────────────────────────────────── */
 [data-theme="dark"] {
   --bg:       #07080d;
@@ -45,7 +64,7 @@ body {
   background-color: var(--bg);
   color: var(--text);
   min-height: 100vh;
-  transition: background-color 0.18s ease, color 0.18s ease;
+  transition: background-color var(--dur-fast) ease, color var(--dur-fast) ease;
 }
 
 a {
@@ -61,7 +80,7 @@ a {
 
 /* ── Language switch: slide-up reveal, no background flash ── */
 #root.lang-entering {
-  animation: lang-slide-in 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+  animation: lang-slide-in 0.22s var(--ease-spring);
 }
 
 @keyframes lang-slide-in {
@@ -72,5 +91,20 @@ a {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/* Shared-primitive decorative transitions respect the OS reduced-motion flag.
+   (Functional motion in experiments is handled per-experiment.) */
+@media (prefers-reduced-motion: reduce) {
+  #root.lang-entering {
+    animation: none;
+  }
+  .ui-btn,
+  .ui-panel-title,
+  .ui-panel-caret,
+  .ui-slider-input,
+  .ui-tip {
+    transition: none;
   }
 }
