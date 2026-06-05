@@ -49,7 +49,14 @@ Topbar pattern: sticky bar with `← experiments` link (`href="/"`), title, `<Th
 
 ## i18n
 
-`src/i18n/locales/{en,vi}.ts` (must stay in sync). Use `useTranslation` + `t('key')`. Card text at `experiments.{id}.{title,description}`. Experiment-internal strings can be hardcoded English if i18n not needed.
+`src/i18n/locales/{en,vi}.ts` (must stay in sync). Use `useTranslation` + `t('key')`. Card text at `experiments.{id}.{title,description}`. **Translate everything** (en + vi) — no hardcoded user-facing strings.
+
+**Exempt from translation** (stay as-is, not hardcoded violations):
+- Debug-report / copy-back text meant to be pasted to Claude, and dev-only `console.log` / diagnostic strings — stay English.
+- Proper nouns & brand names — algorithm names (A*, BFS), library names, people/place names, the experiment's own title.
+- Code, math & symbols — snippets, formulas, variable names, units (not natural-language prose).
+- Kaomoji / emoji — language-neutral; never translated (also excluded from ScrambleText).
+- Anything the user explicitly says not to translate.
 
 ## ScrambleText
 

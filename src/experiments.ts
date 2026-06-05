@@ -45,6 +45,12 @@ export const experiments: Experiment[] = [
     path: "/experiments/river-crossing",
   },
   {
+    id: "minesweeper",
+    tags: ["algorithms", "game", "fun"],
+    status: "active",
+    path: "/experiments/minesweeper",
+  },
+  {
     id: "binary-tree",
     tags: ["data structures", "trees"],
     status: "planned",

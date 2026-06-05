@@ -14,6 +14,7 @@
 - [[Experiment Elevator]]
 - [[Experiment ACO]]
 - [[Experiment River Crossing]]
+- [[Experiment Minesweeper]]
 
 **Links**
 - [Live site](https://baoloc7401.github.io/archive-of-experiments/)

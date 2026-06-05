@@ -44,8 +44,11 @@ src/
 
 - `src/i18n/locales/{en,vi}.ts` must stay in sync. Card text lives at
   `experiments.<id>.{title,description}`.
-- Experiment-internal strings may be hardcoded English when translation adds no
-  value; descriptive text is translated.
+- **Translate everything** (en + vi) — no hardcoded user-facing strings.
+  Exempt: debug-report / copy-back text and dev-only `console.log` (stay
+  English); proper nouns & brand names (algorithm names like A*/BFS, libraries,
+  the experiment's own title); code, math, symbols & units; kaomoji / emoji
+  (language-neutral); and anything the user explicitly says not to translate.
 - [`ScrambleText`](https://github.com/baoloc7401/archive-of-experiments/blob/main/src/components/ScrambleText.tsx)
   wraps i18n-driven and mutating UI text for the signature decode animation.
 

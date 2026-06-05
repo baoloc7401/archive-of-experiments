@@ -9,6 +9,7 @@ import Pathfinding from "./experiments/pathfinding";
 import Elevator from "./experiments/elevator";
 import Aco from "./experiments/aco";
 import RiverCrossing from "./experiments/river-crossing";
+import Minesweeper from "./experiments/minesweeper";
 
 const root = document.getElementById("root");
 if (!root) throw new Error("Root element not found");
@@ -23,6 +24,7 @@ createRoot(root).render(
         <Route path="/experiments/elevator" element={<Elevator />} />
         <Route path="/experiments/aco" element={<Aco />} />
         <Route path="/experiments/river-crossing" element={<RiverCrossing />} />
+        <Route path="/experiments/minesweeper" element={<Minesweeper />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>
