@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./i18n";
 import "./index.css";
 import App from "./App";
+import RouteMeta from "./seo/RouteMeta";
 import ChessGame from "./experiments/chess";
 import Pathfinding from "./experiments/pathfinding";
 import Elevator from "./experiments/elevator";
@@ -17,6 +18,7 @@ if (!root) throw new Error("Root element not found");
 createRoot(root).render(
   <StrictMode>
     <BrowserRouter basename={import.meta.env.BASE_URL}>
+      <RouteMeta />
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/experiments/chess/:mode?" element={<ChessGame />} />
