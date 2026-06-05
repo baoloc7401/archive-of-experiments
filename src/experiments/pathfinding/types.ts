@@ -11,9 +11,10 @@ export type AlgorithmCategory = 'unweighted' | 'weighted' | 'heuristic';
 
 export interface AlgorithmDef {
   id: AlgorithmId;
+  /** Proper-noun algorithm name (kept untranslated). Description lives in i18n
+   *  at experiments.pathfinding.algo.<id>. */
   name: string;
   category: AlgorithmCategory;
-  description: string;
   timeComplexity: string;
   spaceComplexity: string;
   guaranteesShortest: boolean;

@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef } from "react";
+import { useTranslation } from "react-i18next";
 import ScrambleText from "../../../components/ScrambleText";
 import type { Theme } from "../../../hooks/useTheme";
 
@@ -15,9 +16,12 @@ interface Props {
 // own backing-store dimensions can otherwise inflate a `1fr` grid track and
 // grow without bound on every redraw.
 export default function Convergence({ history, theme }: Props) {
+  const { t } = useTranslation();
+  const emptyLabel = t("experiments.aco.conv_empty");
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const boxRef = useRef<HTMLDivElement>(null);
   const historyRef = useRef(history);
+  const emptyRef = useRef(emptyLabel);
 
   const draw = useCallback(() => {
     const canvas = canvasRef.current;
@@ -47,7 +51,7 @@ export default function Convergence({ history, theme }: Props) {
       ctx.font = "10px ui-monospace, monospace";
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
-      ctx.fillText("convergence curve", w / 2, h / 2);
+      ctx.fillText(emptyRef.current, w / 2, h / 2);
       return;
     }
 
@@ -91,11 +95,12 @@ export default function Convergence({ history, theme }: Props) {
     ctx.fill();
   }, []);
 
-  // Redraw on new data or theme flip.
+  // Redraw on new data, theme flip, or language change (the empty-state label).
   useEffect(() => {
     historyRef.current = history;
+    emptyRef.current = emptyLabel;
     draw();
-  }, [history, theme, draw]);
+  }, [history, theme, emptyLabel, draw]);
 
   // Redraw on container resize (decoupled from the data stream). The work is
   // deferred to a frame to avoid the "ResizeObserver loop" error.
@@ -120,7 +125,7 @@ export default function Convergence({ history, theme }: Props) {
   return (
     <div className="aco-conv">
       <div className="aco-conv-label">
-        <ScrambleText text="best tour length →" duration={500} />
+        <ScrambleText text={t("experiments.aco.conv_label")} duration={500} />
       </div>
       <div className="aco-conv-box" ref={boxRef}>
         <canvas ref={canvasRef} className="aco-conv-canvas" />

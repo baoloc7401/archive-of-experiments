@@ -1,3 +1,6 @@
+import { useTranslation } from "react-i18next";
+import { Tooltip } from "../../../components/ui";
+
 export type PersonKind = "m" | "c";
 
 interface Props {
@@ -16,7 +19,12 @@ interface Props {
  * handler is supplied it degrades to a static, non-interactive marker.
  */
 export default function Person({ kind, onClick, disabled, title, doomed }: Props) {
-  const label = kind === "m" ? "missionary" : "cannibal";
+  const { t } = useTranslation();
+  const label = t(
+    kind === "m"
+      ? "experiments.river-crossing.person.missionary"
+      : "experiments.river-crossing.person.cannibal",
+  );
   const cls = `rc-person rc-person--${kind}${doomed ? " rc-person--doomed" : ""}`;
   const body = (
     <>
@@ -31,16 +39,18 @@ export default function Person({ kind, onClick, disabled, title, doomed }: Props
       </span>
     );
   }
+  const tip = title ?? label;
   return (
-    <button
-      type="button"
-      className={cls}
-      onClick={onClick}
-      disabled={disabled}
-      title={title ?? label}
-      aria-label={title ?? label}
-    >
-      {body}
-    </button>
+    <Tooltip label={tip}>
+      <button
+        type="button"
+        className={cls}
+        onClick={onClick}
+        disabled={disabled}
+        aria-label={tip}
+      >
+        {body}
+      </button>
+    </Tooltip>
   );
 }

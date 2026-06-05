@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import ScrambleText from "../../../components/ScrambleText";
+import { Tooltip } from "../../../components/ui";
 import type { DebugEntry } from "../types";
 
 interface Props {
@@ -63,20 +64,21 @@ export default function DebugLog({ entries, buildReport, onClear }: Props) {
         </span>
         <div className="rc-debug-actions">
           <span className="rc-debug-count">{entries.length}</span>
-          <button
-            type="button"
-            className="rc-debug-clear"
-            onClick={onClear}
-            disabled={entries.length === 0}
-            title={t("experiments.river-crossing.debug.clear_hint")}
-          >
-            <ScrambleText text={t("experiments.river-crossing.debug.clear")} duration={500} />
-          </button>
+          <Tooltip label={t("experiments.river-crossing.debug.clear_hint")}>
+            <button
+              type="button"
+              className="rc-debug-clear"
+              onClick={onClear}
+              disabled={entries.length === 0}
+            >
+              <ScrambleText text={t("experiments.river-crossing.debug.clear")} duration={500} />
+            </button>
+          </Tooltip>
+          <Tooltip label={t("experiments.river-crossing.debug.copy_hint")}>
           <button
             type="button"
             className={`rc-debug-copy${copied ? " rc-debug-copy--ok" : ""}`}
             onClick={copy}
-            title={t("experiments.river-crossing.debug.copy_hint")}
           >
             <ScrambleText
               text={
@@ -87,6 +89,7 @@ export default function DebugLog({ entries, buildReport, onClear }: Props) {
               duration={500}
             />
           </button>
+          </Tooltip>
         </div>
       </div>
 

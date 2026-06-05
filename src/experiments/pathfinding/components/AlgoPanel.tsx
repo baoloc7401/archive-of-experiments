@@ -1,4 +1,5 @@
 import { memo, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import ScrambleText from '../../../components/ScrambleText';
 import type { AlgoState } from '../algorithms';
 import type { AlgorithmId, CellState, GridConfig } from '../types';
@@ -41,6 +42,7 @@ const VCell = memo(function VCell({
 });
 
 export default function AlgoPanel({ algoId, grid, state, cellPx }: Props) {
+  const { t } = useTranslation();
   const def = ALGORITHMS.find((a) => a.id === algoId)!;
 
   const pathSet = useMemo(
@@ -61,9 +63,9 @@ export default function AlgoPanel({ algoId, grid, state, cellPx }: Props) {
   }
 
   const statusLabel = {
-    running:   'searching…',
-    found:     'path found',
-    'no-path': 'no path',
+    running:   t('experiments.pathfinding.run.searching'),
+    found:     t('experiments.pathfinding.run.path_found'),
+    'no-path': t('experiments.pathfinding.run.no_path'),
   }[state.status];
 
   const isWeighted = grid.cells.some((row) =>
@@ -79,7 +81,7 @@ export default function AlgoPanel({ algoId, grid, state, cellPx }: Props) {
         {showWeightWarning && (
           <span
             className="pf-panel-warn-icon"
-            data-tip="JPS ignores terrain weights — path may not be cost-optimal"
+            data-tip={t('experiments.pathfinding.run.jps_warn')}
           >⚠</span>
         )}
         <span className={`pf-panel-status pf-panel-status--${state.status}`}>
@@ -116,25 +118,25 @@ export default function AlgoPanel({ algoId, grid, state, cellPx }: Props) {
       {/* Stats */}
       <div className="pf-panel-stats">
         <span className="pf-stat">
-          <span className="pf-stat-label"><ScrambleText text="steps" duration={600} /></span>
+          <span className="pf-stat-label"><ScrambleText text={t('experiments.pathfinding.run.steps')} duration={600} /></span>
           <span className="pf-stat-val">{state.steps.toLocaleString()}</span>
         </span>
         {state.status === 'found' && state.path && (
           <>
             <span className="pf-stat">
-              <span className="pf-stat-label"><ScrambleText text="path len" duration={600} /></span>
+              <span className="pf-stat-label"><ScrambleText text={t('experiments.pathfinding.run.path_len')} duration={600} /></span>
               <span className="pf-stat-val">{state.path.length - 1}</span>
             </span>
             {isWeighted && algoId !== 'jps' && (
               <span className="pf-stat">
-                <span className="pf-stat-label"><ScrambleText text="cost" duration={600} /></span>
+                <span className="pf-stat-label"><ScrambleText text={t('experiments.pathfinding.run.cost')} duration={600} /></span>
                 <span className="pf-stat-val">{state.pathCost.toFixed(0)}</span>
               </span>
             )}
           </>
         )}
         <span className="pf-stat">
-          <span className="pf-stat-label"><ScrambleText text="visited" duration={600} /></span>
+          <span className="pf-stat-label"><ScrambleText text={t('experiments.pathfinding.run.visited')} duration={600} /></span>
           <span className="pf-stat-val">{state.visited.size.toLocaleString()}</span>
         </span>
       </div>

@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import type { CellView, GameStatus, Minefield } from "../types";
 
 interface Props {
@@ -42,6 +43,7 @@ export default function Board({
   onChord,
   onFlag,
 }: Props) {
+  const { t } = useTranslation();
   const undecidedSet = useMemo(() => new Set(undecided), [undecided]);
   const over = status === "won" || status === "lost";
   const showProbs = !!probabilities && !over;
@@ -114,7 +116,7 @@ export default function Board({
       className={`ms-board${over ? " ms-board--over" : ""}`}
       style={{ "--cols": width, "--rows": height } as React.CSSProperties}
       role="grid"
-      aria-label={`minefield, ${width} by ${height}`}
+      aria-label={t("experiments.minesweeper.aria.board", { w: width, h: height })}
       onKeyDown={handleKeyDown}
     >
       {Array.from({ length: width * height }, (_, i) => {
@@ -126,36 +128,36 @@ export default function Board({
         let cls = "ms-cell";
         let content = "";
         let style: React.CSSProperties | undefined;
-        let label = `cell ${i % width}, ${(i / width) | 0}`;
+        let label = t("experiments.minesweeper.aria.cell", { x: i % width, y: (i / width) | 0 });
 
         if (v === "revealed") {
           if (isMine) {
             cls += i === mineHit ? " ms-cell--boom" : " ms-cell--mine";
             content = "✸";
-            label += ", mine";
+            label += `, ${t("experiments.minesweeper.aria.mine")}`;
           } else {
             cls += " ms-cell--open";
             if (num > 0) {
               cls += ` ms-n${num}`;
               content = String(num);
               label += `, ${num}`;
-            } else label += ", empty";
+            } else label += `, ${t("experiments.minesweeper.aria.empty")}`;
           }
         } else {
           cls += " ms-cell--hidden";
           if (v === "flagged") {
             cls += " ms-cell--flag";
             content = "⚑";
-            label += ", flagged";
+            label += `, ${t("experiments.minesweeper.aria.flagged")}`;
             if (over && field && !isMine) cls += " ms-cell--wrong";
           } else {
-            label += ", hidden";
+            label += `, ${t("experiments.minesweeper.aria.hidden")}`;
             const p = showProbs ? probabilities!.get(i) : undefined;
             if (p !== undefined) {
               cls += " ms-cell--prob";
               style = { backgroundColor: `hsl(${(1 - p) * 130}, 55%, 42%)` };
               if (showPctText) content = String(Math.round(p * 100));
-              label += `, ${(p * 100).toFixed(0)}% mine`;
+              label += `, ${t("experiments.minesweeper.aria.mine_pct", { pct: (p * 100).toFixed(0) })}`;
             } else if (peek && field) {
               if (isMine) cls += " ms-cell--peek-mine";
               else if (undecidedSet.has(i)) cls += " ms-cell--peek-undecided";

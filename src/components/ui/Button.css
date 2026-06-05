@@ -1,0 +1,55 @@
+.ui-btn {
+  font-family: inherit;
+  font-size: 0.78rem;
+  padding: 0.5rem 0.7rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: border-color var(--dur-fast), background var(--dur-fast),
+    color var(--dur-fast), transform var(--dur-fast);
+}
+.ui-btn:hover:not(:disabled) {
+  border-color: var(--text-dim);
+  color: var(--text-hi);
+}
+.ui-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.ui-btn--sm {
+  font-size: 0.68rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 3px;
+}
+
+.ui-btn--primary {
+  border-color: color-mix(in srgb, var(--accent) 55%, var(--border));
+  background: color-mix(in srgb, var(--accent) 12%, var(--bg2));
+  color: var(--text-hi);
+}
+.ui-btn--primary:hover:not(:disabled) {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 20%, var(--bg2));
+}
+
+.ui-btn--accent {
+  border-color: color-mix(in srgb, var(--accent2) 45%, var(--border));
+  color: var(--accent2);
+}
+.ui-btn--accent:hover:not(:disabled) {
+  border-color: var(--accent2);
+  background: color-mix(in srgb, var(--accent2) 12%, var(--bg2));
+}
+
+.ui-btn--pause {
+  border-color: color-mix(in srgb, var(--wip) 45%, var(--border));
+  color: var(--wip);
+}
+.ui-btn--pause:hover:not(:disabled) {
+  border-color: var(--wip);
+  background: color-mix(in srgb, var(--wip) 12%, var(--bg2));
+}

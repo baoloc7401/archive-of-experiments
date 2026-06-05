@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import ScrambleText from "../../../components/ScrambleText";
+import { Tooltip } from "../../../components/ui";
 import type { LogEntry } from "../types";
 
 interface Props {
@@ -56,26 +57,28 @@ export default function DebugLog({ entries, buildReport, onClear }: Props) {
     <div className="ms-debug">
       <div className="ms-debug-head">
         <div className="ms-debug-actions">
-          <button
-            type="button"
-            className="ms-debug-clear"
-            onClick={onClear}
-            disabled={entries.length === 0}
-            title={t("experiments.minesweeper.debug.clear_hint")}
-          >
-            <ScrambleText text={t("experiments.minesweeper.debug.clear")} duration={500} />
-          </button>
-          <button
-            type="button"
-            className={`ms-debug-copy${copied ? " ms-debug-copy--ok" : ""}`}
-            onClick={copy}
-            title={t("experiments.minesweeper.debug.copy_hint")}
-          >
-            <ScrambleText
-              text={copied ? t("experiments.minesweeper.debug.copied") : t("experiments.minesweeper.debug.copy")}
-              duration={500}
-            />
-          </button>
+          <Tooltip label={t("experiments.minesweeper.debug.clear_hint")}>
+            <button
+              type="button"
+              className="ms-debug-clear"
+              onClick={onClear}
+              disabled={entries.length === 0}
+            >
+              <ScrambleText text={t("experiments.minesweeper.debug.clear")} duration={500} />
+            </button>
+          </Tooltip>
+          <Tooltip label={t("experiments.minesweeper.debug.copy_hint")}>
+            <button
+              type="button"
+              className={`ms-debug-copy${copied ? " ms-debug-copy--ok" : ""}`}
+              onClick={copy}
+            >
+              <ScrambleText
+                text={copied ? t("experiments.minesweeper.debug.copied") : t("experiments.minesweeper.debug.copy")}
+                duration={500}
+              />
+            </button>
+          </Tooltip>
         </div>
       </div>
 

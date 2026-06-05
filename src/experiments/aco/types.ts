@@ -65,6 +65,4 @@ export type LayoutId = "random" | "circle" | "clusters" | "grid";
 
 export interface LayoutDef {
   id: LayoutId;
-  label: string;
-  hint: string;
 }

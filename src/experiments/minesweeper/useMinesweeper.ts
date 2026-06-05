@@ -10,6 +10,7 @@ import type {
 } from "./types";
 import { DEFAULT_CONFIG, DEFAULT_DIFFICULTY, PRESETS } from "./constants";
 import { neighbors } from "./grid";
+import { prefersReducedMotion } from "../../hooks/useReducedMotion";
 import { clampMines, generateField } from "./generator";
 import { getSolver } from "./solvers";
 import type { SolverAction, SolverId, SolverReport } from "./solvers/types";
@@ -78,14 +79,6 @@ function replayAll(field: Minefield, actions: SolverAction[]): CellView[] {
     }
   }
   return v;
-}
-
-function prefersReducedMotion(): boolean {
-  return (
-    typeof window !== "undefined" &&
-    typeof window.matchMedia === "function" &&
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches
-  );
 }
 
 export function useMinesweeper() {

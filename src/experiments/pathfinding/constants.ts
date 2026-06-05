@@ -1,12 +1,12 @@
 import type { AlgorithmDef, MazeOptions, RouteDensity, TerrainConfig, TerrainType } from './types';
 
+// Proper-noun `name` is kept untranslated; descriptions live in i18n at
+// experiments.pathfinding.algo.<id>.
 export const ALGORITHMS: AlgorithmDef[] = [
   {
     id: 'bfs',
     name: 'Breadth-First Search',
     category: 'unweighted',
-    description:
-      'Explores all neighbours level by level using a queue. Guaranteed to find the shortest path in an unweighted graph.',
     timeComplexity: 'O(V + E)',
     spaceComplexity: 'O(V)',
     guaranteesShortest: true,
@@ -15,8 +15,6 @@ export const ALGORITHMS: AlgorithmDef[] = [
     id: 'dfs',
     name: 'Depth-First Search',
     category: 'unweighted',
-    description:
-      'Dives as deep as possible along each branch before backtracking. Simple, low memory, but does not guarantee shortest path.',
     timeComplexity: 'O(V + E)',
     spaceComplexity: 'O(V)',
     guaranteesShortest: false,
@@ -25,8 +23,6 @@ export const ALGORITHMS: AlgorithmDef[] = [
     id: 'dijkstra',
     name: "Dijkstra's Algorithm",
     category: 'weighted',
-    description:
-      'Always expands the lowest-cost unvisited node. On uniform-cost grids it equals BFS, but shines on weighted terrain.',
     timeComplexity: 'O((V + E) log V)',
     spaceComplexity: 'O(V)',
     guaranteesShortest: true,
@@ -35,8 +31,6 @@ export const ALGORITHMS: AlgorithmDef[] = [
     id: 'astar',
     name: 'A* Search',
     category: 'heuristic',
-    description:
-      'Combines path cost with a Manhattan-distance heuristic to steer the search toward the goal. Optimal and usually faster than Dijkstra.',
     timeComplexity: 'O(E log V)',
     spaceComplexity: 'O(V)',
     guaranteesShortest: true,
@@ -45,8 +39,6 @@ export const ALGORITHMS: AlgorithmDef[] = [
     id: 'greedy',
     name: 'Greedy Best-First',
     category: 'heuristic',
-    description:
-      'Always moves toward the node that looks closest to the goal by heuristic alone, ignoring path cost. Very fast but not optimal.',
     timeComplexity: 'O(E log V)',
     spaceComplexity: 'O(V)',
     guaranteesShortest: false,
@@ -55,8 +47,6 @@ export const ALGORITHMS: AlgorithmDef[] = [
     id: 'bidirectional-bfs',
     name: 'Bidirectional BFS',
     category: 'unweighted',
-    description:
-      'Runs BFS simultaneously from both start and end, meeting in the middle. Explores roughly the square root of the nodes plain BFS would.',
     timeComplexity: 'O(b^(d/2))',
     spaceComplexity: 'O(b^(d/2))',
     guaranteesShortest: true,
@@ -65,28 +55,25 @@ export const ALGORITHMS: AlgorithmDef[] = [
     id: 'jps',
     name: 'Jump Point Search',
     category: 'heuristic',
-    description:
-      'Accelerates A* on uniform-cost grids by pruning symmetric, redundant paths via "jump points". Dramatically fewer node expansions on open grids.',
     timeComplexity: 'O(E log V)',
     spaceComplexity: 'O(V)',
     guaranteesShortest: true,
   },
 ];
 
+// `label`/`desc` live in i18n at experiments.pathfinding.terrain.<id>_{label,desc}.
 export interface TerrainDef {
   id: TerrainType;
-  label: string;
   weight: number;
   symbol: string;
-  desc: string;
 }
 
 export const TERRAIN_DEFS: TerrainDef[] = [
-  { id: 'plain',    label: 'plain',    weight: 1,  symbol: '·', desc: 'Normal ground — base cost ×1' },
-  { id: 'grass',    label: 'grass',    weight: 2,  symbol: '⊹', desc: 'Light vegetation — cost ×2' },
-  { id: 'sand',     label: 'sand',     weight: 3,  symbol: '~', desc: 'Sandy terrain — cost ×3' },
-  { id: 'water',    label: 'water',    weight: 5,  symbol: '≋', desc: 'Shallow water — cost ×5' },
-  { id: 'mountain', label: 'mountain', weight: 10, symbol: '▲', desc: 'Steep slopes — cost ×10' },
+  { id: 'plain',    weight: 1,  symbol: '·' },
+  { id: 'grass',    weight: 2,  symbol: '⊹' },
+  { id: 'sand',     weight: 3,  symbol: '~' },
+  { id: 'water',    weight: 5,  symbol: '≋' },
+  { id: 'mountain', weight: 10, symbol: '▲' },
 ];
 
 export const CELL_WEIGHT: Record<string, number> = {
@@ -100,12 +87,6 @@ export const DEFAULT_TERRAIN_CONFIG: Partial<Record<TerrainType, TerrainConfig>>
   sand:     { enabled: true, weight: 3 },
   water:    { enabled: true, weight: 5 },
   mountain: { enabled: true, weight: 10 },
-};
-
-export const DENSITY_LABELS: Record<RouteDensity, string> = {
-  sparse: 'sparse',
-  moderate: 'moderate',
-  dense: 'dense',
 };
 
 // Fraction of "loop-eligible" walls to remove

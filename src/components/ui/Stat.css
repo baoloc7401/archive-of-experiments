@@ -1,0 +1,33 @@
+.ui-stat-grid {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.ui-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: 0.5rem 0.6rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+.ui-stat--hi {
+  border-color: color-mix(in srgb, var(--accent2) 45%, var(--border));
+}
+
+.ui-stat-label {
+  font-size: 0.64rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.ui-stat-val {
+  font-size: 1.05rem;
+  color: var(--text-hi);
+  font-variant-numeric: tabular-nums;
+}
+.ui-stat--hi .ui-stat-val {
+  color: var(--accent2);
+}

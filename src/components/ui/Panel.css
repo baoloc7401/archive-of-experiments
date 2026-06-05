@@ -1,0 +1,54 @@
+.ui-panel {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 0.85rem 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.ui-panel-head {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  list-style: none;
+}
+/* Title takes the slack so any aside + caret group to the right. */
+.ui-panel-head .ui-panel-title {
+  margin-right: auto;
+}
+.ui-panel-head::-webkit-details-marker {
+  display: none;
+}
+.ui-panel-head--static {
+  cursor: default;
+}
+
+.ui-panel-title {
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  transition: color var(--dur-fast);
+}
+.ui-panel[open] .ui-panel-title,
+.ui-panel-head:not(.ui-panel-head--static):hover .ui-panel-title {
+  color: var(--text-hi);
+}
+
+.ui-panel-caret {
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  transition: transform var(--dur-base) var(--ease-spring);
+}
+.ui-panel[open] .ui-panel-caret {
+  transform: rotate(180deg);
+}
+
+.ui-panel-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}

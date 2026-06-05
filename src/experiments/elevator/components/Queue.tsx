@@ -1,5 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import ScrambleText from '../../../components/ScrambleText';
+import { trackTip } from '../../../components/ui/trackTip';
+import '../../../components/ui/Tooltip.css';
 import type { ElevatorRequest, RequestOrigin } from '../types';
 
 interface Props {
@@ -38,12 +40,13 @@ export default function Queue({ activeCalls, tick }: Props) {
             return (
               <li
                 key={`${r.floor}:${r.origin}`}
-                className={`elev-queue-item elev-queue-item--${r.origin}`}
-                title={t(ORIGIN_LABEL_KEY[r.origin])}
+                className={`elev-queue-item elev-queue-item--${r.origin} ui-tip-host`}
+                onMouseMove={(e) => trackTip(e.currentTarget, e)}
               >
                 <span className="elev-queue-origin">{ORIGIN_GLYPH[r.origin]}</span>
                 <span className="elev-queue-floor">F{String(r.floor).padStart(2, '0')}</span>
                 <span className="elev-queue-wait">{wait}t</span>
+                <span className="ui-tip" role="tooltip">{t(ORIGIN_LABEL_KEY[r.origin])}</span>
               </li>
             );
           })}

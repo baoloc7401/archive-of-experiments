@@ -7,6 +7,7 @@ import ExperimentCard from "./components/ExperimentCard";
 import ThemeToggle from "./components/ThemeToggle";
 import LangToggle from "./components/LangToggle";
 import ScrambleText from "./components/ScrambleText";
+import { Tooltip } from "./components/ui";
 import FilterBar from "./components/FilterBar";
 import type { StatusFilter } from "./components/FilterBar";
 import { useTheme } from "./hooks/useTheme";
@@ -299,17 +300,18 @@ export default function App() {
                 _
               </span>
             </h1>
-            <button
-              type="button"
-              className="hero-sub"
-              onClick={rollSubtitle}
-              title="click for a new one"
-            >
-              <ScrambleText
-                text={t(`hero.subtitle_${subtitleIdx}`)}
-                duration={600}
-              />
-            </button>
+            <Tooltip label={t("hero.reroll_hint")}>
+              <button
+                type="button"
+                className="hero-sub"
+                onClick={rollSubtitle}
+              >
+                <ScrambleText
+                  text={t(`hero.subtitle_${subtitleIdx}`)}
+                  duration={600}
+                />
+              </button>
+            </Tooltip>
           </div>
           <div className="hero-controls">
             <LangToggle />

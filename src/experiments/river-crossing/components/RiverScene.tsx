@@ -83,10 +83,24 @@ export default function RiverScene({
               kind={kind}
               doomed={isDoomed && kind === "m"}
               onClick={boardable ? () => onBoard(kind) : undefined}
-              title={boardable ? `board ${kind === "m" ? "missionary" : "cannibal"}` : undefined}
+              title={
+                boardable
+                  ? t("experiments.river-crossing.person.board", {
+                      who: t(
+                        kind === "m"
+                          ? "experiments.river-crossing.person.missionary"
+                          : "experiments.river-crossing.person.cannibal",
+                      ),
+                    })
+                  : undefined
+              }
             />
           ))}
-          {load.m + load.c === 0 && <span className="rc-bank-empty">empty</span>}
+          {load.m + load.c === 0 && (
+            <span className="rc-bank-empty">
+              {t("experiments.river-crossing.person.empty")}
+            </span>
+          )}
         </div>
       </div>
     );
@@ -117,7 +131,17 @@ export default function RiverScene({
               key={`boat-${kind}-${i}`}
               kind={kind}
               onClick={interactive ? () => onUnboard(kind) : undefined}
-              title={interactive ? `disembark ${kind === "m" ? "missionary" : "cannibal"}` : undefined}
+              title={
+                interactive
+                  ? t("experiments.river-crossing.person.disembark", {
+                      who: t(
+                        kind === "m"
+                          ? "experiments.river-crossing.person.missionary"
+                          : "experiments.river-crossing.person.cannibal",
+                      ),
+                    })
+                  : undefined
+              }
             />
           ))}
           {Array.from({ length: emptySeats }, (_, i) => (

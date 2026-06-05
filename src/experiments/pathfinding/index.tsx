@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import type { AlgorithmId, AppScreen, GridConfig, MazeOptions } from './types';
 import { DEFAULT_ROWS, DEFAULT_COLS, DEFAULT_MAZE_OPTIONS } from './constants';
@@ -68,11 +69,12 @@ const SLUG_SCREEN: Record<string, AppScreen> = {
 };
 
 // Ordered steps of the flow. The header renders the trail up to the current
-// step (e.g. on "run": pathfinding / maze builder / run).
-const PF_STEPS: { screen: AppScreen; label: string }[] = [
-  { screen: 'algorithm-select', label: 'pathfinding' },
-  { screen: 'maze-builder', label: 'maze builder' },
-  { screen: 'run', label: 'run' },
+// step (e.g. on "run": pathfinding / maze builder / run). Labels are resolved
+// via i18n in the component.
+const PF_STEPS: { screen: AppScreen }[] = [
+  { screen: 'algorithm-select' },
+  { screen: 'maze-builder' },
+  { screen: 'run' },
 ];
 
 function pathFor(screen: AppScreen) {
@@ -81,6 +83,7 @@ function pathFor(screen: AppScreen) {
 }
 
 export default function Pathfinding() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { screen: slug } = useParams();
   const screen: AppScreen = slug ? SLUG_SCREEN[slug] : 'algorithm-select';
@@ -136,9 +139,16 @@ export default function Pathfinding() {
     return <Navigate to="/experiments/pathfinding" replace />;
   }
 
+  const crumbLabel = (s: AppScreen) =>
+    s === 'algorithm-select'
+      ? t('experiments.pathfinding.title').toLowerCase()
+      : s === 'maze-builder'
+        ? t('experiments.pathfinding.crumb_maze')
+        : t('experiments.pathfinding.crumb_run');
+
   const currentStep = PF_STEPS.findIndex((s) => s.screen === screen);
   const crumbs = PF_STEPS.slice(0, currentStep + 1).map((s) => ({
-    label: s.label,
+    label: crumbLabel(s.screen),
     to: pathFor(s.screen),
   }));
 

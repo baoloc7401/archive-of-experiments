@@ -1,6 +1,7 @@
 import type { MouseEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import ScrambleText from '../../../components/ScrambleText';
+import { Tooltip } from '../../../components/ui';
 import type { AlgorithmId } from '../types';
 import { ALGORITHMS, SHAFT_COLORS } from '../constants';
 
@@ -53,7 +54,8 @@ export default function AlgorithmPicker({
         })}
       </div>
 
-      <label className="elev-compare-toggle" title={t('experiments.elevator.compare_tooltip')}>
+      <Tooltip label={t('experiments.elevator.compare_tooltip')}>
+      <label className="elev-compare-toggle">
         <input
           type="checkbox"
           checked={compareMode}
@@ -76,6 +78,7 @@ export default function AlgorithmPicker({
           )}
         </span>
       </label>
+      </Tooltip>
     </div>
   );
 }

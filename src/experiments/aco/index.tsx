@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import ExperimentHeader from "../../components/ExperimentHeader";
 import ScrambleText from "../../components/ScrambleText";
+import { ExperimentLayout } from "../../components/ui";
 import { useTheme } from "../../hooks/useTheme";
 import type { AcoParams, ColonySnapshot, LayoutId, LogEntry, Point } from "./types";
 import {
@@ -179,53 +179,23 @@ export default function Aco() {
   const disabled = cities.length < 2;
 
   return (
-    <div className="aco-page">
-      <ExperimentHeader
-        crumbs={[
-          { label: t("experiments.aco.title").toLowerCase(), to: "/experiments/aco" },
-          { label: "traveling salesman" },
-        ]}
-      />
-
-      <div className="aco-info-strip">
-        <div className="aco-info-tagline">
-          <ScrambleText text={t("experiments.aco.tagline")} duration={600} />
-        </div>
-        <div className="aco-info-desc">
-          <ScrambleText text={t("experiments.aco.intro")} duration={600} />
-        </div>
-      </div>
-
-      <div className="aco-layout">
-        <section className="aco-stage">
-          <ColonyCanvas
-            ref={canvasRef}
-            cities={cities}
-            params={params}
-            running={running}
-            speed={speed}
-            trail={trail}
-            theme={theme}
-            resetKey={resetKey}
-            onStats={setSnap}
-            onAddCity={handleAddCity}
-          />
-          <Legend />
-          {disabled && (
-            <div className="aco-empty">
-              <ScrambleText
-                text={
-                  cities.length === 0
-                    ? "click on the board to place cities, or hit scatter"
-                    : "add at least one more city"
-                }
-                duration={600}
-              />
-            </div>
-          )}
-        </section>
-
-        <aside className="aco-sidebar">
+    <ExperimentLayout
+      crumbs={[
+        { label: t("experiments.aco.title").toLowerCase(), to: "/experiments/aco" },
+        { label: t("experiments.aco.subtitle") },
+      ]}
+      info={
+        <>
+          <div className="aco-info-tagline">
+            <ScrambleText text={t("experiments.aco.tagline")} duration={600} />
+          </div>
+          <div className="aco-info-desc">
+            <ScrambleText text={t("experiments.aco.intro")} duration={600} />
+          </div>
+        </>
+      }
+      sidebar={
+        <>
           <Controls
             running={running}
             disabled={disabled}
@@ -247,16 +217,38 @@ export default function Aco() {
             onScatter={scatter}
             onClear={handleClear}
           />
-          <DebugLog
-            entries={log}
-            buildReport={buildReport}
-            onClear={() => setLog([])}
-          />
+          <DebugLog entries={log} buildReport={buildReport} onClear={() => setLog([])} />
           <div className="aco-hint">
             <ScrambleText text={t("experiments.aco.hint")} duration={600} />
           </div>
-        </aside>
-      </div>
-    </div>
+        </>
+      }
+    >
+      <ColonyCanvas
+        ref={canvasRef}
+        cities={cities}
+        params={params}
+        running={running}
+        speed={speed}
+        trail={trail}
+        theme={theme}
+        resetKey={resetKey}
+        onStats={setSnap}
+        onAddCity={handleAddCity}
+      />
+      <Legend />
+      {disabled && (
+        <div className="aco-empty">
+          <ScrambleText
+            text={
+              cities.length === 0
+                ? t("experiments.aco.empty_place")
+                : t("experiments.aco.empty_add")
+            }
+            duration={600}
+          />
+        </div>
+      )}
+    </ExperimentLayout>
   );
 }

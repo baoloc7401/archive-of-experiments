@@ -64,7 +64,6 @@ export default function SolverPanel({
               type="button"
               className={`rc-algo-pill${a.id === algo ? " rc-algo-pill--on" : ""}`}
               onClick={() => onAlgo(a.id)}
-              title={tagline}
             >
               <span className="rc-algo-name">{name}</span>
               <span className="rc-algo-tag">

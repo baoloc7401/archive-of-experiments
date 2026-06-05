@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 import ScrambleText from "../../../components/ScrambleText";
+import { Tooltip } from "../../../components/ui";
 import { SOLVERS } from "../solvers";
 import type { SolverId, SolverReport } from "../solvers/types";
 
@@ -34,17 +35,17 @@ export default function SolverPanel({ solverId, report, playing, guess, onSelect
 
       <div className="ms-chip-row" role="radiogroup" aria-label={t("experiments.minesweeper.solver.title")}>
         {SOLVERS.map((s) => (
-          <button
-            key={s.id}
-            className={`ms-chip${solverId === s.id ? " ms-chip--on" : ""}`}
-            role="radio"
-            aria-checked={solverId === s.id}
-            disabled={playing}
-            onClick={() => onSelect(s.id)}
-            title={t(`experiments.minesweeper.solvers.${s.id}.tagline`)}
-          >
-            <ScrambleText text={name(s.id)} duration={500} />
-          </button>
+          <Tooltip key={s.id} label={t(`experiments.minesweeper.solvers.${s.id}.tagline`)}>
+            <button
+              className={`ms-chip${solverId === s.id ? " ms-chip--on" : ""}`}
+              role="radio"
+              aria-checked={solverId === s.id}
+              disabled={playing}
+              onClick={() => onSelect(s.id)}
+            >
+              <ScrambleText text={name(s.id)} duration={500} />
+            </button>
+          </Tooltip>
         ))}
       </div>
 
@@ -53,7 +54,7 @@ export default function SolverPanel({ solverId, report, playing, guess, onSelect
       </div>
 
       <button
-        className={`ms-btn ${playing ? "ms-btn-ghost" : "ms-btn-accent"}`}
+        className={playing ? "ms-btn" : "ms-btn ms-btn-accent"}
         onClick={() => (playing ? onStop() : onRun(solverId))}
       >
         <ScrambleText

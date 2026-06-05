@@ -1,3 +1,7 @@
+// i18n note: the narrative this engine emits (and the strings in ./templates)
+// is intentionally English and is NOT subject to translation. Generative,
+// kaomoji-laced flavour prose is the engine's nature — it's authored as English
+// voice, not UI chrome, and is exempt like the debug-bridge text. Keep it as-is.
 import type { Config, Move, Side, Status } from "../types";
 import { other } from "../solver";
 import { type Actor, buildRoster, chooseCrossers } from "./cast";

@@ -1,4 +1,6 @@
+import { useTranslation } from "react-i18next";
 import ScrambleText from "../../../components/ScrambleText";
+import { Panel, Slider, Tooltip } from "../../../components/ui";
 import type { AcoParams } from "../types";
 import { PARAM_RANGES } from "../constants";
 
@@ -8,47 +10,39 @@ interface Props {
 }
 
 export default function Params({ params, onChange }: Props) {
+  const { t } = useTranslation();
   return (
-    <div className="aco-params">
-      <div className="aco-panel-title">
-        <ScrambleText text="parameters" duration={500} />
-      </div>
-
+    <Panel title={t("experiments.aco.params")}>
       {PARAM_RANGES.map((r) => {
         const value = params[r.key];
         const display = r.key === "ants" ? String(value) : value.toFixed(r.step < 0.1 ? 2 : 1);
         return (
-          <label key={r.key} className="aco-param" title={r.hint}>
-            <span className="aco-param-head">
-              <span className="aco-param-label">
-                <ScrambleText text={r.label} duration={500} />
-              </span>
-              <span className="aco-param-val">{display}</span>
-            </span>
-            <input
-              type="range"
-              min={r.min}
-              max={r.max}
-              step={r.step}
-              value={value}
-              onChange={(e) => onChange({ [r.key]: Number(e.target.value) })}
-              className="aco-slider"
-              aria-label={r.label}
-            />
-          </label>
+          <Slider
+            key={r.key}
+            stacked
+            label={t(`experiments.aco.param.${r.key}`)}
+            hint={t(`experiments.aco.param.${r.key}_hint`)}
+            value={value}
+            min={r.min}
+            max={r.max}
+            step={r.step}
+            display={display}
+            onChange={(v) => onChange({ [r.key]: v })}
+          />
         );
       })}
 
-      <button
-        className={`aco-toggle${params.elitist ? " aco-toggle--on" : ""}`}
-        onClick={() => onChange({ elitist: !params.elitist })}
-        role="switch"
-        aria-checked={params.elitist}
-        title="Give the best-so-far tour an extra pheromone dose each iteration — speeds convergence"
-      >
-        <span className="aco-toggle-dot" aria-hidden="true" />
-        <ScrambleText text="elitist reinforcement" duration={500} />
-      </button>
-    </div>
+      <Tooltip label={t("experiments.aco.elitist_hint")} block>
+        <button
+          className={`aco-toggle${params.elitist ? " aco-toggle--on" : ""}`}
+          onClick={() => onChange({ elitist: !params.elitist })}
+          role="switch"
+          aria-checked={params.elitist}
+        >
+          <span className="aco-toggle-dot" aria-hidden="true" />
+          <ScrambleText text={t("experiments.aco.elitist")} duration={500} />
+        </button>
+      </Tooltip>
+    </Panel>
   );
 }
