@@ -50,6 +50,8 @@ Experiments share one UI language via primitives in [src/components/ui/](src/com
 
 Folder convention: `index.tsx` (entry), `{Name}.css`, `types.ts`, `constants.ts`, `components/`. Only `index.tsx` is mandatory.
 
+**Keep simulation/render logic out of the React component.** The component is glue (refs, effects, rAF loop, handlers); put the per-tick engine in a framework-free `simulation.ts` and canvas drawing in `render.ts` (`drawScene(state)`), with `flock.ts`/`palette.ts` etc. as needed. Split when a component passes ~300 lines, a function runs longer than a screen, a helper touches no refs/props, or a block gets pasted twice.
+
 **SEO is automatic** - no extra step. Any `active` experiment with an `en` `title`/`description` is picked up by [src/seo/site.ts](src/seo/site.ts): the [vite-seo plugin](scripts/vite-seo.ts) bakes a static `<head>` (title, description, canonical, Open Graph, Twitter, JSON-LD) into `dist/experiments/{id}/index.html` and adds it to `sitemap.xml` at build, while [RouteMeta](src/seo/RouteMeta.tsx) keeps tags in sync on SPA navigation. The home page's tags are injected into [index.html](index.html) between the `<!-- seo:start/end -->` markers. Edit site-wide copy (name, description, `og:image`) in `src/seo/site.ts`; regenerate the OG image with `node scripts/gen-og.mjs` after editing `public/og-image.svg`.
 
 ## Shared imports (from inside an experiment)

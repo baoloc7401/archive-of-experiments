@@ -15,6 +15,7 @@
 - [[Experiment ACO]]
 - [[Experiment River Crossing]]
 - [[Experiment Minesweeper]]
+- [[Experiment Boids]]
 
 **Links**
 - [Live site](https://baoloc7401.github.io/archive-of-experiments/)

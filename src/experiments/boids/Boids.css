@@ -1,0 +1,209 @@
+/* Boids stage palette (theme-aware) */
+[data-theme="dark"] {
+  --boids-stage: #05060a;
+  --boids-grid: rgba(255, 255, 255, 0.03);
+}
+[data-theme="light"] {
+  --boids-stage: #f7f9ff;
+  --boids-grid: rgba(0, 0, 0, 0.035);
+}
+
+/* Intro strip (inside the shared ui-info-strip) */
+.boids-info-tagline {
+  color: var(--accent);
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+}
+.boids-info-desc {
+  color: var(--text-dim);
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+/* Stage / canvas */
+.boids-stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  max-height: calc(100vh - 200px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background:
+    linear-gradient(var(--boids-grid) 1px, transparent 1px) 0 0 / 38px 38px,
+    linear-gradient(90deg, var(--boids-grid) 1px, transparent 1px) 0 0 / 38px 38px,
+    radial-gradient(120% 120% at 50% 0%, color-mix(in srgb, var(--accent) 7%, transparent), transparent 55%),
+    var(--boids-stage);
+}
+.boids-canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Legend: rule-overlay colour key */
+.boids-legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 1rem;
+  margin-top: 0.6rem;
+  font-size: 0.72rem;
+  color: var(--text-dim);
+}
+.boids-lg {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.boids-lg-dot {
+  width: 14px;
+  height: 3px;
+  border-radius: 2px;
+  flex: none;
+}
+.boids-lg--sep {
+  background: var(--wip);
+}
+.boids-lg--ali {
+  background: var(--accent2);
+}
+.boids-lg--coh {
+  background: var(--accent);
+}
+.boids-lg--sum {
+  background: var(--text-hi);
+  height: 4px;
+}
+.boids-legend-hint {
+  color: var(--text-dim);
+  opacity: 0.85;
+}
+
+/* Field & forces: segmented toggles */
+.boids-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+.boids-field-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.boids-field-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+.boids-seg {
+  display: flex;
+  gap: 0.35rem;
+}
+.boids-seg-btn {
+  flex: 1;
+  font-family: inherit;
+  font-size: 0.74rem;
+  padding: 0.4rem 0.45rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text-dim);
+  cursor: pointer;
+  transition: border-color var(--dur-fast), color var(--dur-fast), background var(--dur-fast);
+}
+.boids-seg-btn:hover {
+  color: var(--text);
+  border-color: var(--text-dim);
+}
+.boids-seg-btn--on {
+  color: var(--text-hi);
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 12%, var(--bg2));
+}
+.boids-field-hint {
+  margin: 0;
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  line-height: 1.5;
+}
+.boids-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+/* Presets: pill chips */
+.boids-presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+.boids-chip {
+  font-family: inherit;
+  font-size: 0.74rem;
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text-dim);
+  cursor: pointer;
+  transition: border-color var(--dur-fast), color var(--dur-fast), background var(--dur-fast);
+}
+.boids-chip:hover {
+  color: var(--text-hi);
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 10%, var(--bg2));
+}
+.boids-chip--on {
+  color: var(--text-hi);
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 18%, var(--bg2));
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 40%, transparent);
+}
+
+/* Order-parameter sparkline */
+.boids-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-top: 0.6rem;
+}
+.boids-chart-label {
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+/* Fixed-size box; the canvas is taken out of flow so its backing-store
+   dimensions can never inflate the surrounding grid track. */
+.boids-chart-box {
+  position: relative;
+  width: 100%;
+  height: 56px;
+}
+.boids-chart-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Hint */
+.boids-hint {
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  line-height: 1.5;
+  padding: 0 0.2rem;
+}
+
+@media (max-width: 860px) {
+  .boids-stage {
+    max-height: none;
+  }
+}

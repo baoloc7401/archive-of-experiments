@@ -15,6 +15,7 @@ Source of truth for the list + statuses:
 | [[Experiment ACO]] | 🟢 live | algorithms, AI, simulation, visualization | [play](https://baoloc7401.github.io/archive-of-experiments/experiments/aco) |
 | [[Experiment River Crossing]] | 🟢 live | algorithms, AI, graphs, game | [play](https://baoloc7401.github.io/archive-of-experiments/experiments/river-crossing) |
 | [[Experiment Minesweeper]] | 🟢 live | algorithms, game, fun | [play](https://baoloc7401.github.io/archive-of-experiments/experiments/minesweeper) |
+| [[Experiment Boids]] | 🟢 live | AI, simulation, fun | [play](https://baoloc7401.github.io/archive-of-experiments/experiments/boids) |
 | Sorting Visualizer | 🟡 wip | algorithms, visualization | - |
 | Binary Tree Explorer | ⚪ planned | data structures, trees | - |
 | Bloom Filter | ⚪ planned | data structures, probabilistic | - |
