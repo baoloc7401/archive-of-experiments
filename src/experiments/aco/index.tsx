@@ -142,7 +142,7 @@ export default function Aco() {
   const buildReport = useCallback((): string => {
     const d = canvasRef.current?.dump();
     const lines: string[] = [];
-    lines.push("ant colony optimization — TSP — debug report");
+    lines.push("ant colony optimization - TSP - debug report");
     lines.push(new Date().toISOString());
     lines.push("─".repeat(50));
     lines.push("[environment]");
@@ -162,7 +162,7 @@ export default function Aco() {
       if (d.bestPath) lines.push(`[bestPath] ${d.bestPath.join(" ")}`);
       lines.push(`[cities xy] ${d.cityCoords.map(([x, y]) => `(${x},${y})`).join(" ")}`);
     } else {
-      lines.push("[colony] (no colony — fewer than 2 cities)");
+      lines.push("[colony] (no colony - fewer than 2 cities)");
     }
     if (snap?.history?.length) {
       const tail = snap.history.slice(-24).map((v) => Math.round(v));
@@ -171,7 +171,7 @@ export default function Aco() {
     lines.push("─".repeat(50));
     lines.push(`[events] (${log.length} total, last 60)`);
     for (const e of log.slice(-60)) {
-      lines.push(`${e.iter != null ? `i${e.iter}` : "—"}\t${e.kind}\t${e.text}`);
+      lines.push(`${e.iter != null ? `i${e.iter}` : "-"}\t${e.kind}\t${e.text}`);
     }
     return lines.join("\n");
   }, [cities, layout, count, speed, trail, running, theme, params, snap, log]);

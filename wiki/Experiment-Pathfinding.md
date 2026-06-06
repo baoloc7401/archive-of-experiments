@@ -5,7 +5,7 @@
 
 Classic graph-search algorithms navigating mazes on an interactive grid. Pick
 algorithms, build (or generate) a maze with optional weighted terrain, then watch
-them search — side by side — and compare who explores least and finds the
+them search - side by side - and compare who explores least and finds the
 shortest path.
 
 ## Algorithms
@@ -22,9 +22,9 @@ shortest path.
 
 ## Features
 
-- **Maze builder** — paint walls and weighted terrain (grass / sand / water /
+- **Maze builder** - paint walls and weighted terrain (grass / sand / water /
   mountain), or generate mazes at sparse / moderate / dense route density.
-- **Multi-run comparison** — run several algorithms on the same grid and rank
+- **Multi-run comparison** - run several algorithms on the same grid and rank
   them by nodes explored, path length, cost, and steps.
 - A live "scan" materialise animation as cells are explored.
 

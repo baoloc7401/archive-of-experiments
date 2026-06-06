@@ -25,7 +25,7 @@ export function ModeScreen({ onStart }: Props) {
 
   function handleStart() {
     if (!pickedMode) return;
-    // For HVA the human plays white, AI plays black — only the black side's
+    // For HVA the human plays white, AI plays black - only the black side's
     // skill is consulted by useChessAI, but we still pass both for symmetry.
     onStart(pickedMode, whiteSkill, blackSkill);
   }

@@ -8,7 +8,7 @@ import { startState, stateKey } from "../solver";
 interface Props {
   cfg: Config;
   graph: StateGraph;
-  /** the materialized search trace — one frame per node expansion */
+  /** the materialized search trace - one frame per node expansion */
   steps: SearchStep[];
   algo: string;
   speedIndex: number;
@@ -21,7 +21,7 @@ interface Props {
   crossTarget: PuzzleState | null;
   /** the ferry auto-player is running */
   isPlaying: boolean;
-  /** states the boat has visited, start → current — the trail drawn so far */
+  /** states the boat has visited, start → current - the trail drawn so far */
   traveled: PuzzleState[];
 }
 
@@ -44,11 +44,11 @@ function edgeKey(a: string, b: string): string {
 /**
  * Watch the search itself, and follow the ferry as it solves. The reachable
  * state graph is drawn as a node-link diagram; two modes share it:
- *  • **live** (default / while solve & play runs) — the boat token glides edge to
+ *  • **live** (default / while solve & play runs) - the boat token glides edge to
  *    edge and the path is *drawn behind it one segment at a time* as each node is
  *    reached, mirroring the river scene rather than revealing the whole route up
  *    front;
- *  • **explore** — the search transport (◀ / play / ▶) replays the frontier
+ *  • **explore** - the search transport (◀ / play / ▶) replays the frontier
  *    swelling (BFS) or diving (DFS).
  */
 export default function SearchGraph({
@@ -117,7 +117,7 @@ export default function SearchGraph({
   const frontier = useMemo(() => new Set(step.frontier), [step]);
   const expandingKey = step.expanded ? stateKey(step.expanded) : null;
 
-  // the trail already walked — committed edges drawn solid, the in-flight edge
+  // the trail already walked - committed edges drawn solid, the in-flight edge
   // (state → crossTarget) drawn on as the boat glides.
   const traveledKeys = useMemo(() => traveled.map(stateKey), [traveled]);
   const traveledSet = useMemo(() => new Set(traveledKeys), [traveledKeys]);

@@ -22,7 +22,7 @@ export function neighbors(i: number, width: number, height: number): number[] {
   return out;
 }
 
-/** Precompute every cell's neighbour list once — the solver hammers this. */
+/** Precompute every cell's neighbour list once - the solver hammers this. */
 export function neighborTable(width: number, height: number): number[][] {
   const n = width * height;
   const table: number[][] = new Array(n);

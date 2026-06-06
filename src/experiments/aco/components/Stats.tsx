@@ -11,7 +11,7 @@ interface Props {
 }
 
 function fmt(n: number): string {
-  return Number.isFinite(n) ? Math.round(n).toLocaleString() : "—";
+  return Number.isFinite(n) ? Math.round(n).toLocaleString() : "-";
 }
 
 export default function Stats({ snap, theme }: Props) {
@@ -35,7 +35,7 @@ export default function Stats({ snap, theme }: Props) {
       <StatGrid>
         <Stat
           label={t("experiments.aco.iteration")}
-          value={snap ? snap.iteration.toLocaleString() : "—"}
+          value={snap ? snap.iteration.toLocaleString() : "-"}
         />
         <Stat label={t("experiments.aco.best_tour")} value={fmt(best)} highlight />
         <Stat label={t("experiments.aco.gen_avg")} value={fmt(snap?.lastAvgLength ?? Infinity)} />

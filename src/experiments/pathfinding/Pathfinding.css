@@ -912,7 +912,7 @@
   opacity: 1;
 }
 
-/* Grid wrapper — centered, scrollable */
+/* Grid wrapper - centered, scrollable */
 .pf-panel-grid-wrap {
   flex: 1;
   min-height: 0;
@@ -958,7 +958,7 @@
 /* ── Vcell overlays ──────────────────────────────────────────── */
 .pf-vcell { transition: background 0.04s; }
 
-/* visited: solid medium-dark purple — opaque enough to see on near-black terrain */
+/* visited: solid medium-dark purple - opaque enough to see on near-black terrain */
 .pf-vc-visited   { background: color-mix(in srgb, var(--accent2) 48%, var(--bg)) !important; }
 /* frontier / frontierB: bright so they read clearly above the visited cells */
 .pf-vc-frontier  { background: color-mix(in srgb, var(--accent) 72%, var(--bg)) !important; }
@@ -966,7 +966,7 @@
 /* current: full accent + strong glow */
 .pf-vc-current   { background: var(--accent) !important; box-shadow: 0 0 7px 2px var(--accent); }
 
-/* path: saturated orange — a 4th hue, clashes with neither walls (blue-gray / dark navy),
+/* path: saturated orange - a 4th hue, clashes with neither walls (blue-gray / dark navy),
    terrain (earth tones), nor the cyan/yellow/purple overlay palette */
 @keyframes pf-path-flash {
   0%   { filter: brightness(1.9); }
@@ -998,7 +998,7 @@
 
 .pf-terrain-row--off { opacity: 0.45; }
 
-/* Pill chip — toggle enable/disable */
+/* Pill chip - toggle enable/disable */
 .pf-terrain-chip {
   display: flex;
   align-items: center;

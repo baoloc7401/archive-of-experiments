@@ -131,15 +131,15 @@ const en = {
       },
       terrain: {
         plain_label: "plain",
-        plain_desc: "Normal ground — base cost ×1",
+        plain_desc: "Normal ground - base cost ×1",
         grass_label: "grass",
-        grass_desc: "Light vegetation — cost ×2",
+        grass_desc: "Light vegetation - cost ×2",
         sand_label: "sand",
-        sand_desc: "Sandy terrain — cost ×3",
+        sand_desc: "Sandy terrain - cost ×3",
         water_label: "water",
-        water_desc: "Shallow water — cost ×5",
+        water_desc: "Shallow water - cost ×5",
         mountain_label: "mountain",
-        mountain_desc: "Steep slopes — cost ×10",
+        mountain_desc: "Steep slopes - cost ×10",
       },
       density: {
         sparse_label: "sparse",
@@ -174,7 +174,7 @@ const en = {
         min_path_desc:
           "forces the shortest solution to traverse at least this many cells",
         min_path_desc_slow:
-          "forces the shortest solution to traverse at least this many cells — high values may slow generation",
+          "forces the shortest solution to traverse at least this many cells - high values may slow generation",
         back: "← back",
         run_algorithms: "run algorithms →",
         legend_start: "start",
@@ -198,7 +198,7 @@ const en = {
         path_len: "path len",
         cost: "cost",
         visited: "visited",
-        jps_warn: "JPS ignores terrain weights — path may not be cost-optimal",
+        jps_warn: "JPS ignores terrain weights - path may not be cost-optimal",
         rankings: "rankings",
         fewer_better: "fewer = better",
         explored: "explored",
@@ -216,20 +216,20 @@ const en = {
     elevator: {
       title: "Elevator Scheduling",
       description:
-        "FCFS, SSTF, SCAN, LOOK, C-SCAN, C-LOOK — watch each disk-scheduling cousin ride the building.",
+        "FCFS, SSTF, SCAN, LOOK, C-SCAN, C-LOOK - watch each disk-scheduling cousin ride the building.",
       algo_label: "elevator scheduling algorithm",
       outside: "outside",
       inside: "inside",
-      hall_calls_one: "hall calls — press ▲ / ▼ to summon the car",
-      hall_calls_other: "hall calls — press ▲ / ▼ to summon the cars",
+      hall_calls_one: "hall calls - press ▲ / ▼ to summon the car",
+      hall_calls_other: "hall calls - press ▲ / ▼ to summon the cars",
       cop_label: "car panel",
-      cop_desc: "car panel — pick your destination",
-      cop_hint_single: "press a floor — like standing inside the cab",
+      cop_desc: "car panel - pick your destination",
+      cop_hint_single: "press a floor - like standing inside the cab",
       cop_hint_multi: "destinations apply to every car",
       go_to_floor: "go to floor {{n}}",
       comparison_mode: "comparison mode",
       comparison_intro:
-        "{{algos}} — same calls, separate cars. watch the stats table to see who wins.",
+        "{{algos}} - same calls, separate cars. watch the stats table to see who wins.",
       compare_count: "compare ×{{n}}",
       hint: "outside riders tap the hall buttons; inside riders use the car panel. toggle compare (or hold ⌃/⌘) to race algorithms on the same calls.",
       compare: "compare",
@@ -272,13 +272,13 @@ const en = {
       history: "history",
       copy: "copy",
       copied: "✓ copied",
-      no_events: "no events yet — make a call",
+      no_events: "no events yet - make a call",
       algos: {
         fcfs: {
           short: "first-come, first-served",
           tagline: "fair but lazy",
           description:
-            "Serves requests strictly in the order they were made. Simple, predictable, but ignores geometry — the elevator can zigzag wildly.",
+            "Serves requests strictly in the order they were made. Simple, predictable, but ignores geometry - the elevator can zigzag wildly.",
         },
         sstf: {
           short: "shortest seek time first",
@@ -290,7 +290,7 @@ const en = {
           short: "the classic elevator sweep",
           tagline: "all the way to the wall",
           description:
-            "Travels to one end of the building, then reverses — like a windscreen wiper. Always touches the boundary even when nobody is there.",
+            "Travels to one end of the building, then reverses - like a windscreen wiper. Always touches the boundary even when nobody is there.",
         },
         look: {
           short: "sweep, but smarter",
@@ -330,11 +330,11 @@ const en = {
       speed: "speed",
       trails: "trails",
       trails_hint:
-        "How much of the faint pheromone web to show — low keeps only the strongest trails",
+        "How much of the faint pheromone web to show - low keeps only the strongest trails",
       params: "parameters",
       elitist: "elitist reinforcement",
       elitist_hint:
-        "Give the best-so-far tour an extra pheromone dose each iteration — speeds convergence",
+        "Give the best-so-far tour an extra pheromone dose each iteration - speeds convergence",
       cities: "cities",
       count: "count",
       count_hint: "number of cities to scatter",
@@ -353,7 +353,7 @@ const en = {
       conv_empty: "convergence curve",
       empty_place: "click on the board to place cities, or hit scatter",
       empty_add: "add at least one more city",
-      canvas_aria: "ant colony tour visualization — click to add a city",
+      canvas_aria: "ant colony tour visualization - click to add a city",
       legend: {
         pheromone: "pheromone trail",
         best: "best tour",
@@ -367,25 +367,25 @@ const en = {
       copied: "✓ copied",
       copy_hint:
         "Copy a full debug report (state + colony dump + events) to share",
-      debug_empty: "no events yet — run, reset, or tweak something",
+      debug_empty: "no events yet - run, reset, or tweak something",
       param: {
         ants: "ants",
         ants_hint:
-          "colony size — more ants explore more, but each iteration costs more",
+          "colony size - more ants explore more, but each iteration costs more",
         alpha: "α pheromone",
         alpha_hint:
-          "trail influence — high α makes ants follow the crowd (exploit)",
+          "trail influence - high α makes ants follow the crowd (exploit)",
         beta: "β distance",
-        beta_hint: "greed for short edges — high β acts like nearest-neighbour",
+        beta_hint: "greed for short edges - high β acts like nearest-neighbour",
         rho: "ρ evaporation",
         rho_hint:
-          "how fast trails fade — high ρ forgets faster, avoids early lock-in",
+          "how fast trails fade - high ρ forgets faster, avoids early lock-in",
       },
       layout: {
         random: "scatter",
         random_hint: "uniformly random cities",
         circle: "ring",
-        circle_hint: "cities on a circle — optimum is the perimeter",
+        circle_hint: "cities on a circle - optimum is the perimeter",
         clusters: "clusters",
         clusters_hint: "a few tight clusters",
         grid: "grid",
@@ -395,17 +395,17 @@ const en = {
     "river-crossing": {
       title: "River Crossing",
       description:
-        "The missionaries & cannibals puzzle, solved by BFS / DFS / A* over the state space — play it or watch the search.",
+        "The missionaries & cannibals puzzle, solved by BFS / DFS / A* over the state space - play it or watch the search.",
       tagline: "state-space search you can paddle through",
       intro:
-        "Ferry {{m}} missionaries and {{c}} cannibals across the river. The boat holds 1–{{k}} and can't sail empty, and cannibals must never outnumber missionaries on either bank. Behind the scenes every legal arrangement is a node and every crossing an edge — BFS finds the fewest trips.",
-      hint: "tap people to load the boat, then cross. change the headcount or boat size to morph the puzzle — the same search solves every variant, or proves none exists. stuck? hit a hint step.",
+        "Ferry {{m}} missionaries and {{c}} cannibals across the river. The boat holds 1–{{k}} and can't sail empty, and cannibals must never outnumber missionaries on either bank. Behind the scenes every legal arrangement is a node and every crossing an edge - BFS finds the fewest trips.",
+      hint: "tap people to load the boat, then cross. change the headcount or boat size to morph the puzzle - the same search solves every variant, or proves none exists. stuck? hit a hint step.",
       death_shouts: [
         "This wasn't in the brochure!",
         "I should've been an accountant!",
         "Tell my goat I love her!",
         "You said the boat was SAFE!",
-        "Not the face! NOT THE—",
+        "Not the face! NOT THE-",
         "I blame the algorithm!",
         "5 stars, would not cross again.",
         "Math was never my strong suit!",
@@ -435,8 +435,8 @@ const en = {
         expanded: "expanded",
         discovered: "discovered",
         frontier_peak: "frontier peak",
-        stuck: "no solution from here — undo or reset",
-        solved: "solved — everyone is across",
+        stuck: "no solution from here - undo or reset",
+        solved: "solved - everyone is across",
         plan_optimal: "optimal plan from here",
         plan_cost: "least-cost plan from here",
         plan_generic: "{{name}} plan from here",
@@ -471,15 +471,15 @@ const en = {
           iddfs: { name: "Iterative Deepening", tagline: "DFS memory, BFS-optimal depth" },
           greedy: { name: "Greedy Best-First", tagline: "chase the heuristic, ignore the cost" },
           astar: { name: "A*", tagline: "guided by a people-left heuristic" },
-          ucs: { name: "Uniform-Cost", tagline: "least people ferried — weighted edges" },
+          ucs: { name: "Uniform-Cost", tagline: "least people ferried - weighted edges" },
           bidir: { name: "Bidirectional", tagline: "search from both shores, meet in the middle" },
         },
       },
       controls: {
-        won: "✓ all across, safe — {{n}} crossings",
-        lost: "✖ missionaries outnumbered — someone got eaten",
+        won: "✓ all across, safe - {{n}} crossings",
+        lost: "✖ missionaries outnumbered - someone got eaten",
         load_prompt: "tap people to load the boat",
-        ready: "{{n}}/{{k}} aboard — ready to cross",
+        ready: "{{n}}/{{k}} aboard - ready to cross",
         cross: "⛴ cross river",
         undo: "↩ undo",
         reset: "↺ reset",
@@ -508,20 +508,20 @@ const en = {
         copied: "✓ copied",
         copy_hint:
           "Copy a full debug report (config, banks, solver, move history, events) to share",
-        empty: "no events yet — cross, solve, or change the setup",
+        empty: "no events yet - cross, solve, or change the setup",
       },
     },
     minesweeper: {
       title: "Minesweeper",
       description:
-        "A minefield generator that guarantees a safe first click and a solution reachable by pure logic — no guessing, ever.",
-      tagline: "every field is solvable — if you think",
+        "A minefield generator that guarantees a safe first click and a solution reachable by pure logic - no guessing, ever.",
+      tagline: "every field is solvable - if you think",
       intro:
-        "The star here is the generator. Mines are placed only after your first click (so it's always safe), then a logic solver replays the board the way a perfect player would — counting, subset elimination, and brute-force enumeration. Boards that would force a coin-flip are rejected and re-forged, so every field can be cleared by reasoning alone.",
-      hint: "click to reveal, right-click (or flag mode) to mark a mine, click a number to chord. tune size, mine count, and first-click safety, then forge a fresh field — watch the diagnostics report how hard the logic had to work.",
-      won: "✓ field cleared — pure logic, no luck",
-      lost: "✸ boom — that one was deducible",
-      first_click: "click anywhere — the field is forged around your first click, guaranteed safe and solvable",
+        "The star here is the generator. Mines are placed only after your first click (so it's always safe), then a logic solver replays the board the way a perfect player would - counting, subset elimination, and brute-force enumeration. Boards that would force a coin-flip are rejected and re-forged, so every field can be cleared by reasoning alone.",
+      hint: "click to reveal, right-click (or flag mode) to mark a mine, click a number to chord. tune size, mine count, and first-click safety, then forge a fresh field - watch the diagnostics report how hard the logic had to work.",
+      won: "✓ field cleared - pure logic, no luck",
+      lost: "✸ boom - that one was deducible",
+      first_click: "click anywhere - the field is forged around your first click, guaranteed safe and solvable",
       aria: {
         board: "minefield, {{w}} by {{h}}",
         cell: "cell {{x}}, {{y}}",
@@ -536,7 +536,7 @@ const en = {
         reset: "reset board",
         reset_hint: "New field",
         flag: "⚑ flag",
-        flag_hint: "Toggle flag mode — tap cells to flag instead of reveal (handy on touch)",
+        flag_hint: "Toggle flag mode - tap cells to flag instead of reveal (handy on touch)",
       },
       setup: {
         title: "field setup",
@@ -550,7 +550,7 @@ const en = {
         safe_cell: "cell",
         safe_neighbours: "+neighbours",
         safe_cell_hint: "Only the clicked cell is guaranteed mine-free",
-        safe_neighbours_hint: "The clicked cell and its 8 neighbours — guarantees an opening",
+        safe_neighbours_hint: "The clicked cell and its 8 neighbours - guarantees an opening",
         seed: "seed",
         seed_hint: "0 = reseed from the clock; any other value is reproducible",
         new: "↺ new game",
@@ -565,9 +565,9 @@ const en = {
       gen: {
         title: "generation",
         inspect: "🔬 inspect a field",
-        inspect_hint: "Forge a field around the centre and open it — study how the generator built it, without starting a game",
+        inspect_hint: "Forge a field around the centre and open it - study how the generator built it, without starting a game",
         empty: "inspect a field (or click the board) to see how it was built",
-        verdict_ok: "✓ solvable — no guessing",
+        verdict_ok: "✓ solvable - no guessing",
         verdict_bad: "✗ a guess is unavoidable",
         difficulty: "logic difficulty",
         hardest: "hardest technique needed:",
@@ -575,9 +575,9 @@ const en = {
         unpeek: "🙈 hide mines",
         peek_hint: "Reveal the hidden mines (and any unresolved cells) for inspection",
         guess_points_one:
-          "{{count}} unresolved cell — the budget ran out before a no-guess field was found. Higher density makes this likely.",
+          "{{count}} unresolved cell - the budget ran out before a no-guess field was found. Higher density makes this likely.",
         guess_points_other:
-          "{{count}} unresolved cells — the budget ran out before a no-guess field was found. Higher density makes this likely.",
+          "{{count}} unresolved cells - the budget ran out before a no-guess field was found. Higher density makes this likely.",
         tiers: {
           trivial: "trivial",
           easy: "easy",
@@ -622,14 +622,14 @@ const en = {
         title: "ai solver",
         comparison_planned: "comparison view planned",
         blurb:
-          "Watch any engine clear the field with pure logic — and, when a board truly forces a guess, take the lowest-odds cell. Pick one and run it.",
+          "Watch any engine clear the field with pure logic - and, when a board truly forces a guess, take the lowest-odds cell. Pick one and run it.",
         run: "▶ solve",
         stop: "⏹ stop",
         solving: "solving…",
         odds: "👁 show odds",
         hide_odds: "🙈 hide odds",
-        solved: "✓ {{name}} cleared it — no guess",
-        stuck: "✗ {{name}} stuck — needs a guess",
+        solved: "✓ {{name}} cleared it - no guess",
+        stuck: "✗ {{name}} stuck - needs a guess",
         best_guess: "safest guess highlighted · {{pct}}% mine",
         revealed: "revealed",
         flagged: "flagged",
@@ -638,12 +638,12 @@ const en = {
         time: "time",
       },
       solvers: {
-        "single-point": { name: "Single-Point", tagline: "count rules only — the naive baseline" },
+        "single-point": { name: "Single-Point", tagline: "count rules only - the naive baseline" },
         "single-point-backtracking": { name: "Single-Point + Backtracking", tagline: "count rules, then exhaustive search to finish" },
-        "constraint-propagation": { name: "Constraint Propagation", tagline: "count + subset — finds forced moves" },
+        "constraint-propagation": { name: "Constraint Propagation", tagline: "count + subset - finds forced moves" },
         "linear-algebra": { name: "Linear Algebra", tagline: "Gaussian elimination on the clue matrix" },
-        backtracking: { name: "Backtracking", tagline: "exhaustive search — confirms solvability" },
-        sat: { name: "SAT / CSP", tagline: "DPLL — formal proof of no ambiguity" },
+        backtracking: { name: "Backtracking", tagline: "exhaustive search - confirms solvability" },
+        sat: { name: "SAT / CSP", tagline: "DPLL - formal proof of no ambiguity" },
         probabilistic: { name: "Probabilistic", tagline: "exact mine odds + safest guess" },
       },
       debug: {
@@ -653,7 +653,7 @@ const en = {
         copy: "copy report",
         copied: "✓ copied",
         copy_hint: "Copy a full debug report (config, generation stats, mines, events) to share",
-        empty: "no events yet — forge a field or change the setup",
+        empty: "no events yet - forge a field or change the setup",
       },
     },
     "binary-tree": {
@@ -664,7 +664,7 @@ const en = {
     "bloom-filter": {
       title: "Bloom Filter",
       description:
-        "Probabilistic membership testing — visualizing false positives and hash collisions.",
+        "Probabilistic membership testing - visualizing false positives and hash collisions.",
     },
     "cellular-automata": {
       title: "Cellular Automata",
@@ -753,10 +753,10 @@ const en = {
  * The shape every locale must match. `en` is the source of truth; its literal
  * leaf values are widened to base types so other locales (with different text)
  * still satisfy the structure. A missing/extra/mistyped key in another locale
- * becomes a compile error — see `vi satisfies Translation` in vi.ts.
+ * becomes a compile error - see `vi satisfies Translation` in vi.ts.
  *
  * Arrays/tuples fall through to the homomorphic mapped-type branch, which
- * preserves tuple length — so an array with the wrong number of elements (e.g. a
+ * preserves tuple length - so an array with the wrong number of elements (e.g. a
  * locale missing a `death_shouts` entry) is also caught.
  */
 type Widen<T> = T extends string

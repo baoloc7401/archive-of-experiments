@@ -1,11 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 256 256" fill="none">
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 256 256" fill="none">
   <defs>
     <linearGradient id="bolt" x1="84" y1="28" x2="172" y2="228" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#00f5c4"/>
       <stop offset="1" stop-color="#7c6cfa"/>
     </linearGradient>
   </defs>
-  <!-- dark tile keeps contrast on both light and dark browser tabs -->
+  <!-- favicon-safe: solid tile + single bold bolt, no glow / node (clutter at 16px) -->
   <rect width="256" height="256" rx="56" fill="#0a0b12"/>
   <g transform="translate(34 34) scale(7.75)">
     <path fill="url(#bolt)" d="M7 2 L7 13 L10 13 L10 22 L17 10 L13 10 L17 2 Z"/>

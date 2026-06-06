@@ -9,7 +9,7 @@ function mql(): MediaQueryList | null {
   return window.matchMedia(QUERY);
 }
 
-/** Imperative one-shot read — use inside event handlers, loops, or refs. */
+/** Imperative one-shot read - use inside event handlers, loops, or refs. */
 export function prefersReducedMotion(): boolean {
   return mql()?.matches ?? false;
 }
@@ -22,7 +22,7 @@ function subscribe(onChange: () => void): () => void {
 }
 
 /**
- * Reactive `prefers-reduced-motion` for components — re-renders when the OS
+ * Reactive `prefers-reduced-motion` for components - re-renders when the OS
  * preference changes. For imperative reads (animation loops, handlers) use
  * {@link prefersReducedMotion} instead.
  */

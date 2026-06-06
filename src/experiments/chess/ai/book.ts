@@ -3,7 +3,7 @@ import { applyMove, getLegalMoves, initialPosition, positionKey } from '../engin
 
 // Common opening lines as UCI move sequences. Each line is a sequence of
 // from-to coordinates (e2e4); promotions append the promoted piece
-// letter (e7e8q). Lines may share early plies — the book de-duplicates
+// letter (e7e8q). Lines may share early plies - the book de-duplicates
 // per-position and a position with multiple book candidates picks
 // at random for variety.
 const OPENING_LINES: readonly (readonly string[])[] = [
@@ -13,8 +13,8 @@ const OPENING_LINES: readonly (readonly string[])[] = [
   ['e2e4', 'e7e5', 'g1f3', 'b8c6', 'd2d4'],                       // Scotch
   ['e2e4', 'e7e5', 'g1f3', 'g8f6'],                               // Petroff
   ['e2e4', 'c7c5', 'g1f3', 'd7d6', 'd2d4'],                       // Open Sicilian (Najdorf-ish)
-  ['e2e4', 'c7c5', 'g1f3', 'b8c6'],                               // Sicilian — knight variation
-  ['e2e4', 'c7c5', 'g1f3', 'e7e6'],                               // Sicilian — Taimanov
+  ['e2e4', 'c7c5', 'g1f3', 'b8c6'],                               // Sicilian - knight variation
+  ['e2e4', 'c7c5', 'g1f3', 'e7e6'],                               // Sicilian - Taimanov
   ['e2e4', 'e7e6', 'd2d4', 'd7d5'],                               // French
   ['e2e4', 'c7c6', 'd2d4', 'd7d5'],                               // Caro-Kann
   ['e2e4', 'd7d5', 'e4d5', 'd8d5'],                               // Scandinavian
@@ -75,7 +75,7 @@ function sameMove(a: Move, b: Move): boolean {
       const parsed = parseUci(uci);
       const legal = getLegalMoves(pos);
       const move = findLegal(legal, parsed);
-      if (!move) break; // malformed entry — abandon this line
+      if (!move) break; // malformed entry - abandon this line
 
       const key = positionKey(pos);
       const existing = book.get(key);

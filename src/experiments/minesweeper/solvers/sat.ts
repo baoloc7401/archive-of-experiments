@@ -43,7 +43,7 @@ function buildCSP(cells: number[], constraints: Constraint[]): CSP {
 /** Does a satisfying assignment exist with `cells[forcedPos] = forcedVal`?
  *  DPLL: branch + prune by per-constraint mine bounds. On hitting the node cap we
  *  return `true` (assume satisfiable) so the prover never *over*-claims a forced
- *  cell — it just stays conservatively incomplete. */
+ *  cell - it just stays conservatively incomplete. */
 function exists(csp: CSP, forcedPos: number, forcedVal: number, nodeCap: number): boolean {
   const { count, cVars, cNeed, cell2cons } = csp;
   const assign = new Int8Array(count).fill(-1);
@@ -150,9 +150,9 @@ function solve(board: Board, origin: number, opts: SolveOptions = {}): SolverRep
 export const satSolver: Solver = {
   id: "sat",
   name: "SAT / CSP",
-  tagline: "DPLL satisfiability — formal proof of no ambiguity",
+  tagline: "DPLL satisfiability - formal proof of no ambiguity",
   description:
-    "Models the board as exact-cardinality constraints and runs DPLL satisfiability checks: a cell is forced exactly when the opposite assignment is unsatisfiable. Slower than counting, but it yields a formal certificate that a position is — or isn't — solvable without guessing.",
+    "Models the board as exact-cardinality constraints and runs DPLL satisfiability checks: a cell is forced exactly when the opposite assignment is unsatisfiable. Slower than counting, but it yields a formal certificate that a position is - or isn't - solvable without guessing.",
   capabilities: {
     complete: true,
     provesNoGuess: true,

@@ -46,7 +46,7 @@ export function zTurn(): bigint { return TURN_KEY; }
 export function zCastle(side: CastleSide): bigint { return CASTLE_KEYS[side]; }
 export function zEp(file: number): bigint { return EP_KEYS[file]; }
 
-// Full hash computation — used for initial position and validation.
+// Full hash computation - used for initial position and validation.
 // Incremental updates happen inline in applyMove.
 export function computeZobrist(pos: Position): bigint {
   let h = 0n;

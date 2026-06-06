@@ -1,4 +1,4 @@
-// Dijkstra's Algorithm — priority queue ordered by cumulative path cost g(n).
+// Dijkstra's Algorithm - priority queue ordered by cumulative path cost g(n).
 // Weighted: respects terrain traversal costs (grass ×2, sand ×3, water ×5, mountain ×10).
 // On uniform-cost grids this is equivalent to BFS.
 // Guarantee: always finds the minimum-cost path.

@@ -43,7 +43,7 @@
   }
 }
 
-/* Full-area transparent link — above background, below content */
+/* Full-area transparent link - above background, below content */
 .card-link {
   position: absolute;
   inset: 0;
@@ -113,7 +113,7 @@
   border-right-width: 1px;
 }
 
-/* Hover effects — no transform (would conflict with view-timeline) */
+/* Hover effects - no transform (would conflict with view-timeline) */
 .card-active:hover {
   border-color: color-mix(in srgb, var(--accent) 50%, transparent);
   box-shadow: 0 10px 36px color-mix(in srgb, var(--accent) 16%, transparent);

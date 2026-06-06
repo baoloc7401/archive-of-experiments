@@ -15,7 +15,7 @@ export function isSameMove(a: Move, b: Move): boolean {
       && a.to[0]   === b.to[0]   && a.to[1]   === b.to[1];
 }
 
-// 4-char move key — board indices are 0-7 so single chars are unambiguous.
+// 4-char move key - board indices are 0-7 so single chars are unambiguous.
 export function histKey(move: Move): string {
   return `${move.from[0]}${move.from[1]}${move.to[0]}${move.to[1]}`;
 }

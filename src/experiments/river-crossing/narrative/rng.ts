@@ -1,4 +1,4 @@
-/** A tiny seedable PRNG so a given (puzzle, seed) always tells the same story —
+/** A tiny seedable PRNG so a given (puzzle, seed) always tells the same story -
  *  and "retell" just bumps the seed for a fresh, still-deterministic telling. */
 export type Rng = () => number;
 

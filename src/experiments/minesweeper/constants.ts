@@ -29,7 +29,7 @@ export const DEFAULT_CONFIG: FieldConfig = {
 export const MIN_DIM = 5;
 export const MAX_DIM = 30;
 export const MIN_MINES = 1;
-/** Upper bound on mine density we'll even attempt — past this a no-guess field
+/** Upper bound on mine density we'll even attempt - past this a no-guess field
  *  is effectively impossible to forge, so we clamp and say so. */
 export const MAX_DENSITY = 0.28;
 

@@ -1,4 +1,4 @@
-// A* Search — priority queue ordered by f(n) = g(n) + h(n).
+// A* Search - priority queue ordered by f(n) = g(n) + h(n).
 // g(n): actual cost from start. h(n): Manhattan distance to goal (admissible heuristic).
 // Weighted: respects terrain costs. Heuristic keeps it faster than Dijkstra
 // by biasing expansion toward the goal without overshooting.

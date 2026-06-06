@@ -1,4 +1,4 @@
-# Chess AI — Textbook & Real-World Research
+# Chess AI - Textbook & Real-World Research
 
 Reference code:
 [`engine.ts`](../../src/experiments/chess/engine.ts) (rules, make/unmake, legality),
@@ -13,7 +13,7 @@ Reference code:
 Roadmap: [`IMPROVEMENT.md`](./IMPROVEMENT.md). Bug/craft log: [`ISSUES.md`](./ISSUES.md).
 
 This is the research record for the chess engine: the canonical search and
-evaluation machinery, how faithfully we implement it, and — importantly —
+evaluation machinery, how faithfully we implement it, and - importantly -
 **what went wrong in non-obvious ways while building it.** Most of the genuine
 learning came from won endgames that the engine refused to finish, and from a
 Web Worker move that turned a single innocent `Math.random()` into a
@@ -32,7 +32,7 @@ debugging the engine.
 
 This pattern showed up at three different scales in the same project:
 
-- **Mop-up gated on `isEndgame()`** — the heuristic that drives a lone king to
+- **Mop-up gated on `isEndgame()`** - the heuristic that drives a lone king to
   the corner only fired when *total* non-pawn/non-king material was `< 1500`. So
   K+Q+R+B vs K (winner's material 1730) **disabled mate-driving precisely when
   the winner had the most material**. The eval was flat across all winning-side
@@ -45,7 +45,7 @@ This pattern showed up at three different scales in the same project:
   mate leaf, *with no ply adjustment*, means mate-in-1 and mate-in-7 score
   identically. The root sees several moves all rated 99999 ("mate is forced
   *somewhere*") and picks one **at random**. The chosen move can leave the mate
-  at the same distance — wandering inside the forced-mate region forever. Even a
+  at the same distance - wandering inside the forced-mate region forever. Even a
   mate fully within the search horizon is never actually played out. (§4)
 
 The lesson generalises beyond chess: **a correct optimiser on a flat objective
@@ -57,7 +57,7 @@ distinguish.
 
 ## 1. The model & terminology
 
-Standard chess, served by a hand-written engine — no NNUE, no UCI server. The
+Standard chess, served by a hand-written engine - no NNUE, no UCI server. The
 board is an 8×8 array (row 0 = rank 8 = Black's back rank), pieces are
 `{type, color}`, the [`Position`](../../src/experiments/chess/types.ts) carries
 turn, castling rights, en-passant target, halfmove/fullmove clocks, and a
@@ -74,7 +74,7 @@ turn, castling rights, en-passant target, halfmove/fullmove clocks, and a
 | Pseudo-legal | satisfies movement rules; ignores own-king check | what `pseudoLegalMoves` returns |
 | Legal | pseudo-legal + does not leave own king in check | `getLegalMoves` filters via make/unmake |
 
-The engine runs at **fixed depth** — `config.depth` per skill level, +1 if
+The engine runs at **fixed depth** - `config.depth` per skill level, +1 if
 `isEndgame` and +2 if `pieceCount ≤ 6`. There is no time budget; aspiration
 windows are **not** in use (§10). All scores are in **centipawns**, from
 White's perspective: positive = good for White.
@@ -111,8 +111,8 @@ Every `makeMove` mutates `pos` in place and returns an
 
 The invariant every function in this codebase has to preserve: **`pos` returns
 to its input state by the time the function returns.** The biggest landmine
-during the make/unmake refactor was a single line — `const cb = pos.castling`
-— that aliased the live castling object instead of snapshotting it (§4 of
+during the make/unmake refactor was a single line - `const cb = pos.castling`
+- that aliased the live castling object instead of snapshotting it (§4 of
 ISSUES.md predecessor). The fix is the `{...pos.castling}` spread captured into
 `undo.castlingBefore` and using `undo.castlingBefore.wk !== pos.castling.wk` to
 detect rights changes for the Zobrist XOR.
@@ -136,7 +136,7 @@ window.
 
 ---
 
-## 3. Quiescence — captures + checks + evasions
+## 3. Quiescence - captures + checks + evasions
 
 A naïve fixed-depth search has the **horizon effect**: a leaf where the side to
 move is about to lose a queen scores as if material were stable. Quiescence
@@ -150,12 +150,12 @@ extends past the leaf along *forcing* moves only.
 2. **First `QS_CHECK_PLIES = 2` plies of quiescence.** Captures *and*
    check-giving moves are searched. Check detection is a cheap make/`isInCheck`/
    unmake on each candidate.
-3. **Deeper qdepth.** Captures only — checking-move expansion is bounded so
+3. **Deeper qdepth.** Captures only - checking-move expansion is bounded so
    forcing sequences cannot blow up the node count.
 
 The `qdepth` ceiling is configurable per skill level (`config.qdepth`), 0..4
 across the presets in §7. Mate inside quiescence uses `ply + qdepth` for its
-ply argument — the distance encoding is consistent regardless of which function
+ply argument - the distance encoding is consistent regardless of which function
 detected the mate.
 
 ### 3.1 Why "checks in quiescence" matters
@@ -164,7 +164,7 @@ Before the check-extension here, a forcing line like *Qxh7+ Kxh7 (next ply
 captures the rook)* would be invisible: at the search horizon the engine sees
 "give up the queen for a rook" and rejects the line. Extending checks one more
 ply lets it see the recapture. We deliberately *don't* recurse further into
-check extensions inside quiescence — that would re-introduce unbounded
+check extensions inside quiescence - that would re-introduce unbounded
 forcing-line expansion.
 
 ---
@@ -183,7 +183,7 @@ unchanged. **Mate-in-1 and mate-in-7 scored identically.**
 In a won endgame the engine would find a forced mate (a tree branch reaching a
 `±99999` leaf), and several different root moves would each lead to a
 `±99999`-scoring subtree because the same mate is reachable via many paths.
-The root's tie-break — uniform random among all top-scoring moves — picked any
+The root's tie-break - uniform random among all top-scoring moves - picked any
 of them, and the chosen one was often **a sideways move that left the mate
 exactly as far away**. Next move, same thing. The engine wandered inside the
 "mate is forced" region without ever closing the distance, ran out the
@@ -212,7 +212,7 @@ and the forced mate actually converges.
 Mate scores in the TT need an extra fix that is easy to miss. A score
 *returned* from a leaf is relative to the **current search root** (`MATE_SCORE − ply`
 where ply is measured from root). But the TT is keyed on positions, not search
-trees — the same position can be reached at a different ply on a later search,
+trees - the same position can be reached at a different ply on a later search,
 and the cached mate distance needs to come out right anyway.
 
 We store as **distance-from-this-node** (an absolute property of the position)
@@ -236,13 +236,13 @@ some coordinate system; transposition tables sit *outside* any one tree.** If
 the coordinate system depends on something the TT does not store (here, the
 search-relative ply), the TT silently corrupts data on later probes from
 different paths. The fix is to convert every cross-tree quantity to an
-absolute frame on the way in and back to the local frame on the way out — the
+absolute frame on the way in and back to the local frame on the way out - the
 same pattern as time zones, or relative file paths, or local vs world space in
 graphics.
 
 ---
 
-## 5. Won-endgame conversion — the other two layers
+## 5. Won-endgame conversion - the other two layers
 
 Even with mate distances encoded, the engine still needs a *reason* to drive a
 won position toward a mate that is currently *beyond* the search horizon.
@@ -270,7 +270,7 @@ Material totals at game end (PIECE_VALUE: P=100, N=320, B=330, R=500, Q=900):
 | K+Q+Q vs K | 1800 | ❌ | ❌ |
 
 The trap: the more material the winner has, the *less* the engine knows how to
-mate. We fixed this with `isMatable(losing)` — the losing side has no pawns and
+mate. We fixed this with `isMatable(losing)` - the losing side has no pawns and
 at most a single minor (≤ `PIECE_VALUE.B` = 330). Now mop-up fires on either
 `eg` OR `isMatable(losingSide)`, so K+anything vs K corner-drives correctly,
 and normal middlegames are untouched (both sides have pawns → `isMatable` is
@@ -290,7 +290,7 @@ The engine has no eval gradient to coordinate its pieces into a mating
 position, so it shuffles until either the search horizon happens to land on a
 mate (lucky) or the 50-move counter runs out (the unlucky default).
 
-The fix is a third term that *isn't* about the kings — it's about the net
+The fix is a third term that *isn't* about the kings - it's about the net
 tightening around the bare king:
 
 ```ts
@@ -333,7 +333,7 @@ Two quiet correctness considerations:
    build-time replay. The lookup resolves through the caller's live legal-move
    list so the returned `Move` matches the current position's piece pointers.
 2. **The book is disabled** for move grading (§8) and for the lower skill
-   tiers (`config.useBook` false on Beginner/Casual) — both want pure search
+   tiers (`config.useBook` false on Beginner/Casual) - both want pure search
    behaviour, not a random book pick.
 
 The Zobrist keys the book stores are only consistent across module instances
@@ -342,11 +342,11 @@ be useless: the main thread's keys would never match the worker's table.
 
 ---
 
-## 7. Difficulty scaling — strength as a dial, not a slider
+## 7. Difficulty scaling - strength as a dial, not a slider
 
 The skill system in [`ai/skill.ts`](../../src/experiments/chess/ai/skill.ts)
 exposes five tiers (Beginner, Casual, Intermediate, Advanced, Master) and
-each is an [`AIConfig`](../../src/experiments/chess/types.ts) — **a vector of
+each is an [`AIConfig`](../../src/experiments/chess/types.ts) - **a vector of
 independent knobs**, not a single depth number.
 
 | Tier | depth | qdepth | noise (cp) | topN | weights | book | mobility | kingSafety | pawnStructure | mopUp |
@@ -359,25 +359,25 @@ independent knobs**, not a single depth number.
 
 ### 7.1 What each knob does (and why depth alone isn't enough)
 
-- **`depth`** — alpha-beta depth. The obvious dial. *Insufficient on its
+- **`depth`** - alpha-beta depth. The obvious dial. *Insufficient on its
   own:* a depth-2 search still plays a recognisably strong tactical game on
   pieces it sees, because alpha-beta is exact at its horizon and the move
   ordering surfaces tactics. A shallow Stockfish still beats most humans.
-- **`qdepth`** — quiescence ceiling. **The hidden depth knob.** A small `qdepth`
+- **`qdepth`** - quiescence ceiling. **The hidden depth knob.** A small `qdepth`
   on a shallow search produces the *intuitive* "weaker because it walks into
   tactical shots" feeling: it can see one or two captures but misses the
   three-deep recapture trade.
-- **`evalNoiseCp`** — uniform random offset added to each root move's score at
+- **`evalNoiseCp`** - uniform random offset added to each root move's score at
   selection time only. Makes the player misjudge by a few hundred cp at
   Beginner (small piece value) down to imperceptible at Advanced. **Crucial:
-  noise is applied only at the root**, never inside alpha-beta — internal
+  noise is applied only at the root**, never inside alpha-beta - internal
   bounds need to stay correct or pruning corrupts.
-- **`topN` + `topNWeights`** — instead of always picking the top-scored move,
+- **`topN` + `topNWeights`** - instead of always picking the top-scored move,
   sample from the top N with a fixed weight distribution. Beginner picks the
   best move only 35% of the time. This is what makes weaker tiers feel *human*
-  rather than just bad — they often choose a reasonable-but-not-best move.
-- **`useBook`** — toggles the opening book.
-- **`eval.{mobility, kingSafety, pawnStructure, mopUp}`** — turn off
+  rather than just bad - they often choose a reasonable-but-not-best move.
+- **`useBook`** - toggles the opening book.
+- **`eval.{mobility, kingSafety, pawnStructure, mopUp}`** - turn off
   evaluation *terms*. A Beginner that doesn't know about pawn shields or
   passed pawns plays positionally weak chess even when its tactics are sharp.
   This is the most "personality-shaping" knob; it's also the trickiest,
@@ -398,7 +398,7 @@ export function getSearchOptions(): AIConfig { return current; }
 ```
 
 `getBestMove` calls `setSearchOptions(config)` at the start of every search.
-This is safe *only because the worker serialises requests* — one
+This is safe *only because the worker serialises requests* - one
 `getBestMove` runs at a time on each thread, so the holder cannot be observed
 mid-mutation. In a multi-threaded search this would be a data race; here it
 is just a clean dependency-injection shortcut.
@@ -411,7 +411,7 @@ is just a clean dependency-injection shortcut.
   needed the noise + top-N weights *as well* to feel human-fallible.
 - **Turning off mop-up at Casual and below was deliberate.** Without it, a
   Beginner that happens to grind into a winning endgame may shuffle and draw
-  — but that is *also* how a beginner-level human plays, and it keeps the
+  - but that is *also* how a beginner-level human plays, and it keeps the
   lower tiers genuinely beatable. Advanced/Master both keep mop-up on so the
   §4–§5 mate-conversion fixes actually take effect for them.
 - **Noise + top-N composes oddly at extreme settings.** Beginner has both
@@ -419,7 +419,7 @@ is just a clean dependency-injection shortcut.
   effective player has a "wide cone of competence" rather than a fixed style.
   Casual at `noise=80, topN=3` is more recognisable.
 - **Move grading must not consult any of this.** [`GRADER_CONFIG`](../../src/experiments/chess/ai/skill.ts)
-  pins depth 2, qdepth 4, zero noise, topN=1, no book, all eval terms on —
+  pins depth 2, qdepth 4, zero noise, topN=1, no book, all eval terms on -
   the grader needs a single, deterministic "what is the best move here?"
   reference *regardless* of how the playing AI is configured.
 
@@ -441,7 +441,7 @@ in [`utils.ts`](../../src/experiments/chess/utils.ts) map cpLoss to symbols:
 |---|---|
 | ≤ 0 | `!!` brilliant |
 | ≤ 25 | `!` good |
-| ≤ 75 | (silent — best/expected move) |
+| ≤ 75 | (silent - best/expected move) |
 | ≤ 150 | `!?` interesting |
 | ≤ 300 | `?!` inaccuracy |
 | ≤ 500 | `?` mistake |
@@ -449,13 +449,13 @@ in [`utils.ts`](../../src/experiments/chess/utils.ts) map cpLoss to symbols:
 
 Calling the grader synchronously on the main thread is fine because it runs at
 fixed shallow depth (2), and only once per move played. It uses
-`getBestMove(posBefore, GRADER_CONFIG)` — *not* the worker — so it doesn't
+`getBestMove(posBefore, GRADER_CONFIG)` - *not* the worker - so it doesn't
 contend with the playing AI's TT and produces results independent of the
 selected skill tier.
 
 ---
 
-## 9. Engineering — making the search responsive
+## 9. Engineering - making the search responsive
 
 ### 9.1 The Web Worker
 
@@ -476,12 +476,12 @@ A few small but important details:
   isn't the latest. Cleaner and simpler than terminate-and-recreate.
 - **Persistent worker means persistent TT.** The transposition table is
   module-scoped in the worker. Across consecutive searches in the same game,
-  the TT is hot — exactly what we want. On `Reset`,
+  the TT is hot - exactly what we want. On `Reset`,
   [`index.tsx`](../../src/experiments/chess/index.tsx) sends a `clear` message
   that calls `clearTT()` on the worker side; the main thread separately
   resets its own TT used by the grader.
 
-### 9.2 Deterministic Zobrist — the silent cross-thread bug
+### 9.2 Deterministic Zobrist - the silent cross-thread bug
 
 [`zobrist.ts`](../../src/experiments/chess/zobrist.ts) precomputes 12·64
 piece-square keys plus turn, castling, and ep-file keys at module load. The
@@ -527,7 +527,7 @@ state needs to be deterministic or explicitly synchronised.
 
 ---
 
-## 10. What we tried and reverted — Aspiration Windows
+## 10. What we tried and reverted - Aspiration Windows
 
 Aspiration windows narrow the alpha-beta window at the root of each iterative
 deepening iteration to `[prevScore − δ, prevScore + δ]` and widen on
@@ -559,24 +559,24 @@ What we implement, faithfully or with documented deviation:
 |---|---|
 | Alpha-beta with PVS, LMR, NMP, futility, check extensions | ✅ canonical CPW recipe |
 | Make/unmake mutation pattern | ✅ |
-| Incremental Zobrist hash (XOR deltas in `makeMove`) | ✅ — with deterministic seeded PRNG (§9.2) |
+| Incremental Zobrist hash (XOR deltas in `makeMove`) | ✅ - with deterministic seeded PRNG (§9.2) |
 | Transposition table, depth-preferred replacement | ✅ |
 | Iterative deepening + root re-ordering | ✅ |
 | Move ordering: TT > MVV-LVA > promo > killers > history | ✅ |
 | Killer moves (two per ply) | ✅ |
-| History heuristic with periodic decay | ✅ — halved at the start of each search |
-| Null-move pruning, adaptive R | ✅ — `R = 3 + ⌊depth/3⌋` |
+| History heuristic with periodic decay | ✅ - halved at the start of each search |
+| Null-move pruning, adaptive R | ✅ - `R = 3 + ⌊depth/3⌋` |
 | Futility pruning (depths 1–2) | ✅ |
-| Check extensions, capped | ✅ — `MAX_EXTENSIONS = 16` |
-| LMR with logarithmic reduction | ✅ — `⌊0.99 + ln(d)·ln(i+1)/3.14⌋` |
-| Quiescence: captures + checks (bounded) + evasions | ✅* — `QS_CHECK_PLIES = 2`; mate inside qs is ply-adjusted |
+| Check extensions, capped | ✅ - `MAX_EXTENSIONS = 16` |
+| LMR with logarithmic reduction | ✅ - `⌊0.99 + ln(d)·ln(i+1)/3.14⌋` |
+| Quiescence: captures + checks (bounded) + evasions | ✅* - `QS_CHECK_PLIES = 2`; mate inside qs is ply-adjusted |
 | Mate-distance encoding (leaf + TT round-trip) | ✅ |
-| Mop-up: corner drive + king proximity + restriction | ✅* — broader trigger via `isMatable` (§5.1) |
-| Opening book | ✅* — small set, replayed at module load |
+| Mop-up: corner drive + king proximity + restriction | ✅* - broader trigger via `isMatable` (§5.1) |
+| Opening book | ✅* - small set, replayed at module load |
 | Web Worker search | ✅ |
 | Difficulty scaling (depth, qdepth, noise, top-N, eval toggles, book) | ✅ |
 | Contempt (`CONTEMPT = −50`) on near-repetition | ✅ |
-| Aspiration windows | ✗ — implemented and reverted (§10) |
+| Aspiration windows | ✗ - implemented and reverted (§10) |
 
 ---
 
@@ -594,7 +594,7 @@ Out of scope, by choice:
   (Stockfish, Berserk, …) use small neural nets for static eval and play
   ~700 Elo stronger as a result.
 - **No syzygy / endgame tablebases.** A 6-piece tablebase is ~150 GB; even
-  3–4 piece tables (a few MB) we deliberately skipped — see roadmap item
+  3–4 piece tables (a few MB) we deliberately skipped - see roadmap item
   #18. Our endgame play is heuristic.
 - **No multi-thread search.** One worker, one game. No Lazy SMP.
 - **Fixed depth, no time management.** Iterative deepening runs to a fixed
@@ -630,7 +630,7 @@ all the fixes here: ~2300–2700 against humans (rough range). Far below the
   matches how Stockfish's "Skill Level" UCI option works internally: lower
   skill levels add randomness to move *selection* (after the search returns
   the move list), not to the search itself. This keeps the engine internally
-  correct — only the choice among root candidates is dialled down.
+  correct - only the choice among root candidates is dialled down.
 - **Web Worker + deterministic Zobrist** is the kind of bug that doesn't
   appear in textbooks because textbook engines run in a single OS process.
   The cross-thread module-state hazard generalises far beyond chess: anything

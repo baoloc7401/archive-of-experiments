@@ -1,4 +1,4 @@
-// Breadth-First Search — explores level by level via a FIFO queue.
+// Breadth-First Search - explores level by level via a FIFO queue.
 // Unweighted: treats every traversable cell as cost 1.
 // Guarantee: always finds the shortest path (fewest hops).
 import type { GridConfig } from '../types';

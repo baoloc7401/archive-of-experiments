@@ -51,7 +51,7 @@ export function useChessAI({ mode, pos, status, promotionPending, paused, posHis
     const onMessage = (e: MessageEvent<SearchResult>) => {
       if (e.data.type !== 'result' || e.data.id !== id) return;
       worker.removeEventListener('message', onMessage);
-      // Ignore stale results — a newer search has superseded this one.
+      // Ignore stale results - a newer search has superseded this one.
       if (activeIdRef.current !== id) return;
       activeIdRef.current = null;
       if (e.data.move) applyRef.current(currentPos, e.data.move);
@@ -70,7 +70,7 @@ export function useChessAI({ mode, pos, status, promotionPending, paused, posHis
 
     return () => {
       worker.removeEventListener('message', onMessage);
-      // Don't terminate — the worker keeps TT state across searches.
+      // Don't terminate - the worker keeps TT state across searches.
       // Stale results are filtered by id check above.
       if (activeIdRef.current === id) activeIdRef.current = null;
       setThinking(false);
@@ -87,7 +87,7 @@ export function useChessAI({ mode, pos, status, promotionPending, paused, posHis
     const currentPos = pos;
     const config = pos.turn === 'w' ? whiteConfig : blackConfig;
 
-    // Animation delay before the AI move appears — matches the prior behavior.
+    // Animation delay before the AI move appears - matches the prior behavior.
     const timer = setTimeout(() => runSearch(currentPos, config), AI_DELAY[mode]);
 
     return () => {

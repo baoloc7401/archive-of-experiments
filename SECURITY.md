@@ -3,7 +3,7 @@
 ## Scope
 
 **Archive of Experiments** is a static, client-side single-page application. It has
-no backend, no database, and no user accounts — every experiment runs entirely in
+no backend, no database, and no user accounts - every experiment runs entirely in
 the visitor's browser. As a result the attack surface is limited to:
 
 - Client-side code (React/TypeScript) and the assets served with it.

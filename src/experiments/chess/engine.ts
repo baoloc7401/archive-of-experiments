@@ -238,7 +238,7 @@ export function makeMove(pos: Position, move: Move): UndoInfo {
   z ^= zTurn();
   if (pos.ep) z ^= zEp(pos.ep[1]);
 
-  // Regular capture (not en-passant — the EP target square is empty).
+  // Regular capture (not en-passant - the EP target square is empty).
   const captureAtDest = board[tr][tc];
   if (captureAtDest) z ^= zPiece(captureAtDest.color, captureAtDest.type, tr, tc);
 
@@ -291,7 +291,7 @@ export function makeMove(pos: Position, move: Move): UndoInfo {
   if (tr === 0 && tc === 0) pos.castling.bq = false;
   if (tr === 0 && tc === 7) pos.castling.bk = false;
 
-  // Use the snapshot in undo (a fresh object via spread) — NOT pos.castling
+  // Use the snapshot in undo (a fresh object via spread) - NOT pos.castling
   // directly, which would alias the just-mutated object and always compare equal.
   if (undo.castlingBefore.wk !== pos.castling.wk) z ^= zCastle('wk');
   if (undo.castlingBefore.wq !== pos.castling.wq) z ^= zCastle('wq');
@@ -396,7 +396,7 @@ export function getLegalMoves(pos: Position): Move[] {
       tmp[rank][4] = null;
       if (isSquareAttacked(tmp, rank, passCol, opponent(pos.turn))) continue;
     }
-    // Test legality via make/unmake — avoids cloning the whole position
+    // Test legality via make/unmake - avoids cloning the whole position
     // per candidate. After make, pos.turn is the opponent, so we test
     // the mover's king with opponent(pos.turn).
     const mover = pos.turn;
@@ -409,7 +409,7 @@ export function getLegalMoves(pos: Position): Move[] {
 }
 
 export function positionKey(pos: Position): string {
-  // Compact base-36 of the incrementally-maintained Zobrist hash —
+  // Compact base-36 of the incrementally-maintained Zobrist hash -
   // ~13 chars vs ~135 for the old per-call serialization.
   return pos.zobrist.toString(36);
 }

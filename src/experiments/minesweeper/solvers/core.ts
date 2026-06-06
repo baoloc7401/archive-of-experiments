@@ -106,7 +106,7 @@ export function buildConstraints(k: Knowledge): Constraint[] {
   return out;
 }
 
-/* ── Deduction primitives — composed differently by each solver. ──────────── */
+/* ── Deduction primitives - composed differently by each solver. ──────────── */
 
 /** Rule 1: a number whose hidden neighbours are all mines, or all safe. Runs to
  *  a fixpoint and returns whether anything changed. */
@@ -216,7 +216,7 @@ export interface EnumResult {
   mineHits: number[];
   /** Total satisfying assignments. */
   solutions: number;
-  /** Solutions grouped by total mine count — used for global probability. */
+  /** Solutions grouped by total mine count - used for global probability. */
   byMineCount: Map<number, number>;
 }
 

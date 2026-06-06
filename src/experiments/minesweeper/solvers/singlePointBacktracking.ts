@@ -16,9 +16,9 @@ import {
 } from "./core";
 
 /**
- * Single-Point's count rules as the fast path; when they stall, escalate — subset
+ * Single-Point's count rules as the fast path; when they stall, escalate - subset
  * elimination (which also shrinks components below the enumeration cap), then
- * exhaustive component enumeration, then the endgame global count — and return to
+ * exhaustive component enumeration, then the endgame global count - and return to
  * counting after each breakthrough. The escalation is complete, so it clears every
  * no-guess board the plain solver gives up on. Shows the hybrid shape: counting
  * does the bulk for free, search only breaks the occasional impasse.
@@ -42,7 +42,7 @@ function solve(board: Board, origin: number, opts: SolveOptions = {}): SolverRep
     const constraints = buildConstraints(k);
     if (constraints.length === 0) break;
 
-    // Subset elimination — also shrinks components below the enumeration cap.
+    // Subset elimination - also shrinks components below the enumeration cap.
     if (subsetStep(k, constraints)) {
       techniques.subset++;
       steps++;
@@ -82,9 +82,9 @@ function solve(board: Board, origin: number, opts: SolveOptions = {}): SolverRep
 export const singlePointBacktrackingSolver: Solver = {
   id: "single-point-backtracking",
   name: "Single-Point + Backtracking",
-  tagline: "count rules first, search only to break impasses — and it finishes",
+  tagline: "count rules first, search only to break impasses - and it finishes",
   description:
-    "Single-Point's count rules carry the bulk of the board for free; whenever they stall, the engine escalates (subset → exhaustive enumeration → endgame global count) just far enough to force the next cell, then hands control back to counting. Complete — it clears every no-guess board the plain Single-Point solver gives up on — and shows how rarely real search is actually needed.",
+    "Single-Point's count rules carry the bulk of the board for free; whenever they stall, the engine escalates (subset → exhaustive enumeration → endgame global count) just far enough to force the next cell, then hands control back to counting. Complete - it clears every no-guess board the plain Single-Point solver gives up on - and shows how rarely real search is actually needed.",
   capabilities: {
     complete: true,
     provesNoGuess: true,

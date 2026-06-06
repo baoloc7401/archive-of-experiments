@@ -4,7 +4,7 @@ export const SKILL_LEVELS: readonly SkillLevel[] = [
   'beginner', 'casual', 'intermediate', 'advanced', 'master',
 ];
 
-// Piece glyph per tier — ascending material value mirrors ascending strength.
+// Piece glyph per tier - ascending material value mirrors ascending strength.
 // Used purely for UI presentation in the skill picker.
 export const SKILL_PIECES: Record<SkillLevel, string> = {
   beginner: '♙',

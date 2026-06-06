@@ -1,4 +1,4 @@
-# Pathfinding — Textbook & Real-World Research
+# Pathfinding - Textbook & Real-World Research
 
 Reference code:
 [`algorithms/bfs.ts`](../../src/experiments/pathfinding/algorithms/bfs.ts),
@@ -15,7 +15,7 @@ Reference code:
 This is the research record for the pathfinding experiment: seven graph-search
 algorithms running side-by-side on an interactive maze grid with optional weighted
 terrain. It covers the canonical definitions, how faithfully each algorithm is
-modelled, and — the real point — **what was discovered building and debugging the
+modelled, and - the real point - **what was discovered building and debugging the
 visualizations.** The deepest lesson came from porting Jump Point Search from
 8-directional to 4-directional movement. Findings accumulated while building and
 debugging.
@@ -26,14 +26,14 @@ debugging.
 
 > **Jump Point Search was designed for 8-directional grids. On a 4-directional
 > grid it silently reports "no path" for any maze where the goal is diagonally
-> offset from every axis-aligned scan line — including a completely wall-free grid.**
+> offset from every axis-aligned scan line - including a completely wall-free grid.**
 
 In 8-directional JPS, diagonal steps naturally sweep both axes at once: a
 diagonal scan "reaches" every cell. In 4-directional JPS there are no diagonal
 moves, so a vertical scan only ever visits one column. On a wall-free grid,
 forced neighbors never appear (they require a wall to block the pruned path).
 The scan hits the grid boundary, returns `null`, and JPS concludes no path
-exists — even with start at `(0,0)` and end at `(rows-1, cols-1)` and not a
+exists - even with start at `(0,0)` and end at `(rows-1, cols-1)` and not a
 single wall.
 
 The fix is two-part:
@@ -47,7 +47,7 @@ The fix is two-part:
 2. **Always try horizontal in `successors` after a vertical arrival.** The
    original code only probed horizontal directions from a vertically-reached
    jump point when a wall forced it. But a cross-scan–identified jump point has
-   no wall — without the unconditional horizontal probe, the algorithm finds the
+   no wall - without the unconditional horizontal probe, the algorithm finds the
    jump point and then never follows up on why it was interesting.
 
 Neither fix alone is sufficient. Both are in [`algorithms/jps.ts`](../../src/experiments/pathfinding/algorithms/jps.ts)
@@ -85,7 +85,7 @@ Movement is **4-directional** (up / down / left / right) throughout. No
 diagonal movement.
 
 Each algorithm is a TypeScript generator (`function*`) that yields an `AlgoState`
-snapshot — `{ visited, frontier, current, path, status, steps, pathCost }` —
+snapshot - `{ visited, frontier, current, path, status, steps, pathCost }` -
 after every logical step. The visualizer ticks through these snapshots on an
 interval; speed and steps-per-tick are slider-controlled at runtime.
 
@@ -98,7 +98,7 @@ interval; speed and steps-per-tick are slider-controlled at runtime.
 **Definition.** Explores nodes level-by-level via a FIFO queue. Guarantees the
 shortest path in an unweighted graph (fewest edges / hops).
 
-**Character.** Expands outward uniformly in all directions — on an open grid it
+**Character.** Expands outward uniformly in all directions - on an open grid it
 looks like a growing diamond. On wall-heavy mazes, the "diamond" conforms to
 the corridor structure.
 
@@ -114,7 +114,7 @@ equals the weighted cost only on uniform-cost grids.
 ### 2.2 Depth-First Search (DFS)
 
 **Definition.** Explores via a LIFO stack (last in, first out). No optimality
-guarantee — commits deeply to the first branch found, backtracks only when
+guarantee - commits deeply to the first branch found, backtracks only when
 stuck.
 
 **Character.** Produces winding, maze-hugging paths on maze grids. On open
@@ -123,7 +123,7 @@ grids, path quality is essentially random, dictated by the order DIRS are tried
 
 **Our implementation.** Iterative DFS (explicit stack, not recursive). `parent`
 is recorded only the *first* time a node is discovered, so the reconstructed
-path traces back along the first route taken — not the last. This matches the
+path traces back along the first route taken - not the last. This matches the
 standard DFS contract (first-found path) without the risk of stack overflow on
 large grids.
 [`dfs.ts`](../../src/experiments/pathfinding/algorithms/dfs.ts)
@@ -147,7 +147,7 @@ mountains, producing non-diamond expansion shapes.
 
 **Our implementation.** Min-heap priority queue (`heap.ts`), lazy-deletion for
 stale entries (`if (visited.has(cur)) continue`). Reads terrain cost from
-`cellWeight(cell, grid.terrainWeights)` — respects custom per-session weights.
+`cellWeight(cell, grid.terrainWeights)` - respects custom per-session weights.
 [`dijkstra.ts`](../../src/experiments/pathfinding/algorithms/dijkstra.ts)
 
 **Fidelity.** ✅ Exact.
@@ -164,7 +164,7 @@ the cost to the goal.
 admissible heuristic: it never overestimates (the true cost is always ≥ the
 Manhattan distance when all weights ≥ 1). It is also *consistent* (satisfies
 the triangle inequality), which means the first time A* expands a node, it has
-the optimal cost — no re-expansion is needed.
+the optimal cost - no re-expansion is needed.
 
 ```
 h(r, c) = |r − end.r| + |c − end.c|
@@ -185,7 +185,7 @@ function changed from `g` to `g + h`.
 
 ### 2.5 Greedy Best-First Search
 
-**Definition.** Priority queue ordered by h(n) alone — the heuristic estimate
+**Definition.** Priority queue ordered by h(n) alone - the heuristic estimate
 to the goal, ignoring actual path cost entirely. Not optimal; can be tricked by
 walls into long detours.
 
@@ -196,7 +196,7 @@ before finding the (non-optimal) route.
 
 **Our implementation.** Uses the same Manhattan heuristic as A\*. Tracks actual
 path cost in `gCost` for the `pathCost` stat, but that value does not influence
-the search — it is for display only.
+the search - it is for display only.
 [`greedy.ts`](../../src/experiments/pathfinding/algorithms/greedy.ts)
 
 **Fidelity.** ✅ Exact greedy semantics. `pathCost` is informational; the path
@@ -206,8 +206,8 @@ is not cost-optimal.
 
 ### 2.6 Bidirectional BFS
 
-**Definition.** Runs two simultaneous BFS sweeps — one forward from start, one
-backward from end — alternating one expansion each. Terminates when the two
+**Definition.** Runs two simultaneous BFS sweeps - one forward from start, one
+backward from end - alternating one expansion each. Terminates when the two
 frontiers meet. Explores roughly O(b^(d/2)) nodes versus O(b^d) for
 unidirectional BFS on a branching-factor-b tree.
 
@@ -220,7 +220,7 @@ not yet dequeued (they are in `otherParent` but not `otherVisited`).
 `fParent`; the backward half traces `meetKey → end` via `bParent` (skipping
 `meetKey` to avoid duplication). The two halves are concatenated.
 
-**Character.** On large open grids the b^(d/2) advantage is clearly visible —
+**Character.** On large open grids the b^(d/2) advantage is clearly visible -
 the two growing diamonds are significantly smaller than a single BFS diamond.
 On tight maze corridors the advantage narrows because branching factor is low.
 
@@ -233,7 +233,7 @@ all other algorithms leave it `undefined`.
 **Fidelity.** ✅ Correct shortest-path guarantee. The implementation uses
 per-level alternation rather than a shared priority queue (acceptable for
 unweighted grids). A weighted bidirectional variant would require symmetric
-stopping criteria (Pohl's condition or the Kaindl-Kainz criterion) — not
+stopping criteria (Pohl's condition or the Kaindl-Kainz criterion) - not
 implemented.
 
 ---
@@ -241,7 +241,7 @@ implemented.
 ### 2.7 Jump Point Search (JPS)
 
 **Definition.** Accelerates A\* on uniform-cost grids by identifying "jump
-points" — the only nodes worth placing on the open list. Between jump points,
+points" - the only nodes worth placing on the open list. Between jump points,
 the search "jumps" over provably symmetric paths without examining each cell.
 First described by Harabor & Grastien (2011) for 8-directional grids.
 
@@ -252,7 +252,7 @@ First described by Harabor & Grastien (2011) for 8-directional grids.
 
 On a 4-directional grid moving horizontally (direction dc): a cell directly
 above or below x is forced if the cell *behind-above* (or *behind-below*) is
-a wall — meaning the parent's "free" path to that neighbor is blocked.
+a wall - meaning the parent's "free" path to that neighbor is blocked.
 
 **The 4-directional adaptation problem.** The original JPS is for 8-directional
 movement. In 4-directional movement there are no diagonal steps, so:
@@ -266,12 +266,12 @@ movement. In 4-directional movement there are no diagonal steps, so:
 
 **Our fix (added May 2026):**
 
-1. **Cross-scan in the vertical `jump` loop** — at each step, call
+1. **Cross-scan in the vertical `jump` loop** - at each step, call
    `jump(r, c+1, 0, 1)` and `jump(r, c-1, 0, -1)`. If either returns a jump
    point, the current position is itself a jump point. Horizontal scans do not
    call vertical scans in return (prevents infinite recursion).
 
-2. **Unconditional horizontal probing in `successors` for vertical arrivals** —
+2. **Unconditional horizontal probing in `successors` for vertical arrivals** -
    the original code only branched horizontally when a forced wall was detected.
    Replaced with always trying both `jump(r, c-1, 0, -1)` and
    `jump(r, c+1, 0, 1)`.
@@ -279,7 +279,7 @@ movement. In 4-directional movement there are no diagonal steps, so:
 **Weight limitation.** JPS uses the Manhattan distance between consecutive jump
 points as the edge cost. This is correct only when all traversal costs are
 uniform (= 1). On weighted terrain the jump "hops over" expensive cells without
-paying their cost — the path found is geometrically short but **not
+paying their cost - the path found is geometrically short but **not
 cost-optimal**. A warning icon in the AlgoPanel header (`⚠`) signals this when
 weighted terrain is present.
 
@@ -331,10 +331,10 @@ On a maze with the default weights (grass ×2, sand ×3, water ×5, mountain ×1
 - **BFS and Bidirectional BFS** ignore weights and find the hop-shortest path,
   which can be dramatically more expensive than Dijkstra's path on mountain-heavy
   terrain.
-- **Greedy** is fast but frequently finds a costly path — it sees the goal's
+- **Greedy** is fast but frequently finds a costly path - it sees the goal's
   direction, not the terrain between them.
 - **JPS** finds the geometrically-short path and reports a cost equal to the
-  hop count, not the weighted cost. The ranking section reports this cost — it
+  hop count, not the weighted cost. The ranking section reports this cost - it
   looks implausibly low compared to Dijkstra on weighted grids.
 
 ---
@@ -354,7 +354,7 @@ a vertical scan.
 After fixing the no-path bug, the next observation was that JPS displayed a
 handful of disconnected bright cells rather than a continuous path. `reconstructPath`
 traces the `parent` chain, which for JPS contains only the jump-point waypoints
-— not the cells between them. The fix (interpolation between consecutive
+- not the cells between them. The fix (interpolation between consecutive
 waypoints) is straightforward but non-obvious: it requires knowing that JPS
 guarantees axis-aligned straight-line movement between any two consecutive jump
 points, so the intermediate cells are exactly `r1 + k*dr, c1 + k*dc` for
@@ -375,7 +375,7 @@ cyan), and from the wall color in both themes.
 The weight-warning tooltip (a CSS `::after` pseudo-element triggered by `:hover`)
 was initially invisible: the panel had `overflow: hidden`, clipping anything
 that extended above its top edge. Changing the tooltip to drop *below* the icon
-fixed the clip issue — but then the tooltip was painted over by sibling panels
+fixed the clip issue - but then the tooltip was painted over by sibling panels
 in DOM order. Final fix: `isolation: isolate` on `.pf-panel` (creates a stacking
 context without clipping) plus `:has(.pf-panel-warn-icon:hover) { z-index: 10 }`
 to lift the active panel above its siblings.
@@ -383,7 +383,7 @@ to lift the active panel above its siblings.
 ### 4.5 Scroll layout: the flex-collapse trap
 
 The experiment originally used `height: 100vh; overflow: hidden` on the page
-shell with `flex: 1; min-height: 0` throughout — a common "fill the viewport"
+shell with `flex: 1; min-height: 0` throughout - a common "fill the viewport"
 pattern. When the options panel was expanded and the terrain editor was added,
 the grid-scroll container simply *collapsed* (its `min-height: 0` allowed
 flex to shrink it to nothing), making the footer inaccessible. The underlying
@@ -402,13 +402,13 @@ meeting node (`nk in otherParent` but not yet in `otherVisited`). The fix adds
 
 ### 4.7 Generator step count vs. "explored" node count
 
-`steps` counts how many times the outer `while` loop body executes — one per
+`steps` counts how many times the outer `while` loop body executes - one per
 node dequeued. `visited.size` counts unique nodes expanded. On Dijkstra with a
 lazy-deletion heap, a single node can be *enqueued* multiple times (each time a
 shorter path is found) but *dequeued and skipped* on subsequent pops. The `steps`
 counter therefore counts dequeues including stale skips; `visited.size` counts
 only genuine expansions. The ranking section surfaces `visited.size` under
-"explored" and `steps` under "steps" — they can differ noticeably on
+"explored" and `steps` under "steps" - they can differ noticeably on
 weighted mazes where many cells are re-queued.
 
 ---
@@ -424,7 +424,7 @@ DFS on a room graph):
 3. While the stack is non-empty: pick a random unvisited neighbor of the top
    room; carve the wall between them; push the neighbor.
 4. After the spanning tree, randomly open a fraction of "loop-eligible" walls
-   (walls with ≥ 2 open orthogonal neighbors) — the fraction is controlled by
+   (walls with ≥ 2 open orthogonal neighbors) - the fraction is controlled by
    the `routeDensity` option (`sparse` = 4%, `moderate` = 20%, `dense` = 45%).
 5. If `minPathLength > 0`, iteratively wall off random middle path cells until
    the BFS-shortest path is at least `minPathLength` cells long (capped at 80
@@ -432,7 +432,7 @@ DFS on a room graph):
 6. If `weighted = true`, assign terrain to plain cells using a distribution
    weighted toward plains (`plain × 4`, each enabled terrain `× 2`).
 
-The `start` is always `(0,0)` and `end` is always `((roomRows-1)*2, (roomCols-1)*2)` —
+The `start` is always `(0,0)` and `end` is always `((roomRows-1)*2, (roomCols-1)*2)` -
 the opposite corner of the room grid.
 
 ---
@@ -459,7 +459,7 @@ the opposite corner of the room grid.
 - **No real-time replanning.** Algorithms run once to completion on a static
   grid. Dynamic replanning (D*, D* Lite, LPA*) and moving-obstacle avoidance
   are not modelled.
-- **No tie-breaking.** A* with identical f-values expands in insertion order —
+- **No tie-breaking.** A* with identical f-values expands in insertion order -
   this can produce suboptimal *looking* searches even when the final path is
   optimal. Production A* implementations use secondary tie-breaking on h(n).
 - **No diagonal movement.** All seven algorithms use 4-directional movement.
@@ -481,7 +481,7 @@ the opposite corner of the room grid.
 
 **BFS / Dijkstra** underpin most production routing engines at the lowest level.
 GPS navigation, game pathfinding, and network routing all have Dijkstra variants
-at their core — often augmented with pre-processing (ALT, contraction
+at their core - often augmented with pre-processing (ALT, contraction
 hierarchies) to scale to road-network sizes.
 
 **A\*** is the dominant algorithm in game AI. Nearly every commercial game

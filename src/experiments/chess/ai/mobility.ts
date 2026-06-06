@@ -1,6 +1,6 @@
 import type { Board, Color } from '../types';
 
-// Local direction tables — duplicated from engine.ts to keep this hot-path
+// Local direction tables - duplicated from engine.ts to keep this hot-path
 // counter independent of the legal-move generator (no allocations).
 const ORTHO: ReadonlyArray<readonly [number, number]> = [[-1, 0], [1, 0], [0, -1], [0, 1]];
 const DIAG: ReadonlyArray<readonly [number, number]> = [[-1, -1], [-1, 1], [1, -1], [1, 1]];
@@ -31,7 +31,7 @@ function slideCount(
   return n;
 }
 
-// Pseudo-legal mobility — counts target squares without filtering
+// Pseudo-legal mobility - counts target squares without filtering
 // for pin/check legality. Skips castling and en-passant (rare, negligible).
 export function countMobility(board: Board, color: Color): number {
   let n = 0;

@@ -38,7 +38,7 @@ export function useChessGame(mode: GameMode | null) {
 
   // Legal moves, repetition history, and game status are pure derivations of
   // (pos, history). Replaying history from the start (rather than counting
-  // incrementally) is idempotent, so deriving during render is always correct —
+  // incrementally) is idempotent, so deriving during render is always correct -
   // and immune to React StrictMode double-invocation.
   const legalMoves = useMemo(() => getLegalMoves(pos), [pos]);
 
@@ -234,7 +234,7 @@ export function useChessGame(mode: GameMode | null) {
       : [],
   );
 
-  // Derive directly from pos (not status) — status is updated in a useEffect
+  // Derive directly from pos (not status) - status is updated in a useEffect
   // and lags one render behind pos, which would otherwise flash the red square
   // on the wrong king for one frame after a king moves out of check.
   const checkKingSq = isInCheck(pos, pos.turn) ? findKing(pos.board, pos.turn) : null;

@@ -2,7 +2,7 @@ export const PIECE_VALUE: Record<string, number> = {
   P: 100, N: 320, B: 330, R: 500, Q: 900, K: 20000,
 };
 
-// A draw is slightly bad for both sides — the winning side should try to win,
+// A draw is slightly bad for both sides - the winning side should try to win,
 // the losing side still prefers a draw over a bigger loss (contempt < any real loss).
 export const CONTEMPT = -50;
 
@@ -29,7 +29,7 @@ export const MAX_EXTENSIONS = 16;
 // Low weight keeps mobility from dominating material in noisy positions.
 export const MOBILITY_WEIGHT = 4;
 
-// Late Move Reductions — only kick in past the first few well-ordered moves
+// Late Move Reductions - only kick in past the first few well-ordered moves
 // at non-shallow depths. Reduction is logarithmic per CPW / Obsidian.
 export const LMR_MIN_DEPTH = 3;
 export const LMR_MIN_MOVE_INDEX = 4;

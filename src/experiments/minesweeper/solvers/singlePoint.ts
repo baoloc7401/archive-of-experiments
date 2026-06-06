@@ -18,7 +18,7 @@ function solve(board: Board, origin: number): SolverReport {
 export const singlePointSolver: Solver = {
   id: "single-point",
   name: "Single-Point",
-  tagline: "count rules only — the naive baseline",
+  tagline: "count rules only - the naive baseline",
   description:
     "Applies just the trivial deductions: if a number already touches all its mines, the rest of its neighbours are safe; if its hidden neighbours exactly fill its count, they're all mines. Fast and obvious, but blind to any reasoning that spans two clues.",
   capabilities: {

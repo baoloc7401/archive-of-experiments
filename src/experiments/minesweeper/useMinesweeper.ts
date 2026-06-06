@@ -111,7 +111,7 @@ export function useMinesweeper() {
     });
   }, []);
 
-  // Counts derived from the current view — cheap at these board sizes.
+  // Counts derived from the current view - cheap at these board sizes.
   const flagsUsed = useMemo(() => view.filter((v) => v === "flagged").length, [view]);
   const revealedSafe = useMemo(
     () => (field ? countRevealedSafe(view, field) : 0),
@@ -164,10 +164,10 @@ export function useMinesweeper() {
         const r = meta?.report;
         if (r?.status === "solved") {
           setStatus("won");
-          pushLog("win", `${solverId} cleared the field — no guess`);
+          pushLog("win", `${solverId} cleared the field - no guess`);
         } else if (r) {
           setSolverGuess(r.bestGuess ?? null);
-          pushLog("play", `${solverId} stuck — ${r.undecided.length} undecided`);
+          pushLog("play", `${solverId} stuck - ${r.undecided.length} undecided`);
         }
       }
     }, SOLVE_TICK_MS);
@@ -247,7 +247,7 @@ export function useMinesweeper() {
   }, [cfg, forgeAt]);
 
   const newField = useCallback(() => {
-    reset(cfg, "new field — click to forge");
+    reset(cfg, "new field - click to forge");
   }, [cfg, reset]);
 
   // ── Auto-solver controls ───────────────────────────────────────────────────
@@ -280,11 +280,11 @@ export function useMinesweeper() {
         setSolverPlaying(false);
         if (report.status === "solved") {
           setStatus("won");
-          pushLog("win", `${id} cleared the field — no guess`);
+          pushLog("win", `${id} cleared the field - no guess`);
         } else {
           setStatus("playing");
           setSolverGuess(report.bestGuess ?? null);
-          pushLog("play", `${id} stuck — ${report.undecided.length} undecided`);
+          pushLog("play", `${id} stuck - ${report.undecided.length} undecided`);
         }
       } else {
         setView(freshView(f.width, f.height));
@@ -301,7 +301,7 @@ export function useMinesweeper() {
     setSolverMoves([]);
   }, []);
 
-  /** Pick an engine without running it — clears any prior run's readout/overlay
+  /** Pick an engine without running it - clears any prior run's readout/overlay
    *  so the panel shows a clean "ready to solve" state. */
   const selectSolver = useCallback(
     (id: SolverId) => {
@@ -395,7 +395,7 @@ export function useMinesweeper() {
 
   const buildReport = useCallback((): string => {
     const lines: string[] = [];
-    lines.push("minesweeper — minefield generator — debug report");
+    lines.push("minesweeper - minefield generator - debug report");
     lines.push("─".repeat(52));
     lines.push(`[config] ${cfg.width}×${cfg.height} mines=${cfg.mines} safeR=${cfg.safeRadius} seed=${cfg.seed} difficulty=${difficulty}`);
     lines.push(`[game] status=${status} revealedSafe=${revealedSafe} flags=${flagsUsed} minesLeft=${minesLeft} peek=${peek}`);
@@ -408,7 +408,7 @@ export function useMinesweeper() {
         lines.push(`[guess points] ${stats.undecided.map((u) => `${u % cfg.width},${(u / cfg.width) | 0}`).join(" ")}`);
       }
     } else {
-      lines.push("[generation] (field not forged yet — click a cell)");
+      lines.push("[generation] (field not forged yet - click a cell)");
     }
     if (field) {
       lines.push(`[mines] ${field.mineIndices.map((m) => `${m % field.width},${(m / field.width) | 0}`).join(" ")}`);
@@ -418,7 +418,7 @@ export function useMinesweeper() {
       lines.push("[solver]");
       lines.push(`engine=${solverId} status=${r.status} revealed=${r.revealedCount} flagged=${r.identifiedCount} undecided=${r.undecided.length} steps=${r.steps} ms=${r.ms.toFixed(1)}`);
       lines.push(`techniques: ${Object.entries(r.techniques).map(([k, v]) => `${k}=${v}`).join(" ")}`);
-      if (r.bestGuess != null) lines.push(`bestGuess=${r.bestGuess % cfg.width},${(r.bestGuess / cfg.width) | 0} p=${r.probabilities?.get(r.bestGuess)?.toFixed(3) ?? "—"}`);
+      if (r.bestGuess != null) lines.push(`bestGuess=${r.bestGuess % cfg.width},${(r.bestGuess / cfg.width) | 0} p=${r.probabilities?.get(r.bestGuess)?.toFixed(3) ?? "-"}`);
     }
     lines.push("─".repeat(52));
     lines.push(`[events] (${log.length} total, last 40)`);

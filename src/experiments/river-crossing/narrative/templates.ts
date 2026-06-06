@@ -43,7 +43,7 @@ const CROSS_VERBS = [
   "rowed hard",
   "pushed off and crossed",
 ];
-// neutral motion verbs — the NEAR_DIRS carry the "back", so they never collide
+// neutral motion verbs - the NEAR_DIRS carry the "back", so they never collide
 const RETURN_VERBS = ["rowed", "hauled the boat", "drove the boat", "knifed", "dragged the boat"];
 const FAR_DIRS = [
   "to the far shore",
@@ -80,7 +80,7 @@ const TENSE_CLAUSES = [
 const UNEASY_CLAUSES = ["counting bodies under their breath", "with one eye on the tree line"];
 const CALM_CLAUSES = [
   "the river briefly merciful",
-  "no teeth bared — for now",
+  "no teeth bared - for now",
   "the only sound the drip of the oars",
 ];
 
@@ -96,7 +96,7 @@ function subject(crossersM: Actor[], crossersC: Actor[], rng: Rng): string {
   const c = listNames(crossersC);
   if (crossersM.length && crossersC.length) return `${m} and ${c}`;
   if (crossersM.length) return m;
-  // cannibals only — sometimes name the faction for menace
+  // cannibals only - sometimes name the faction for menace
   const tag = crossersC.length > 1 ? "the cannibals " : "the cannibal ";
   return pick(rng, [c, `${tag}${c}`]);
 }
@@ -146,7 +146,7 @@ export function introText(rng: Rng, cfg: Config, missionaries: Actor[], cannibal
 
   const cannibalAdj = pick(rng, ["hungry", "restless", "sharp-toothed", "lean and watchful"]);
 
-  // the boat clause flexes with capacity — a cramped two-seater reads very
+  // the boat clause flexes with capacity - a cramped two-seater reads very
   // differently from a roomy four
   const boatClause =
     cfg.k <= 2
@@ -158,23 +158,23 @@ export function introText(rng: Rng, cfg: Config, missionaries: Actor[], cannibal
         ? pick(rng, ["The boat holds three, no more,", "Three to a hull, and not one body over,"])
         : pick(rng, [
             "A broad boat swallows four at a stroke,",
-            "The boat is almost generous — four seats —",
+            "The boat is almost generous - four seats -",
           ]);
 
   // the standing balance of forces sets the dread level before a single oar dips
   const balanceClause =
     cfg.c > cfg.m
       ? pick(rng, [
-          `And the cannibals already hold the numbers, ${cfg.c} to ${cfg.m} — this was a doomed idea from the first head-count.`,
+          `And the cannibals already hold the numbers, ${cfg.c} to ${cfg.m} - this was a doomed idea from the first head-count.`,
           `Worse still: the cannibals outnumber the faithful ${cfg.c} to ${cfg.m} before a single oar dips.`,
         ])
       : cfg.c === cfg.m
         ? pick(rng, [
-            "Evenly matched — which, on this river, is the most dangerous number of all.",
+            "Evenly matched - which, on this river, is the most dangerous number of all.",
             "Even numbers, even odds, and no margin for a single careless crossing.",
           ])
         : pick(rng, [
-            `The faithful hold the edge, ${cfg.m} to ${cfg.c} — but the boat will squander it fast.`,
+            `The faithful hold the edge, ${cfg.m} to ${cfg.c} - but the boat will squander it fast.`,
             "For now the missionaries have the count; the river will test how long that lasts.",
           ]);
 
@@ -185,8 +185,8 @@ export function introText(rng: Rng, cfg: Config, missionaries: Actor[], cannibal
   ]);
 
   return (
-    `${opener} ${cfg.m} ${plural(cfg.m, "missionary", "missionaries")} — ${listNames(missionaries)} — ` +
-    `share the bank with ${cfg.c} ${cannibalAdj} ${plural(cfg.c, "cannibal", "cannibals")} — ${listNames(cannibals)}. ` +
+    `${opener} ${cfg.m} ${plural(cfg.m, "missionary", "missionaries")} - ${listNames(missionaries)} - ` +
+    `share the bank with ${cfg.c} ${cannibalAdj} ${plural(cfg.c, "cannibal", "cannibals")} - ${listNames(cannibals)}. ` +
     `${boatClause} and the law of every shore is brutal and simple: let the cannibals outnumber the missionaries ` +
     `anywhere a missionary stands, and someone becomes supper. ${balanceClause} ${hook}`
   );
@@ -199,7 +199,7 @@ export function winText(rng: Rng, stats: StoryStats): string {
   const result =
     crossings <= 7
       ? pick(rng, [
-          `It was over almost before it began — ${crossings} crossings, clean and merciless.`,
+          `It was over almost before it began - ${crossings} crossings, clean and merciless.`,
           `${crossings} crossings, not an oar-stroke wasted, and the far shore was theirs.`,
         ])
       : crossings <= 13
@@ -209,7 +209,7 @@ export function winText(rng: Rng, stats: StoryStats): string {
           ])
         : pick(rng, [
             `${crossings} interminable crossings later, the survivors dragged themselves onto the far mud.`,
-            `After ${crossings} grinding crossings — back and forth, back and forth — the last of them was finally across.`,
+            `After ${crossings} grinding crossings - back and forth, back and forth - the last of them was finally across.`,
           ]);
 
   // 2) the relationship the ferrying forged (or didn't)
@@ -220,16 +220,16 @@ export function winText(rng: Rng, stats: StoryStats): string {
           "Predator and prey had ridden that boat so often the hatred had worn smooth.",
         ])
       : pick(rng, [
-          "No friendships were made — only the cold arithmetic of who sat where, and it had held.",
+          "No friendships were made - only the cold arithmetic of who sat where, and it had held.",
           "The cannibals beached the boat, ran their tongues over their teeth, and reluctantly let the matter drop.",
         ]);
 
   // 3) the near-miss flourish, dynamic on the actual count of close calls
   const peril =
     nearMisses === 1
-      ? "Once the count hung a single body from slaughter — and held."
+      ? "Once the count hung a single body from slaughter - and held."
       : nearMisses >= 2
-        ? `${cap(numberWord(nearMisses))} times the count hung a single body from slaughter — and held each time.`
+        ? `${cap(numberWord(nearMisses))} times the count hung a single body from slaughter - and held each time.`
         : maxTension < 30
           ? "Not one crossing came close to disaster; a rare, bloodless run."
           : "The numbers wavered but never broke.";
@@ -254,7 +254,7 @@ export function lossText(
   const ratio = `${predators.length} to ${victims.length}`;
   const n = stats.crossings;
 
-  // 1) *when* it fell apart — first move vs. early vs. agonizingly late
+  // 1) *when* it fell apart - first move vs. early vs. agonizingly late
   const when =
     n <= 1
       ? pick(rng, [
@@ -263,11 +263,11 @@ export function lossText(
         ])
       : n <= 3
         ? pick(rng, [
-            `Barely begun — ${n} crossings — and the plan was already red ruin.`,
+            `Barely begun - ${n} crossings - and the plan was already red ruin.`,
             `${cap(numberWord(n))} crossings, and the whole scheme came apart at the seams.`,
           ])
         : pick(rng, [
-            `${cap(numberWord(n))} crossings in — so close you could smell the far bank — and then the count betrayed them.`,
+            `${cap(numberWord(n))} crossings in - so close you could smell the far bank - and then the count betrayed them.`,
             `After ${n} careful crossings, a single slip undid every last one.`,
           ]);
 
@@ -275,7 +275,7 @@ export function lossText(
   const kill = pick(rng, [
     `On the ${where} the arithmetic tipped, ${ratio}: ${listNames(predators)} were on ${listNames(victims)} before the boat had even cleared the shallows.`,
     `${ratio} on the ${where}. ${listNames(predators)} closed in, and ${listNames(victims)} had nowhere left to run.`,
-    `${listNames(predators)} fell on ${listNames(victims)} in a thrash of reeds, firelight, and teeth — ${ratio} on the ${where}, exactly what the rule forbade.`,
+    `${listNames(predators)} fell on ${listNames(victims)} in a thrash of reeds, firelight, and teeth - ${ratio} on the ${where}, exactly what the rule forbade.`,
   ]);
 
   // 3) an optional "the math finally caught up" note if there'd been close calls

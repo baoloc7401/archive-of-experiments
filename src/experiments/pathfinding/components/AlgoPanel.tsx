@@ -23,7 +23,7 @@ const OVERLAY_CLS: Record<Overlay, string> = {
   path:      'pf-vc-path',
 };
 
-// Memoised individual cell — only re-renders when overlay or terrain changes
+// Memoised individual cell - only re-renders when overlay or terrain changes
 const VCell = memo(function VCell({
   terrain,
   overlay,

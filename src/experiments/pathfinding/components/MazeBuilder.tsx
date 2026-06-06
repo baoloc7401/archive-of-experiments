@@ -266,7 +266,7 @@ export default function MazeBuilder({ grid, selected, options, onGridChange, onO
             onClick={() => setMode('plain')}
           ><ScrambleText text={t('experiments.pathfinding.build.erase')} duration={600} /></button>
 
-          {/* Terrain buttons — only enabled terrains when weighted */}
+          {/* Terrain buttons - only enabled terrains when weighted */}
           {options.weighted && (
             <>
               <div className="pf-mode-divider" />
@@ -336,7 +336,7 @@ export default function MazeBuilder({ grid, selected, options, onGridChange, onO
             </button>
           </div>
 
-          {/* Terrain editor — only when weighted */}
+          {/* Terrain editor - only when weighted */}
           {options.weighted && (
             <div className="pf-opt-row pf-opt-row--col pf-terrain-editor-wrap">
               <span className="pf-opt-label"><ScrambleText text={t('experiments.pathfinding.build.terrain_weights')} duration={600} /></span>

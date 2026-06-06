@@ -6,7 +6,7 @@
 A full chess engine with an **alpha-beta + quiescence** search, a hand-crafted
 evaluation, a transposition table, an opening book, and a Web Worker so the UI
 stays responsive while it thinks. Play Human vs Human, Human vs AI, or watch
-AI vs AI — with five selectable skill tiers from Beginner to Master.
+AI vs AI - with five selectable skill tiers from Beginner to Master.
 
 ## What it is
 
@@ -33,17 +33,17 @@ AI vs AI — with five selectable skill tiers from Beginner to Master.
 ## Deep dives
 
 - 📚 **[docs/chess/TEXTBOOK.md](https://github.com/baoloc7401/archive-of-experiments/blob/main/docs/chess/TEXTBOOK.md)**
-  — the research record: the full search stack and evaluation explained, why
+  - the research record: the full search stack and evaluation explained, why
   won endgames used to draw and how the three-layer fix (mate-distance
   encoding, king-restriction term, static-eval tiebreak) works, the
   cross-thread Zobrist hazard and its deterministic-seed fix, and the
   difficulty-scaling design.
 - 🛠 **[docs/chess/IMPROVEMENTS.md](https://github.com/baoloc7401/archive-of-experiments/blob/main/docs/chess/IMPROVEMENTS.md)**
-  — the engine-strength roadmap: what the engine does today and what's
+  - the engine-strength roadmap: what the engine does today and what's
   planned next (with notes on what was tried and reverted, e.g. aspiration
   windows), referenced against the Chess Programming Wiki.
 - 🔧 **[docs/chess/ISSUES.md](https://github.com/baoloc7401/archive-of-experiments/blob/main/docs/chess/ISSUES.md)**
-  — known issues and fixes (e.g. failing to convert overwhelmingly won
+  - known issues and fixes (e.g. failing to convert overwhelmingly won
   endgames into mate, and the layered root causes).
 
 ## Code

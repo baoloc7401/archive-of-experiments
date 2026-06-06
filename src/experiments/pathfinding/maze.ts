@@ -13,7 +13,7 @@ function shuffle<T>(arr: T[]): T[] {
 }
 
 // BFS returning ordered cell list of shortest path, or null if unreachable.
-// Ignores cell weights — used for structural path-length enforcement.
+// Ignores cell weights - used for structural path-length enforcement.
 function bfsPath(grid: GridConfig): [number, number][] | null {
   const { rows, cols, cells, start, end } = grid;
   const k = (r: number, c: number) => `${r},${c}`;
@@ -74,7 +74,7 @@ function enforceMinPath(grid: GridConfig, minLength: number): GridConfig {
         break;
       }
     }
-    if (!placed) break; // every middle cell disconnects — give up
+    if (!placed) break; // every middle cell disconnects - give up
   }
 
   return current;
@@ -165,7 +165,7 @@ export function generateMaze(rows: number, cols: number, options: MazeOptions): 
     }
   }
 
-  // Collect walls that have ≥2 empty orthogonal neighbours — removing these creates loops
+  // Collect walls that have ≥2 empty orthogonal neighbours - removing these creates loops
   const candidates: [number, number][] = [];
   for (let r = 1; r < rows - 1; r++) {
     for (let c = 1; c < cols - 1; c++) {

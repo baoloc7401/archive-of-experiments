@@ -9,18 +9,33 @@
       <stop offset="0.55" stop-color="#00f5c4" stop-opacity="0.08"/>
       <stop offset="1" stop-color="#07080d" stop-opacity="0"/>
     </radialGradient>
+    <!-- badge gradients (namespaced to avoid clashing with #glow above) -->
+    <radialGradient id="badgeGlow" cx="0.5" cy="0.42" r="0.55">
+      <stop offset="0" stop-color="#7c6cfa" stop-opacity="0.45"/>
+      <stop offset="0.5" stop-color="#00f5c4" stop-opacity="0.12"/>
+      <stop offset="1" stop-color="#07080d" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="boltGrad" x1="90" y1="38" x2="166" y2="218" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#00f5c4"/>
+      <stop offset="1" stop-color="#7c6cfa"/>
+    </linearGradient>
   </defs>
 
   <rect width="1200" height="630" fill="url(#bg)"/>
   <rect width="1200" height="630" fill="url(#glow)"/>
   <rect x="6" y="6" width="1188" height="618" rx="22" fill="none" stroke="#1d2030" stroke-width="2"/>
 
-  <!-- brand glyph (the lightning mark), scaled from the 48x46 favicon -->
-  <g transform="translate(96,86) scale(1.7)">
-    <path fill="#863bff" d="M25.946 44.938c-.664.845-2.021.375-2.021-.698V33.937a2.26 2.26 0 0 0-2.262-2.262H10.287c-.92 0-1.456-1.04-.92-1.788l7.48-10.471c1.07-1.497 0-3.578-1.842-3.578H1.237c-.92 0-1.456-1.04-.92-1.788L10.013.474c.214-.297.556-.474.92-.474h28.894c.92 0 1.456 1.04.92 1.788l-7.48 10.471c-1.07 1.498 0 3.579 1.842 3.579h11.377c.943 0 1.473 1.088.89 1.83L25.947 44.94z"/>
+  <!-- brand badge: the new spark mark (256-tile icon scaled down to a ~96px badge) -->
+  <g transform="translate(84 74) scale(0.375)">
+    <rect width="256" height="256" rx="56" fill="#0a0b12"/>
+    <rect width="256" height="256" rx="56" fill="url(#badgeGlow)"/>
+    <rect x="1.5" y="1.5" width="253" height="253" rx="54.5" fill="none" stroke="#1d2030" stroke-width="3"/>
+    <g transform="translate(38 38) scale(7.5)">
+      <path fill="url(#boltGrad)" d="M7 2 L7 13 L10 13 L10 22 L17 10 L13 10 L17 2 Z"/>
+    </g>
   </g>
 
-  <text x="190" y="132" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace" font-size="34" font-weight="700" fill="#5a6072" letter-spacing="1">baoloc7401 /</text>
+  <text x="200" y="132" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace" font-size="34" font-weight="700" fill="#5a6072" letter-spacing="1">baoloc7401 /</text>
 
   <text x="92" y="318" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace" font-size="104" font-weight="700" fill="#eef1f8" letter-spacing="-2">Archive of</text>
   <text x="92" y="430" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace" font-size="104" font-weight="700" fill="#eef1f8" letter-spacing="-2">Experiments</text>

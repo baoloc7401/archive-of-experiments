@@ -8,7 +8,7 @@
 - [[Documentation Conventions]]
 
 **Experiments**
-- [[Experiments]] — index
+- [[Experiments]] - index
 - [[Experiment Chess]]
 - [[Experiment Pathfinding]]
 - [[Experiment Elevator]]

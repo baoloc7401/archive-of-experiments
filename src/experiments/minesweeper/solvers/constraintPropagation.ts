@@ -42,7 +42,7 @@ function solve(board: Board, origin: number): SolverReport {
 export const constraintPropagationSolver: Solver = {
   id: "constraint-propagation",
   name: "Constraint Propagation",
-  tagline: "count + subset elimination — finds forced moves, flags stuck",
+  tagline: "count + subset elimination - finds forced moves, flags stuck",
   description:
     "Iterates the count rules with subset elimination between overlapping clues, propagating until nothing new follows. Resolves the everyday patterns a strong human plays on sight, and when it halts with cells left, that's a reliable signal the position needs deeper search (or a guess).",
   capabilities: {

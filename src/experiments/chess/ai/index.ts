@@ -11,7 +11,7 @@ import { histTable } from './tables';
 export { evaluate } from './evaluate';
 export { clearTT } from './tables';
 
-// Extra killer slots beyond maxDepth — must cover the deepest ply reachable
+// Extra killer slots beyond maxDepth - must cover the deepest ply reachable
 // via check extensions plus a small safety margin.
 const KILLER_BUFFER = MAX_EXTENSIONS + 8;
 
@@ -41,7 +41,7 @@ export function getBestMove(
   const moves = getLegalMoves(pos);
   if (moves.length === 0) return null;
 
-  // Opening book takes precedence over search — instant move, varied openings.
+  // Opening book takes precedence over search - instant move, varied openings.
   // Disabled for move grading and lower-skill levels (config.useBook = false).
   if (config.useBook) {
     const bookMove = lookupBookMove(pos, moves);
@@ -63,7 +63,7 @@ export function getBestMove(
     else histTable.set(k, next);
   });
 
-  // Working copy of game repetition history — never mutate the caller's map.
+  // Working copy of game repetition history - never mutate the caller's map.
   const repMap = new Map(gameHistory ?? []);
 
   // Killer slots: fresh per search call, shared across all plies and iterations.
@@ -101,8 +101,8 @@ export function getBestMove(
 
     // Among moves with identical deep-search scores, prefer the one whose
     // resulting position has the best static eval (queens closer to enemy king,
-    // king more restricted, etc.). On eval plateaus — common in won endgames
-    // where many quiet moves search to the same score — this stops the random
+    // king more restricted, etc.). On eval plateaus - common in won endgames
+    // where many quiet moves search to the same score - this stops the random
     // tiebreak from picking moves that undo mop-up progress (queen out then
     // back). Falls through to random pick when statics tie too, so loop-breaking
     // is preserved.

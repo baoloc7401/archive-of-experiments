@@ -135,15 +135,15 @@ const vi = {
       },
       terrain: {
         plain_label: "đồng bằng",
-        plain_desc: "Mặt đất thường — chi phí gốc ×1",
+        plain_desc: "Mặt đất thường - chi phí gốc ×1",
         grass_label: "cỏ",
-        grass_desc: "Cây cỏ thưa — chi phí ×2",
+        grass_desc: "Cây cỏ thưa - chi phí ×2",
         sand_label: "cát",
-        sand_desc: "Địa hình cát — chi phí ×3",
+        sand_desc: "Địa hình cát - chi phí ×3",
         water_label: "nước",
-        water_desc: "Nước nông — chi phí ×5",
+        water_desc: "Nước nông - chi phí ×5",
         mountain_label: "núi",
-        mountain_desc: "Dốc đứng — chi phí ×10",
+        mountain_desc: "Dốc đứng - chi phí ×10",
       },
       density: {
         sparse_label: "thưa",
@@ -178,7 +178,7 @@ const vi = {
         min_path_desc:
           "buộc lời giải ngắn nhất phải đi qua ít nhất bấy nhiêu ô",
         min_path_desc_slow:
-          "buộc lời giải ngắn nhất phải đi qua ít nhất bấy nhiêu ô — giá trị cao có thể làm chậm việc tạo mê cung",
+          "buộc lời giải ngắn nhất phải đi qua ít nhất bấy nhiêu ô - giá trị cao có thể làm chậm việc tạo mê cung",
         back: "← lùi",
         run_algorithms: "chạy thuật toán →",
         legend_start: "đầu",
@@ -202,7 +202,7 @@ const vi = {
         path_len: "độ dài đường",
         cost: "chi phí",
         visited: "đã thăm",
-        jps_warn: "JPS bỏ qua trọng số địa hình — đường có thể không tối ưu chi phí",
+        jps_warn: "JPS bỏ qua trọng số địa hình - đường có thể không tối ưu chi phí",
         rankings: "xếp hạng",
         fewer_better: "ít hơn = tốt hơn",
         explored: "đã khám phá",
@@ -220,20 +220,20 @@ const vi = {
     elevator: {
       title: "Lập Lịch Thang Máy",
       description:
-        "FCFS, SSTF, SCAN, LOOK, C-SCAN, C-LOOK — xem các thuật toán lập lịch đĩa cưỡi thang máy.",
+        "FCFS, SSTF, SCAN, LOOK, C-SCAN, C-LOOK - xem các thuật toán lập lịch đĩa cưỡi thang máy.",
       algo_label: "thuật toán lập lịch thang máy",
       outside: "bên ngoài",
       inside: "bên trong",
-      hall_calls_one: "gọi tầng — bấm ▲ / ▼ để gọi cabin",
-      hall_calls_other: "gọi tầng — bấm ▲ / ▼ để gọi các cabin",
+      hall_calls_one: "gọi tầng - bấm ▲ / ▼ để gọi cabin",
+      hall_calls_other: "gọi tầng - bấm ▲ / ▼ để gọi các cabin",
       cop_label: "bảng cabin",
-      cop_desc: "bảng cabin — chọn đích đến",
-      cop_hint_single: "bấm một tầng — như đang đứng trong cabin",
+      cop_desc: "bảng cabin - chọn đích đến",
+      cop_hint_single: "bấm một tầng - như đang đứng trong cabin",
       cop_hint_multi: "đích áp dụng cho mọi cabin",
       go_to_floor: "đến tầng {{n}}",
       comparison_mode: "chế độ so sánh",
       comparison_intro:
-        "{{algos}} — cùng yêu cầu, các cabin riêng. xem bảng để biết thuật toán nào thắng.",
+        "{{algos}} - cùng yêu cầu, các cabin riêng. xem bảng để biết thuật toán nào thắng.",
       compare_count: "so sánh ×{{n}}",
       hint: "người ngoài bấm nút tầng; người trong dùng bảng cabin. bật so sánh (hoặc giữ ⌃/⌘) để chạy đua các thuật toán trên cùng yêu cầu.",
       compare: "so sánh",
@@ -276,13 +276,13 @@ const vi = {
       history: "lịch sử",
       copy: "sao chép",
       copied: "✓ đã chép",
-      no_events: "chưa có sự kiện — hãy tạo yêu cầu",
+      no_events: "chưa có sự kiện - hãy tạo yêu cầu",
       algos: {
         fcfs: {
           short: "đến trước phục vụ trước",
           tagline: "công bằng nhưng lười",
           description:
-            "Phục vụ yêu cầu theo đúng thứ tự được tạo. Đơn giản, dễ đoán, nhưng bỏ qua hình học — thang có thể chạy zigzag.",
+            "Phục vụ yêu cầu theo đúng thứ tự được tạo. Đơn giản, dễ đoán, nhưng bỏ qua hình học - thang có thể chạy zigzag.",
         },
         sstf: {
           short: "thời gian seek ngắn nhất",
@@ -294,7 +294,7 @@ const vi = {
           short: "quét kinh điển",
           tagline: "đến tận tường",
           description:
-            "Đi tới đầu này, rồi đảo chiều — như cần gạt mưa. Luôn chạm biên dù không ai ở đó.",
+            "Đi tới đầu này, rồi đảo chiều - như cần gạt mưa. Luôn chạm biên dù không ai ở đó.",
         },
         look: {
           short: "quét nhưng thông minh hơn",
@@ -334,11 +334,11 @@ const vi = {
       speed: "tốc độ",
       trails: "vệt",
       trails_hint:
-        "Hiện bao nhiêu mạng pheromone mờ — thấp chỉ giữ những vệt mạnh nhất",
+        "Hiện bao nhiêu mạng pheromone mờ - thấp chỉ giữ những vệt mạnh nhất",
       params: "tham số",
       elitist: "củng cố tinh hoa",
       elitist_hint:
-        "Cho hành trình tốt nhất hiện tại thêm một liều pheromone mỗi vòng — hội tụ nhanh hơn",
+        "Cho hành trình tốt nhất hiện tại thêm một liều pheromone mỗi vòng - hội tụ nhanh hơn",
       cities: "thành phố",
       count: "số lượng",
       count_hint: "số thành phố cần rải",
@@ -357,7 +357,7 @@ const vi = {
       conv_empty: "đường hội tụ",
       empty_place: "bấm vào bảng để đặt thành phố, hoặc nhấn rải",
       empty_add: "thêm ít nhất một thành phố nữa",
-      canvas_aria: "minh họa hành trình đàn kiến — bấm để thêm thành phố",
+      canvas_aria: "minh họa hành trình đàn kiến - bấm để thêm thành phố",
       legend: {
         pheromone: "vệt pheromone",
         best: "hành trình tốt nhất",
@@ -371,24 +371,24 @@ const vi = {
       copied: "✓ đã chép",
       copy_hint:
         "Sao chép báo cáo gỡ lỗi đầy đủ (trạng thái + dump đàn kiến + sự kiện) để chia sẻ",
-      debug_empty: "chưa có sự kiện — chạy, đặt lại, hoặc chỉnh gì đó",
+      debug_empty: "chưa có sự kiện - chạy, đặt lại, hoặc chỉnh gì đó",
       param: {
         ants: "kiến",
         ants_hint:
-          "kích thước đàn — nhiều kiến khám phá nhiều hơn, nhưng mỗi vòng tốn hơn",
+          "kích thước đàn - nhiều kiến khám phá nhiều hơn, nhưng mỗi vòng tốn hơn",
         alpha: "α pheromone",
-        alpha_hint: "ảnh hưởng vệt — α cao khiến kiến đi theo số đông (khai thác)",
+        alpha_hint: "ảnh hưởng vệt - α cao khiến kiến đi theo số đông (khai thác)",
         beta: "β khoảng cách",
-        beta_hint: "tham cạnh ngắn — β cao hành xử như láng giềng gần nhất",
+        beta_hint: "tham cạnh ngắn - β cao hành xử như láng giềng gần nhất",
         rho: "ρ bay hơi",
         rho_hint:
-          "tốc độ vệt phai — ρ cao quên nhanh hơn, tránh khóa chặt quá sớm",
+          "tốc độ vệt phai - ρ cao quên nhanh hơn, tránh khóa chặt quá sớm",
       },
       layout: {
         random: "rải",
         random_hint: "thành phố ngẫu nhiên đều",
         circle: "vòng",
-        circle_hint: "thành phố trên một đường tròn — tối ưu là chu vi",
+        circle_hint: "thành phố trên một đường tròn - tối ưu là chu vi",
         clusters: "cụm",
         clusters_hint: "vài cụm sát nhau",
         grid: "lưới",
@@ -398,17 +398,17 @@ const vi = {
     "river-crossing": {
       title: "Qua Sông",
       description:
-        "Câu đố giáo sĩ & ăn thịt người, giải bằng BFS / DFS / A* trên không gian trạng thái — tự chơi hoặc xem thuật toán tìm.",
+        "Câu đố giáo sĩ & ăn thịt người, giải bằng BFS / DFS / A* trên không gian trạng thái - tự chơi hoặc xem thuật toán tìm.",
       tagline: "tìm kiếm không gian trạng thái mà bạn chèo qua được",
       intro:
-        "Đưa {{m}} giáo sĩ và {{c}} kẻ ăn thịt người qua sông. Thuyền chở 1–{{k}} người và không tự sang được, và kẻ ăn thịt người không bao giờ được đông hơn giáo sĩ trên mỗi bờ. Đằng sau, mỗi cách sắp xếp hợp lệ là một nút và mỗi lần qua sông là một cạnh — BFS tìm ra số chuyến ít nhất.",
-      hint: "bấm vào người để lên thuyền, rồi qua sông. đổi số người hoặc sức chứa thuyền để biến đổi câu đố — cùng một thuật toán giải mọi biến thể, hoặc chứng minh là vô nghiệm. bí? bấm gợi ý một bước.",
+        "Đưa {{m}} giáo sĩ và {{c}} kẻ ăn thịt người qua sông. Thuyền chở 1–{{k}} người và không tự sang được, và kẻ ăn thịt người không bao giờ được đông hơn giáo sĩ trên mỗi bờ. Đằng sau, mỗi cách sắp xếp hợp lệ là một nút và mỗi lần qua sông là một cạnh - BFS tìm ra số chuyến ít nhất.",
+      hint: "bấm vào người để lên thuyền, rồi qua sông. đổi số người hoặc sức chứa thuyền để biến đổi câu đố - cùng một thuật toán giải mọi biến thể, hoặc chứng minh là vô nghiệm. bí? bấm gợi ý một bước.",
       death_shouts: [
         "Tờ rơi đâu có ghi vụ này!",
         "Biết vậy tôi đi làm kế toán!",
         "Nhắn con dê là tôi yêu nó!",
         "Bảo là thuyền AN TOÀN cơ mà!",
-        "Đừng cắn mặt! ĐỪNG—",
+        "Đừng cắn mặt! ĐỪNG-",
         "Tại cái thuật toán hết!",
         "5 sao, nhưng không qua sông lần nữa đâu.",
         "Tôi vốn dốt toán mà!",
@@ -438,8 +438,8 @@ const vi = {
         expanded: "đã mở rộng",
         discovered: "đã khám phá",
         frontier_peak: "biên lớn nhất",
-        stuck: "không có lời giải từ đây — hoàn tác hoặc đặt lại",
-        solved: "đã giải — mọi người đã qua bờ",
+        stuck: "không có lời giải từ đây - hoàn tác hoặc đặt lại",
+        solved: "đã giải - mọi người đã qua bờ",
         plan_optimal: "kế hoạch tối ưu từ đây",
         plan_cost: "kế hoạch ít tốn nhất từ đây",
         plan_generic: "kế hoạch {{name}} từ đây",
@@ -474,15 +474,15 @@ const vi = {
           iddfs: { name: "Sâu Dần Lặp", tagline: "bộ nhớ như DFS, tối ưu độ sâu như BFS" },
           greedy: { name: "Tham Lam", tagline: "bám heuristic, bỏ qua chi phí" },
           astar: { name: "A*", tagline: "dẫn đường bằng heuristic số người còn lại" },
-          ucs: { name: "Chi Phí Đều", tagline: "ít lượt người chở nhất — cạnh có trọng số" },
+          ucs: { name: "Chi Phí Đều", tagline: "ít lượt người chở nhất - cạnh có trọng số" },
           bidir: { name: "Hai Chiều", tagline: "tìm từ cả hai bờ, gặp nhau ở giữa" },
         },
       },
       controls: {
-        won: "✓ tất cả đã sang an toàn — {{n}} chuyến",
-        lost: "✖ giáo sĩ bị áp đảo — có người bị ăn thịt",
+        won: "✓ tất cả đã sang an toàn - {{n}} chuyến",
+        lost: "✖ giáo sĩ bị áp đảo - có người bị ăn thịt",
         load_prompt: "bấm vào người để lên thuyền",
-        ready: "{{n}}/{{k}} trên thuyền — sẵn sàng qua sông",
+        ready: "{{n}}/{{k}} trên thuyền - sẵn sàng qua sông",
         cross: "⛴ qua sông",
         undo: "↩ hoàn tác",
         reset: "↺ đặt lại",
@@ -511,20 +511,20 @@ const vi = {
         copied: "✓ đã chép",
         copy_hint:
           "Sao chép báo cáo gỡ lỗi đầy đủ (cấu hình, hai bờ, trình giải, lịch sử nước đi, sự kiện) để chia sẻ",
-        empty: "chưa có sự kiện nào — qua sông, giải, hoặc đổi thiết lập",
+        empty: "chưa có sự kiện nào - qua sông, giải, hoặc đổi thiết lập",
       },
     },
     minesweeper: {
       title: "Dò Mìn",
       description:
-        "Bộ tạo bãi mìn đảm bảo lần bấm đầu an toàn và luôn có lời giải bằng suy luận thuần túy — không bao giờ phải đoán.",
-      tagline: "mọi bãi mìn đều giải được — nếu bạn chịu nghĩ",
+        "Bộ tạo bãi mìn đảm bảo lần bấm đầu an toàn và luôn có lời giải bằng suy luận thuần túy - không bao giờ phải đoán.",
+      tagline: "mọi bãi mìn đều giải được - nếu bạn chịu nghĩ",
       intro:
-        "Ngôi sao ở đây là bộ tạo bãi. Mìn chỉ được đặt sau lần bấm đầu tiên (nên luôn an toàn), rồi một trình giải logic chơi lại bàn cờ theo cách một người chơi hoàn hảo sẽ làm — đếm, loại trừ tập con, và liệt kê vét cạn. Những bàn buộc phải tung đồng xu sẽ bị loại và tạo lại, nên mọi bãi mìn đều có thể dọn sạch chỉ bằng lập luận.",
-      hint: "bấm để mở ô, chuột phải (hoặc chế độ cắm cờ) để đánh dấu mìn, bấm vào số để quét nhanh. chỉnh kích thước, số mìn và mức an toàn lần bấm đầu, rồi tạo bãi mới — xem bảng chẩn đoán báo cáo logic phải làm việc vất vả đến đâu.",
-      won: "✓ đã dọn sạch — logic thuần túy, không may mắn",
-      lost: "✸ nổ — ô đó vốn có thể suy ra được",
-      first_click: "bấm bất kỳ đâu — bãi mìn được tạo quanh lần bấm đầu, đảm bảo an toàn và giải được",
+        "Ngôi sao ở đây là bộ tạo bãi. Mìn chỉ được đặt sau lần bấm đầu tiên (nên luôn an toàn), rồi một trình giải logic chơi lại bàn cờ theo cách một người chơi hoàn hảo sẽ làm - đếm, loại trừ tập con, và liệt kê vét cạn. Những bàn buộc phải tung đồng xu sẽ bị loại và tạo lại, nên mọi bãi mìn đều có thể dọn sạch chỉ bằng lập luận.",
+      hint: "bấm để mở ô, chuột phải (hoặc chế độ cắm cờ) để đánh dấu mìn, bấm vào số để quét nhanh. chỉnh kích thước, số mìn và mức an toàn lần bấm đầu, rồi tạo bãi mới - xem bảng chẩn đoán báo cáo logic phải làm việc vất vả đến đâu.",
+      won: "✓ đã dọn sạch - logic thuần túy, không may mắn",
+      lost: "✸ nổ - ô đó vốn có thể suy ra được",
+      first_click: "bấm bất kỳ đâu - bãi mìn được tạo quanh lần bấm đầu, đảm bảo an toàn và giải được",
       aria: {
         board: "bãi mìn, {{w}} x {{h}}",
         cell: "ô {{x}}, {{y}}",
@@ -539,7 +539,7 @@ const vi = {
         reset: "đặt lại bàn",
         reset_hint: "Bãi mới",
         flag: "⚑ cờ",
-        flag_hint: "Bật/tắt chế độ cắm cờ — chạm ô để cắm cờ thay vì mở (tiện trên cảm ứng)",
+        flag_hint: "Bật/tắt chế độ cắm cờ - chạm ô để cắm cờ thay vì mở (tiện trên cảm ứng)",
       },
       setup: {
         title: "thiết lập bãi",
@@ -553,7 +553,7 @@ const vi = {
         safe_cell: "ô",
         safe_neighbours: "+lân cận",
         safe_cell_hint: "Chỉ ô được bấm chắc chắn không có mìn",
-        safe_neighbours_hint: "Ô được bấm và 8 ô lân cận — đảm bảo mở ra một vùng",
+        safe_neighbours_hint: "Ô được bấm và 8 ô lân cận - đảm bảo mở ra một vùng",
         seed: "hạt giống",
         seed_hint: "0 = lấy ngẫu nhiên từ đồng hồ; giá trị khác thì tái lập được",
         new: "↺ ván mới",
@@ -568,9 +568,9 @@ const vi = {
       gen: {
         title: "tạo bãi",
         inspect: "🔬 khảo sát một bãi",
-        inspect_hint: "Tạo một bãi quanh ô trung tâm và mở ra — xem bộ tạo bãi đã dựng nó thế nào, không phải bắt đầu ván chơi",
+        inspect_hint: "Tạo một bãi quanh ô trung tâm và mở ra - xem bộ tạo bãi đã dựng nó thế nào, không phải bắt đầu ván chơi",
         empty: "khảo sát một bãi (hoặc bấm vào bàn) để xem nó được dựng ra sao",
-        verdict_ok: "✓ giải được — không cần đoán",
+        verdict_ok: "✓ giải được - không cần đoán",
         verdict_bad: "✗ buộc phải đoán",
         difficulty: "độ khó logic",
         hardest: "kỹ thuật khó nhất cần dùng:",
@@ -578,9 +578,9 @@ const vi = {
         unpeek: "🙈 ẩn mìn",
         peek_hint: "Hiện mìn ẩn (và các ô chưa giải được) để xem xét",
         guess_points_one:
-          "{{count}} ô chưa giải được — hết thời gian trước khi tìm ra bãi không cần đoán. Mật độ càng cao càng dễ gặp.",
+          "{{count}} ô chưa giải được - hết thời gian trước khi tìm ra bãi không cần đoán. Mật độ càng cao càng dễ gặp.",
         guess_points_other:
-          "{{count}} ô chưa giải được — hết thời gian trước khi tìm ra bãi không cần đoán. Mật độ càng cao càng dễ gặp.",
+          "{{count}} ô chưa giải được - hết thời gian trước khi tìm ra bãi không cần đoán. Mật độ càng cao càng dễ gặp.",
         tiers: {
           trivial: "tầm thường",
           easy: "dễ",
@@ -625,14 +625,14 @@ const vi = {
         title: "trình giải ai",
         comparison_planned: "chế độ so sánh đang lên kế hoạch",
         blurb:
-          "Xem bất kỳ engine nào dọn sạch bãi bằng logic thuần túy — và khi bàn thực sự buộc phải đoán thì chọn ô ít rủi ro nhất. Chọn một engine rồi chạy.",
+          "Xem bất kỳ engine nào dọn sạch bãi bằng logic thuần túy - và khi bàn thực sự buộc phải đoán thì chọn ô ít rủi ro nhất. Chọn một engine rồi chạy.",
         run: "▶ giải",
         stop: "⏹ dừng",
         solving: "đang giải…",
         odds: "👁 hiện xác suất",
         hide_odds: "🙈 ẩn xác suất",
-        solved: "✓ {{name}} đã dọn xong — không cần đoán",
-        stuck: "✗ {{name}} bí — phải đoán",
+        solved: "✓ {{name}} đã dọn xong - không cần đoán",
+        stuck: "✗ {{name}} bí - phải đoán",
         best_guess: "ô an toàn nhất được tô sáng · {{pct}}% là mìn",
         revealed: "đã mở",
         flagged: "đã cắm cờ",
@@ -641,12 +641,12 @@ const vi = {
         time: "thời gian",
       },
       solvers: {
-        "single-point": { name: "Đơn Điểm", tagline: "chỉ quy tắc đếm — mốc cơ bản" },
+        "single-point": { name: "Đơn Điểm", tagline: "chỉ quy tắc đếm - mốc cơ bản" },
         "single-point-backtracking": { name: "Đơn Điểm + Quay Lui", tagline: "quy tắc đếm, rồi vét cạn để hoàn tất" },
-        "constraint-propagation": { name: "Lan Truyền Ràng Buộc", tagline: "đếm + tập con — tìm nước bắt buộc" },
+        "constraint-propagation": { name: "Lan Truyền Ràng Buộc", tagline: "đếm + tập con - tìm nước bắt buộc" },
         "linear-algebra": { name: "Đại Số Tuyến Tính", tagline: "khử Gauss trên ma trận manh mối" },
-        backtracking: { name: "Quay Lui", tagline: "vét cạn — xác nhận giải được" },
-        sat: { name: "SAT / CSP", tagline: "DPLL — chứng minh hình thức không nhập nhằng" },
+        backtracking: { name: "Quay Lui", tagline: "vét cạn - xác nhận giải được" },
+        sat: { name: "SAT / CSP", tagline: "DPLL - chứng minh hình thức không nhập nhằng" },
         probabilistic: { name: "Xác Suất", tagline: "xác suất mìn chính xác + đoán an toàn nhất" },
       },
       debug: {
@@ -656,7 +656,7 @@ const vi = {
         copy: "sao chép báo cáo",
         copied: "✓ đã chép",
         copy_hint: "Sao chép báo cáo gỡ lỗi đầy đủ (cấu hình, thống kê tạo bãi, mìn, sự kiện) để chia sẻ",
-        empty: "chưa có sự kiện nào — tạo bãi hoặc đổi thiết lập",
+        empty: "chưa có sự kiện nào - tạo bãi hoặc đổi thiết lập",
       },
     },
     "binary-tree": {
@@ -667,7 +667,7 @@ const vi = {
     "bloom-filter": {
       title: "Bộ Lọc Bloom",
       description:
-        "Kiểm tra thành viên xác suất — trực quan hóa dương tính giả và va chạm hash.",
+        "Kiểm tra thành viên xác suất - trực quan hóa dương tính giả và va chạm hash.",
     },
     "cellular-automata": {
       title: "Tự Động Tế Bào",

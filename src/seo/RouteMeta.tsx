@@ -6,7 +6,7 @@ import { useDocumentMeta } from "./useDocumentMeta";
  * Centralized per-route document metadata. Rendered once inside the router; on
  * every client-side navigation it resolves the current path to a PageMeta and
  * updates the head tags in place. First paint is already correct via the static
- * HTML emitted by scripts/vite-seo.ts — this keeps SPA navigation in sync.
+ * HTML emitted by scripts/vite-seo.ts - this keeps SPA navigation in sync.
  */
 export default function RouteMeta() {
   const { pathname } = useLocation();
@@ -17,7 +17,7 @@ export default function RouteMeta() {
       : experimentPages.find(
           (p) => path === p.path || path.startsWith(`${p.path}/`)
         );
-  // Unknown deep path still belongs to the gateway — fall back to home meta.
+  // Unknown deep path still belongs to the gateway - fall back to home meta.
   if (!page) page = homePage;
   useDocumentMeta(page);
   return null;

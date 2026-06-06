@@ -65,7 +65,7 @@ export default function StatsPanel({ state }: Props) {
     );
   }
 
-  // Comparison table — lower is better for travel / avg wait / max wait.
+  // Comparison table - lower is better for travel / avg wait / max wait.
   const bestTravel = Math.min(...rows.map(r => r.travel));
   const bestAvg = Math.min(...rows.filter(r => r.served > 0).map(r => r.avgWait));
   const bestMax = Math.min(...rows.filter(r => r.served > 0).map(r => r.maxWait));

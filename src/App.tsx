@@ -73,7 +73,7 @@ export default function App() {
     []
   );
 
-  // Filter helper — used both for the live render AND to predict what the
+  // Filter helper - used both for the live render AND to predict what the
   // next state will produce, so we can mark removed cards before the snap.
   const computeFiltered = useCallback(
     (status: StatusFilter, tags: Set<string>, q: string): Experiment[] => {

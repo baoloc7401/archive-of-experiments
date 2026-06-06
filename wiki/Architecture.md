@@ -19,7 +19,7 @@ its own route. Plain CSS, strict TypeScript, no global state library.
 ```
 src/
 ├─ experiments.ts        registry: {id, tags, status, path}
-├─ main.tsx              routes — one <Route> per experiment
+├─ main.tsx              routes - one <Route> per experiment
 ├─ App.tsx               the gateway (filterable card grid)
 ├─ index.css             theme tokens + global reset
 ├─ components/           shared: ThemeToggle, LangToggle, ScrambleText, header, cards
@@ -44,7 +44,7 @@ src/
 
 - `src/i18n/locales/{en,vi}.ts` must stay in sync. Card text lives at
   `experiments.<id>.{title,description}`.
-- **Translate everything** (en + vi) — no hardcoded user-facing strings.
+- **Translate everything** (en + vi) - no hardcoded user-facing strings.
   Exempt: debug-report / copy-back text and dev-only `console.log` (stay
   English); proper nouns & brand names (algorithm names like A*/BFS, libraries,
   the experiment's own title); code, math, symbols & units; kaomoji / emoji

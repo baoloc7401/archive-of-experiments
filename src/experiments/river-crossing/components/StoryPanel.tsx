@@ -19,11 +19,11 @@ function band(tension: number): string {
   return "calm";
 }
 
-/** Flatten the beats into a clean prose telling — one paragraph per beat, no
+/** Flatten the beats into a clean prose telling - one paragraph per beat, no
  *  numbering (the on-screen crossing numbers are a UI aid, not part of a story). */
 function buildStoryText(beats: StoryBeat[]): string {
   const body = beats.map((b) => b.text).join("\n\n");
-  return `River Crossing — a telling\n\n${body}`;
+  return `River Crossing - a telling\n\n${body}`;
 }
 
 export default function StoryPanel({ cfg, moves, status }: Props) {

@@ -102,7 +102,7 @@ export default function DebugLog({ entries, buildReport, onClear }: Props) {
           entries.slice(-120).map((e) => (
             <div key={e.id} className={`rc-debug-row rc-debug-row--${e.kind}`}>
               <span className="rc-debug-mark">{KIND_MARK[e.kind]}</span>
-              <span className="rc-debug-n">{e.n != null ? `#${e.n}` : "—"}</span>
+              <span className="rc-debug-n">{e.n != null ? `#${e.n}` : "-"}</span>
               <span className="rc-debug-text">{e.text}</span>
             </div>
           ))

@@ -15,17 +15,17 @@ Source of truth for the list + statuses:
 | [[Experiment ACO]] | 🟢 live | algorithms, AI, simulation, visualization | [play](https://baoloc7401.github.io/archive-of-experiments/experiments/aco) |
 | [[Experiment River Crossing]] | 🟢 live | algorithms, AI, graphs, game | [play](https://baoloc7401.github.io/archive-of-experiments/experiments/river-crossing) |
 | [[Experiment Minesweeper]] | 🟢 live | algorithms, game, fun | [play](https://baoloc7401.github.io/archive-of-experiments/experiments/minesweeper) |
-| Sorting Visualizer | 🟡 wip | algorithms, visualization | — |
-| Binary Tree Explorer | ⚪ planned | data structures, trees | — |
-| Bloom Filter | ⚪ planned | data structures, probabilistic | — |
-| Cellular Automata | ⚪ planned | simulation, fun | — |
-| Fourier Drawing | ⚪ planned | math, visualization, fun | — |
+| Sorting Visualizer | 🟡 wip | algorithms, visualization | - |
+| Binary Tree Explorer | ⚪ planned | data structures, trees | - |
+| Bloom Filter | ⚪ planned | data structures, probabilistic | - |
+| Cellular Automata | ⚪ planned | simulation, fun | - |
+| Fourier Drawing | ⚪ planned | math, visualization, fun | - |
 
 ## Status legend
 
-- 🟢 **live** — a complete, interactive experiment (full-card link on the gateway).
-- 🟡 **wip** — under construction; visible on the gateway but not yet linkable.
-- ⚪ **planned** — a placeholder card describing an intended experiment.
+- 🟢 **live** - a complete, interactive experiment (full-card link on the gateway).
+- 🟡 **wip** - under construction; visible on the gateway but not yet linkable.
+- ⚪ **planned** - a placeholder card describing an intended experiment.
 
 ## Adding to this list
 
