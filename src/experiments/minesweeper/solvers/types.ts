@@ -1,6 +1,6 @@
 import type { Minefield } from "../types";
 
-/** A solver only needs the static field shape — player view lives elsewhere. */
+/** A solver only needs the static field shape - player view lives elsewhere. */
 export type Board = Pick<Minefield, "width" | "height" | "mineCount" | "cells">;
 
 export type SolverId =
@@ -12,7 +12,7 @@ export type SolverId =
   | "sat"
   | "probabilistic";
 
-/** What a solver can do — the future comparison view sorts/filters on these. */
+/** What a solver can do - the future comparison view sorts/filters on these. */
 export interface SolverCapabilities {
   /** Finds every forced move a perfect logician could (no false "stuck"). */
   complete: boolean;
@@ -25,11 +25,11 @@ export interface SolverCapabilities {
 }
 
 export type SolveStatus =
-  | "solved" // every cell determined — board cleared by logic alone
+  | "solved" // every cell determined - board cleared by logic alone
   | "stuck" // progress made, but a guess is now required
   | "contradiction"; // the position is logically impossible (shouldn't happen on a real field)
 
-/** One move the solver decided to make, in order — a *click* on a cell it proved
+/** One move the solver decided to make, in order - a *click* on a cell it proved
  *  safe (which cascades open a region if that cell is a 0, exactly like a human
  *  click) or a *flag* on a cell it proved is a mine. Replaying these reproduces
  *  the solve the way a person would actually play it, deduction by deduction. */
@@ -46,7 +46,7 @@ export interface SolverReport {
   safe: number[];
   /** Cells proven to be mines. */
   mines: number[];
-  /** Unknown cells the solver could not resolve — the would-be guess points. */
+  /** Unknown cells the solver could not resolve - the would-be guess points. */
   undecided: number[];
   revealedCount: number;
   identifiedCount: number;
@@ -55,12 +55,12 @@ export interface SolverReport {
   probabilities: Map<number, number> | null;
   /** Lowest-risk cell to click when stuck, when the solver suggests one. */
   bestGuess: number | null;
-  /** The solve as an ordered move list — replay it to watch the engine play like
+  /** The solve as an ordered move list - replay it to watch the engine play like
    *  a person (empty unless action recording was enabled for the run). */
   actions: SolverAction[];
   /** Named technique → how many rounds it fired. Keys are solver-specific. */
   techniques: Record<string, number>;
-  /** Deduction rounds run — a rough "effort" axis for comparison. */
+  /** Deduction rounds run - a rough "effort" axis for comparison. */
   steps: number;
   /** Wall-clock spent, ms. */
   ms: number;

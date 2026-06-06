@@ -1,4 +1,4 @@
-# Ant Colony Optimization — Textbook & Real-World Research
+# Ant Colony Optimization - Textbook & Real-World Research
 
 Reference code:
 [`aco.ts`](../../src/experiments/aco/aco.ts) (the `Colony` engine),
@@ -7,7 +7,7 @@ Reference code:
 [`components/ColonyCanvas.tsx`](../../src/experiments/aco/components/ColonyCanvas.tsx) (rendering + animation).
 
 This is the research record for the ACO-on-TSP experiment: the canonical
-algorithm, how faithfully we model it, and — importantly — **what we learned
+algorithm, how faithfully we model it, and - importantly - **what we learned
 trying to *see* it.** A large part of ACO's difficulty is not the math; it is
 that the interesting thing (emergence) is nearly invisible if you render it the
 obvious way. Findings accumulated while building and debugging the
@@ -19,7 +19,7 @@ visualization.
 
 > **In ACO the signal is the *deviation from uniformity*, not the pheromone
 > level itself. If you render trail strength relative to the maximum, you see
-> nothing useful — you get an n² hairball early and a bare skeleton late. The
+> nothing useful - you get an n² hairball early and a bare skeleton late. The
 > emergent map only appears when you render each edge *relative to the field
 > around it*.**
 
@@ -31,12 +31,12 @@ Every standard "draw the pheromone" instinct fails:
 - **Opacity ∝ (τ − τ₀), excess over baseline.** Fixes the hairball, but the
   pheromone distribution is **bimodal** (a few winning edges far above τ₀, the
   rest decayed at/below it), so a *visibility slider* built on this cutoff is
-  perceptually inert — almost nothing lives in the middle for it to reveal.
+  perceptually inert - almost nothing lives in the middle for it to reveal.
   (§4.2)
 - **Opacity ∝ normalize(τ, min, max) ^ γ.** This is what works. Normalize each
   edge across the *current* min→max range, then shape with a gamma the user
   controls. There's a continuous range at every phase of the run, so the slider
-  has something to do — and at convergence it can even lift the faint "ghosts"
+  has something to do - and at convergence it can even lift the faint "ghosts"
   of decayed edges back into view. (§4.3)
 
 This is the genuine research output of the experiment: **ACO visualization is a
@@ -46,7 +46,7 @@ contrast-normalization problem, not a drawing problem.**
 
 ## 1. The algorithm: Ant System on the TSP
 
-We implement **Ant System (AS)** — Dorigo's original 1992 formulation — with
+We implement **Ant System (AS)** - Dorigo's original 1992 formulation - with
 **elitist reinforcement**, on the symmetric Euclidean Traveling Salesman
 Problem.
 
@@ -54,7 +54,7 @@ Problem.
 
 - `n` cities with positions; a symmetric distance matrix `d_ij`.
 - **Visibility** (a static greedy heuristic): `η_ij = 1 / d_ij`.
-- **Pheromone** `τ_ij` on every edge — the colony's shared, mutable memory.
+- **Pheromone** `τ_ij` on every edge - the colony's shared, mutable memory.
   Initialised to `τ₀` (see §2.2).
 
 ### 1.2 Tour construction (one ant)
@@ -68,8 +68,8 @@ p_ij  =  ───────────────────────�
           Σ_{l∈N_i} [τ_il]^α · [η_il]^β
 ```
 
-- **α** weights *learned* information (pheromone — follow the crowd).
-- **β** weights *prior* information (visibility — prefer short edges).
+- **α** weights *learned* information (pheromone - follow the crowd).
+- **β** weights *prior* information (visibility - prefer short edges).
 - When `α = 0` it is pure greedy/stochastic nearest-neighbour; when `β = 0` it
   ignores distance and follows pheromone only (fast stagnation).
 
@@ -97,7 +97,7 @@ length `L_k` is the sum of the `n` edge lengths.
 
 The crucial structural point: **pheromone is updated once per generation, not
 during tour construction.** No ant sees another ant's deposits until the next
-generation. (Contrast ACS, §9, which adds a *local* update during the walk — we
+generation. (Contrast ACS, §9, which adds a *local* update during the walk - we
 deliberately omit it.)
 
 ---
@@ -112,19 +112,19 @@ The engine separates **deciding** a generation of tours from **applying** their
 pheromone:
 
 - `buildGeneration()` constructs all `m` ant tours against the *current* (frozen)
-  pheromone and returns them — it does not mutate `τ`.
+  pheromone and returns them - it does not mutate `τ`.
 - `commit(tours)` runs evaporation + deposits + elitist + best/history
   bookkeeping.
 
 This split is what makes the animation faithful (§5): the ants' decisions for
 the generation are fixed up front, we *walk* them visibly, and only when the
-walk completes do we apply the pheromone update — exactly AS's "after all ants
+walk completes do we apply the pheromone update - exactly AS's "after all ants
 finish" semantics. A naïve implementation that deposited mid-walk would silently
 become a different (and incorrect-for-AS) algorithm.
 
 ### 2.2 Initial pheromone τ₀ = m / L_nn
 
-τ₀ is set to `ants / L_nn`, where `L_nn` is a nearest-neighbour tour length — the
+τ₀ is set to `ants / L_nn`, where `L_nn` is a nearest-neighbour tour length - the
 standard AS recommendation. **This value matters more than it looks:**
 
 - **τ₀ too high** → deposits are tiny relative to the baseline, so edges stay
@@ -134,7 +134,7 @@ standard AS recommendation. **This value matters more than it looks:**
   **locks in** (stagnation) before exploring.
 
 `m / L_nn` lands deposits and evaporation at the same order of magnitude, so
-differentiation begins within a few generations — visible *and* healthy.
+differentiation begins within a few generations - visible *and* healthy.
 
 ### 2.3 Scaled coordinate space
 
@@ -147,7 +147,7 @@ the debug report, instead of tiny fractions.
 
 We flag "converged" when the best-so-far length is unchanged for
 `CONVERGE_PATIENCE` (40) generations. This is a *UI* signal (a badge + a log
-event), not an algorithmic stop — the colony keeps running, which is itself
+event), not an algorithmic stop - the colony keeps running, which is itself
 instructive: you can watch a converged colony *stay* converged (or, with high ρ
 and low elitism, occasionally drift).
 
@@ -160,7 +160,7 @@ actually does on screen:
 
 | Param | Low | High | Failure mode |
 |---|---|---|---|
-| **m** (ants) | jittery, slow to average out | smooth, fast, expensive/frame | — |
+| **m** (ants) | jittery, slow to average out | smooth, fast, expensive/frame | - |
 | **α** (pheromone) | ignores trails, stays exploratory | follows crowd hard | **too high → premature convergence / stagnation** on a mediocre loop |
 | **β** (distance) | wanders, ignores geometry | sharp, greedy, good tours fast | too high → behaves like nearest-neighbour, skips better non-greedy tours |
 | **ρ** (evaporation) | long memory; early mistakes persist | forgets fast, escapes local optima | **too high → never settles** (the best tour flickers, trails never solidify) |
@@ -170,14 +170,14 @@ Three findings worth stating plainly:
 1. **β does the early work, α does the late work.** With default `β = 4`, the
    first generations already produce decent tours from greed alone; pheromone
    (α) then refines them. Set `β = 0` and the colony is nearly blind until
-   pheromone accidentally builds — slow and unreliable.
+   pheromone accidentally builds - slow and unreliable.
 2. **The α/ρ tension is the whole game.** High α exploits; high ρ keeps options
    open. ACO works in the band where they roughly balance. Push α up *and* ρ
    down and you get fast stagnation; the opposite gives a colony that never
    commits.
 3. **Elitist reinforcement is a convergence accelerant with a cost.** It reliably
    shaves generations off the time-to-good-tour, but it also makes premature
-   convergence easier — it is concentrated positive feedback on a tour that may
+   convergence easier - it is concentrated positive feedback on a tour that may
    not be optimal yet.
 
 ACO on random Euclidean instances typically beats the nearest-neighbour baseline
@@ -188,14 +188,14 @@ by a meaningful margin; the experiment surfaces this directly as
 
 ## 4. Visualization findings (the core research)
 
-### 4.1 The hairball — rendering relative to τ_max fails at the start
+### 4.1 The hairball - rendering relative to τ_max fails at the start
 
 First attempt: `alpha, width ∝ τ_ij / τ_max`, skipping edges below ~4% of max.
 At generation 0 every edge is τ₀, so `τ/τ_max ≈ 1` for all of them and the skip
 threshold removes nothing → the canvas is a dense web of all `n(n−1)/2` edges,
 obscuring the cities. **A uniform field has no max-relative structure.**
 
-### 4.2 Baseline-excess — fixes the hairball, breaks the slider
+### 4.2 Baseline-excess - fixes the hairball, breaks the slider
 
 Second attempt: render `e = (τ_ij − τ₀) / (τ_max − τ₀)`, skip `e ≤ 0.06`. Now a
 uniform field draws *nothing* (good), and trails emerge as they rise above τ₀.
@@ -209,10 +209,10 @@ appeared to do nothing. The reason is a real property of ACO dynamics:
 > Almost no edges occupy the middle, so sliding a cutoff through the middle
 > reveals/hides almost nothing.
 
-The cutoff was technically wired correctly — the *metric* gave it nothing to act
+The cutoff was technically wired correctly - the *metric* gave it nothing to act
 on.
 
-### 4.3 Min→max + gamma — a continuum the slider can shape
+### 4.3 Min→max + gamma - a continuum the slider can shape
 
 Final model (current code): per frame, find the actual `min`/`max` pheromone over
 all edges, normalize each edge to `[0,1]`, then apply a **slider-controlled
@@ -231,13 +231,13 @@ if spread > 0.02·max:                 # skip the near-uniform early field
 Why this works where the others didn't:
 
 - **Min→max normalization** gives a full `[0,1]` range *at every phase*, even
-  when the distribution is bimodal — the decayed edges land near 0, the winners
+  when the distribution is bimodal - the decayed edges land near 0, the winners
   near 1, and gamma can stretch either end.
 - **Gamma is the right control.** `γ > 1` crushes faint edges (shows only the
   dominant loop); `γ < 1` lifts them (reveals the faint search web, including
   post-convergence ghosts). The slider sweeps `γ` from 2.6 → 0.4.
-- **The `spread > 2%·max` guard** reproduces the §4.2 win — the uniform early
-  field is skipped entirely, so no hairball — without depending on τ₀.
+- **The `spread > 2%·max` guard** reproduces the §4.2 win - the uniform early
+  field is skipped entirely, so no hairball - without depending on τ₀.
 
 Lesson, generalised: **for any "field that self-organises from uniform to
 structured," render local contrast (normalized + gamma), not absolute value.**
@@ -246,7 +246,7 @@ structured," render local contrast (normalized + gamma), not absolute value.**
 
 - **Best-so-far tour** drawn as a separate bright closed loop (secondary accent +
   glow), so the *answer* is always legible over the noisy pheromone field.
-- **Ants** drawn with a short comet trail along their current edge — additive
+- **Ants** drawn with a short comet trail along their current edge - additive
   (`lighter`) blending on dark themes so overlapping ants glow rather than
   muddy.
 - **Theme-reactive palette:** canvas colours are read from the same CSS custom
@@ -266,10 +266,10 @@ it continuous and physical:
   position is the interpolation along the edge at `floor(progress)`.
 - Each animation frame advances `progress` by an **edges-per-frame** value
   derived from the speed slider: a gentle crawl at the low end
-  (`≈0.08 edges/frame` — you can follow one ant), up to a few full generations
+  (`≈0.08 edges/frame` - you can follow one ant), up to a few full generations
   per frame at the top.
 - When `progress` passes `n`, we `commit()` the generation, build the next, and
-  carry the remainder — looping up to a few generations per frame in "turbo" so
+  carry the remainder - looping up to a few generations per frame in "turbo" so
   high speed actually means *more iterations*, not just faster ants.
 
 This keeps the visible motion honest (ants really do trace the tours that
@@ -284,10 +284,10 @@ A non-ACO finding the build forced into the open, recorded because it cost real
 time and is broadly applicable.
 
 **Symptom.** The convergence sparkline (and potentially the main canvas) **grew
-without bound** when the window was narrowed — only in the single-column
+without bound** when the window was narrowed - only in the single-column
 (≤860px) layout.
 
-**Root cause — HiDPI backing buffers inflate `1fr` grid tracks.** A `<canvas>`
+**Root cause - HiDPI backing buffers inflate `1fr` grid tracks.** A `<canvas>`
 with CSS `width: 100%` but no constraint on its *intrinsic* size contributes its
 **backing-store width** (`cssWidth × devicePixelRatio`, ≈2×) as min-content. In
 a `1fr` grid/flex track with default `min-width: auto`, that 2× min-content
@@ -353,7 +353,7 @@ Deliberately **out of scope** (these would make it a *different* ACO variant):
 - **No τ bounds or trail re-initialisation** → not **Max–Min Ant System**.
 - **No local search (2-opt / 3-opt / Lin–Kernighan)** hybridisation, which every
   competitive ACO-for-TSP implementation uses in practice.
-- **No candidate lists / neighbour lists** — every unvisited city is considered
+- **No candidate lists / neighbour lists** - every unvisited city is considered
   each step (fine for the `≤60`-city instances here; the standard scaling trick
   for large `n`).
 
@@ -363,26 +363,26 @@ These omissions keep the experiment showing the *original* mechanism cleanly.
 
 ## 9. Further real-world context
 
-- **Ant System (1992)** — the original; what we implement. Elegant, but
+- **Ant System (1992)** - the original; what we implement. Elegant, but
   outperformed on its own by its descendants.
-- **Ant Colony System (ACS, 1996)** — adds a *local* pheromone update (ants
+- **Ant Colony System (ACS, 1996)** - adds a *local* pheromone update (ants
   *remove* a little pheromone as they traverse an edge, encouraging exploration
   within a generation) and a pseudo-random-proportional rule (a tunable
   greedy-vs-probabilistic knob `q₀`). Faster, but a meaningfully different
-  dynamic — and incompatible with our "freeze the generation, then walk it"
+  dynamic - and incompatible with our "freeze the generation, then walk it"
   animation model, which is one reason we stayed with AS.
-- **Max–Min Ant System (MMAS)** — clamps τ to `[τ_min, τ_max]` to prevent the
+- **Max–Min Ant System (MMAS)** - clamps τ to `[τ_min, τ_max]` to prevent the
   stagnation we describe in §3, and only the best ant deposits. The most robust
   classical variant for TSP.
 - **In practice**, ACO is rarely used raw for TSP (specialised solvers like
-  Lin–Kernighan dominate). Its real niche is **dynamic / stochastic** routing —
+  Lin–Kernighan dominate). Its real niche is **dynamic / stochastic** routing -
   network packet routing (AntNet), vehicle routing with changing demands,
-  scheduling — where the continuously-evaporating shared memory adapts to a
+  scheduling - where the continuously-evaporating shared memory adapts to a
   moving target, which a one-shot solver can't.
 
 The pedagogical point the visualization is built to make: **no individual ant is
 smart.** Each one runs the same myopic τ^α·η^β rule. The short tour is a property
-of the *colony* and its evaporating shared memory — stigmergy — not of any ant.
+of the *colony* and its evaporating shared memory - stigmergy - not of any ant.
 The whole job of the rendering work in §4 is to make that collective object
 visible.
 

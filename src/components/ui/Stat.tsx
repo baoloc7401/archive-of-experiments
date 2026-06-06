@@ -21,7 +21,7 @@ export function StatGrid({ columns = 2, children }: StatGridProps) {
 
 interface StatProps {
   label: string;
-  /** Rendered as-is — pass numbers directly; they are not scrambled per tick. */
+  /** Rendered as-is - pass numbers directly; they are not scrambled per tick. */
   value: ReactNode;
   highlight?: boolean;
 }

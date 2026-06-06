@@ -1,6 +1,6 @@
 // i18n note: the narrative this engine emits (and the strings in ./templates)
 // is intentionally English and is NOT subject to translation. Generative,
-// kaomoji-laced flavour prose is the engine's nature — it's authored as English
+// kaomoji-laced flavour prose is the engine's nature - it's authored as English
 // voice, not UI chrome, and is exempt like the debug-bridge text. Keep it as-is.
 import type { Config, Move, Side, Status } from "../types";
 import { other } from "../solver";
@@ -16,7 +16,7 @@ export interface StoryBeat {
   /** crossing number for `cross` beats, else null */
   n: number | null;
   text: string;
-  /** story tension after this beat, 0..100 — used to tint the UI */
+  /** story tension after this beat, 0..100 - used to tint the UI */
   tension: number;
 }
 
@@ -31,7 +31,7 @@ function clamp(v: number): number {
  * Layer 2 + 3: replay the solved/played moves over a named cast, evolve story
  * variables (tension, trust) from how precarious each resulting bank is, and
  * render each transition as prose. Pure and deterministic in (cfg, moves,
- * status, seed) — "retell" just changes the seed.
+ * status, seed) - "retell" just changes the seed.
  */
 export function generateStory(
   cfg: Config,

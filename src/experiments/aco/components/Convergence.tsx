@@ -8,7 +8,7 @@ interface Props {
   theme: Theme;
 }
 
-// A compact sparkline of the best-so-far tour length over iterations — the
+// A compact sparkline of the best-so-far tour length over iterations - the
 // textbook ACO convergence curve, dropping fast then plateauing.
 //
 // The canvas is absolutely positioned inside a fixed-size box and we measure

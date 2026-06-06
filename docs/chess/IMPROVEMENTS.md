@@ -49,10 +49,10 @@ Note: As we move down on the implementations, update the progress as TODO/Doing/
 
 These affect the cost/benefit of every improvement below:
 
-- **`positionKey` is a full string serialization** — iterates all 64 squares + turn + castling + ep → ~135-char string. O(64) per call, called at every node.
-- **`applyMove` clones the full position** — `clonePosition` + `cloneBoard` allocates a new 8×8 array per node. No make/unmake. At depth 4 + qdepth 4 with branching factor ~30, this is hundreds of thousands of allocations per move.
-- **`getLegalMoves` calls `applyMove` + `isInCheck` per candidate** — full clone + attack scan for every pseudo-legal move.
-- **Search runs on the main thread** — `getBestMove` is called inside `setTimeout` in `useChessAI`; deep searches will still block the UI.
+- **`positionKey` is a full string serialization** - iterates all 64 squares + turn + castling + ep → ~135-char string. O(64) per call, called at every node.
+- **`applyMove` clones the full position** - `clonePosition` + `cloneBoard` allocates a new 8×8 array per node. No make/unmake. At depth 4 + qdepth 4 with branching factor ~30, this is hundreds of thousands of allocations per move.
+- **`getLegalMoves` calls `applyMove` + `isInCheck` per candidate** - full clone + attack scan for every pseudo-legal move.
+- **Search runs on the main thread** - `getBestMove` is called inside `setTimeout` in `useChessAI`; deep searches will still block the UI.
 
 ---
 
@@ -76,7 +76,7 @@ The current engine only implements priority 3 (MVV-LVA on captures). Priorities 
 
 ## Improvements
 
-### Tier 1 — Highest Impact
+### Tier 1 - Highest Impact
 
 ---
 
@@ -178,7 +178,7 @@ Note: The Killer heuristic was removed from Stockfish in mid-2024 once history h
 
 ---
 
-### Tier 2 — Strong Gains
+### Tier 2 - Strong Gains
 
 ---
 
@@ -186,7 +186,7 @@ Note: The Killer heuristic was removed from Stockfish in mid-2024 once history h
 
 PROGRESS: Done
 
-**What:** Give the opponent a free extra move (skip your turn). If a reduced-depth search of their response still beats beta, the position is so good that a real beta cut-off is near-certain — prune without full search.
+**What:** Give the opponent a free extra move (skip your turn). If a reduced-depth search of their response still beats beta, the position is so good that a real beta cut-off is near-certain - prune without full search.
 
 **Why it matters:** One of the most impactful pruning techniques in classical engines. Particularly powerful in the middlegame where most positions are not zugzwang.
 
@@ -219,7 +219,7 @@ if (!inCheck && !nullMoveDone && !isEndgame(pos) && depth >= 3) {
 
 PROGRESS: Done
 
-**What:** At shallow depths (1–2 plies from the horizon), if the static evaluation plus a material margin is still below alpha, the move has no realistic chance of improving alpha — skip it without searching.
+**What:** At shallow depths (1–2 plies from the horizon), if the static evaluation plus a material margin is still below alpha, the move has no realistic chance of improving alpha - skip it without searching.
 
 **Why it matters:** Eliminates a large number of hopeless quiet moves near the search horizon, giving meaningful speed gains at low implementation cost.
 
@@ -279,7 +279,7 @@ PROGRESS: Done
 
 ---
 
-### Tier 3 — Refinement
+### Tier 3 - Refinement
 
 ---
 
@@ -289,14 +289,14 @@ PROGRESS: Done
 
 **What:** Replace the current `positionKey` string-concat with an incrementally-updated 64-bit hash. Precompute random numbers for each (color, piece, square) triple plus side-to-move, castling rights, and en-passant file. In `applyMove`, XOR only the deltas.
 
-**Why it matters:** `positionKey()` (engine.ts:269) iterates 64 squares to build a ~135-char string — O(64) per call. Zobrist hashing reduces this to O(1) incremental XOR. It is a prerequisite for a high-performance TT.
+**Why it matters:** `positionKey()` (engine.ts:269) iterates 64 squares to build a ~135-char string - O(64) per call. Zobrist hashing reduces this to O(1) incremental XOR. It is a prerequisite for a high-performance TT.
 
 **JavaScript note:** True 64-bit integers don't exist in JS. Options:
-- Use two 32-bit numbers (low/high) XORed separately — fast, no BigInt overhead.
-- Use `BigInt` — correct 64-bit semantics, but slower; avoid in hot search paths.
-- Use 52-bit floats (safe integer range) — fits in a `number`, loses some collision resistance.
+- Use two 32-bit numbers (low/high) XORed separately - fast, no BigInt overhead.
+- Use `BigInt` - correct 64-bit semantics, but slower; avoid in hot search paths.
+- Use 52-bit floats (safe integer range) - fits in a `number`, loses some collision resistance.
 
-**Collision handling:** Always store the full hash in each TT entry and verify on retrieval — do not use only the table index as the key.
+**Collision handling:** Always store the full hash in each TT entry and verify on retrieval - do not use only the table index as the key.
 
 **Note:** TT (#1) can be prototyped with string keys first; switch to Zobrist once the logic is validated.
 
@@ -310,7 +310,7 @@ PROGRESS: Done
 
 **Why it matters:** `applyMove` currently calls `cloneBoard` (a full 64-element array copy) at every search node. At depth 4 + qdepth 4 with branching factor ~30, this is hundreds of thousands of allocations and a significant GC burden in a JS runtime. Make/unmake eliminates almost all of that allocation.
 
-**What to save/restore per move:** moving piece, captured piece, castling rights (4 bits), ep square, halfmove counter, and — with Zobrist — the running hash.
+**What to save/restore per move:** moving piece, captured piece, castling rights (4 bits), ep square, halfmove counter, and - with Zobrist - the running hash.
 
 **Caveats:** More complex to implement correctly than clone. A single missed undo corrupts all subsequent positions. Implement with thorough unit tests before using in production.
 
@@ -395,7 +395,7 @@ PROGRESS: Done
 
 **What:** Search the first (PV) move with the full `[alpha, beta]` window. Search subsequent moves with a null window `[alpha, alpha+1]`. Only re-search with the full window if a move fails high.
 
-**Why it matters:** With good move ordering (TT + killers + history), subsequent moves fail low on the null window search almost always — the full re-search is rare. This eliminates most full-window searches for non-PV moves.
+**Why it matters:** With good move ordering (TT + killers + history), subsequent moves fail low on the null window search almost always - the full re-search is rare. This eliminates most full-window searches for non-PV moves.
 
 **Prerequisite:** Best combined with TT (#1) + ID (#2) + move ordering (#3) to ensure the first move actually is the PV move. Without good ordering, fail-high re-searches become too frequent and PVS loses its advantage.
 
@@ -403,13 +403,13 @@ PROGRESS: Done
 
 ---
 
-### Tier 4 — Advanced / Optional
+### Tier 4 - Advanced / Optional
 
 ---
 
 #### 14. Aspiration Windows
 
-PROGRESS: TODO (implemented then reverted — negligible benefit at our fixed
+PROGRESS: TODO (implemented then reverted - negligible benefit at our fixed
 search depth, since aspiration windows pay off mainly in time-limited
 iterative deepening, and a narrow root window risked blurring tie-breaking.)
 
@@ -417,7 +417,7 @@ iterative deepening, and a narrow root window risked blurring tie-breaking.)
 
 **Initial window:** δ ≈ 25–50 cp (1/4 to 1/2 pawn). Modern engines start smaller and expand exponentially.
 
-**Widening strategy (asymmetric):** On fail-low, only widen the lower bound; on fail-high, only widen the upper bound. Do not widen symmetrically — this causes instability. If the score escapes the expanded window, fall back to a full `(−∞, +∞)` re-search.
+**Widening strategy (asymmetric):** On fail-low, only widen the lower bound; on fail-high, only widen the upper bound. Do not widen symmetrically - this causes instability. If the score escapes the expanded window, fall back to a full `(−∞, +∞)` re-search.
 
 **Prerequisite:** Iterative deepening (#2).
 

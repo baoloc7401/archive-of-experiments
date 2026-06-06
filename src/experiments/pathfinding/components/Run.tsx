@@ -293,7 +293,7 @@ export default function Run({ grid, selected, onBack }: Props) {
         ))}
       </div>
 
-      {/* Rankings — shown when all algorithms are done */}
+      {/* Rankings - shown when all algorithms are done */}
       {finished && (
         <div className="pf-rankings">
           <div className="pf-rank-header">

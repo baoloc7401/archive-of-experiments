@@ -1,4 +1,4 @@
-# River Crossing — Textbook & Real-World Research
+# River Crossing - Textbook & Real-World Research
 
 Reference code:
 [`solver.ts`](../../src/experiments/river-crossing/solver.ts) (the search engine),
@@ -9,8 +9,8 @@ Reference code:
 
 This is the research record for the **Missionaries & Cannibals** puzzle modelled
 as an explicit **state-space search**. It covers the model, the three search
-algorithms (BFS / DFS / A\*) and how faithfully we implement them, and — the
-point — **what we learned wiring a search algorithm to an animation.** The
+algorithms (BFS / DFS / A\*) and how faithfully we implement them, and - the
+point - **what we learned wiring a search algorithm to an animation.** The
 headline finding is not about the puzzle; it is about the gap between "find a
 path" and "drive a step-by-step player along one." Findings accumulated while
 building and debugging the experiment.
@@ -21,7 +21,7 @@ building and debugging the experiment.
 
 > **Driving a step-by-step animation by re-solving from the current state each
 > step and applying `moves[0]` only works for algorithms that return a
-> *progress-monotonic* path. BFS and A\* do; DFS does not — so the naïve player
+> *progress-monotonic* path. BFS and A\* do; DFS does not - so the naïve player
 > loops forever. The fix is to commit to one plan and follow it, not to
 > re-derive the next move every tick.**
 
@@ -45,13 +45,13 @@ Re-solving DFS from `L(3,3)@R` returns a path whose *first* move is `←2M+2C`
 (straight back to the start); re-solving from `L(5,5)@L` returns one starting
 `→2M+2C` again. Each recomputation undoes the last. The path DFS finds in a
 single call is perfectly valid and finite (its `discovered` set prevents
-internal cycles) — the bug was **recomputing it from intermediate states**, which
+internal cycles) - the bug was **recomputing it from intermediate states**, which
 is a different, oscillating process.
 
 **The fix** (`useRiverCrossing.ts`): snapshot the *entire* plan once when the
 user presses *solve & play* (or *hint step*) into a `plan` array, and walk it
 move-by-move. A single DFS path has no cycles, so following it reaches the goal.
-The plan is dropped whenever the player deviates — a manual cross, undo, reset,
+The plan is dropped whenever the player deviates - a manual cross, undo, reset,
 config change, or switching the algorithm. This was surfaced by the in-app
 **debug report** (§7), not by reading code: the user pasted the looping log and
 the failure was obvious from the move list. See §3 for the full argument.
@@ -74,7 +74,7 @@ state = (ml, cl, boat)
 
 `ml`, `cl` = missionaries and cannibals on the **left** bank; `boat ∈ {L, R}`.
 The right bank is always `(M − ml, C − cl)`, so it is never stored
-(`rightBank()`). The start is `(M, C, L)`; the goal is `(0, 0, R)` — everyone
+(`rightBank()`). The start is `(M, C, L)`; the goal is `(0, 0, R)` - everyone
 across *and* the boat parked on the far side.
 
 ### 1.2 Validity
@@ -93,7 +93,7 @@ boat just *left* as well as the one it arrived at.
 ### 1.3 Moves and the branching factor
 
 A crossing carries 1..K people. `boatLoads(K)` enumerates every `(m, c)` with
-`1 ≤ m + c ≤ K`. For `K = 2` that is `(1,0),(2,0),(0,1),(0,2),(1,1)` — five
+`1 ≤ m + c ≤ K`. For `K = 2` that is `(1,0),(2,0),(0,1),(0,2),(1,1)` - five
 candidate loads. `successors()` applies each to the docked bank, flips the boat,
 and keeps only the **legal, in-bounds** results.
 
@@ -105,7 +105,7 @@ The reachable space is tiny and finite:
 |states| = (M + 1)(C + 1) × 2
 ```
 
-For the default 3/3 puzzle that is `4 × 4 × 2 = 32` states — which is exactly why
+For the default 3/3 puzzle that is `4 × 4 × 2 = 32` states - which is exactly why
 the puzzle is a clean teaching vehicle for search: you can hold the whole graph
 in your head, yet BFS/DFS/A\* visibly differ on it. Config bounds keep it small:
 `M, C ∈ [1, 5]`, `K ∈ [2, 4]` (`constants.ts`).
@@ -114,14 +114,14 @@ in your head, yet BFS/DFS/A\* visibly differ on it. Config bounds keep it small:
 
 ## 2. The search algorithms (three core, four more)
 
-The three classic searches below — plus the four added later (greedy, IDDFS,
-bidirectional, UCS) — all share the graph (`successors`) and differ only in
+The three classic searches below - plus the four added later (greedy, IDDFS,
+bidirectional, UCS) - all share the graph (`successors`) and differ only in
 frontier discipline. Each call returns the path, the moves, and **search-cost
-telemetry** — `expanded` (nodes pulled off the frontier), `discovered` (distinct
+telemetry** - `expanded` (nodes pulled off the frontier), `discovered` (distinct
 states ever seen), `frontierPeak` (largest the frontier grew), and `cost` (path
-weight) — which the panel surfaces so you can *watch the cost*, not just the answer.
+weight) - which the panel surfaces so you can *watch the cost*, not just the answer.
 
-### BFS — Breadth-First Search
+### BFS - Breadth-First Search
 **Definition.** Expand the frontier in FIFO order; the first time you reach the
 goal you have a path with the **fewest edges**.
 **Character.** Optimal in crossings; explores broadly; frontier can be wide.
@@ -130,19 +130,19 @@ goal you have a path with the **fewest edges**.
 **Fidelity.** Faithful and **optimal**. On 3/3/2 it returns the canonical
 **11-crossing** solution, expanding 15 nodes.
 
-### DFS — Depth-First Search
+### DFS - Depth-First Search
 **Definition.** Expand LIFO; dive deep, backtrack on dead ends. Returns *a*
-solution — not necessarily short.
+solution - not necessarily short.
 **Character.** Small frontier (a stack), but the path can be long and its shape
 depends entirely on which successor is pushed last (explored first).
 **Our implementation.** Same loop as BFS with `frontier.pop()` instead of a queue
 head, sharing the **mark-on-discovery** set (so a single call never revisits a
 state and never cycles).
 **Fidelity.** Faithful. It happens to return 11 moves on 3/3/2 here, but that is
-not guaranteed — DFS is "any solution," and **its non-monotonic paths are the
+not guaranteed - DFS is "any solution," and **its non-monotonic paths are the
 root of the §0 finding.**
 
-### A\* — best-first with an admissible heuristic
+### A\* - best-first with an admissible heuristic
 **Definition.** Expand the frontier node minimizing `f = g + h`, where `g` is
 crossings so far and `h` a lower bound on crossings remaining. With an admissible
 `h`, A\* is **optimal**.
@@ -165,28 +165,28 @@ The same `successors()` graph drives four further searches (see
 [IMPROVEMENTS.md](IMPROVEMENTS.md) Tier 2), all funneled through one stepping
 generator so the answer and the animation can't diverge:
 
-- **Greedy best-first** — orders by `h` alone (drop the `g`). Few expansions,
+- **Greedy best-first** - orders by `h` alone (drop the `g`). Few expansions,
   but the path is *not* optimal: the cleanest foil to A\*'s `g + h`.
-- **Iterative-deepening DFS** — depth-limited DFS with a rising limit; the first
+- **Iterative-deepening DFS** - depth-limited DFS with a rising limit; the first
   limit to reach the goal gives a **BFS-optimal depth** with only the current
   path in memory. Within an iteration a state is re-expanded only when reached at
-  a strictly *shallower* depth — that transposition-by-depth pruning is what keeps
+  a strictly *shallower* depth - that transposition-by-depth pruning is what keeps
   it from re-enumerating exponentially many paths on so cyclic a graph.
-- **Bidirectional BFS** — grows a frontier from each shore and stops when they
-  meet (the graph is undirected — any crossing rows back). Shortest, with far
+- **Bidirectional BFS** - grows a frontier from each shore and stops when they
+  meet (the graph is undirected - any crossing rows back). Shortest, with far
   fewer expansions. **Subtlety:** when the goal itself is illegal (`C > M`), edges
   *out of* it aren't real reverse edges, so a naïve backward search falsely
   connects; we bail the backward search when the goal is invalid. Same flavour as
-  §0 — a structural fact about the graph, not a coding slip.
-- **Uniform-Cost (Dijkstra)** — the one **weighted** search: edge cost is *people
+  §0 - a structural fact about the graph, not a coding slip.
+- **Uniform-Cost (Dijkstra)** - the one **weighted** search: edge cost is *people
   ferried* (`m + c`), so it minimises bodies carried rather than crossings, and
   its least-cost path can differ from the fewest-crossings one. This is the
   boundary §9 flags where BFS stops being automatically optimal.
 
 ### Watching the search, not just the answer
 The reachable state graph (`reachableGraph()`) is drawn as a node-link diagram and
-the per-expansion trace is replayed step by step, so the §3 contrast below — BFS
-fanning wide, DFS diving — is something you *see*, not just read off
+the per-expansion trace is replayed step by step, so the §3 contrast below - BFS
+fanning wide, DFS diving - is something you *see*, not just read off
 `frontierPeak`. An unsolvable instance simply shows the goal as a detached,
 unreachable node: the impossibility proof of §4, made visual.
 
@@ -208,7 +208,7 @@ some well-founded measure.
   walk. The naïve player is correct here by accident of optimality.
 - **DFS returns any path.** `first_move(dfs(s))` can go to a state `s'` with
   `d(s') = d(s) + 1` (further away). Re-solving from `s'` can then point straight
-  back to `s`. There is no decreasing measure, so the iteration can cycle — and
+  back to `s`. There is no decreasing measure, so the iteration can cycle - and
   did, on 5/5/4.
 
 The lesson generalises beyond this puzzle: **a search result is a *path*, not a
@@ -224,7 +224,7 @@ telemetry). Playback follows a separately-committed `plan: Move[]`:
 - The auto-play effect schedules one move at a time from `plan` (never recomputes)
   and shifts it off.
 - `plan` is cleared on manual `cross`, `undo`, `reset`, config change, and
-  algorithm switch — any genuine deviation invalidates the committed plan.
+  algorithm switch - any genuine deviation invalidates the committed plan.
 
 The panel also prefers the active `plan` over the recomputed solution while one
 is running, so what you *see* matches what's *executing* (otherwise DFS's
@@ -237,25 +237,25 @@ from here" rather than "optimal plan from here."
 ## 4. Solvability is a first-class output
 
 A search that explores the *whole* reachable space and finds no goal has
-**proved the instance impossible** — and that is as valuable as a solution.
+**proved the instance impossible** - and that is as valuable as a solution.
 
 The task that seeded this experiment shipped a variant table claiming
 **4 missionaries + 4 cannibals** is solvable. With **boat capacity 2 it is
-not** — and the solver says so, expanding 11 states, discovering 11, and
+not** - and the solver says so, expanding 11 states, discovering 11, and
 returning `solvable: false`. We deliberately **hardcode no solvability table**;
 the BFS/DFS/A\* search is the single source of truth. Verified instances:
 
 | M | C | K | Result | Min crossings | Notes |
 |---|---|---|---|---|---|
 | 3 | 3 | 2 | solvable | **11** | the classic puzzle |
-| 4 | 4 | 2 | **unsolvable** | — | the prompt's table was wrong |
+| 4 | 4 | 2 | **unsolvable** | - | the prompt's table was wrong |
 | 4 | 4 | 3 | solvable | 9 | bigger boat rescues it |
 | 5 | 2 | 2 | solvable | 11 | lopsided populations are fine |
 | 5 | 5 | 4 | solvable | (the §0 DFS loop case) | |
 
 This is the educational payoff of the state-space framing: change the headcount
 or boat size and the *same* engine either solves the new puzzle or proves none
-exists — no per-variant special-casing. When unsolvable, the panel shows the real
+exists - no per-variant special-casing. When unsolvable, the panel shows the real
 search cost (non-zero `expanded`/`discovered`), because an early version returned
 hardcoded zeros there and that hid how much work the proof took.
 
@@ -269,7 +269,7 @@ human is allowed to make an illegal one and lose.**
 
 - Boarding (`boardPerson`) is constrained to the docked bank's actual supply and
   the `K` seats, so counts can't go out of bounds.
-- A crossing uses `rawApply` — which **skips the safety check** — then the
+- A crossing uses `rawApply` - which **skips the safety check** - then the
   finalize step judges the result: `won` (goal), `playing` (legal), or `lost`
   (a missionary was outnumbered → eaten).
 
@@ -279,7 +279,7 @@ illegal state, the scene finds the **doomed bank** (where `c > m > 0`), plays a
 keel-over **death animation** on those missionaries while the cannibals lunge,
 and floats a **comic speech bubble** with a random last word. The shouts live in
 i18n (`experiments.river-crossing.death_shouts`, EN + VI, kept in sync at 16
-lines); the hook stores a random **index** — not the string — so the line is
+lines); the hook stores a random **index** - not the string - so the line is
 stable across re-renders and localized at display time. (Hardcoding the strings
 was the first cut; it was moved into the locale files because nothing
 user-visible should be hardcoded.)
@@ -291,17 +291,17 @@ user-visible should be hardcoded.)
 Non-search lessons the build forced into the open, recorded because they cost
 real time and generalise.
 
-### 6.1 The boat hid behind the banks — a stacking-context trap
+### 6.1 The boat hid behind the banks - a stacking-context trap
 The boat was first nested inside `.rc-water`, a positioned element with
 `z-index: 1`. A positioned element with a z-index **forms a stacking context**,
-so the boat's own `z-index: 3` only ranked it *within the water layer* — it could
+so the boat's own `z-index: 3` only ranked it *within the water layer* - it could
 never paint above the banks (`z-index: 2`), which sit above the whole water
 layer. **Fix:** lift the boat to be a direct child of the scene with
 `z-index: 5`. Generalised: a child's z-index is meaningless outside its parent's
 stacking context; raising the child can't escape a parent that's pinned lower.
 
 ### 6.2 Scene geometry is keyed to one waterline
-A first pass left the boat "on the ground" — below the water band, behind the
+A first pass left the boat "on the ground" - below the water band, behind the
 land. The scene is a side view tied to a shared waterline: sky → a `40%` water
 band along the bottom → land platforms rising to `52%` with the crowd anchored at
 `bottom: 52%` (people stand on the land's flat top) → the boat at `bottom: 37%`
@@ -327,7 +327,7 @@ a screenshot can't: the config, both banks, boat side, status, the full solver
 telemetry and plan from the current state, a **replayed move history with
 per-move validity**, and a rolling event log.
 
-This is not decoration — **it is how §0 was found.** The user pasted a report of
+This is not decoration - **it is how §0 was found.** The user pasted a report of
 the 5/5/4 DFS run; the repeating `→2M+2C / ←2M+2C` move list made the oscillation
 diagnosable without ever seeing the screen. The methodology generalises to any
 interactive experiment: **expose the engine's internal state as paste-ready text,
@@ -342,11 +342,11 @@ report.)
 |---|---|---|
 | State model `(ml, cl, boat)`, right bank derived | ✅ | canonical |
 | Validity on both banks (cannibals ≤ missionaries where present) | ✅ | canonical |
-| Goal `(0, 0, R)` — boat must end on the far side | ✅ | |
+| Goal `(0, 0, R)` - boat must end on the far side | ✅ | |
 | BFS optimal (fewest crossings) | ✅ | 11 on 3/3/2 |
 | DFS any-solution | ✅ | non-optimal by design |
 | A\* with admissible `h = ceil((ml+cl)/K)` | ✅ | optimal, agrees with BFS |
-| Greedy best-first (`h` only) | ✅ | non-optimal by design — the A\* foil |
+| Greedy best-first (`h` only) | ✅ | non-optimal by design - the A\* foil |
 | Iterative-deepening DFS | ✅ | BFS-optimal depth; depth-pruned to stay polynomial |
 | Bidirectional BFS | ✅ | shortest; bails when the goal is illegal (`C > M`) |
 | Uniform-Cost / Dijkstra (weighted) | ✅\* | optimises *people ferried*, not crossings |
@@ -364,13 +364,13 @@ report.)
 
 The puzzle is a toy; the **state-space search** is the real subject. Boundaries:
 
-- **Tiny, bounded instances.** `(M+1)(C+1)·2` states with `M,C ≤ 5` — chosen so
+- **Tiny, bounded instances.** `(M+1)(C+1)·2` states with `M,C ≤ 5` - chosen so
   the whole graph is comprehensible and the UI stays legible, not to stress-test
   search. Real search problems are astronomically larger.
 - **Uniform-cost edges.** Every crossing costs 1, so BFS already gives the
   optimum and A\*'s heuristic is a tie-breaker on work, not a necessity. The
   moment crossings carry *weights* (time, fuel), this becomes a genuine
-  shortest-path problem where A\*/Dijkstra earn their keep — see the
+  shortest-path problem where A\*/Dijkstra earn their keep - see the
   [[Experiment Pathfinding]] sibling.
 - **No people-level modelling.** Missionaries and cannibals are interchangeable
   counts, not individuals; the boat has no rower identity, fatigue, or night.
@@ -381,8 +381,8 @@ The puzzle is a toy; the **state-space search** is the real subject. Boundaries:
 
 ## 10. Further real-world context
 
-- **State-space search** — modelling a problem as `(states, actions, goal-test)`
-  and searching the implicit graph — is the foundational technique behind
+- **State-space search** - modelling a problem as `(states, actions, goal-test)`
+  and searching the implicit graph - is the foundational technique behind
   planning, routing, puzzle-solving, and game AI. M&C is the textbook on-ramp
   precisely because its graph is small enough to draw.
 - **BFS / DFS / A\*** here are the same algorithms that, on a *weighted* grid,
@@ -392,12 +392,12 @@ The puzzle is a toy; the **state-space search** is the real subject. Boundaries:
   *jealous husbands* problem, where the constraint is "no woman with another man
   unless her husband is present") date to medieval recreational mathematics. The
   classic 3/3/boat-2 instance needs 11 crossings; scaling the populations past
-  the boat's slack quickly makes it **unsolvable** — which the search discovers
+  the boat's slack quickly makes it **unsolvable** - which the search discovers
   automatically (§4) rather than requiring a cleverness proof.
 - **Why a general algorithm beats memorised moves.** The canonical solution is
   often taught as a fixed 11-move recipe. The instant any parameter changes
   (`4/4/2`, `K=3`, lopsided populations) the recipe is useless, but the search is
-  not — the whole point of the state-space formulation.
+  not - the whole point of the state-space formulation.
 
 ---
 

@@ -7,10 +7,10 @@ export interface Point {
 
 // Tunable Ant System parameters.
 export interface AcoParams {
-  ants: number; // colony size — ants per iteration
+  ants: number; // colony size - ants per iteration
   alpha: number; // pheromone influence (exploitation of learned trails)
   beta: number; // heuristic influence (greedy preference for short edges)
-  rho: number; // evaporation rate in [0,1] — fraction of pheromone lost / iter
+  rho: number; // evaporation rate in [0,1] - fraction of pheromone lost / iter
   q: number; // deposit strength (kept internal)
   elitist: boolean; // reinforce the best-so-far tour each iteration
 }
@@ -33,7 +33,7 @@ export interface ColonySnapshot {
   converged: boolean; // best length unchanged for a while
 }
 
-// Structural runtime state the canvas exposes for the copyable debug report —
+// Structural runtime state the canvas exposes for the copyable debug report -
 // the things not already in ColonySnapshot (canvas geometry, pheromone shape,
 // the actual best path + coordinates).
 export interface AcoDebug {

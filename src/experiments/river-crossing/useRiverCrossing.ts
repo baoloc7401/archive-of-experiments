@@ -43,7 +43,7 @@ export interface RiverCrossing {
   crossing: boolean;
   /** which bank the boat sits at right now (origin while crossing) */
   dock: PuzzleState["boat"];
-  /** where the boat is drawn — flips to the destination during a crossing */
+  /** where the boat is drawn - flips to the destination during a crossing */
   boatSide: PuzzleState["boat"];
   /** the state the boat is gliding toward mid-crossing (drives the graph token) */
   crossTarget: PuzzleState | null;
@@ -58,7 +58,7 @@ export interface RiverCrossing {
   graph: StateGraph;
   /** the materialized search trace from the current state (one frame per expansion) */
   searchTrace: SearchStep[];
-  /** identity of the current search — change it to remount/reset the search view */
+  /** identity of the current search - change it to remount/reset the search view */
   searchKey: string;
   /** the states the boat has actually visited, start → current (grows per crossing) */
   traveled: PuzzleState[];
@@ -88,7 +88,7 @@ export interface RiverCrossing {
   play: () => void;
   pause: () => void;
   clearLog: () => void;
-  /** assembled on demand — a full, paste-ready snapshot for debugging */
+  /** assembled on demand - a full, paste-ready snapshot for debugging */
   buildReport: () => string;
 }
 
@@ -107,14 +107,14 @@ export function useRiverCrossing(): RiverCrossing {
   const [playIntent, setPlayIntent] = useState(false);
   /** the remaining moves of a committed solver plan being followed move-by-move.
    *  Snapshotted once (NOT recomputed each step) so non-optimal algorithms like
-   *  DFS — whose path isn't progress-monotonic — don't oscillate forever. */
+   *  DFS - whose path isn't progress-monotonic - don't oscillate forever. */
   const [plan, setPlan] = useState<Move[]>([]);
   const [log, setLog] = useState<DebugEntry[]>([]);
 
   /** in-flight crossing: where it came from, where it lands, who's aboard */
   const pending = useRef<{ from: PuzzleState; to: PuzzleState; load: Load } | null>(null);
   const logId = useRef(0);
-  /** crossings committed so far — mirrors moveLog.length, readable inside timers */
+  /** crossings committed so far - mirrors moveLog.length, readable inside timers */
   const playedRef = useRef(0);
 
   const pushLog = useCallback((kind: DebugKind, text: string, n: number | null = null) => {
@@ -141,7 +141,7 @@ export function useRiverCrossing(): RiverCrossing {
   const traveled = useMemo(() => [...history, state], [history, state]);
   const graph = useMemo(() => reachableGraph(cfg), [cfg]);
   // Keyed on config + algorithm only (not `state`), so the graph view persists
-  // across crossings — the live route and boat token glide instead of remounting.
+  // across crossings - the live route and boat token glide instead of remounting.
   const searchKey = `${cfg.m}-${cfg.c}-${cfg.k}-${algo}`;
 
   const dock = state.boat;
@@ -157,7 +157,7 @@ export function useRiverCrossing(): RiverCrossing {
   const seats = board.m + board.c;
   // While a crossing is in flight, `board` holds the load and `state` is the
   // origin, so the destination is just the raw-applied move (skips the safety
-  // check, like the boat in the scene — the graph token glides there).
+  // check, like the boat in the scene - the graph token glides there).
   const crossTarget = crossing ? rawApply(cfg, state, board) : null;
   const canCross = !crossing && status === "playing" && seats >= 1;
   const canUndo = !crossing && history.length > 0;
@@ -185,7 +185,7 @@ export function useRiverCrossing(): RiverCrossing {
 
       const n = (playedRef.current += 1);
       const r = rightBank(cfg, p.to);
-      const verdict = won ? "GOAL" : legal ? "ok" : "ILLEGAL — someone eaten";
+      const verdict = won ? "GOAL" : legal ? "ok" : "ILLEGAL - someone eaten";
       pushLog(
         won ? "win" : legal ? "cross" : "lost",
         `${moveArrow(p.from.boat)} ${loadLabel(p.load)} ⇒ L:${p.to.ml}M${p.to.cl}C` +
@@ -246,7 +246,7 @@ export function useRiverCrossing(): RiverCrossing {
     [crossing, status]
   );
 
-  // A manual crossing abandons any committed solver plan — the player deviated.
+  // A manual crossing abandons any committed solver plan - the player deviated.
   const cross = useCallback(() => {
     setPlayIntent(false);
     setPlan([]);
@@ -328,7 +328,7 @@ export function useRiverCrossing(): RiverCrossing {
   const buildReport = useCallback(() => {
     const r = rightBank(cfg, state);
     const lines: string[] = [
-      "river crossing — debug report",
+      "river crossing - debug report",
       `generated: ${new Date().toISOString()}`,
       `config: ${cfg.m} missionaries · ${cfg.c} cannibals · boat seats ${cfg.k}`,
       "─".repeat(46),
@@ -340,7 +340,7 @@ export function useRiverCrossing(): RiverCrossing {
       "",
       `solver [${algo}] from current state:`,
       `  solvable: ${solution.solvable}`,
-      `  optimal crossings remaining: ${solution.solvable ? solution.moves.length : "—"}`,
+      `  optimal crossings remaining: ${solution.solvable ? solution.moves.length : "-"}`,
       `  nodes expanded: ${solution.expanded} · discovered: ${solution.discovered} · frontier peak: ${solution.frontierPeak}`,
     ];
     if (algo === "ucs" && solution.solvable) {

@@ -735,7 +735,7 @@
 }
 
 /* Honour reduced-motion: kill decorative transitions (the auto-solver also
-   resolves instantly under this preference — see useMinesweeper). */
+   resolves instantly under this preference - see useMinesweeper). */
 @media (prefers-reduced-motion: reduce) {
   .ms-cell,
   .ms-btn,

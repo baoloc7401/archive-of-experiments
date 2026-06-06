@@ -28,9 +28,9 @@ export type AlgoKind = "optimal" | "cost" | "any";
  * The algorithm picker, in display order. Names and taglines live in i18n
  * (`experiments.river-crossing.search.algos.{id}`); `kind` drives the plan label
  * and which searches we call "optimal":
- * - `optimal` — returns a fewest-crossings path (BFS, IDDFS, A*, bidirectional)
- * - `cost`    — returns a least-weight path (UCS / Dijkstra, weighted by people ferried)
- * - `any`     — returns *a* valid path, not necessarily shortest (DFS, greedy)
+ * - `optimal` - returns a fewest-crossings path (BFS, IDDFS, A*, bidirectional)
+ * - `cost`    - returns a least-weight path (UCS / Dijkstra, weighted by people ferried)
+ * - `any`     - returns *a* valid path, not necessarily shortest (DFS, greedy)
  */
 export const ALGOS: { id: SearchAlgo; kind: AlgoKind }[] = [
   { id: "bfs", kind: "optimal" },

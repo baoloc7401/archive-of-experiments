@@ -71,7 +71,7 @@ function reducer(state: SimState, action: Action): SimState {
   switch (action.type) {
     case 'set-algorithms': {
       const ids = action.ids.length ? action.ids : (['look'] as AlgorithmId[]);
-      // Reconfiguring the line-up wipes everything — including the log.
+      // Reconfiguring the line-up wipes everything - including the log.
       return initState(ids);
     }
 
@@ -151,7 +151,7 @@ function reducer(state: SimState, action: Action): SimState {
         }
 
         if (pending.length === 0) {
-          log(newLog, tick, el.algorithm, 'done', 'queue empty — idle');
+          log(newLog, tick, el.algorithm, 'done', 'queue empty - idle');
           return { ...el, pending, served, flashFloor, express: null, idle: true };
         }
 
@@ -186,7 +186,7 @@ function reducer(state: SimState, action: Action): SimState {
         }
 
         // 2b. Normal one-floor move. A direction flip only counts as a reversal
-        //     if the car was already moving — picking a heading out of idle is
+        //     if the car was already moving - picking a heading out of idle is
         //     not a reversal.
         const reversed = decision.direction !== el.direction && !el.idle;
         if (reversed) {

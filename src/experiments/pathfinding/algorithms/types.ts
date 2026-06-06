@@ -4,7 +4,7 @@ export interface AlgoState {
   visited: ReadonlySet<string>;
   /** Primary open set (forward frontier for bidirectional) */
   frontier: ReadonlySet<string>;
-  /** Backward frontier — bidirectional BFS only */
+  /** Backward frontier - bidirectional BFS only */
   frontierB?: ReadonlySet<string>;
   current: string | null;
   path: readonly string[] | null;

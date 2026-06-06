@@ -4,7 +4,7 @@ import { SITE, type PageMeta } from "./site";
 // Keep the document <head> in sync with the current route during client-side
 // navigation (and for Googlebot's rendered pass). The static per-route HTML
 // emitted by scripts/vite-seo.ts already ships correct tags on first paint;
-// this updates the SAME tags in place — no duplicate <title>/<meta> — when the
+// this updates the SAME tags in place - no duplicate <title>/<meta> - when the
 // SPA navigates without a full reload.
 
 function upsertMeta(attr: "name" | "property", key: string, content: string) {

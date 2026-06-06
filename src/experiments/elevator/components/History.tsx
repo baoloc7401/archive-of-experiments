@@ -11,14 +11,14 @@ interface Props {
 
 function formatEntry(e: LogEntry): string {
   const t = `[t=${String(e.tick).padStart(3, ' ')}]`;
-  const who = e.algorithm ? ALGORITHM_BY_ID[e.algorithm].name.padEnd(6, ' ') : '——    ';
+  const who = e.algorithm ? ALGORITHM_BY_ID[e.algorithm].name.padEnd(6, ' ') : '--    ';
   return `${t} ${who} ${e.text}`;
 }
 
 function buildClipboardText(state: SimState, speedLabel: string): string {
   const algos = state.elevators.map(el => ALGORITHM_BY_ID[el.algorithm].name).join(', ');
   const header = [
-    'elevator scheduling — debug log',
+    'elevator scheduling - debug log',
     `algorithms: ${algos}`,
     `floors: ${state.totalFloors} · speed: ${speedLabel} · tick: ${state.tick} · status: ${state.status}`,
     '─'.repeat(40),
@@ -92,7 +92,7 @@ export default function History({ state, speedLabel }: Props) {
               {e.algorithm ? (
                 <span className="elev-history-algo">{ALGORITHM_BY_ID[e.algorithm].name}</span>
               ) : (
-                <span className="elev-history-algo elev-history-algo--sys">—</span>
+                <span className="elev-history-algo elev-history-algo--sys">-</span>
               )}
               <span className="elev-history-text">{e.text}</span>
             </div>

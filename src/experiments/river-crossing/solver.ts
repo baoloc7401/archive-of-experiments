@@ -57,7 +57,7 @@ export function boatLoads(k: number): Load[] {
 }
 
 /**
- * Move `load` people off the docked bank and across. Ignores the safety rule —
+ * Move `load` people off the docked bank and across. Ignores the safety rule -
  * used for the manual game where an illegal crossing is allowed (and promptly
  * declared a loss). Boarding already keeps the load within the docked bank's
  * supply, so counts stay in bounds.
@@ -265,7 +265,7 @@ function* frontierSearch(
   return unsolved(from, expanded, discovered.size, frontierPeak);
 }
 
-/** Count the states reachable from `from` — bounds how deep IDDFS ever needs to go. */
+/** Count the states reachable from `from` - bounds how deep IDDFS ever needs to go. */
 function floodCount(cfg: Config, from: PuzzleState): number {
   const seen = new Set<string>([stateKey(from)]);
   const q: PuzzleState[] = [from];
@@ -286,7 +286,7 @@ function floodCount(cfg: Config, from: PuzzleState): number {
  * Iterative-deepening DFS: depth-limited DFS in a loop with a rising limit, so
  * the first limit that reaches the goal yields a BFS-optimal depth while holding
  * only the current path in memory. Within each iteration a state is (re)expanded
- * only when reached at a strictly *shallower* depth (`seenDepth`) — this keeps
+ * only when reached at a strictly *shallower* depth (`seenDepth`) - this keeps
  * the shortest route open (preserving optimality) while preventing the
  * exponential re-enumeration of paths that a pure per-path cycle check suffers on
  * a graph this cyclic. The limit is capped at the reachable-node count.
@@ -354,7 +354,7 @@ function* iddfsSteps(cfg: Config, from: PuzzleState): Generator<SearchStep, Sear
   return unsolved(from, expanded, lastDiscovered, frontierPeak);
 }
 
-/** IDDFS snapshot — the "frontier" is the active DFS path (the recursion stack). */
+/** IDDFS snapshot - the "frontier" is the active DFS path (the recursion stack). */
 function snapshotPath(
   expandedState: PuzzleState,
   pathKeys: string[],
@@ -402,7 +402,7 @@ function assembleBidir(
 
 /**
  * Bidirectional BFS: grow a frontier forward from the start and another backward
- * from the goal (the graph is undirected — any crossing can be rowed back), and
+ * from the goal (the graph is undirected - any crossing can be rowed back), and
  * stop when they touch. Expanding the smaller frontier each round, with the
  * `best ≤ depthF + depthB` cutoff, keeps it shortest while exploring a fraction
  * of what a single BFS would.
@@ -425,7 +425,7 @@ function* bidirSteps(cfg: Config, from: PuzzleState): Generator<SearchStep, Sear
   const closed = new Set<string>();
 
   // If the goal itself is illegal (cannibals outnumber missionaries once everyone
-  // is across — i.e. C > M), it can never be legally occupied. Edges *out of* it
+  // is across - i.e. C > M), it can never be legally occupied. Edges *out of* it
   // aren't real reverse edges, so a backward search would falsely connect; bail.
   if (!isValid(cfg, goal)) {
     yield snapshot(null, discovered, closed, expanded, frontierPeak);
@@ -531,7 +531,7 @@ export function solveFrom(
 }
 
 /**
- * The reachable state graph for a config — every state reachable from the start
+ * The reachable state graph for a config - every state reachable from the start
  * by legal crossings, plus the undirected edges between them. Drawn by the
  * search-graph view; an unsolvable instance simply has the goal in a different
  * (here, absent) component, which is the visual proof of impossibility.
@@ -572,7 +572,7 @@ export function loadLabel(load: Load): string {
   const parts: string[] = [];
   if (load.m) parts.push(`${load.m}M`);
   if (load.c) parts.push(`${load.c}C`);
-  return parts.join("+") || "—";
+  return parts.join("+") || "-";
 }
 
 export function moveArrow(from: Side): string {

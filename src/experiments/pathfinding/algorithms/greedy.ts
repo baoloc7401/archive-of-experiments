@@ -1,6 +1,6 @@
-// Greedy Best-First Search — priority queue ordered purely by h(n) = Manhattan distance.
+// Greedy Best-First Search - priority queue ordered purely by h(n) = Manhattan distance.
 // Ignores the actual path cost g(n) entirely; always chases the cell that
-// LOOKS closest to the goal. Very fast but not optimal — can be tricked by
+// LOOKS closest to the goal. Very fast but not optimal - can be tricked by
 // obstacles into a longer path or even an inefficient winding one.
 import type { GridConfig } from '../types';
 import type { AlgoGen } from './types';

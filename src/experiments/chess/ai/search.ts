@@ -49,7 +49,7 @@ function scoreFromTT(score: number, ply: number): number {
 // check-giving moves (first QS_CHECK_PLIES levels only) to avoid the
 // horizon effect on forcing lines. Mutates pos in place via make/unmake;
 // restores it before returning. If pos is itself in check, all legal
-// evasions are searched and stand-pat is suppressed — otherwise an
+// evasions are searched and stand-pat is suppressed - otherwise an
 // in-check position would be evaluated as if quiet.
 export function quiesce(
   pos: Position,
@@ -161,7 +161,7 @@ export function alphaBeta(
   extensions = 0,
   nullMoveDone = false,
 ): number {
-  // Check extension — applied before the leaf test so an in-check leaf
+  // Check extension - applied before the leaf test so an in-check leaf
   // gets a real search instead of falling into capture-only quiescence.
   const inCheck = isInCheck(pos, pos.turn);
   if (inCheck && extensions < MAX_EXTENSIONS) {
@@ -187,12 +187,12 @@ export function alphaBeta(
     if (alpha >= beta) return cachedScore;
   }
 
-  // Static eval is consulted by both NMP and futility — compute lazily and
+  // Static eval is consulted by both NMP and futility - compute lazily and
   // share so a node firing both heuristics only pays for evaluate once.
   let cachedEval: number | null = null;
   const staticEval = (): number => cachedEval ?? (cachedEval = evaluate(pos));
 
-  // Null-move pruning — pass the move and search shallow; if the opponent
+  // Null-move pruning - pass the move and search shallow; if the opponent
   // still can't push us under beta, our real move would surely cut off.
   // Skipped in check (illegal), endgames (zugzwang risk), and when already
   // null-moved (no consecutive nulls).
@@ -227,7 +227,7 @@ export function alphaBeta(
   const plyKillers = killers[ply] ?? [null, null];
   orderMoves(pos, moves, ttMove, plyKillers);
 
-  // Futility pruning — at depth 1–2, if static eval + margin can't bridge
+  // Futility pruning - at depth 1–2, if static eval + margin can't bridge
   // to alpha, quiet moves are unlikely to either. Disabled near mate scores
   // and in check (tactical positions don't follow the assumption).
   let futilityActive = false;
@@ -285,12 +285,12 @@ export function alphaBeta(
         // PVS null-window probe at (possibly reduced) depth.
         if (maximizing) {
           val = search(childDepth - reduction, alpha, alpha + 1);
-          // Reduced search beat alpha — confirm at full depth before
+          // Reduced search beat alpha - confirm at full depth before
           // committing to a full-window re-search.
           if (val > alpha && reduction > 0) {
             val = search(childDepth, alpha, alpha + 1);
           }
-          // Move sits inside the open window — need exact value.
+          // Move sits inside the open window - need exact value.
           if (val > alpha && val < beta) {
             val = search(childDepth, alpha, beta);
           }
@@ -333,7 +333,7 @@ export function alphaBeta(
     }
   }
 
-  // TT store — prefer deeper entries; exact entries always overwrite.
+  // TT store - prefer deeper entries; exact entries always overwrite.
   // Mate scores are converted to absolute distance-from-this-node before
   // storing so retrievals at other plies decode correctly via scoreFromTT.
   const existing = tt.get(key);

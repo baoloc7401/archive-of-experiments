@@ -163,14 +163,14 @@ export function generateField(cfg: FieldConfig, origin: number): { field: Minefi
   let best = evaluate(freshSet());
   attempts++;
 
-  // Phase 1 — a handful of fresh boards; many easy fields are solved outright here.
+  // Phase 1 - a handful of fresh boards; many easy fields are solved outright here.
   while (!best.solved && attempts < FRESH_BEFORE_SWAP && timeLeft()) {
     const cand = evaluate(freshSet());
     attempts++;
     if (cand.coverage > best.coverage) best = cand;
   }
 
-  // Phase 2 — hill-climb: relocate a mine touching the ambiguous frontier, keep
+  // Phase 2 - hill-climb: relocate a mine touching the ambiguous frontier, keep
   // boards that don't regress, restart fresh when we stall in a local minimum.
   let sinceImprove = 0;
   while (!best.solved && swaps < MAX_SWAPS && attempts < MAX_ATTEMPTS && timeLeft()) {

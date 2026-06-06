@@ -23,7 +23,7 @@ export default function ExperimentCard({ experiment, leaving = false }: Props) {
   const { id, tags, status, path } = experiment;
   const ref = useRef<HTMLElement>(null);
 
-  // Shout variant — initial random, re-rolls on every fresh hover.
+  // Shout variant - initial random, re-rolls on every fresh hover.
   const [shoutIdx, setShoutIdx] = useState(() =>
     Math.floor(Math.random() * SHOUT_COUNT)
   );

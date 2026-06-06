@@ -19,10 +19,10 @@ symmetric Euclidean TSP, rendered on a canvas:
 
 ## Try this
 
-- Drag **β (distance)** down to 0 — the colony goes nearly blind and struggles.
-- Push **α (pheromone)** up and **ρ (evaporation)** down — watch it lock in early
+- Drag **β (distance)** down to 0 - the colony goes nearly blind and struggles.
+- Push **α (pheromone)** up and **ρ (evaporation)** down - watch it lock in early
   on a mediocre loop (premature convergence).
-- Toggle **elitist** — faster convergence, but easier to get stuck.
+- Toggle **elitist** - faster convergence, but easier to get stuck.
 - Use the **trails** slider to reveal or hide the faint pheromone web.
 - Click the board to add cities; pick a layout (scatter / ring / clusters / grid).
 
@@ -35,13 +35,13 @@ symmetric Euclidean TSP, rendered on a canvas:
 - **Pheromone converges to a bimodal distribution**, which is why an early
   "excess-over-baseline" visibility slider felt inert.
 - **A HiDPI canvas with `width:100%` can inflate a `1fr` grid track and grow
-  without bound on resize** — fixed by taking canvases out of flow and deferring
+  without bound on resize** - fixed by taking canvases out of flow and deferring
   ResizeObserver work to a frame.
 
 ## Deep dive
 
 📖 **[docs/aco/TEXTBOOK.md](https://github.com/baoloc7401/archive-of-experiments/blob/main/docs/aco/TEXTBOOK.md)**
-— the full research record: the algorithm and equations, implementation choices
+- the full research record: the algorithm and equations, implementation choices
 (`τ₀ = m/L_nn`, the build/commit split), parameter intuition, the three
 rendering attempts, the animation model, the canvas/layout bug, fidelity
 scorecard (AS vs ACS vs MMAS), and real-world context.

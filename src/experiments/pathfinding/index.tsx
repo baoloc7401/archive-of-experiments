@@ -134,7 +134,7 @@ export default function Pathfinding() {
   }
 
   // Unknown slug, or a deep-link into a later step before any algorithm has
-  // been picked — bounce back to the start of the flow.
+  // been picked - bounce back to the start of the flow.
   if ((slug && !SLUG_SCREEN[slug]) || (screen !== 'algorithm-select' && selected.size === 0)) {
     return <Navigate to="/experiments/pathfinding" replace />;
   }

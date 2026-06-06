@@ -9,12 +9,12 @@ interface Props {
   onClick?: () => void;
   disabled?: boolean;
   title?: string;
-  /** this missionary is being eaten — plays the death animation */
+  /** this missionary is being eaten - plays the death animation */
   doomed?: boolean;
 }
 
 /**
- * A single stylized figure — green-robed missionary (M) or red cannibal (C).
+ * A single stylized figure - green-robed missionary (M) or red cannibal (C).
  * Rendered as a button so boarding/disembarking is keyboard-reachable; when no
  * handler is supplied it degrades to a static, non-interactive marker.
  */

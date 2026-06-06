@@ -83,7 +83,7 @@ const ColonyCanvas = forwardRef<ColonyHandle, Props>(function ColonyCanvas(
   // --- Stats + drawing ---------------------------------------------------
   // These read every live value from refs (theme/cities included, via
   // propsRef), so they stay referentially stable and can sit in effect
-  // dependency arrays without forcing those effects to re-run — crucially, the
+  // dependency arrays without forcing those effects to re-run - crucially, the
   // colony is never rebuilt just because the theme flipped.
 
   const emitStats = useCallback(() => {
@@ -128,7 +128,7 @@ const ColonyCanvas = forwardRef<ColonyHandle, Props>(function ColonyCanvas(
     const pal = paletteRef.current;
     const colony = colonyRef.current;
 
-    // Pheromone field — each edge is normalised across the *current* min→max
+    // Pheromone field - each edge is normalised across the *current* min→max
     // pheromone range, then shaped by the "trails" slider. The slider drives a
     // gamma curve + cutoff: low reveals only the strongest trails, high lifts
     // the faint decayed web into view. A near-uniform early field (min ≈ max)
@@ -173,7 +173,7 @@ const ColonyCanvas = forwardRef<ColonyHandle, Props>(function ColonyCanvas(
       }
     }
 
-    // Best-so-far tour — a bright closed loop in the secondary accent.
+    // Best-so-far tour - a bright closed loop in the secondary accent.
     if (colony?.best) {
       const p = colony.best.path;
       const accent2Rgb = rgb(pal.accent2);
@@ -193,7 +193,7 @@ const ColonyCanvas = forwardRef<ColonyHandle, Props>(function ColonyCanvas(
       ctx.restore();
     }
 
-    // Ants — each crawls along the edge of its current tour, with a comet trail.
+    // Ants - each crawls along the edge of its current tour, with a comet trail.
     const gen = genRef.current;
     if (gen && colony) {
       const prog = progressRef.current;
@@ -230,7 +230,7 @@ const ColonyCanvas = forwardRef<ColonyHandle, Props>(function ColonyCanvas(
       ctx.restore();
     }
 
-    // Cities — drawn last so they sit above every trail.
+    // Cities - drawn last so they sit above every trail.
     const pts = colony ? colony.cities : cities;
     for (let i = 0; i < pts.length; i++) {
       const [x, y] = project(pts[i]);

@@ -87,7 +87,7 @@ export default function DebugLog({ entries, buildReport, onClear }: Props) {
           entries.slice(-120).map((e) => (
             <div key={e.id} className={`aco-debug-row aco-debug-row--${e.kind}`}>
               <span className="aco-debug-mark">{KIND_MARK[e.kind]}</span>
-              <span className="aco-debug-iter">{e.iter != null ? `i${e.iter}` : "—"}</span>
+              <span className="aco-debug-iter">{e.iter != null ? `i${e.iter}` : "-"}</span>
               <span className="aco-debug-text">{e.text}</span>
             </div>
           ))

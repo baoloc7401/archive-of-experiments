@@ -65,7 +65,7 @@ export interface SearchResult {
   discovered: number;
   /** largest the frontier ever grew. */
   frontierPeak: number;
-  /** total path cost — crossings for unit-cost algorithms, summed edge weights
+  /** total path cost - crossings for unit-cost algorithms, summed edge weights
    *  (people ferried) for the weighted UCS / Dijkstra search. */
   cost: number;
 }
@@ -92,7 +92,7 @@ export interface SearchStep {
   limit?: number;
 }
 
-/** The reachable state graph for a config — nodes plus undirected edges. */
+/** The reachable state graph for a config - nodes plus undirected edges. */
 export interface StateGraph {
   nodes: PuzzleState[];
   /** undirected edges between state keys, each listed once */

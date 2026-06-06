@@ -56,7 +56,7 @@
   opacity: 1;
 }
 
-/* Keyboard focus has no cursor — pin the bubble above the trigger's centre. */
+/* Keyboard focus has no cursor - pin the bubble above the trigger's centre. */
 .ui-tip-wrap:focus-within:not(:hover) > .ui-tip,
 .ui-tip-host:focus-visible:not(:hover) > .ui-tip {
   left: 50%;

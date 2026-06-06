@@ -6,7 +6,7 @@ export interface Decision {
   /** If set, the car begins a non-stop EXPRESS run to this floor: it physically
    *  travels one floor per tick toward it WITHOUT serving anyone on the way,
    *  then resumes normal service on arrival. This is how the C-SCAN / C-LOOK
-   *  circular return is modelled — a real descent, never a teleport. */
+   *  circular return is modelled - a real descent, never a teleport. */
   express?: number;
 }
 
@@ -15,7 +15,7 @@ interface Ctx {
   position: number;
   direction: Direction;
   totalFloors: number;
-  /** True on the tick the car restarts from a standstill — its `direction`
+  /** True on the tick the car restarts from a standstill - its `direction`
    *  is stale, so algorithms can choose a fresh heading instead. */
   idle: boolean;
 }
@@ -61,7 +61,7 @@ function decideSCAN({ pending, position, direction, totalFloors }: Ctx): Decisio
     if (position < top) {
       return { nextPos: position + 1, direction: 'up' };
     }
-    // at top boundary — reverse
+    // at top boundary - reverse
     const hasDown = pending.some(r => r.floor < position);
     if (hasDown) return { nextPos: position - 1, direction: 'down' };
     return null;
@@ -93,7 +93,7 @@ function decideCSCAN({ pending, position, totalFloors, idle }: Ctx): Decision | 
   const top = totalFloors - 1;
   const anyAbove = pending.some(r => r.floor > position);
   // Restarting from a standstill with every call below us: don't trundle all
-  // the way up to the top just to wrap — begin the express descent now.
+  // the way up to the top just to wrap - begin the express descent now.
   if (idle && !anyAbove && position > 0) {
     return { nextPos: position - 1, direction: 'down', express: 0 };
   }

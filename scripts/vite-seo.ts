@@ -1,10 +1,10 @@
 // Build-time SEO plugin. GitHub Pages serves static files with no SSR, and
-// social unfurlers (Facebook/LinkedIn/Slack/Discord) don't run JavaScript — so
+// social unfurlers (Facebook/LinkedIn/Slack/Discord) don't run JavaScript - so
 // every shareable route needs its <head> baked into static HTML. This plugin:
 //   1. injects the home page's SEO tags into index.html (dev + build), and
 //   2. on build, writes experiments/{id}/index.html for each active experiment
 //      with route-specific title/description/canonical/OG/JSON-LD, plus a
-//      sitemap.xml — all derived from the single source of truth in src/seo/site.
+//      sitemap.xml - all derived from the single source of truth in src/seo/site.
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import type { Plugin, ResolvedConfig } from "vite";

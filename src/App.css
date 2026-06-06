@@ -163,7 +163,7 @@
   50%, 100% { opacity: 0; }
 }
 
-/* Subtitle is a button — click to roll a new variant */
+/* Subtitle is a button - click to roll a new variant */
 .hero-sub {
   display: inline-block;
   margin-top: 12px;
@@ -352,7 +352,7 @@
   animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* Pure opacity-only crossfade. NO transforms here — old + new for an
+/* Pure opacity-only crossfade. NO transforms here - old + new for an
    *existing* card play simultaneously and cancel out (1-t + t = 1) so
    the card visually stays still while the group pseudo slides it to
    its new position. Removed cards fade out; added cards fade in. */
@@ -374,8 +374,8 @@
 
 /* Cards marked .is-leaving carry view-transition-class: leaving onto
    their OLD snapshot, so we can override (*) for *only* the snapshots
-   of removed cards. Pure-CSS keyframes — transform, opacity, filter
-   blur/brightness only — so every property is GPU-composited and
+   of removed cards. Pure-CSS keyframes - transform, opacity, filter
+   blur/brightness only - so every property is GPU-composited and
    60fps stays solid even on big cards. */
 .card.is-leaving {
   view-transition-class: leaving;
@@ -410,7 +410,7 @@
   }
 }
 
-/* Root (rest of the page) — instant crossfade so only cards
+/* Root (rest of the page) - instant crossfade so only cards
    carry the visible motion. MUST stay after the (*) rules. */
 ::view-transition-group(root) {
   animation-duration: 0.001s;

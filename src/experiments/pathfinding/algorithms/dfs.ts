@@ -1,5 +1,5 @@
-// Depth-First Search — explores via a LIFO stack (last in, first out).
-// Unweighted. Does NOT guarantee the shortest path — it commits deeply
+// Depth-First Search - explores via a LIFO stack (last in, first out).
+// Unweighted. Does NOT guarantee the shortest path - it commits deeply
 // to the first branch it finds, backtracking only when stuck.
 import type { GridConfig } from '../types';
 import type { AlgoGen } from './types';

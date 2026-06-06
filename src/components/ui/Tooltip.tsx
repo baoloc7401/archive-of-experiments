@@ -5,7 +5,7 @@ import "./Tooltip.css";
 interface Props {
   /** Tooltip text shown on hover / keyboard focus. */
   label: string;
-  /** Stretch the wrapper (and its child) to fill width — for full-width triggers. */
+  /** Stretch the wrapper (and its child) to fill width - for full-width triggers. */
   block?: boolean;
   children: ReactNode;
 }

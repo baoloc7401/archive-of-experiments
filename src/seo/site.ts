@@ -1,7 +1,6 @@
-// Single source of truth for site-wide SEO metadata. Framework-free so it can be
-// imported both at build time (the vite-seo plugin) and at runtime (the <Seo>
-// component). Per-experiment copy is derived from the i18n `en` locale so the
-// search/social text never drifts from what the cards already show.
+// Site-wide SEO metadata. Framework-free so both the build-time vite-seo plugin
+// and the runtime RouteMeta component can import it. Per-experiment copy comes
+// from the `en` locale, so social/search text tracks the cards.
 import { experiments } from "../experiments";
 import en from "../i18n/locales/en";
 
@@ -10,9 +9,9 @@ export const BASE_URL = "https://baoloc7401.github.io/archive-of-experiments";
 
 export const SITE = {
   name: "Archive of Experiments",
-  title: "Archive of Experiments — Interactive Algorithm Visualizations",
+  title: "Archive of Experiments - Interactive Algorithm Visualizations",
   description:
-    "A sandbox of interactive algorithm and data-structure visualizations — a chess engine with minimax + alpha-beta, A*/Dijkstra pathfinding, ant colony optimization, elevator scheduling, river-crossing state-space search, and a no-guess Minesweeper. Built to learn.",
+    "A sandbox of interactive algorithm and data-structure visualizations - a chess engine with minimax + alpha-beta, A*/Dijkstra pathfinding, ant colony optimization, elevator scheduling, river-crossing state-space search, and a no-guess Minesweeper. Built to learn.",
   author: "Le Tran Bao Loc",
   authorUrl: "https://github.com/baoloc7401",
   locale: "en_US",
@@ -68,7 +67,7 @@ export const experimentPages: PageMeta[] = experiments
     return {
       id: e.id,
       path: e.path,
-      title: `${copy.title} — ${SITE.name}`,
+      title: `${copy.title} - ${SITE.name}`,
       description: copy.description,
       canonical: siteUrl(e.path),
     };

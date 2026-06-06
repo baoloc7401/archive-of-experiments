@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256" fill="none">
+  <!-- monochrome: single currentColor bolt on transparent; set color via CSS/context -->
+  <g fill="currentColor" color="#e2e8f8">
+    <g transform="translate(38 38) scale(7.5)">
+      <path d="M7 2 L7 13 L10 13 L10 22 L17 10 L13 10 L17 2 Z"/>
+    </g>
+  </g>
+</svg>

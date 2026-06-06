@@ -108,7 +108,7 @@ function Shaft({ elevator, totalFloors, index }: ShaftProps) {
   const floors = Array.from({ length: totalFloors }, (_, i) => totalFloors - 1 - i);
   const rowFromTop = totalFloors - 1 - elevator.position;
   // During a C-SCAN / C-LOOK non-stop express return the car physically
-  // descends floor-by-floor (no teleport) — just flagged for styling.
+  // descends floor-by-floor (no teleport) - just flagged for styling.
   const expressing = elevator.express !== null;
 
   const pendingFloors = useMemo(() => {
@@ -140,7 +140,7 @@ function Shaft({ elevator, totalFloors, index }: ShaftProps) {
           <div
             className={`elev-car elev-car--${elevator.direction}${expressing ? ' elev-car--express' : ''}${elevator.idle ? ' elev-car--idle' : ''}`}
             /* Concrete transform value (not via a CSS var) so the transition
-               actually fires — unregistered custom properties are substituted
+               actually fires - unregistered custom properties are substituted
                at used-value time, so a var-driven transform never animates. */
             style={{ transform: `translate(-50%, ${rowFromTop * 100}%)` }}
           >

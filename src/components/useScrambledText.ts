@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 
-const GLYPHS = "!<>-_\\/[]{}—=+*^?#%$@01";
+const GLYPHS = "!<>-_\\/[]{}-=+*^?#%$@01";
 
 export interface Options {
   startDelay?: number;
   charDelay?: number;
   /** Cap the total scramble runtime by shrinking charDelay for long strings. */
   maxDuration?: number;
-  /** Target total runtime regardless of length — short texts slow down so
+  /** Target total runtime regardless of length - short texts slow down so
    *  every wrapped string finishes at the same moment. Overrides charDelay. */
   duration?: number;
 }
@@ -25,7 +25,7 @@ function scrambled(target: string) {
   return out;
 }
 
-/** Hook form — useful when the scrambled string needs to flow into an
+/** Hook form - useful when the scrambled string needs to flow into an
  *  attribute (e.g. an input's placeholder). For text nodes, prefer the
  *  ScrambleText component. */
 export function useScrambledText(text: string, options: Options = {}): string {
@@ -33,7 +33,7 @@ export function useScrambledText(text: string, options: Options = {}): string {
   const [display, setDisplay] = useState<string>(() => scrambled(text));
   const [prevText, setPrevText] = useState(text);
 
-  // Reset to a freshly scrambled string the instant `text` changes — React's
+  // Reset to a freshly scrambled string the instant `text` changes - React's
   // "adjust state during render" pattern. Doing it here rather than in the
   // effect below avoids both a frame of stale text and a setState-in-effect.
   if (text !== prevText) {

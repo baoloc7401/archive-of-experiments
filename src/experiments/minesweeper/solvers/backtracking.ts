@@ -23,7 +23,7 @@ function solve(board: Board, origin: number, opts: SolveOptions = {}): SolverRep
 export const backtrackingSolver: Solver = {
   id: "backtracking",
   name: "Backtracking",
-  tagline: "exhaustive frontier search — confirms solvability, finds ambiguity",
+  tagline: "exhaustive frontier search - confirms solvability, finds ambiguity",
   description:
     "When propagation stalls, it enumerates every legal mine arrangement of each border component (plus the global count in the endgame). Cells constant across all arrangements are forced; the rest are provably ambiguous. Complete for no-guess certification, bounded by a component-size and node cap.",
   capabilities: {

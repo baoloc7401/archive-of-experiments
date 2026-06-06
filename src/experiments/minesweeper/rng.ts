@@ -1,4 +1,4 @@
-/** mulberry32 — a tiny, fast, seedable PRNG. Deterministic per seed so a field
+/** mulberry32 - a tiny, fast, seedable PRNG. Deterministic per seed so a field
  *  can be reproduced from its `seed` diagnostic. */
 export function mulberry32(seed: number) {
   let a = seed >>> 0;

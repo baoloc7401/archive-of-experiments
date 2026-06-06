@@ -46,7 +46,7 @@ function Stepper({ label, value, min, max, onChange }: StepperProps) {
 }
 
 /**
- * Changing any number rebuilds the puzzle from scratch — that's the whole point
+ * Changing any number rebuilds the puzzle from scratch - that's the whole point
  * of the state-space framing: the same solver handles every variant.
  */
 export default function SetupPanel({ cfg, onChange }: Props) {

@@ -1,4 +1,4 @@
-// Bidirectional BFS — runs two simultaneous BFS sweeps: one forward from the
+// Bidirectional BFS - runs two simultaneous BFS sweeps: one forward from the
 // start, one backward from the end. They alternate expanding one level each.
 // When a cell touched by both sweeps is found, the path is reconstructed by
 // joining the two halves. Explores ≈ b^(d/2) nodes vs b^d for plain BFS.

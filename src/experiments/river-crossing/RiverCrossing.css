@@ -1,5 +1,5 @@
 /* =============================================================
-   River Crossing — Missionaries & Cannibals state-space puzzle
+   River Crossing - Missionaries & Cannibals state-space puzzle
    All classes prefixed `rc-` to avoid collisions.
    ============================================================= */
 
@@ -819,7 +819,7 @@ button.rc-person:not(:disabled):hover .rc-person-body {
   filter: drop-shadow(0 0 1px color-mix(in srgb, var(--accent2) 60%, transparent));
 }
 
-/* start / goal markers — outline rings, separate from node tint */
+/* start / goal markers - outline rings, separate from node tint */
 .rc-gmark { fill: none; stroke-width: 0.6; }
 .rc-gmark--start { stroke: var(--rc-mis); }
 .rc-gmark--goal {
@@ -847,7 +847,7 @@ button.rc-person:not(:disabled):hover .rc-person-body {
   100% { transform: scale(2.6); opacity: 0; }
 }
 
-/* the boat token — glides edge to edge (inline transition), with a soft halo */
+/* the boat token - glides edge to edge (inline transition), with a soft halo */
 .rc-gtoken-dot {
   fill: var(--text-hi);
   stroke: var(--accent);
@@ -1105,7 +1105,7 @@ button.rc-person:not(:disabled):hover .rc-person-body {
 
 /* ── Motion preference ────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
-  /* the boat's glide IS the content — keep it; only kill decorative loops */
+  /* the boat's glide IS the content - keep it; only kill decorative loops */
   .rc-water::before,
   .rc-boat--crossing .rc-boat-wake { animation: none; }
   .rc-person { animation: none; }

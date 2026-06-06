@@ -9,7 +9,7 @@
   One-time setup before first run:
     1. Repo Settings -> Features -> enable "Wikis".
     2. Open https://github.com/baoloc7401/archive-of-experiments/wiki and click
-       "Create the first page" and Save (any content) — this initializes the
+       "Create the first page" and Save (any content) - this initializes the
        .wiki git repo so it can be cloned.
 
   Then run this script from the repo root:  ./scripts/sync-wiki.ps1

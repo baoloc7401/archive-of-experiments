@@ -14,7 +14,7 @@ export interface FieldConfig {
   seed: number;
 }
 
-/** A cell's ground truth — fixed once the field is forged. */
+/** A cell's ground truth - fixed once the field is forged. */
 export interface Cell {
   mine: boolean;
   /** Mines in the 8-neighbourhood, 0..8. Meaningless when `mine` is true. */
@@ -34,9 +34,9 @@ export interface Minefield {
 }
 
 /** The logical techniques the generator's no-guess check leaned on, hardest last.
- *  `count`     — a number equals its hidden/flag neighbours (the trivial rules).
- *  `subset`    — one constraint's cells are a subset of another's (1-2-1 etc.).
- *  `enumerate` — brute-force every consistent arrangement of a border component.
+ *  `count`     - a number equals its hidden/flag neighbours (the trivial rules).
+ *  `subset`    - one constraint's cells are a subset of another's (1-2-1 etc.).
+ *  `enumerate` - brute-force every consistent arrangement of a border component.
  *  (Mirrors the keys of the solvers' shared `fullPropagate` technique counter.) */
 export type Technique = "count" | "subset" | "enumerate";
 
@@ -56,7 +56,7 @@ export interface GenStats {
   /** 0..100 logic-difficulty score. */
   rating: number;
   tier: RatingTier;
-  /** Bechtel's 3BV — minimum left-clicks to clear with perfect play. */
+  /** Bechtel's 3BV - minimum left-clicks to clear with perfect play. */
   threeBV: number;
   density: number;
   ms: number;

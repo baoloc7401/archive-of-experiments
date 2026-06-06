@@ -1,4 +1,4 @@
-// Jump Point Search — accelerates A* on uniform-cost grids by "jumping" over
+// Jump Point Search - accelerates A* on uniform-cost grids by "jumping" over
 // symmetric, prunable cells in straight lines and only adding "jump points"
 // (cells with forced neighbors) to the open list.
 //
@@ -100,7 +100,7 @@ export function* jps(grid: GridConfig): AlgoGen {
       // Arrived vertically
       const jp = jump(r + dr, c, dr, 0);
       if (jp) result.push(jp);
-      // Always try horizontal — forced-neighbor check alone misses jump points
+      // Always try horizontal - forced-neighbor check alone misses jump points
       // that were identified via cross-scan on open/lightly-walled grids.
       const jpL = jump(r, c - 1, 0, -1);
       if (jpL) result.push(jpL);
@@ -151,7 +151,7 @@ export function* jps(grid: GridConfig): AlgoGen {
       if (!(nk in g) || newG < g[nk]) {
         g[nk] = newG;
         parent[nk] = cur;
-        // Direction from (cr,cc) to jump point (nr,nc) — straight line guaranteed
+        // Direction from (cr,cc) to jump point (nr,nc) - straight line guaranteed
         arrivedDir[nk] = [Math.sign(nr - cr), Math.sign(nc - cc)];
         frontier.add(nk);
         pq.push({ k: nk, f: newG + h(nr, nc) });

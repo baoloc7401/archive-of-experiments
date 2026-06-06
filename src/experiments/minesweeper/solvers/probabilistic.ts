@@ -157,7 +157,7 @@ function probabilities(k: Knowledge, nodeCap: number, enumLimit: number): ProbRe
   // Total weighted models: pick S frontier mines, the rest among the outside o.
   let T = 0n;
   for (const [s, v] of A) T += v * binom(o, R - s);
-  if (T === 0n) return null; // inconsistent — leave it to the logic solvers
+  if (T === 0n) return null; // inconsistent - leave it to the logic solvers
 
   const prob = new Map<number, number>();
   const forcedSafe: number[] = [];
@@ -215,14 +215,14 @@ function solve(board: Board, origin: number, opts: SolveOptions = {}): SolverRep
     if (k.revealedCount + k.identified === k.total) break;
 
     const pr = probabilities(k, nodeCap, enumLimit);
-    if (!pr) break; // enumeration too large — leave the rest undecided
+    if (!pr) break; // enumeration too large - leave the rest undecided
     probs = pr.prob;
     if (pr.forcedSafe.length || pr.forcedMine.length) {
       techniques.probability++;
       steps++;
       for (const c of pr.forcedSafe) reveal(k, c);
       for (const c of pr.forcedMine) markMine(k, c);
-      continue; // global-count progress — re-run the cheap logic
+      continue; // global-count progress - re-run the cheap logic
     }
     break; // genuinely stuck: probabilities stand, pick the safest guess
   }
@@ -252,7 +252,7 @@ export const probabilisticSolver: Solver = {
   name: "Probabilistic",
   tagline: "exact mine odds + safest guess when logic runs out",
   description:
-    "Runs the full logic, then computes each remaining cell's exact mine probability by enumerating border components and combining them under the global mine budget (outside cells included). Cells at probability 0 or 1 are forced — catching global-count deductions the frontier solvers miss — and the lowest-probability cell is the recommended guess.",
+    "Runs the full logic, then computes each remaining cell's exact mine probability by enumerating border components and combining them under the global mine budget (outside cells included). Cells at probability 0 or 1 are forced - catching global-count deductions the frontier solvers miss - and the lowest-probability cell is the recommended guess.",
   capabilities: {
     complete: false,
     provesNoGuess: false,

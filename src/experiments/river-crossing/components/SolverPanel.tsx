@@ -97,7 +97,7 @@ export default function SolverPanel({
       <div className="rc-solver-stats">
         <div className="rc-stat">
           <span className="rc-stat-num">
-            {atGoal ? "0" : solution.solvable ? planMoves.length : "—"}
+            {atGoal ? "0" : solution.solvable ? planMoves.length : "-"}
           </span>
           <span className="rc-stat-lbl">{t("experiments.river-crossing.solver.crossings_left")}</span>
         </div>

@@ -16,8 +16,8 @@ export function isEndgame(pos: Position): boolean {
   return mat < ENDGAME_MATERIAL;
 }
 
-// The given side is "matable" — a lone king, or king plus at most a single
-// minor with no pawns — so the opponent should drive it to the edge for mate.
+// The given side is "matable" - a lone king, or king plus at most a single
+// minor with no pawns - so the opponent should drive it to the edge for mate.
 // This is independent of the WINNER's material: K+Q+R+B vs K must still mop up,
 // even though that much material keeps isEndgame() false.
 function isMatable(board: Position['board'], color: 'w' | 'b'): boolean {
@@ -40,7 +40,7 @@ const KING_OFFSETS: readonly (readonly [number, number])[] = [
 ];
 
 // Count on-board squares around the losing king that the king cannot escape
-// to — either occupied by its own piece, or attacked by the winning side.
+// to - either occupied by its own piece, or attacked by the winning side.
 // Higher = tighter net. Off-board squares are ignored because cornerDist
 // already rewards being on the edge; this term adds the gradient that's
 // missing once the king is cornered (mop-up plateau → no progress).
@@ -87,7 +87,7 @@ export function evaluate(pos: Position): number {
 
   // Mop-up: drive the losing king toward a corner and march the winning king
   // up to it. Fires in simplified endgames (eg) OR whenever the losing side is
-  // down to a near-bare king — the latter covers heavy-material wins like
+  // down to a near-bare king - the latter covers heavy-material wins like
   // K+Q+R+B vs K, where the winner has too much material for isEndgame().
   // Without this the engine has no mate gradient and shuffles to a draw.
   if (opts.mopUp && Math.abs(score) > 100) {
