@@ -74,4 +74,40 @@ export const experiments: Experiment[] = [
     status: "planned",
     path: "/experiments/fourier-drawing",
   },
+  {
+    id: "maze-generator",
+    tags: ["algorithms", "simulation", "visualization"],
+    status: "planned",
+    path: "/experiments/maze-generator",
+  },
+  {
+    id: "boids",
+    tags: ["AI", "simulation", "fun"],
+    status: "active",
+    path: "/experiments/boids",
+  },
+  {
+    id: "wave-function-collapse",
+    tags: ["algorithms", "visualization", "fun"],
+    status: "planned",
+    path: "/experiments/wave-function-collapse",
+  },
+  {
+    id: "n-body",
+    tags: ["simulation", "math", "visualization"],
+    status: "planned",
+    path: "/experiments/n-body",
+  },
+  {
+    id: "l-system",
+    tags: ["math", "visualization", "fun"],
+    status: "planned",
+    path: "/experiments/l-system",
+  },
+  {
+    id: "quadtree",
+    tags: ["data structures", "visualization"],
+    status: "planned",
+    path: "/experiments/quadtree",
+  },
 ];

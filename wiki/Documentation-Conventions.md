@@ -26,6 +26,7 @@ they cross-link, they don't duplicate.
 | [[Experiment Chess]] | [✓](https://github.com/baoloc7401/archive-of-experiments/blob/main/docs/chess/TEXTBOOK.md) | [✓](https://github.com/baoloc7401/archive-of-experiments/blob/main/docs/chess/ISSUES.md) | [✓](https://github.com/baoloc7401/archive-of-experiments/blob/main/docs/chess/IMPROVEMENTS.md) |
 | [[Experiment Pathfinding]] | [✓](https://github.com/baoloc7401/archive-of-experiments/blob/main/docs/pathfinding/TEXTBOOK.md) | - | - |
 | [[Experiment Minesweeper]] | [✓](https://github.com/baoloc7401/archive-of-experiments/blob/main/docs/minesweeper/TEXTBOOK.md) | - | - |
+| [[Experiment Boids]] | [✓](https://github.com/baoloc7401/archive-of-experiments/blob/main/docs/boids/TEXTBOOK.md) | - | [✓](https://github.com/baoloc7401/archive-of-experiments/blob/main/docs/boids/IMPROVEMENTS.md) |
 
 ## The `textbook` skill
 

@@ -11,6 +11,8 @@ import Elevator from "./experiments/elevator";
 import Aco from "./experiments/aco";
 import RiverCrossing from "./experiments/river-crossing";
 import Minesweeper from "./experiments/minesweeper";
+import Boids from "./experiments/boids";
+import NotFound from "./components/NotFound";
 
 const root = document.getElementById("root");
 if (!root) throw new Error("Root element not found");
@@ -27,6 +29,8 @@ createRoot(root).render(
         <Route path="/experiments/aco" element={<Aco />} />
         <Route path="/experiments/river-crossing" element={<RiverCrossing />} />
         <Route path="/experiments/minesweeper" element={<Minesweeper />} />
+        <Route path="/experiments/boids" element={<Boids />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>
