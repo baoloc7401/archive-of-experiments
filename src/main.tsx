@@ -12,6 +12,7 @@ import Aco from "./experiments/aco";
 import RiverCrossing from "./experiments/river-crossing";
 import Minesweeper from "./experiments/minesweeper";
 import Boids from "./experiments/boids";
+import LSystem from "./experiments/l-system";
 import NotFound from "./components/NotFound";
 
 const root = document.getElementById("root");
@@ -30,6 +31,7 @@ createRoot(root).render(
         <Route path="/experiments/river-crossing" element={<RiverCrossing />} />
         <Route path="/experiments/minesweeper" element={<Minesweeper />} />
         <Route path="/experiments/boids" element={<Boids />} />
+        <Route path="/experiments/l-system" element={<LSystem />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>

@@ -101,7 +101,7 @@ export const experiments: Experiment[] = [
   {
     id: "l-system",
     tags: ["math", "visualization", "fun"],
-    status: "planned",
+    status: "active",
     path: "/experiments/l-system",
   },
   {
