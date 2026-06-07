@@ -1,0 +1,42 @@
+name: Idea or improvement
+description: Suggest a new experiment, or an improvement to an existing one.
+title: "idea: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Got an algorithm you'd love to see visualized, or a tweak to one that's already here? Tell me about it.
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What kind of idea is this?
+      options:
+        - A brand-new experiment
+        - An improvement to an existing experiment
+        - A site-wide change (theme, layout, i18n, etc.)
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: The idea
+      description: What would you like to see? What makes it interesting to watch or interact with?
+      placeholder: A Wave Function Collapse tile generator, growing a coherent map from a small sample.
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why is it worth building?
+      description: What does it teach, or what would it make clearer?
+    validations:
+      required: false
+  - type: input
+    id: references
+    attributes:
+      label: References (optional)
+      description: Links to papers, demos, or anything that captures what you have in mind.
+      placeholder: https://...
+    validations:
+      required: false

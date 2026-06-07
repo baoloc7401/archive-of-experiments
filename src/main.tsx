@@ -13,6 +13,8 @@ import RiverCrossing from "./experiments/river-crossing";
 import Minesweeper from "./experiments/minesweeper";
 import Boids from "./experiments/boids";
 import LSystem from "./experiments/l-system";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
 import NotFound from "./components/NotFound";
 
 const root = document.getElementById("root");
@@ -32,6 +34,8 @@ createRoot(root).render(
         <Route path="/experiments/minesweeper" element={<Minesweeper />} />
         <Route path="/experiments/boids" element={<Boids />} />
         <Route path="/experiments/l-system" element={<LSystem />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>

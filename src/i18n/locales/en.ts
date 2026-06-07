@@ -35,6 +35,8 @@ const en = {
   footer: {
     github: "github",
     tagline: "built to learn",
+    about: "about",
+    contact: "contact",
   },
   status: {
     active: "LIVE",
@@ -120,6 +122,108 @@ const en = {
       "(ノ_<。)",
       "(；・∀・)",
     ],
+  },
+  about: {
+    crumb: "about",
+    title: "about the archive",
+    tagline: "a workshop, not a portfolio",
+    stats: {
+      total: "experiments",
+      live: "live",
+      planned: "planned",
+      tags: "tags",
+    },
+    principles: {
+      items: [
+        "Interactive over static - if you can drag it, you understand it.",
+        "Logic out of the view - simulation engines stay framework-free and testable.",
+        "Bilingual by default - every string ships in English and Vietnamese.",
+        "Built to learn, not to ship - correctness and clarity beat features.",
+      ],
+    },
+    term: {
+      boot: "booting archive-of-experiments · {{total}} experiments, {{live}} live · type-along below",
+      whoami:
+        "baoloc7401 - I build interactive visualizations of algorithms, in the open.",
+      about: [
+        "A personal sandbox for algorithms and data structures.",
+        "Each experiment is a small study, built to learn by doing.",
+        "Some pieces are polished; some are still on the workbench.",
+      ],
+      why: [
+        "Every experiment starts as a question: how does this actually work?",
+        "The fastest answer I know is to build it, make it interactive, and watch it run.",
+        "Reading about A* is one thing. Watching it flood a maze is another.",
+      ],
+      stack:
+        "React · TypeScript · Vite · hand-written CSS · i18n (en/vi) · no backend, it all runs in your browser.",
+      ready: "session ready - poke around below.",
+      replay: "replay",
+      skip: "skip",
+      repl: {
+        hint: "type a command - try `help`",
+        aria: "terminal command input",
+        help_title: "available commands:",
+        not_found: "command not found: {{cmd}} (try `help`)",
+        ls_title: "experiments (click a row to open):",
+        ls_nav: "also: open home · about · contact",
+        open_usage: "usage: open <name> (try `ls` or `help`)",
+        open_unknown: "no such page: {{arg}}",
+        opening: "opening {{label}} ...",
+        theme_now: "theme set to {{mode}}",
+        mode_dark: "dark",
+        mode_light: "light",
+        version: "archive-of-experiments v{{v}} - built to learn, runs in your browser.",
+        sudo: "nice try - you already have root here.",
+        nav: {
+          home: "the archive",
+          about: "this page",
+          contact: "contact",
+        },
+        desc: {
+          help: "list commands",
+          whoami: "who built this",
+          about: "what this is",
+          why: "why it exists",
+          principles: "the house rules",
+          stack: "what it's built with",
+          stats: "experiment counts",
+          version: "what version this is",
+          ls: "list experiments to open",
+          open: "open an experiment or page",
+          theme: "switch light / dark",
+          echo: "print text",
+          clear: "clear the screen",
+        },
+      },
+    },
+    cta: {
+      explore: "browse the experiments",
+      source: "view the source",
+      contact: "get in touch",
+    },
+  },
+  contact: {
+    crumb: "contact",
+    title: "get in touch",
+    tagline: "the door is open",
+    lede: "A question, an idea, a bug you found, or just want to say hi? Here is where to reach me.",
+    email: {
+      label: "email",
+      copy: "copy",
+      copied: "✓ copied",
+    },
+    github: {
+      label: "github",
+      open: "open",
+    },
+    issues: {
+      label: "found a bug?",
+      value: "open an issue on the repo",
+      open: "report",
+    },
+    note: "This is a static site, so there is no contact form to fill out - the links above go straight to me. Email is best for anything longer than a sentence.",
+    back: "back to about",
   },
   experiments: {
     chess: {

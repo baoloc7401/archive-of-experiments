@@ -81,6 +81,26 @@ export const homePage: PageMeta = {
   canonical: siteUrl("/"),
 };
 
+/** Standalone pages outside the experiment gateway (about, contact). */
+export const staticPages: PageMeta[] = [
+  {
+    id: "about",
+    path: "/about",
+    title: `About - ${SITE.name}`,
+    description:
+      "About Archive of Experiments: a personal sandbox of interactive algorithm and data-structure visualizations, built to learn by doing.",
+    canonical: siteUrl("/about"),
+  },
+  {
+    id: "contact",
+    path: "/contact",
+    title: `Contact - ${SITE.name}`,
+    description:
+      "Get in touch with the author of Archive of Experiments by email or on GitHub.",
+    canonical: siteUrl("/contact"),
+  },
+];
+
 const author = { "@type": "Person", name: SITE.author, url: SITE.authorUrl };
 
 /** WebSite + ItemList structured data for the gateway/home page. */

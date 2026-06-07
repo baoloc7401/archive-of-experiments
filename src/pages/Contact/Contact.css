@@ -1,0 +1,133 @@
+.contact {
+  max-width: 62ch;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+.contact-tagline {
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0;
+}
+
+.contact-lede {
+  margin: 0;
+  color: var(--text-dim);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.contact-title {
+  margin: 0;
+  font-size: clamp(1.8rem, 5vw, 2.6rem);
+  letter-spacing: -0.01em;
+  color: var(--text-hi);
+}
+
+.contact-methods {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.contact-method {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background-color: color-mix(in srgb, var(--bg2) 60%, transparent);
+  transition: border-color var(--dur-fast) var(--ease-glide);
+}
+
+.contact-method:hover {
+  border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+}
+
+.contact-method-icon {
+  flex-shrink: 0;
+  width: 2.1rem;
+  height: 2.1rem;
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  color: var(--accent);
+  font-family: var(--font-mono, monospace);
+  font-size: 0.95rem;
+}
+
+.contact-method-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+  flex: 1;
+}
+
+.contact-method-label {
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.contact-method-value {
+  color: var(--text-hi);
+  font-size: 0.92rem;
+  overflow-wrap: anywhere;
+  transition: color var(--dur-fast) var(--ease-glide);
+}
+
+.contact-method-value:hover {
+  color: var(--accent);
+}
+
+.contact-method-action {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.82rem;
+  color: var(--text-dim);
+  transition: color var(--dur-fast) var(--ease-glide);
+}
+
+.contact-method-action:hover {
+  color: var(--text-hi);
+}
+
+.contact-note {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  line-height: 1.6;
+  padding-left: 0.9rem;
+  border-left: 2px solid color-mix(in srgb, var(--accent) 40%, var(--border));
+}
+
+.contact-back {
+  margin-top: 0.2rem;
+}
+
+.contact-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.88rem;
+  color: var(--text-dim);
+  transition: color var(--dur-fast) var(--ease-glide);
+}
+
+.contact-back-link:hover {
+  color: var(--text-hi);
+}
