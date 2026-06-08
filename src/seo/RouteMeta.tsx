@@ -1,5 +1,5 @@
 import { useLocation } from "react-router-dom";
-import { experimentPages, homePage, type PageMeta } from "./site";
+import { experimentPages, homePage, staticPages, type PageMeta } from "./site";
 import { useDocumentMeta } from "./useDocumentMeta";
 
 /**
@@ -14,9 +14,10 @@ export default function RouteMeta() {
   let page: PageMeta | undefined =
     path === "/"
       ? homePage
-      : experimentPages.find(
+      : (staticPages.find((p) => path === p.path) ??
+        experimentPages.find(
           (p) => path === p.path || path.startsWith(`${p.path}/`)
-        );
+        ));
   // Unknown deep path still belongs to the gateway - fall back to home meta.
   if (!page) page = homePage;
   useDocumentMeta(page);

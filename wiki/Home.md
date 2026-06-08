@@ -32,6 +32,7 @@ experiments - each a self-contained, themed, bilingual (EN/VI) visualization.
 | [[Experiment River Crossing]] | 🟢 live | [[Experiment River Crossing]] | TEXTBOOK |
 | [[Experiment Minesweeper]] | 🟢 live | [[Experiment Minesweeper]] | TEXTBOOK |
 | [[Experiment Boids]] | 🟢 live | [[Experiment Boids]] | TEXTBOOK · IMPROVEMENT |
+| [[Experiment L-System]] | 🟢 live | [[Experiment L-System]] | TEXTBOOK |
 | Sorting Visualizer | 🟡 wip | - | - |
 | Binary Tree Explorer | ⚪ planned | - | - |
 | Bloom Filter | ⚪ planned | - | - |

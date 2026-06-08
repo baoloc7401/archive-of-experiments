@@ -26,11 +26,23 @@
         document.documentElement.setAttribute("data-theme", t);
       })();
     </script>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- JetBrains Mono is self-hosted (see src/index.css @font-face + public/fonts).
+         Preload the same-origin latin weights used for first paint so the font
+         download starts in parallel with the CSS instead of after it: 400 (body)
+         and 700 (hero title / headings). %BASE_URL% is replaced by Vite. -->
     <link
-      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap"
-      rel="stylesheet"
+      rel="preload"
+      href="%BASE_URL%fonts/jetbrains-mono-latin-400.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="%BASE_URL%fonts/jetbrains-mono-latin-700.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
     />
   </head>
   <body>

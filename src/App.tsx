@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { flushSync } from "react-dom";
+import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { experiments } from "./experiments";
 import type { Experiment, ExperimentStatus } from "./experiments";
@@ -386,6 +387,18 @@ export default function App() {
       </main>
 
       <footer className="footer">
+        <Link to="/about">
+          <ScrambleText text={t("footer.about")} duration={600} />
+        </Link>
+        <span className="footer-dot" aria-hidden="true">
+          ·
+        </span>
+        <Link to="/contact">
+          <ScrambleText text={t("footer.contact")} duration={600} />
+        </Link>
+        <span className="footer-dot" aria-hidden="true">
+          ·
+        </span>
         <a
           href="https://github.com/baoloc7401/archive-of-experiments"
           target="_blank"
