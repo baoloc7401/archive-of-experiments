@@ -15,6 +15,7 @@ SEO) are captured.
 - **Round 3** re-measure: `*-1780898120` (mobile) / `*-1780898046` (desktop), 2026-06-08 05:54.
 - **Round 4** accessibility fixes: `*-1780900561` (mobile) / `*-1780900579` (desktop), 2026-06-08 06:36.
 - **Round 4.1** last contrast node + toggle/dark-theme hardening: `*-1780902058` (mobile) / `*-1780902076` (desktop), 2026-06-08 07:01.
+- **Round 5** mobile CLS (font-display: optional): shipped 2026-06-08, awaiting re-measure.
 
 ## Round 1 fixes - shipped and measured
 
@@ -163,6 +164,34 @@ four prior rounds.
 
 ---
 
+## Round 5 fixes - shipped (awaiting re-measure)
+
+Targeting the mobile CLS (Remaining issue #1). The shift is font-swap reflow: the
+latin 400/700 woff2 are already preloaded, but under slow-4G throttling they
+still arrive after first paint, so `font-display: swap` repaints the hero title in
+JetBrains Mono and the metric change shifts the grid block below it.
+
+| Improvement | Status |
+| ----------- | ------ |
+| ~~#1 Mobile CLS 0.168 (font-swap reflow)~~ | **done** - every `@font-face` switched from `font-display: swap` to **`optional`**. The browser now renders the fallback for that load and never swaps mid-load, so there is no reflow. Preload is kept, so fast and repeat visits still paint JetBrains Mono on first render (and it's cached for later navigations). |
+
+**Trade-off.** Under genuinely slow connections (including the Lighthouse mobile
+lab), the font won't arrive inside `optional`'s ~100 ms block window, so that
+first load renders in the fallback monospace (`ui-monospace, monospace`) instead
+of swapping. That's the deliberate cost of CLS 0: no visible reflow, at the price
+of the web font not showing on the slowest first loads. It does not affect
+FCP/LCP (fallback paints immediately, same as `swap`).
+
+The font-always-shows alternative (keep `swap`, add `@font-face` metric overrides
+- `size-adjust` / `ascent-override` / `descent-override` - so the fallback
+occupies the same box and the swap causes no reflow) needs the override values
+generated from the font metrics (fontaine / capsize), not hand-picked. Worth
+doing only if the fallback-on-slow-load trade proves undesirable.
+
+Expected: mobile **CLS -> 0** and Performance back to ~97; desktop unchanged.
+
+---
+
 ## Remaining issues (ranked, Round 4.1 data)
 
 Accessibility is now **100/100** on both strategies and the main-thread cost is
@@ -170,7 +199,7 @@ gone. The only open performance item that moved is a **new, intermittent mobile
 CLS** seen for the first time in the Round 4.1 run; everything else is at its
 practical floor.
 
-### 1. Mobile CLS 0.168 (new this run - confirm before chasing)
+### 1. Mobile CLS 0.168 (new this run) - addressed in Round 5
 
 **Evidence (mobile only).** `cumulative-layout-shift`: **0.168** (score 0.71),
 with `layout-shifts` / `cls-culprits-insight` attributing the whole shift to one
@@ -178,16 +207,17 @@ element: `<main class="grid-section">` (the experiments grid + sidebar block).
 Desktop CLS stayed 0.002. CLS was **0 in all four prior rounds**.
 
 **Not caused by v1.5.3.** The release changed only colour tokens and added
-`aria-hidden` - neither affects layout. The likely cause is **font-swap reflow**:
-JetBrains Mono is self-hosted with `font-display: swap`, so when it loads after
-first paint the fallback-vs-web-font metric difference reflows the tall
-`grid-section`, shifting it. Earlier runs didn't catch it (font cached or loaded
-before the shift window), which is why CLS is so timing-dependent.
+`aria-hidden` - neither affects layout. The cause is **font-swap reflow**:
+JetBrains Mono is self-hosted, so when it loads after first paint the
+fallback-vs-web-font metric difference reflows the tall `grid-section`, shifting
+it. Earlier runs didn't catch it (font cached or loaded before the shift window),
+which is why CLS is so timing-dependent.
 
-**Fix (only if it persists).** Re-scan first - one 0.168 against four clean rounds
-may be variance. If it holds: add font metric overrides (`size-adjust` /
-`ascent-override` / `descent-override`) to the `@font-face` so the fallback
-occupies the same box, or switch the body font to `font-display: optional`.
+**Fix.** Shipped in **Round 5 above** - `font-display: optional` so the font
+never swaps mid-load. **Status:** done, awaiting re-measure. (One 0.168 against
+four clean rounds could have been variance, but `optional` is a strict
+improvement either way, so it was worth shipping without waiting for a confirming
+re-scan.)
 **Impact:** medium (it's ~6 mobile points). **Effort:** low-medium.
 
 ### 2. Speed Index (improved - now near-passing)
@@ -223,13 +253,13 @@ unless a CDN is introduced.
 
 ## Suggested next round
 
-Accessibility is **100/100** and the Round 4.1 contrast work is verified. The
-only live question is the new mobile CLS:
+Accessibility is **100/100**, the Round 4.1 contrast work is verified, and the
+Round 5 CLS fix is shipped. Nothing else is worth chasing:
 
-1. **Re-scan mobile to confirm the CLS** (#1) - one 0.168 reading against four
-   clean rounds may be variance. If it persists, add `@font-face` metric
-   overrides (or `font-display: optional`) so the JetBrains Mono swap stops
-   reflowing the grid block. This is the immediate next step.
+1. **Re-scan mobile to confirm Round 5** - verify `font-display: optional` took
+   CLS back to 0 and Performance back to ~97, and sanity-check that first paint
+   under throttling now shows the fallback monospace (the deliberate trade). This
+   is the immediate next step.
 2. **(Optional) Speed Index** (#2) - now 2.7 s / 0.96, no longer a priority.
 3. Leave caching (#5) and render-blocking CSS (#3) alone - both are at their
    practical floor given GitHub Pages.
@@ -242,6 +272,6 @@ run noise, CLS stayed clean). The remaining work is the **mobile CLS only**.
 Re-run PageSpeed Insights against the deployed home page (requesting **all four
 categories**) and compare on the **mobile** tab. With TBT and accessibility
 solved, the metric to watch is now **CLS** (`cumulative-layout-shift` /
-`layout-shifts`) - confirm whether the Round 4.1 reading of 0.168 repeats or was
-a one-off font-swap reflow. Lab numbers vary run to run; look for a clear
-directional move, not a single decimal.
+`layout-shifts`) - confirm the Round 5 `font-display: optional` fix took it back
+to 0 (and didn't reintroduce any other shift). Lab numbers vary run to run; look
+for a clear directional move, not a single decimal.
