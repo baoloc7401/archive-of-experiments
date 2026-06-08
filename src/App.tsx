@@ -195,17 +195,27 @@ export default function App() {
     return () => window.clearTimeout(handle);
   }, [searchInput, search, snapAndUpdate]);
 
-  // Hero cursor tracking
+  // Hero cursor tracking. Cache the rect and refresh it on scroll/resize so the
+  // mousemove handler never reads layout (which would force a reflow per move).
   useEffect(() => {
     const el = heroRef.current;
     if (!el) return;
+    let rect = el.getBoundingClientRect();
+    const refresh = () => {
+      rect = el.getBoundingClientRect();
+    };
     function onMove(e: MouseEvent) {
-      const rect = el!.getBoundingClientRect();
       el!.style.setProperty("--mx", `${e.clientX - rect.left}px`);
       el!.style.setProperty("--my", `${e.clientY - rect.top}px`);
     }
     el.addEventListener("mousemove", onMove);
-    return () => el.removeEventListener("mousemove", onMove);
+    window.addEventListener("scroll", refresh, { passive: true });
+    window.addEventListener("resize", refresh);
+    return () => {
+      el.removeEventListener("mousemove", onMove);
+      window.removeEventListener("scroll", refresh);
+      window.removeEventListener("resize", refresh);
+    };
   }, []);
 
   // Scroll progress bar

@@ -38,17 +38,27 @@ export default function ExperimentCard({ experiment, leaving = false }: Props) {
     });
   }
 
-  // Cursor-tracked glow.
+  // Cursor-tracked glow. Cache the rect and refresh on scroll/resize so the
+  // mousemove handler never reads layout (which would force a reflow per move).
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+    let rect = el.getBoundingClientRect();
+    const refresh = () => {
+      rect = el.getBoundingClientRect();
+    };
     function onMove(e: MouseEvent) {
-      const rect = el!.getBoundingClientRect();
       el!.style.setProperty("--mx", `${e.clientX - rect.left}px`);
       el!.style.setProperty("--my", `${e.clientY - rect.top}px`);
     }
     el.addEventListener("mousemove", onMove);
-    return () => el.removeEventListener("mousemove", onMove);
+    window.addEventListener("scroll", refresh, { passive: true });
+    window.addEventListener("resize", refresh);
+    return () => {
+      el.removeEventListener("mousemove", onMove);
+      window.removeEventListener("scroll", refresh);
+      window.removeEventListener("resize", refresh);
+    };
   }, []);
 
   const title = t(`experiments.${id}.title`);

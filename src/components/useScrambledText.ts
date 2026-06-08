@@ -16,7 +16,8 @@ function randGlyph() {
   return GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
 }
 
-function scrambled(target: string) {
+/** A fully-scrambled version of `target` (spaces and hyphens kept in place). */
+export function scrambled(target: string) {
   let out = "";
   for (let i = 0; i < target.length; i++) {
     const ch = target[i];
@@ -25,11 +26,45 @@ function scrambled(target: string) {
   return out;
 }
 
+/** Per-character delay implied by the options for a string of length `len`. */
+export function effectiveDelayFor(len: number, options: Options): number {
+  const { charDelay = 50, maxDuration, duration } = options;
+  const n = Math.max(1, len);
+  if (duration != null) return duration / n;
+  if (maxDuration != null) return Math.min(charDelay, maxDuration / n);
+  return charDelay;
+}
+
+/** The display string at `elapsed` ms, and whether every char has settled. */
+export function frameAt(
+  text: string,
+  elapsed: number,
+  startDelay: number,
+  effectiveDelay: number
+): { next: string; settled: boolean } {
+  let next = "";
+  let settled = true;
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i];
+    if (ch === " " || ch === "-") {
+      next += ch;
+      continue;
+    }
+    if (elapsed >= startDelay + i * effectiveDelay) {
+      next += ch;
+    } else {
+      next += randGlyph();
+      settled = false;
+    }
+  }
+  return { next, settled };
+}
+
 /** Hook form - useful when the scrambled string needs to flow into an
  *  attribute (e.g. an input's placeholder). For text nodes, prefer the
- *  ScrambleText component. */
+ *  ScrambleText component, which animates via a ref without re-rendering. */
 export function useScrambledText(text: string, options: Options = {}): string {
-  const { startDelay = 0, charDelay = 50, maxDuration, duration } = options;
+  const { startDelay = 0, charDelay, maxDuration, duration } = options;
   const [display, setDisplay] = useState<string>(() => scrambled(text));
   const [prevText, setPrevText] = useState(text);
 
@@ -42,37 +77,23 @@ export function useScrambledText(text: string, options: Options = {}): string {
   }
 
   useEffect(() => {
-    const len = Math.max(1, text.length);
-    const effectiveDelay =
-      duration != null
-        ? duration / len
-        : maxDuration != null
-          ? Math.min(charDelay, maxDuration / len)
-          : charDelay;
-
+    const effectiveDelay = effectiveDelayFor(text.length, {
+      charDelay,
+      maxDuration,
+      duration,
+    });
     const start = performance.now();
     let frame = 0;
 
     function tick(now: number) {
-      const elapsed = now - start;
-      let allSettled = true;
-      let next = "";
-      for (let i = 0; i < text.length; i++) {
-        const ch = text[i];
-        if (ch === " " || ch === "-") {
-          next += ch;
-          continue;
-        }
-        const settleAt = startDelay + i * effectiveDelay;
-        if (elapsed >= settleAt) {
-          next += ch;
-        } else {
-          next += randGlyph();
-          allSettled = false;
-        }
-      }
+      const { next, settled } = frameAt(
+        text,
+        now - start,
+        startDelay,
+        effectiveDelay
+      );
       setDisplay(next);
-      if (!allSettled) frame = requestAnimationFrame(tick);
+      if (!settled) frame = requestAnimationFrame(tick);
     }
 
     frame = requestAnimationFrame(tick);
