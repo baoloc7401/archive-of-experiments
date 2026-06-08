@@ -150,6 +150,12 @@ export default function About() {
     statsLine,
     lsTitle: t("about.term.repl.ls_title"),
     lsNav: t("about.term.repl.ls_nav"),
+    pagespeed: {
+      caption: t("about.term.repl.pagespeed.caption"),
+      mobile: t("about.term.repl.pagespeed.mobile"),
+      desktop: t("about.term.repl.pagespeed.desktop"),
+      metrics: t("about.term.repl.pagespeed.metrics"),
+    },
   };
 
   const commands = buildCommands({

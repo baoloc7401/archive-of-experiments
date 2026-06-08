@@ -7,6 +7,9 @@
 - [[Adding an Experiment]]
 - [[Documentation Conventions]]
 
+**Site-level docs**
+- [[Site Performance]] - PageSpeed & accessibility research
+
 **Experiments**
 - [[Experiments]] - index
 - [[Experiment Chess]]

@@ -29,6 +29,15 @@ they cross-link, they don't duplicate.
 | [[Experiment Boids]] | [✓](https://github.com/baoloc7401/archive-of-experiments/blob/main/docs/boids/TEXTBOOK.md) | - | [✓](https://github.com/baoloc7401/archive-of-experiments/blob/main/docs/boids/IMPROVEMENTS.md) |
 | [[Experiment L-System]] | [✓](https://github.com/baoloc7401/archive-of-experiments/blob/main/docs/l-system/TEXTBOOK.md) | - | - |
 
+## Site-level docs
+
+The same doc family applies to research that spans the **whole site** rather than
+one experiment - it lives under `docs/<topic>/` and is just as canonical. So far:
+
+| Topic | TEXTBOOK | ISSUES | IMPROVEMENTS |
+|---|---|---|---|
+| [[Site Performance]] (PageSpeed & accessibility) | [✓](https://github.com/baoloc7401/archive-of-experiments/blob/main/docs/pagespeed/TEXTBOOK.md) | - | [✓](https://github.com/baoloc7401/archive-of-experiments/blob/main/docs/pagespeed/IMPROVEMENTS.md) |
+
 ## The `textbook` skill
 
 The repo ships a Claude Code skill at
