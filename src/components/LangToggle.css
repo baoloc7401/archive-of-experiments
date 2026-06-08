@@ -46,12 +46,17 @@
   font-weight: 700;
   letter-spacing: 0.1em;
   padding: 2px 9px;
-  color: var(--text-dim);
+  /* --text (not --text-dim): the inactive label sits over the accent-tinted
+     knob, where the dimmer token only reaches 4.17:1 - just under WCAG AA. */
+  color: var(--text);
   transition: color 0.2s ease;
   user-select: none;
 }
 
+/* The active label uses --text-hi, not --accent: accent green is too light to
+   clear 4.5:1 as small text on any light background (caps at ~3.85:1 on white).
+   The accent cue is carried by the knob/pill behind the active label instead. */
 .lang-toggle:not(.lang-toggle--vi) .lang-opt:first-child,
 .lang-toggle--vi .lang-opt:last-child {
-  color: var(--accent);
+  color: var(--text-hi);
 }

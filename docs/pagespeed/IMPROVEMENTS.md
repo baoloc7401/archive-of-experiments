@@ -13,7 +13,8 @@ SEO) are captured.
 - **Round 1** baseline: `*-1786217779` (mobile) / `*-1786218027` (desktop), 2026-06-08 03:36.
 - **Round 2** after fixes: `*-1780893706` (mobile) / `*-1780893568` (desktop), 2026-06-08 04:40.
 - **Round 3** re-measure: `*-1780898120` (mobile) / `*-1780898046` (desktop), 2026-06-08 05:54.
-- **Round 4** accessibility fixes: shipped 2026-06-08, awaiting re-measure.
+- **Round 4** accessibility fixes: `*-1780900561` (mobile) / `*-1780900579` (desktop), 2026-06-08 06:36.
+- **Round 4.1** last contrast node + toggle/dark-theme hardening: shipped 2026-06-08, awaiting re-measure.
 
 ## Round 1 fixes - shipped and measured
 
@@ -103,7 +104,7 @@ bottleneck is gone, not relocated.
 
 ---
 
-## Round 4 fixes - shipped (awaiting re-measure)
+## Round 4 fixes - shipped and measured
 
 Targeting the two accessibility audits Round 3 surfaced (the only thing between
 96 and 100). Exact failing nodes pulled from the mobile report; all were in the
@@ -115,8 +116,38 @@ Targeting the two accessibility audits Round 3 surfaced (the only thing between
 | ~~#1 `color-contrast` - hero accent word~~ | **done** - light-theme `--accent` `#00b899` on its tinted highlight was 2.15:1 (large bold needs 3:1). Darkened to `#00937a` - **3.3:1** |
 | ~~#1 `label-content-name-mismatch` - lang toggle~~ | **done** - the visible `EN`/`VI` (decorative state, conveyed by the sliding knob) are now `aria-hidden`, so the button's accessible name is just its `aria-label` with no conflicting visible text |
 
-Expected effect: Accessibility **96 -> 100** on both strategies; Performance
-unchanged. Re-run to confirm.
+**Result.** `label-content-name-mismatch` resolved on both strategies and
+`color-contrast` dropped from **24 failing nodes to 1**, but Accessibility held
+at **96** (not 100): one node still fails. Performance unchanged (97 / 100), so
+the CSS swaps cost nothing.
+
+### Round 4.1 - the last contrast node (awaiting re-measure)
+
+The holdout is the language toggle's inactive `.lang-opt` ("EN") sitting over the
+accent-tinted knob (`color-mix(--accent 18%, white)` = `#d1ece7`). The Round 4
+`--text-dim` (`#646c88`) reaches only **4.17:1** there - just under 4.5:1 - because
+the mint knob is darker than plain white. `aria-hidden` does **not** exempt it;
+Lighthouse's `color-contrast` audit still checks visible text.
+
+**Fix (shipped):** the inactive `.lang-opt` now uses `--text` (`#5c6480`),
+giving **4.70:1** on the knob.
+
+Two pre-emptive fixes shipped alongside, since both are the same class of latent
+failure that a future scan could surface:
+
+- **Active toggle label.** It was `--accent`, but accent green at 9.6px caps at
+  ~3.85:1 on white (lower on the knob) - it can *never* meet AA as small text.
+  Switched to `--text-hi`; the accent cue is now carried by the knob/pill behind
+  it. All four label states (light/dark x active/inactive) now clear 4.5:1
+  (4.7-13.4:1).
+- **Dark theme.** Never scanned (every run rendered the default light theme), but
+  its `--text-dim`/`--planned` (`#464f6a`) sat at ~2.4:1 on the dark surfaces -
+  the same failure, unscanned. Bumped to `#7a82a1` (**5.0:1** on `--bg2`), still
+  clearly dimmer than `--text`. This does not move the PSI score (light theme is
+  what's measured) but fixes contrast for dark-theme users.
+
+Expected: Accessibility **96 -> 100** on both strategies (light theme); dark
+theme now AA-clean for its dim text.
 
 ---
 
@@ -126,7 +157,7 @@ The performance gap is essentially closed - mobile 97 is bounded by Speed Index
 and the GitHub Pages cache TTL, both near their floor. The newly-visible work is
 **accessibility**, not performance.
 
-### 1. Accessibility - contrast + label mismatch (96) - addressed in Round 4
+### 1. Accessibility - contrast + label mismatch (96) - fixed across Round 4 / 4.1
 
 **Evidence (both strategies).**
 
@@ -136,10 +167,11 @@ and the GitHub Pages cache TTL, both near their floor. The newly-visible work is
 - `label-content-name-mismatch` (score 0): the language toggle's `aria-label`
   ("Switch language") did not contain its visible `EN`/`VI` text.
 
-**Fix.** Shipped in **Round 4 above** - darkened `--text-dim`/`--planned` to
-`#646c88` and `--accent` to `#00937a`, and `aria-hidden` the toggle's decorative
-`EN`/`VI`. **Impact:** high (only thing between 96 and 100, and it's correctness,
-not just score). **Effort:** low. **Status:** done, awaiting re-measure.
+**Fix.** Round 4 cleared the label mismatch and 23 of 24 contrast nodes; Round 4.1
+cleared the last one (the lang-toggle label on its accent knob) - see both
+sections above. **Impact:** high (only thing between 96 and 100, and it's
+correctness, not just score). **Effort:** low. **Status:** done, Round 4.1
+awaiting re-measure.
 
 ### 2. Speed Index 4.2 s (the remaining soft performance metric)
 
