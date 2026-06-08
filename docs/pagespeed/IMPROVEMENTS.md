@@ -15,7 +15,7 @@ SEO) are captured.
 - **Round 3** re-measure: `*-1780898120` (mobile) / `*-1780898046` (desktop), 2026-06-08 05:54.
 - **Round 4** accessibility fixes: `*-1780900561` (mobile) / `*-1780900579` (desktop), 2026-06-08 06:36.
 - **Round 4.1** last contrast node + toggle/dark-theme hardening: `*-1780902058` (mobile) / `*-1780902076` (desktop), 2026-06-08 07:01.
-- **Round 5** mobile CLS (font-display: optional): shipped 2026-06-08, awaiting re-measure.
+- **Round 5** mobile CLS (font-display: optional): `*-1780903358` (mobile) / `*-1780903374` (desktop), 2026-06-08 07:22.
 
 ## Round 1 fixes - shipped and measured
 
@@ -164,7 +164,7 @@ four prior rounds.
 
 ---
 
-## Round 5 fixes - shipped (awaiting re-measure)
+## Round 5 fixes - shipped and measured
 
 Targeting the mobile CLS (Remaining issue #1). The shift is font-swap reflow: the
 latin 400/700 woff2 are already preloaded, but under slow-4G throttling they
@@ -188,62 +188,60 @@ occupies the same box and the swap causes no reflow) needs the override values
 generated from the font metrics (fontaine / capsize), not hand-picked. Worth
 doing only if the fallback-on-slow-load trade proves undesirable.
 
-Expected: mobile **CLS -> 0** and Performance back to ~97; desktop unchanged.
+**Result (measured).** The shift is gone: mobile **CLS 0.168 -> 0**
+(`layout-shifts` and `cls-culprits-insight` both dropped off the failing list),
+and **mobile Performance recovered 91 -> 96**. Desktop went **99 -> 100**
+(perfect on every category). Accessibility held 100/100.
+
+| Category    | Mobile (R4.1 -> R5) | Desktop (R4.1 -> R5) |
+| ----------- | :-----------------: | :------------------: |
+| Performance | 91 -> **96**        | 99 -> **100**        |
+
+| Metric | R4.1 | R5 | Verdict |
+| ------ | ---- | -- | ------- |
+| Cumulative Layout Shift  | 0.168 | **0** | **fixed (0.71 -> 1.0)** |
+| Speed Index              | 2.7 s | 4.2 s | flat (0.96 -> 0.77), run noise |
+| Total Blocking Time      | 20 ms | 70 ms | still ~0 (score 0.99) |
+| First Contentful Paint   | 1.6 s | 1.6 s | flat (0.95) |
+| Largest Contentful Paint | 2.0 s | 2.0 s | flat (0.97) |
+
+The residual mobile gap (96, not 100) is **Speed Index alone** (0.77), which
+swung 2.7 -> 4.2 s between back-to-back runs - lab variance on the throttled
+mobile profile, not a regression. Every other metric scores >= 0.95.
 
 ---
 
-## Remaining issues (ranked, Round 4.1 data)
+## Remaining issues (ranked, Round 5 data)
 
-Accessibility is now **100/100** on both strategies and the main-thread cost is
-gone. The only open performance item that moved is a **new, intermittent mobile
-CLS** seen for the first time in the Round 4.1 run; everything else is at its
-practical floor.
+Accessibility is **100/100**, the main-thread cost is gone, and the CLS is fixed.
+Mobile sits at 96 (desktop 100); everything below is at its practical floor - no
+clear, low-risk lever remains.
 
-### 1. Mobile CLS 0.168 (new this run) - addressed in Round 5
+### 1. Speed Index (the only sub-0.95 metric, mostly variance)
 
-**Evidence (mobile only).** `cumulative-layout-shift`: **0.168** (score 0.71),
-with `layout-shifts` / `cls-culprits-insight` attributing the whole shift to one
-element: `<main class="grid-section">` (the experiments grid + sidebar block).
-Desktop CLS stayed 0.002. CLS was **0 in all four prior rounds**.
+**Evidence.** `speed-index` is the lone soft metric on mobile (0.77 this run),
+and it is noisy: 4.2 s (R3) -> 2.7 s (R4.1) -> 4.2 s (R5) on the same code. TBT
+(70 ms), FCP, LCP, TTI, CLS all score >= 0.95.
 
-**Not caused by v1.5.3.** The release changed only colour tokens and added
-`aria-hidden` - neither affects layout. The cause is **font-swap reflow**:
-JetBrains Mono is self-hosted, so when it loads after first paint the
-fallback-vs-web-font metric difference reflows the tall `grid-section`, shifting
-it. Earlier runs didn't catch it (font cached or loaded before the shift window),
-which is why CLS is so timing-dependent.
+**Cause/fix.** It measures how fast the viewport visually fills; the hero/card
+scramble + gradient paint on a 4x CPU is the remaining cost. Staggering or gating
+that decorative paint could help, but the payoff is small and the metric's run
+noise makes it hard to measure. **Impact:** low. **Effort:** medium.
 
-**Fix.** Shipped in **Round 5 above** - `font-display: optional` so the font
-never swaps mid-load. **Status:** done, awaiting re-measure. (One 0.168 against
-four clean rounds could have been variance, but `optional` is a strict
-improvement either way, so it was worth shipping without waiting for a confirming
-re-scan.)
-**Impact:** medium (it's ~6 mobile points). **Effort:** low-medium.
-
-### 2. Speed Index (improved - now near-passing)
-
-**Evidence.** `speed-index` improved to **2.7 s** on mobile (score 0.96) this
-run, up from 4.1-4.2 s in Rounds 2-3. It is no longer a standout; TBT (20 ms) and
-the other metrics all score >= 0.95.
-
-**Cause/fix.** Still the hero/card scramble + gradient paint on a 4x CPU, but the
-gap is now small. Only worth touching if pushing for a perfect 100. **Impact:**
-low. **Effort:** medium.
-
-### 3. Render-blocking app CSS (~450 ms mobile / 80 ms desktop, unchanged)
+### 2. Render-blocking app CSS (~450 ms mobile / 80 ms desktop, unchanged)
 
 **Evidence.** `render-blocking-insight`: the gateway `index-*.css` is critical
 and still blocks. Same as Round 2 - near the floor; only worth inlining critical
 CSS if chasing the last Speed-Index points. **Impact:** low. **Effort:** medium.
 
-### 4. Residual unused JavaScript (41 KiB, unchanged)
+### 3. Residual unused JavaScript (41 KiB, unchanged)
 
 **Evidence.** `unused-javascript`: ~41 KiB still unused on first render (was
 42 KiB). The `vi` split already shipped; what remains is router internals and UI
 primitives the gateway pulls in but doesn't paint. Diminishing returns now that
 TBT is gone. **Impact:** low. **Effort:** medium.
 
-### 5. Caching - 199 KiB at a 10-min TTL (unchanged constraint)
+### 4. Caching - 199 KiB at a 10-min TTL (unchanged constraint)
 
 **Evidence.** `cache-insight`: **199 KiB** (was 211) served with a 10-min
 `Cache-Control`. Still the GitHub Pages hosting limitation, not code - accept
@@ -251,27 +249,40 @@ unless a CDN is introduced.
 
 ---
 
-## Suggested next round
+## Final state
 
-Accessibility is **100/100**, the Round 4.1 contrast work is verified, and the
-Round 5 CLS fix is shipped. Nothing else is worth chasing:
+The action plan is complete. Final scores (Round 5):
 
-1. **Re-scan mobile to confirm Round 5** - verify `font-display: optional` took
-   CLS back to 0 and Performance back to ~97, and sanity-check that first paint
-   under throttling now shows the fallback monospace (the deliberate trade). This
-   is the immediate next step.
-2. **(Optional) Speed Index** (#2) - now 2.7 s / 0.96, no longer a priority.
-3. Leave caching (#5) and render-blocking CSS (#3) alone - both are at their
-   practical floor given GitHub Pages.
+| Category       | Mobile (R1 -> R5) | Desktop (R1 -> R5) |
+| -------------- | :---------------: | :----------------: |
+| Performance    | 85 -> **96**      | 99 -> **100**      |
+| Accessibility  | n/a -> **100**    | n/a -> **100**     |
+| Best Practices | n/a -> **100**    | n/a -> **100**     |
+| SEO            | n/a -> **100**    | n/a -> **100**     |
 
-Desktop is at 99-100 on every category (the desktop dip to 99 is TBT/Speed-Index
-run noise, CLS stayed clean). The remaining work is the **mobile CLS only**.
+Mobile Performance is 96 (Speed-Index variance is the only thing off 100);
+desktop is a clean 100 across the board. The arc:
+
+- **Rounds 1-2** - download cost: route code-splitting, self-hosted fonts, locale
+  splitting, and killing the per-frame ScrambleText render storm + forced reflow.
+  This moved first paint earlier and erased the TBT that the earlier paint exposed
+  (mobile 85 -> 78 -> 97).
+- **Rounds 3-4.1** - correctness: the faster paint surfaced accessibility audits;
+  WCAG AA contrast across both themes and the toggle label-name mismatch were
+  fixed (Accessibility -> 100/100).
+- **Round 5** - stability: `font-display: optional` removed the font-swap CLS
+  (mobile -> 0).
+
+No clear, low-risk lever remains. The open items (Speed-Index noise, render-blocking
+CSS, residual unused JS, the GitHub Pages cache TTL) are all at their practical
+floor. See [TEXTBOOK.md](TEXTBOOK.md) for the durable lessons behind this arc.
 
 ## How to re-measure
 
 Re-run PageSpeed Insights against the deployed home page (requesting **all four
-categories**) and compare on the **mobile** tab. With TBT and accessibility
-solved, the metric to watch is now **CLS** (`cumulative-layout-shift` /
-`layout-shifts`) - confirm the Round 5 `font-display: optional` fix took it back
-to 0 (and didn't reintroduce any other shift). Lab numbers vary run to run; look
-for a clear directional move, not a single decimal.
+categories**) and compare on the **mobile** tab with the **pagespeed-compare**
+skill. With TBT, accessibility, and CLS all solved, the only metric that still
+moves is **Speed Index**, and it is noisy - trust a clear directional move across
+several runs, not a single decimal. Drop new reports in
+[pagespeed-scannings/](../../pagespeed-scannings/); the analyze/compare scripts
+auto-pick the newest by embedded timestamp.

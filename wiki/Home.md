@@ -18,6 +18,7 @@ experiments - each a self-contained, themed, bilingual (EN/VI) visualization.
 - 🏛 **[[Architecture]]** - how the gateway, theming, routing, and i18n fit together.
 - ➕ **[[Adding an Experiment]]** - the step-by-step to ship a new one.
 - 📚 **[[Documentation Conventions]]** - what TEXTBOOK / ISSUES / IMPROVEMENT docs are for.
+- ⚡ **[[Site Performance]]** - the site-wide PageSpeed & accessibility research (mobile 85 → 96, all categories 100 on desktop).
 
 ---
 
@@ -40,6 +41,21 @@ experiments - each a self-contained, themed, bilingual (EN/VI) visualization.
 | Fourier Drawing | ⚪ planned | - | - |
 
 🟢 live = full interactive experiment · 🟡 wip = in progress · ⚪ planned = stub.
+
+---
+
+## Site-level research
+
+Not every research record is about one experiment. The shared shell - the home
+page, theme, fonts, and animation that every experiment inherits - carries its
+own deep-dive:
+
+- ⚡ **[[Site Performance]]** - five rounds of PageSpeed / Lighthouse tuning and a
+  full accessibility pass on the gateway. Mobile Performance **85 → 96**,
+  Accessibility / Best Practices / SEO **100** on both strategies, with the
+  durable lessons written up the same way an experiment's are
+  ([TEXTBOOK](https://github.com/baoloc7401/archive-of-experiments/blob/main/docs/pagespeed/TEXTBOOK.md)
+  · [IMPROVEMENTS](https://github.com/baoloc7401/archive-of-experiments/blob/main/docs/pagespeed/IMPROVEMENTS.md)).
 
 ---
 
