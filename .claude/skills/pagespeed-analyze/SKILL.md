@@ -56,13 +56,17 @@ than rewriting this.
 
 ## What it reports
 
-- **Scores** - each Lighthouse category present (often just `performance`, since
-  the runs here scan `--category performance`).
+- **Scores** - every Lighthouse category in the report (Performance,
+  Accessibility, Best Practices, SEO). If a category is missing, it wasn't
+  requested when the report was generated - ask for a report that includes all
+  categories (the user runs the scans and provides the JSON).
 - **Core metrics** - FCP, LCP, TBT, CLS, Speed Index, TTI, max-potential-FID,
   server response - with displayValue and score.
-- **Actionable audits** - score < 1 and not informative/manual/N-A, sorted by
-  score, with savings in ms / KiB. The `*-insight` audits (render-blocking,
-  cache, forced-reflow, mainthread-work) surface here too.
+- **Issues by category** - every failing audit (score < 1, not
+  informative/manual/N-A) grouped under its category and sorted worst-first, with
+  savings in ms / KiB. This is the "every aspect that needs improvement" view:
+  performance `*-insight` audits, accessibility contrast/labels, SEO
+  meta/crawlability, and so on each appear under their own heading.
 
 ## Reading the result
 

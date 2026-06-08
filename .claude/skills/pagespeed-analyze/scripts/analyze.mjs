@@ -81,63 +81,115 @@ const CORE = [
 
 const SKIP_MODES = new Set(["informative", "manual", "notApplicable"]);
 
+function isFailing(x) {
+  return x && x.score != null && x.score < 1 && !SKIP_MODES.has(x.scoreDisplayMode);
+}
+
 export function summarize(lhr) {
   const a = lhr.audits ?? {};
-  const cats = Object.fromEntries(
-    Object.entries(lhr.categories ?? {}).map(([k, v]) => [
-      k,
-      Math.round((v.score ?? 0) * 100),
-    ])
-  );
+  const catsRaw = lhr.categories ?? {};
+
+  const categories = {};
+  const auditCategory = {}; // auditId -> first category title that owns it
+  for (const [key, cat] of Object.entries(catsRaw)) {
+    categories[key] = cat.score == null ? null : Math.round(cat.score * 100);
+    for (const ref of cat.auditRefs ?? []) {
+      if (!(ref.id in auditCategory)) auditCategory[ref.id] = cat.title ?? key;
+    }
+  }
+
   const metrics = CORE.filter((m) => a[m]).map((m) => ({
     id: m,
     value: a[m].displayValue ?? "",
     score: a[m].score,
     numeric: a[m].numericValue,
   }));
+
+  // Flat list of every failing audit (used by the compare skill).
   const issues = [];
   for (const [id, x] of Object.entries(a)) {
-    if (x.score == null || x.score >= 1) continue;
-    if (SKIP_MODES.has(x.scoreDisplayMode)) continue;
+    if (!isFailing(x)) continue;
     issues.push({
       id,
       score: x.score,
       value: x.displayValue ?? "",
+      category: auditCategory[id] ?? "",
       saveMs: x.details?.overallSavingsMs,
       saveBytes: x.details?.overallSavingsBytes,
     });
   }
   issues.sort((p, q) => p.score - q.score);
+
+  // The same failing audits, grouped under each Lighthouse category so every
+  // aspect that needs work is visible (performance, accessibility, SEO, ...).
+  const byCategory = Object.entries(catsRaw).map(([key, cat]) => {
+    const seen = new Set();
+    const catIssues = [];
+    for (const ref of cat.auditRefs ?? []) {
+      const x = a[ref.id];
+      if (!isFailing(x) || seen.has(ref.id)) continue;
+      seen.add(ref.id);
+      catIssues.push({
+        id: ref.id,
+        score: x.score,
+        value: x.displayValue ?? "",
+        weight: ref.weight ?? 0,
+        saveMs: x.details?.overallSavingsMs,
+        saveBytes: x.details?.overallSavingsBytes,
+      });
+    }
+    // worst score first, then by how much the audit weighs on the category score
+    catIssues.sort((p, q) => p.score - q.score || q.weight - p.weight);
+    return { key, title: cat.title ?? key, score: categories[key], issues: catIssues };
+  });
+
   return {
     finalUrl: lhr.finalUrl,
     fetchTime: lhr.fetchTime,
     lighthouseVersion: lhr.lighthouseVersion,
     formFactor: lhr.configSettings?.formFactor,
-    categories: cats,
+    categories,
     metrics,
     issues,
+    byCategory,
   };
+}
+
+function savingsLabel(it) {
+  return [
+    it.saveMs ? `${Math.round(it.saveMs)}ms` : "",
+    it.saveBytes ? `${Math.round(it.saveBytes / 1024)}KiB` : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
 }
 
 function printHuman(s) {
   console.log(`URL:        ${s.finalUrl}`);
   console.log(`Fetched:    ${s.fetchTime}  (${s.formFactor ?? "?"}, lh ${s.lighthouseVersion})`);
   console.log("\nScores");
-  for (const [k, v] of Object.entries(s.categories)) console.log(`  ${k.padEnd(16)} ${v}`);
-  console.log("\nCore metrics");
-  for (const m of s.metrics) {
-    console.log(`  ${m.id.padEnd(26)} ${String(m.value).padEnd(10)} score ${m.score}`);
+  for (const [k, v] of Object.entries(s.categories)) console.log(`  ${k.padEnd(16)} ${v ?? "-"}`);
+  if (s.metrics.length) {
+    console.log("\nCore metrics (performance)");
+    for (const m of s.metrics) {
+      console.log(`  ${m.id.padEnd(26)} ${String(m.value).padEnd(10)} score ${m.score}`);
+    }
   }
-  console.log("\nActionable audits (worst first)");
-  if (!s.issues.length) console.log("  none - all passing");
-  for (const it of s.issues) {
-    const save = [
-      it.saveMs ? `${Math.round(it.saveMs)}ms` : "",
-      it.saveBytes ? `${Math.round(it.saveBytes / 1024)}KiB` : "",
-    ]
-      .filter(Boolean)
-      .join(" ");
-    console.log(`  [${it.score.toFixed(2)}] ${it.id.padEnd(34)} ${it.value} ${save ? "(" + save + ")" : ""}`);
+  console.log("\nIssues by category (worst first)");
+  const totalIssues = s.byCategory.reduce((n, c) => n + c.issues.length, 0);
+  if (!totalIssues) {
+    console.log("  none - everything passing in the categories that were scanned");
+  }
+  for (const c of s.byCategory) {
+    console.log(`\n  ${c.title} - ${c.score ?? "-"}`);
+    if (!c.issues.length) {
+      console.log("    all passing");
+      continue;
+    }
+    for (const it of c.issues) {
+      const save = savingsLabel(it);
+      console.log(`    [${it.score.toFixed(2)}] ${it.id.padEnd(34)} ${it.value} ${save ? "(" + save + ")" : ""}`);
+    }
   }
 }
 
@@ -169,7 +221,7 @@ function main() {
   else {
     const latest = latestByStrategy();
     if (!latest.size) {
-      console.error(`No reports in ${SCAN_DIR}/ - run the pagespeed-scan skill first.`);
+      console.error(`No reports in ${SCAN_DIR}/ - add the PageSpeed JSON there, or pass a file path.`);
       process.exit(1);
     }
     files = [...latest.values()]
