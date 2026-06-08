@@ -12,6 +12,7 @@ import {
   runLine,
   suggest,
   type Command,
+  type Gauge,
   type OutLine,
   type PageRef,
   type PageTarget,
@@ -76,6 +77,25 @@ function outClass(line: string): string {
   return "about-term-out";
 }
 
+/** A scored bar (from `pagespeed`): label, a filled track, and the readout.
+ *  Colour bands follow Lighthouse - green >= 90, amber >= 50, else red. */
+function GaugeRow({ gauge }: { gauge: Gauge }) {
+  const band =
+    gauge.score >= 90 ? "good" : gauge.score >= 50 ? "average" : "poor";
+  return (
+    <div className={`about-gauge about-gauge--${band}`}>
+      <span className="about-gauge-label">{gauge.label}</span>
+      <span className="about-gauge-track" aria-hidden="true">
+        <span
+          className="about-gauge-fill"
+          style={{ width: `${gauge.score}%` }}
+        />
+      </span>
+      <span className="about-gauge-val">{gauge.value}</span>
+    </div>
+  );
+}
+
 /** A clickable experiment row (from `ls`) - click to open the experiment. */
 function PageRow({
   page,
@@ -121,15 +141,16 @@ function TermLines({
         <Prompt text={prompt} />
         <span className="about-term-cmd">{cmd}</span>
       </div>
-      {out.map((line, j) =>
-        typeof line === "string" ? (
-          <div key={j} className={outClass(line)}>
-            {line}
-          </div>
-        ) : (
-          <PageRow key={j} page={line} onOpen={onOpen} />
-        )
-      )}
+      {out.map((line, j) => {
+        if (typeof line === "string")
+          return (
+            <div key={j} className={outClass(line)}>
+              {line}
+            </div>
+          );
+        if (line.kind === "gauge") return <GaugeRow key={j} gauge={line} />;
+        return <PageRow key={j} page={line} onOpen={onOpen} />;
+      })}
     </div>
   );
 }

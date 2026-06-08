@@ -243,6 +243,73 @@
   color: var(--text-dim);
 }
 
+/* ── pagespeed gauge (scored bar) ──────────────────────────── */
+.about-gauge {
+  display: grid;
+  /* Fixed label column so bars line up across rows (each gauge is its own grid). */
+  grid-template-columns: 8.5rem 1fr auto;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.08rem 0 0.08rem 0.1rem;
+}
+
+.about-gauge-label {
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.about-gauge-track {
+  height: 0.55rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--border) 60%, transparent);
+  overflow: hidden;
+}
+
+.about-gauge-fill {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--gauge);
+  /* Grow the bar in on first paint; honoured only when motion is allowed. */
+  transform-origin: left center;
+  animation: about-gauge-grow var(--dur-move, 0.5s) var(--ease-glide, ease-out) both;
+}
+
+.about-gauge-val {
+  color: var(--gauge);
+  font-variant-numeric: tabular-nums;
+  min-width: 2.6rem;
+  text-align: right;
+}
+
+/* Lighthouse colour bands. */
+.about-gauge--good {
+  --gauge: var(--accent);
+}
+.about-gauge--average {
+  --gauge: var(--wip);
+}
+.about-gauge--poor {
+  --gauge: #ec5a5a;
+}
+
+@keyframes about-gauge-grow {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-gauge-fill {
+    animation: none;
+  }
+}
+
 /* ── Interactive prompt (post-boot) ────────────────────────── */
 .about-term-repl {
   margin-top: 0.2rem;

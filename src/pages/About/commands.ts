@@ -2,6 +2,8 @@
 // Pure given its context: command definitions, suggestion (intellisense), and
 // line execution. Side effects (navigation, theme) are injected as callbacks.
 
+import { renderPagespeed } from "./pagespeed";
+
 export type ArgKind = "page" | "theme" | "text";
 export type ThemeMode = "dark" | "light";
 
@@ -29,8 +31,26 @@ export interface PageRef {
   tags: string[];
 }
 
-/** A line of terminal output: plain text, or a clickable page reference. */
-export type OutLine = string | PageRef;
+/** A scored bar emitted by `pagespeed` (label + 0-100 bar + readout). */
+export interface Gauge {
+  kind: "gauge";
+  label: string;
+  /** 0-100, drives the bar length and colour band. */
+  score: number;
+  /** Readout at the end of the row, e.g. "96" or "1.6 s". */
+  value: string;
+}
+
+/** Translatable labels for the `pagespeed` gauge view. */
+export interface PagespeedLabels {
+  caption: string;
+  mobile: string;
+  desktop: string;
+  metrics: string;
+}
+
+/** A line of terminal output: plain text, a clickable page, or a scored bar. */
+export type OutLine = string | PageRef | Gauge;
 
 export interface ReplStrings {
   helpTitle: string;
@@ -51,6 +71,7 @@ export interface ReplStrings {
   statsLine: string;
   lsTitle: string;
   lsNav: string;
+  pagespeed: PagespeedLabels;
 }
 
 export interface CommandCtx {
@@ -133,6 +154,7 @@ export function buildCommands(ctx: CommandCtx): Command[] {
     def("principles", () => s.principles.map((p) => `// ${p}`)),
     def("stack", () => [s.stack]),
     def("stats", () => [s.statsLine]),
+    def("pagespeed", () => renderPagespeed(s.pagespeed)),
     def("version", () => [s.version(ctx.version)]),
     def("ls", lsRun),
     def("open", openRun, { arg: "page" }),
