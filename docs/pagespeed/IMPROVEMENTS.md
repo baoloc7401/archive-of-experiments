@@ -14,7 +14,8 @@ SEO) are captured.
 - **Round 2** after fixes: `*-1780893706` (mobile) / `*-1780893568` (desktop), 2026-06-08 04:40.
 - **Round 3** re-measure: `*-1780898120` (mobile) / `*-1780898046` (desktop), 2026-06-08 05:54.
 - **Round 4** accessibility fixes: `*-1780900561` (mobile) / `*-1780900579` (desktop), 2026-06-08 06:36.
-- **Round 4.1** last contrast node + toggle/dark-theme hardening: shipped 2026-06-08, awaiting re-measure.
+- **Round 4.1** last contrast node + toggle/dark-theme hardening: `*-1780902058` (mobile) / `*-1780902076` (desktop), 2026-06-08 07:01.
+- **Round 5** mobile CLS (font-display: optional): shipped 2026-06-08, awaiting re-measure.
 
 ## Round 1 fixes - shipped and measured
 
@@ -121,7 +122,7 @@ Targeting the two accessibility audits Round 3 surfaced (the only thing between
 at **96** (not 100): one node still fails. Performance unchanged (97 / 100), so
 the CSS swaps cost nothing.
 
-### Round 4.1 - the last contrast node (awaiting re-measure)
+### Round 4.1 - the last contrast node (shipped and measured)
 
 The holdout is the language toggle's inactive `.lang-opt` ("EN") sitting over the
 accent-tinted knob (`color-mix(--accent 18%, white)` = `#d1ece7`). The Round 4
@@ -146,44 +147,88 @@ failure that a future scan could surface:
   clearly dimmer than `--text`. This does not move the PSI score (light theme is
   what's measured) but fixes contrast for dark-theme users.
 
-Expected: Accessibility **96 -> 100** on both strategies (light theme); dark
-theme now AA-clean for its dim text.
+**Result (measured).** Accessibility reached **100 on both strategies** -
+`color-contrast` is fully resolved; Best Practices and SEO held at 100. The
+accessibility goal is met.
+
+| Category      | Mobile (R4 -> R4.1) | Desktop (R4 -> R4.1) |
+| ------------- | :-----------------: | :------------------: |
+| Performance   | 97 -> 91            | 100 -> 99            |
+| Accessibility | 96 -> **100**       | 96 -> **100**        |
+
+The mobile Performance drop (97 -> 91) is **entirely a new CLS regression** (next
+section): Speed Index actually improved (3.9 -> 2.7 s) and TBT fell (90 -> 20 ms),
+but a single layout shift took CLS 0 -> 0.168. It is **unrelated to the v1.5.3
+colour / `aria-hidden` changes** - neither affects layout - and CLS was 0 in all
+four prior rounds.
 
 ---
 
-## Remaining issues (ranked, Round 3 data)
+## Round 5 fixes - shipped (awaiting re-measure)
 
-The performance gap is essentially closed - mobile 97 is bounded by Speed Index
-and the GitHub Pages cache TTL, both near their floor. The newly-visible work is
-**accessibility**, not performance.
+Targeting the mobile CLS (Remaining issue #1). The shift is font-swap reflow: the
+latin 400/700 woff2 are already preloaded, but under slow-4G throttling they
+still arrive after first paint, so `font-display: swap` repaints the hero title in
+JetBrains Mono and the metric change shifts the grid block below it.
 
-### 1. Accessibility - contrast + label mismatch (96) - fixed across Round 4 / 4.1
+| Improvement | Status |
+| ----------- | ------ |
+| ~~#1 Mobile CLS 0.168 (font-swap reflow)~~ | **done** - every `@font-face` switched from `font-display: swap` to **`optional`**. The browser now renders the fallback for that load and never swaps mid-load, so there is no reflow. Preload is kept, so fast and repeat visits still paint JetBrains Mono on first render (and it's cached for later navigations). |
 
-**Evidence (both strategies).**
+**Trade-off.** Under genuinely slow connections (including the Lighthouse mobile
+lab), the font won't arrive inside `optional`'s ~100 ms block window, so that
+first load renders in the fallback monospace (`ui-monospace, monospace`) instead
+of swapping. That's the deliberate cost of CLS 0: no visible reflow, at the price
+of the web font not showing on the slowest first loads. It does not affect
+FCP/LCP (fallback paints immediately, same as `swap`).
 
-- `color-contrast` (score 0): the light-theme `--text-dim` (`#9ba3bf`) sat at
-  2.1-2.5:1 on near-white backgrounds across the dim labels, filter tags, footer
-  and segment controls; the hero accent word (`--accent` `#00b899`) was 2.15:1.
-- `label-content-name-mismatch` (score 0): the language toggle's `aria-label`
-  ("Switch language") did not contain its visible `EN`/`VI` text.
+The font-always-shows alternative (keep `swap`, add `@font-face` metric overrides
+- `size-adjust` / `ascent-override` / `descent-override` - so the fallback
+occupies the same box and the swap causes no reflow) needs the override values
+generated from the font metrics (fontaine / capsize), not hand-picked. Worth
+doing only if the fallback-on-slow-load trade proves undesirable.
 
-**Fix.** Round 4 cleared the label mismatch and 23 of 24 contrast nodes; Round 4.1
-cleared the last one (the lang-toggle label on its accent knob) - see both
-sections above. **Impact:** high (only thing between 96 and 100, and it's
-correctness, not just score). **Effort:** low. **Status:** done, Round 4.1
-awaiting re-measure.
+Expected: mobile **CLS -> 0** and Performance back to ~97; desktop unchanged.
 
-### 2. Speed Index 4.2 s (the remaining soft performance metric)
+---
 
-**Evidence.** `speed-index` is the only sub-1 performance metric on mobile
-(score 0.78); it nudged 4.1 -> 4.2 s (run-to-run noise). Everything else - FCP,
-LCP, TBT, TTI, CLS - now scores >= 0.95.
+## Remaining issues (ranked, Round 4.1 data)
 
-**Cause/fix.** Speed Index measures how fast the viewport visually fills. With
-TBT solved, the lever is paint progression: the hero/cards still mount with
-scramble + gradient layers that delay visual completeness on a 4x CPU. Staggering
-or gating more of that decorative paint would help, but the payoff is small
-(~3 points). **Impact:** low. **Effort:** medium.
+Accessibility is now **100/100** on both strategies and the main-thread cost is
+gone. The only open performance item that moved is a **new, intermittent mobile
+CLS** seen for the first time in the Round 4.1 run; everything else is at its
+practical floor.
+
+### 1. Mobile CLS 0.168 (new this run) - addressed in Round 5
+
+**Evidence (mobile only).** `cumulative-layout-shift`: **0.168** (score 0.71),
+with `layout-shifts` / `cls-culprits-insight` attributing the whole shift to one
+element: `<main class="grid-section">` (the experiments grid + sidebar block).
+Desktop CLS stayed 0.002. CLS was **0 in all four prior rounds**.
+
+**Not caused by v1.5.3.** The release changed only colour tokens and added
+`aria-hidden` - neither affects layout. The cause is **font-swap reflow**:
+JetBrains Mono is self-hosted, so when it loads after first paint the
+fallback-vs-web-font metric difference reflows the tall `grid-section`, shifting
+it. Earlier runs didn't catch it (font cached or loaded before the shift window),
+which is why CLS is so timing-dependent.
+
+**Fix.** Shipped in **Round 5 above** - `font-display: optional` so the font
+never swaps mid-load. **Status:** done, awaiting re-measure. (One 0.168 against
+four clean rounds could have been variance, but `optional` is a strict
+improvement either way, so it was worth shipping without waiting for a confirming
+re-scan.)
+**Impact:** medium (it's ~6 mobile points). **Effort:** low-medium.
+
+### 2. Speed Index (improved - now near-passing)
+
+**Evidence.** `speed-index` improved to **2.7 s** on mobile (score 0.96) this
+run, up from 4.1-4.2 s in Rounds 2-3. It is no longer a standout; TBT (20 ms) and
+the other metrics all score >= 0.95.
+
+**Cause/fix.** Still the hero/card scramble + gradient paint on a 4x CPU, but the
+gap is now small. Only worth touching if pushing for a perfect 100. **Impact:**
+low. **Effort:** medium.
 
 ### 3. Render-blocking app CSS (~450 ms mobile / 80 ms desktop, unchanged)
 
@@ -208,24 +253,25 @@ unless a CDN is introduced.
 
 ## Suggested next round
 
-Performance is effectively done (mobile 97, desktop 100) and the accessibility
-fixes shipped in Round 4:
+Accessibility is **100/100**, the Round 4.1 contrast work is verified, and the
+Round 5 CLS fix is shipped. Nothing else is worth chasing:
 
-1. **Re-measure** - confirm Round 4 took Accessibility **96 -> 100** on both
-   strategies with no performance regression. This is the immediate next step.
-2. **(Optional) Speed Index** (Round 3 #2) - stagger/gate the hero + card
-   decorative paint to fill the viewport sooner. ~3 points, medium effort.
+1. **Re-scan mobile to confirm Round 5** - verify `font-display: optional` took
+   CLS back to 0 and Performance back to ~97, and sanity-check that first paint
+   under throttling now shows the fallback monospace (the deliberate trade). This
+   is the immediate next step.
+2. **(Optional) Speed Index** (#2) - now 2.7 s / 0.96, no longer a priority.
 3. Leave caching (#5) and render-blocking CSS (#3) alone - both are at their
    practical floor given GitHub Pages.
 
-Desktop is at 100 on every category. The remaining work is **mobile Speed Index
-and accessibility on both strategies** - the main-thread cost that dominated
-Round 2 is gone.
+Desktop is at 99-100 on every category (the desktop dip to 99 is TBT/Speed-Index
+run noise, CLS stayed clean). The remaining work is the **mobile CLS only**.
 
 ## How to re-measure
 
 Re-run PageSpeed Insights against the deployed home page (requesting **all four
-categories**) and compare on the **mobile** tab. With TBT solved, the metrics to
-watch are now **Speed Index** and the **Accessibility** audits (`color-contrast`,
-`label-content-name-mismatch`). Lab numbers vary run to run; look for a clear
-directional move.
+categories**) and compare on the **mobile** tab. With TBT and accessibility
+solved, the metric to watch is now **CLS** (`cumulative-layout-shift` /
+`layout-shifts`) - confirm the Round 5 `font-display: optional` fix took it back
+to 0 (and didn't reintroduce any other shift). Lab numbers vary run to run; look
+for a clear directional move, not a single decimal.

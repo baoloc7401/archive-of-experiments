@@ -29,7 +29,10 @@
     <!-- JetBrains Mono is self-hosted (see src/index.css @font-face + public/fonts).
          Preload the same-origin latin weights used for first paint so the font
          download starts in parallel with the CSS instead of after it: 400 (body)
-         and 700 (hero title / headings). %BASE_URL% is replaced by Vite. -->
+         and 700 (hero title / headings). Paired with font-display: optional, this
+         gives the font the best chance to render on first paint without a swap
+         (which would shift layout) - see the @font-face comment in index.css.
+         %BASE_URL% is replaced by Vite. -->
     <link
       rel="preload"
       href="%BASE_URL%fonts/jetbrains-mono-latin-400.woff2"
