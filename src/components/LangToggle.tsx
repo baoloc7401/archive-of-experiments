@@ -36,8 +36,8 @@ export default function LangToggle() {
       aria-label={t("aria.lang_switch")}
     >
       <div className="lang-knob" aria-hidden="true" />
-      <span className="lang-opt">EN</span>
-      <span className="lang-opt">VI</span>
+      <span className="lang-opt" aria-hidden="true">EN</span>
+      <span className="lang-opt" aria-hidden="true">VI</span>
     </button>
   );
 }

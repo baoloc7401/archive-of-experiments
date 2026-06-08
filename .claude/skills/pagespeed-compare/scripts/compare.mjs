@@ -67,12 +67,13 @@ function comparePair(before, after, asJson) {
     console.log(`  ${m.id.padEnd(26)} ${String(pv).padEnd(10)} -> ${String(m.value).padEnd(10)} ${ds}`);
   }
 
-  console.log("\nActionable audits in the newer run (worst first)");
+  console.log("\nActionable audits in the newer run (worst first, with category)");
   const aIssues = new Set(A.issues.map((i) => i.id));
   if (!B.issues.length) console.log("  none - all passing");
   for (const it of B.issues) {
     const tag = aIssues.has(it.id) ? "" : "  [new]";
-    console.log(`  [${it.score.toFixed(2)}] ${it.id.padEnd(34)} ${it.value}${tag}`);
+    const cat = (it.category || "").padEnd(14);
+    console.log(`  [${it.score.toFixed(2)}] ${cat} ${it.id.padEnd(34)} ${it.value}${tag}`);
   }
   const resolved = A.issues.filter((i) => !B.issues.some((j) => j.id === i.id));
   if (resolved.length) {

@@ -58,4 +58,5 @@ same run). Always explain the trade, not just the headline number.
   desktop of the *same* run, pass the two files explicitly - but read it as a
   device gap, not a regression.
 - Lab numbers vary run to run; trust a clear directional move over a single
-  decimal. Re-scan with **pagespeed-scan** if a result looks like noise.
+  decimal. If a result looks like noise, ask for another report (the user runs
+  the scans and provides the JSON).
