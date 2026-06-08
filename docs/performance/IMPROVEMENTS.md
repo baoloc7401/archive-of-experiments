@@ -1,186 +1,176 @@
 # Performance Improvements
 
-Action plan derived from two PageSpeed Insights / Lighthouse 13.3.0 runs of the
-home page (`https://baoloc7401.github.io/archive-of-experiments/`), captured
-2026-06-08. Raw reports live in [pagespeed-scannings/](../../pagespeed-scannings/).
+Action plan for the home page (`https://baoloc7401.github.io/archive-of-experiments/`),
+driven by PageSpeed Insights / Lighthouse 13.3.0. Raw reports live in
+[pagespeed-scannings/](../../pagespeed-scannings/).
 
-Only the **Performance** category was run. Numbers below are lab data under
-Lighthouse's emulated throttling (mobile = slow 4G + 4x CPU slowdown, desktop =
-cable + no slowdown), so mobile is the worst case and where every fix should be
-measured.
+Only the **Performance** category is run. Numbers are lab data under Lighthouse's
+emulated throttling (mobile = slow 4G + 4x CPU slowdown, desktop = cable + no
+slowdown), so mobile is the worst case and where every fix is measured.
 
-> **Status (2026-06-08):** improvements #1 (route code splitting), #2 (self-host
-> the font) and #4 (drop the now-unused preconnects) are **implemented**. #3
-> (long-cache headers) is left as-is - a GitHub Pages hosting limitation. Re-run
-> PageSpeed against the next deploy to confirm the mobile gains.
+- **Round 1** baseline: `*-1786217779` (mobile) / `*-1786218027` (desktop), 2026-06-08 03:36.
+- **Round 2** after fixes: `*-1780893706` (mobile) / `*-1780893568` (desktop), 2026-06-08 04:40.
 
-## Scores at a glance
+## Round 1 fixes - shipped and measured
 
-| Category    | Mobile | Desktop |
-| ----------- | :----: | :-----: |
-| Performance |   85   |   99    |
+| Improvement | Status |
+| ----------- | ------ |
+| ~~#1 Route-based code splitting (`React.lazy` + `Suspense`)~~ | **done** - experiments are now per-route chunks; landing JS 190 -> 125 KiB, unused JS 108 -> 42 KiB |
+| ~~#2 Self-host JetBrains Mono (kill the Google Fonts round-trip)~~ | **done** - render-blocking 1,470 -> 450 ms; the 751 ms cross-origin font stylesheet is gone |
+| ~~#4 Drop the now-unused `preconnect` hints~~ | **done** - removed with the Google Fonts link |
+| #3 Long-cache headers | **won't fix** - GitHub Pages forces a 10-min TTL; hosting limitation, not code |
 
-### Core metrics
+**Result.** First paint got dramatically faster, **desktop reached 100**, but the
+**mobile score went 85 -> 78**. This is expected and is explained below: the fixes
+worked, and in doing so they exposed the next bottleneck.
 
-| Metric                         | Mobile          | Desktop   | Mobile verdict |
-| ------------------------------ | --------------- | --------- | -------------- |
-| First Contentful Paint (FCP)   | **3.1 s**       | 0.7 s     | poor (0.46)    |
-| Largest Contentful Paint (LCP) | **3.1 s**       | 0.7 s     | needs work (0.74) |
-| Speed Index                    | **4.8 s**       | 0.8 s     | needs work (0.67) |
-| Time to Interactive            | 3.2 s           | 0.7 s     | ok (0.95)      |
-| Total Blocking Time (TBT)      | 0 ms            | 0 ms      | perfect        |
-| Cumulative Layout Shift (CLS)  | 0               | 0         | perfect        |
-| Server response time           | ~0 ms           | ~0 ms     | perfect        |
+### Scores
 
-**Read:** the page is not CPU-bound (TBT 0, CLS 0, server instant). The whole
-mobile gap is **how long until the first pixel paints**, which is gated by
-downloading and parsing one big JS bundle plus two render-blocking requests
-(app CSS and the Google Fonts stylesheet). Desktop hides all of this because the
-download is fast and the CPU is not throttled.
+| Category    | Mobile (R1 -> R2) | Desktop (R1 -> R2) |
+| ----------- | :---------------: | :----------------: |
+| Performance | 85 -> **78**      | 99 -> **100**      |
 
-## The page weight
+### Core metrics (mobile)
 
-From `resource-summary` (mobile, 8 requests, 270 KiB total transferred):
+| Metric | R1 | R2 | Verdict |
+| ------ | -- | -- | ------- |
+| First Contentful Paint   | 3.1 s | **1.8 s** | improved (0.46 -> 0.88) |
+| Largest Contentful Paint | 3.1 s | **2.3 s** | improved (0.74 -> 0.93) |
+| Speed Index              | 4.8 s | **4.1 s** | improved (0.67 -> 0.79) |
+| Time to Interactive      | 3.2 s | 3.2 s     | flat |
+| **Total Blocking Time**  | 0 ms  | **690 ms** | **regressed (1.0 -> 0.43)** |
+| Cumulative Layout Shift  | 0     | 0.012     | still ~0 (score 1) |
 
-| Type       | Requests | Transfer  |
-| ---------- | :------: | --------- |
-| Script     |    1     | 190 KiB   |
-| Font       |    4     | 56 KiB    |
-| Stylesheet |    2     | 28 KiB    |
-| Document   |    1     | 2.2 KiB   |
-
-One 190 KiB script and 56 KiB of fonts dominate. Both are addressable.
+**Why TBT appeared.** TBT is the blocking time *between FCP and TTI*. In Round 1,
+FCP was so late (3.1 s) that React + i18n + router booted *before* the first paint,
+outside the TBT window, so it scored 0. Round 2 moved FCP to 1.8 s, so that same
+~1 s of script execution now lands *after* FCP, inside the window. The split did
+not create main-thread work - it uncovered work that was always there. That work
+is now the #1 remaining issue.
 
 ---
 
-## Improvements, ranked by impact
+## Round 2 fixes - shipped (awaiting re-measure)
 
-### 1. Split the bundle by route (biggest win)
+Targeting the main-thread / TBT bottleneck identified below. Build-time effects
+confirmed; the TBT effect needs a fresh mobile PageSpeed run to verify.
 
-**Evidence.** `unused-javascript` reports the single
-`assets/index-*.js` is 187 KiB and **59% unused (108 KiB wasted, est. 550 ms)**
-on the landing page. `unused-css-rules` reports the single `assets/index-*.css`
-is **88% unused (22 KiB wasted)**.
+| Improvement | What changed |
+| ----------- | ------------ |
+| ScrambleText no longer re-renders per frame | The ~60 scramble instances on the landing page now animate by writing `textContent` on a ref'd span instead of calling `setState` every rAF tick. This removes the thousands of React renders that ran in the FCP -> TTI window - the main TBT source. Also settles instantly under `prefers-reduced-motion`. (see #1) |
+| Forced reflow removed | The hero and card `mousemove` handlers cached their rect (refreshed on scroll/resize) instead of calling `getBoundingClientRect()` every move. (see #2) |
+| `vi` locale code-split | Only English is bundled eagerly; `vi` is a dynamic-import chunk loaded on toggle (or before mount when it's the saved language, so no flash). Landing JS dropped ~125 -> ~111 KiB gzip. (see #3) |
 
-**Cause.** [src/main.tsx](../../src/main.tsx) statically imports all eight
-experiment components (chess, pathfinding, elevator, aco, river-crossing,
-minesweeper, boids, l-system) plus About/Contact at the top of the file:
+The items below are the original Round 2 findings, kept for the re-measure.
 
-```ts
-import ChessGame from "./experiments/chess";
-import Pathfinding from "./experiments/pathfinding";
-// ...six more
-```
+## Remaining issues (ranked, Round 2 data)
 
-So visiting `/` downloads and parses the chess engine, the boids simulation,
-every canvas renderer, and every experiment's CSS, none of which the home page
-renders. Vite has nothing to split because everything is in one import graph.
+### 1. Main-thread blocking / TBT 690 ms (new top issue)
 
-**Fix.** Lazy-load the routes with `React.lazy` + `Suspense`. Keep `App`
-(the gateway) eager, defer the rest:
+**Evidence (mobile):**
 
-```ts
-import { lazy, Suspense } from "react";
+- `total-blocking-time`: **690 ms** (score 0.43); `max-potential-fid`: 320 ms (0.31).
+- `mainthread-work-breakdown`: **4.2 s** total -
+  Style & Layout **1.48 s**, Script Evaluation **1.06 s**, Other 0.83 s,
+  Rendering 0.63 s, Parse/Compile 0.15 s.
+- `bootup-time`: 1.2 s; the eager `assets/index-*.js` alone is **~1.0 s of
+  scripting** + 0.14 s parse.
+- `long-tasks`: 10 long tasks, longest 467 ms, then 319 / 182 / 154 ms - almost
+  all attributed to `index-*.js`.
 
-const ChessGame = lazy(() => import("./experiments/chess"));
-const Pathfinding = lazy(() => import("./experiments/pathfinding"));
-// ...etc
+**Two distinct costs to attack:**
 
-// wrap <Routes> in <Suspense fallback={...}>
-```
+- **Script Evaluation (~1.06 s)** - the eager bundle runs React + ReactDOM +
+  react-router + i18next/react-i18next + every shared UI primitive + ScrambleText
+  on the landing page. Options: lazy-load the `vi` locale (ship only the active
+  language eagerly, fetch the other on toggle); confirm no experiment-only helper
+  is imported by the gateway; keep the eager surface to what `/` actually renders.
+- **Style & Layout (~1.48 s, the single largest group)** - the home page is
+  visually heavy: hero grid + spotlight radial gradients, the full-screen noise
+  overlay, `color-mix` everywhere, view-transition keyframes, and ScrambleText
+  mutating many cards on mount. On a 4x-throttled CPU this dominates. Options:
+  reduce the number of simultaneously-animated cards / stagger less; gate more
+  decorative layers behind `prefers-reduced-motion` (some already are); simplify
+  or drop the noise overlay; avoid animating layout-affecting properties.
 
-Vite then emits one chunk per experiment, and `/` ships only the gateway plus
-the router. Expect the landing bundle to drop by roughly the 108 KiB flagged as
-unused, and the per-experiment CSS to leave the critical path too (the 22 KiB
-unused CSS is the other experiments' styles riding in the one stylesheet).
+**Impact:** high - TBT is ~30% of the mobile score, so this is most of the gap
+between 78 and the 90s. **Effort:** medium.
 
-**Impact:** high (directly improves FCP/LCP/Speed Index on mobile).
-**Effort:** low. **Risk:** low - add a `Suspense` fallback so the first paint of
-a deep-linked experiment shows a placeholder instead of blank.
+### 2. Forced reflow (~111 ms)
 
-### 2. Unblock the critical render path
+**Evidence.** `forced-reflow-insight` flags a synchronous layout read inside the
+app bundle (`index-*.js`), ~111 ms of reflow time.
 
-**Evidence.** `render-blocking-insight` flags **~1,470 ms** of render-blocking
-on mobile, from two resources:
+**Cause/fix.** Something reads layout (offset/scroll/getBoundingClientRect) and
+then writes style in the same frame, forcing a re-layout. Likely candidates: the
+scroll-progress bar, the hero spotlight `mousemove` handler, or ScrambleText
+measuring nodes. Batch reads before writes, or move the read into a
+`requestAnimationFrame` callback. Folds into #1.
 
-| Resource                                   | Blocking |
-| ------------------------------------------ | -------- |
-| `fonts.googleapis.com/css2?...JetBrains+Mono` | 751 ms |
-| `assets/index-*.css`                       | 561 ms   |
+**Impact:** medium (contributes to TBT). **Effort:** low once located.
 
-The font stylesheet is the worse offender, and it sits on a request chain
-(`document -> Google Fonts CSS -> woff2 files`), with a longest chain of ~1 s in
-`network-dependency-tree-insight`.
+### 3. Residual unused JavaScript (42 KiB)
 
-**Fixes (pick based on appetite):**
+**Evidence.** `unused-javascript`: the eager `index-*.js` is still **35% unused
+(42 KiB)** on the landing page - down from 108 KiB pre-split, but not zero.
 
-- **Self-host the font.** Download the JetBrains Mono `woff2` files used (4
-  weights, 56 KiB total), drop them in `public/`, and replace the Google Fonts
-  `<link>` in [index.html](../../index.html) with an `@font-face` + a
-  `<link rel="preload" as="font" crossorigin>`. This removes the 751 ms
-  cross-origin stylesheet round-trip entirely and the
-  `preconnect` hints to `fonts.googleapis.com` / `fonts.gstatic.com` become
-  unnecessary. Best single fix for FCP.
-- **Trim weights.** The app loads 400/600/700. If 700 (or 600) is rarely used,
-  dropping a weight removes a font file from the critical chain.
-- **Keep `display=swap`** (already present) so text is never invisible while the
-  font loads - this is why CLS is 0; do not regress it.
+**Cause/fix.** The eager core ships code the gateway does not use on first render:
+both i18n locales, router internals, UI primitives only used inside experiments.
+Lazy-loading the inactive locale (see #1) is the biggest single trim. **Impact:**
+medium. **Effort:** low-medium.
 
-For the 561 ms app CSS: most of it disappears once route splitting (#1) moves
-per-experiment CSS into per-route chunks. What remains is the gateway's own CSS,
-which is legitimately critical and small.
+### 4. Render-blocking app CSS (~158 ms)
 
-**Impact:** high (FCP). **Effort:** medium (self-hosting fonts is the bulk).
+**Evidence.** `render-blocking-insight`: **450 ms** total, now just the gateway
+`index-*.css` (158 ms). The 751 ms Google Fonts stylesheet is gone.
 
-### 3. Long-cache the hashed assets (repeat visits)
+**Cause/fix.** The gateway's own stylesheet is legitimately critical, so this is
+near the floor. Only worth chasing (inline critical CSS) after #1/#2. **Impact:**
+low. **Effort:** medium.
 
-**Evidence.** `cache-insight` flags **194 KiB** served with only a 10-minute TTL
-(`cacheLifetimeMs: 600000`) - the JS and CSS bundles.
+### 5. Font byte weight (~3 x 32 KiB latin)
 
-**Cause / constraint.** The site is hosted on **GitHub Pages**, which sets a
-fixed 10-minute `Cache-Control` and does not let you configure response headers.
-Vite already content-hashes filenames (`index-C4BEygTb.js`), so they are safe to
-cache for a year - GitHub Pages just will not honor it.
+**Evidence.** `total-byte-weight`: the three latin weights are ~32 KiB each
+(~96 KiB), the largest assets after the JS bundle. They load with
+`font-display: swap`, so they do **not** block render, but they add bytes and
+decode cost.
 
-**Options:**
+**Cause/fix.** Three weights (400/600/700) are self-hosted. If 600 is rarely used
+on the landing page, dropping it removes ~32 KiB. Optional - measure usage first.
+**Impact:** low. **Effort:** low.
 
-- Accept it (zero work) - this only affects repeat visitors, and the hashing
-  means correctness is fine.
-- If repeat-visit speed matters, front the site with a CDN that lets you set
-  `Cache-Control: public, max-age=31536000, immutable` on `/assets/*`
-  (Cloudflare in front of Pages, or move hosting to Netlify/Vercel/Cloudflare
-  Pages). This is a hosting change, not a code change.
+### 6. Caching - 211 KiB at a 10-min TTL (unchanged)
 
-**Impact:** medium, repeat visits only. **Effort:** low (accept) or high
-(re-host). Recommend **accept for now**, revisit only if analytics show heavy
-return traffic.
+**Evidence.** `cache-insight`: **211 KiB** (the JS, CSS, and now the self-hosted
+fonts) served with `cacheLifetimeMs: 600000`.
 
-### 4. Smaller follow-ups
-
-- **Preconnect is already in place** for the font origins
-  ([index.html](../../index.html) lines 29-30); Lighthouse confirms no
-  additional preconnect candidates. If you self-host fonts (#2), remove these
-  two `preconnect` hints since they would point at unused origins.
-- **No images, no third-party JS, no legacy-JS transforms flagged** - the
-  surface is already lean. Don't add analytics/embeds without re-measuring.
+**Constraint.** Unchanged from Round 1: GitHub Pages fixes a 10-min
+`Cache-Control` and exposes no header control. Assets are content-hashed, so a CDN
+(Cloudflare in front of Pages, or Netlify/Vercel/Cloudflare Pages) could set
+`max-age=31536000, immutable`. Hosting change, not code. **Recommendation:**
+accept unless return traffic justifies re-hosting.
 
 ---
 
-## Suggested order of work
+## Suggested next round
 
-1. **Route-based code splitting** (#1) - one file, biggest mobile win, low risk.
-2. **Self-host JetBrains Mono + preload** (#2) - removes the worst
-   render-blocking request.
-3. Re-run PageSpeed on mobile and confirm FCP/Speed Index moved before deciding
-   whether the caching/CDN work (#3) is worth it.
+1. **Cut eager script execution** (#1, #3) - lazy-load the inactive i18n locale
+   and verify the gateway imports nothing experiment-only. This is the most direct
+   lever on TBT.
+2. **Lighten home-page style/layout** (#1) - reduce simultaneously-animated cards,
+   gate more decorative layers behind `prefers-reduced-motion`, reconsider the
+   noise overlay.
+3. **Fix the forced reflow** (#2) - batch the layout read/write.
+4. Re-run mobile PageSpeed and confirm **TBT drops**; the goal is to convert the
+   already-good FCP/LCP into a 90s aggregate score by removing main-thread time.
 
-Desktop is already at 99 and needs nothing. The goal is to pull **mobile
-Performance from 85 toward the mid-90s**, which #1 and #2 together should reach
-since the entire deficit is first-paint download cost, not runtime work
-(TBT and CLS are already perfect).
+Desktop is at 100 and needs nothing. The remaining work is entirely
+**mobile main-thread cost**, not download - the opposite of Round 1, which was
+entirely download cost.
 
 ## How to re-measure
 
-Re-run PageSpeed Insights against the deployed home page after each change and
-compare FCP, LCP, and Speed Index on the **mobile** tab. Lab numbers vary run to
-run; look for a clear directional move, not a single decimal.
+Re-run PageSpeed Insights against the deployed home page and compare on the
+**mobile** tab. After Round 2 the metric to watch is **Total Blocking Time** (plus
+`mainthread-work-breakdown` and `bootup-time` in the full report). Lab numbers
+vary run to run; look for a clear directional move.

@@ -1,13 +1,17 @@
 import { useTranslation } from "react-i18next";
+import { loadLocale } from "../i18n";
 import "./LangToggle.css";
 
 export default function LangToggle() {
   const { t, i18n } = useTranslation();
   const isVi = i18n.language === "vi";
 
-  function toggle() {
+  async function toggle() {
     const newLang = isVi ? "en" : "vi";
     const root = document.getElementById("root");
+    // Non-English locales are code-split - load the chunk before switching so
+    // the UI doesn't briefly fall back to English.
+    await loadLocale(newLang);
     i18n.changeLanguage(newLang);
     localStorage.setItem("lang", newLang);
     if (root) {
