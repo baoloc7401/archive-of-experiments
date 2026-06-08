@@ -31,10 +31,6 @@ export const STATS_INTERVAL = 250;
 export const COLOR_MODES: ColorMode[] = ["depth", "order", "mono"];
 
 /**
- * Classic 3D L-systems. All rotations share one angle, so presets spread
- * branches with repeated roll symbols (e.g. `/////` at 25° ~ 125°).
- */
-/**
  * Structurally different grammars, not re-angled trees: lush tree, trunkless
  * shrub, 3D Barnsley fern, conical conifer, coiling helix, stylized creature,
  * 6-fold snow crystal, plus the famous classics (Hilbert, Sierpinski, Koch,
