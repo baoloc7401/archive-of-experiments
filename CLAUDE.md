@@ -2,6 +2,18 @@
 
 Guidance for Claude Code working in this repo.
 
+## Critical rules
+
+Hard constraints - each is detailed in its section below, collected here so they're never missed:
+
+- **Never run `npm run dev`** - the user runs the dev server themselves.
+- **Never run `git push`** - only the user pushes.
+- **Never use `eslint-disable`** (any form) - fix the underlying issue; `npm run lint` must pass with zero warnings.
+- **Never use the em dash (U+2014)** anywhere - prose, code, comments, i18n, docs, commits. Use ` - `, a comma, colon, or parentheses.
+- **Translate every user-facing string** in both `en` and `vi` - no hardcoded English (see i18n exemptions below).
+- **Prefer the shared UI primitives** in `src/components/ui/` over bespoke per-experiment CSS.
+- **Run `npx tsc --noEmit && npm run build` before committing.**
+
 ## Commands
 
 ```bash
@@ -44,7 +56,7 @@ Experiments share one UI language via primitives in [src/components/ui/](src/com
 ## Adding an experiment
 
 1. [src/experiments.ts](src/experiments.ts) - add `{id, tags, status: "active", path: "/experiments/{id}"}`.
-2. [src/main.tsx](src/main.tsx) - import default from `./experiments/{id}` and add `<Route path="/experiments/{id}" element={<Component />} />`.
+2. [src/AppRoutes.tsx](src/AppRoutes.tsx) - add a `lazy(() => import("./experiments/{id}"))` and a `<Route path="/experiments/{id}" element={<Component />} />`.
 3. `src/experiments/{id}/index.tsx` - default-export page component. Wrap it in `ExperimentLayout` and build the UI from the shared primitives above; only drop to bespoke CSS for genuinely experiment-specific visuals (boards, canvases, illustrations).
 4. `src/i18n/locales/{en,vi}.ts` - add `experiments.{id}.title` and `.description` (and every other UI string - both locales).
 

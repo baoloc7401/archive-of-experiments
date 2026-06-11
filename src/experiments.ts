@@ -95,7 +95,7 @@ export const experiments: Experiment[] = [
   {
     id: "n-body",
     tags: ["simulation", "math", "visualization"],
-    status: "planned",
+    status: "active",
     path: "/experiments/n-body",
   },
   {
