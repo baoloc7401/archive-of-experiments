@@ -17,6 +17,7 @@ Source of truth for the list + statuses:
 | [[Experiment Minesweeper]] | 🟢 live | algorithms, game, fun | [play](https://baoloc7401.github.io/archive-of-experiments/experiments/minesweeper) |
 | [[Experiment Boids]] | 🟢 live | AI, simulation, fun | [play](https://baoloc7401.github.io/archive-of-experiments/experiments/boids) |
 | [[Experiment L-System]] | 🟢 live | math, visualization, fun | [play](https://baoloc7401.github.io/archive-of-experiments/experiments/l-system) |
+| [[Experiment N-Body]] | 🟢 live | simulation, math, visualization | [play](https://baoloc7401.github.io/archive-of-experiments/experiments/n-body) |
 | Sorting Visualizer | 🟡 wip | algorithms, visualization | - |
 | Binary Tree Explorer | ⚪ planned | data structures, trees | - |
 | Bloom Filter | ⚪ planned | data structures, probabilistic | - |

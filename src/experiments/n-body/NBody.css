@@ -1,0 +1,297 @@
+/* N-Body Gravity: WebGL stage + sidebar controls. Classes are nb- prefixed. */
+
+.nb-info-tagline {
+  color: var(--accent2);
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+}
+.nb-info-desc {
+  color: var(--text-dim);
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+/* Stage / canvas: the GL renderer paints the whole background, so the stage
+   itself only frames it. */
+.nb-stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  max-height: calc(100vh - 200px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--bg);
+}
+.nb-canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+  touch-action: none;
+}
+.nb-canvas:active {
+  cursor: grabbing;
+}
+
+/* Overlay shown while WebGL2 is unavailable (covers the dead canvas). */
+.nb-fallback {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  line-height: 1.6;
+  background: var(--bg);
+}
+
+/* Legend: colour-ramp key + camera hint */
+.nb-legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 1rem;
+  margin-top: 0.6rem;
+  font-size: 0.72rem;
+  color: var(--text-dim);
+}
+.nb-lg {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.nb-lg-bar {
+  width: 26px;
+  height: 4px;
+  border-radius: 2px;
+  flex: none;
+}
+.nb-lg-bar--speed {
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+}
+.nb-lg-bar--mass {
+  background: linear-gradient(90deg, #f26133, #fff5e0, #9fc6ff);
+}
+[data-theme="light"] .nb-lg-bar--mass {
+  /* Mirrors the shader's light-theme ink ramp. */
+  background: linear-gradient(90deg, #c74214, #9e731f, #3357b3);
+}
+.nb-lg-bar--mono {
+  background: var(--text-hi);
+}
+.nb-legend-hint {
+  color: var(--text-dim);
+  opacity: 0.85;
+}
+
+/* Look + telemetry sit directly below the display, side by side on wide
+   viewports and stacked when the column gets narrow. */
+.nb-below {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 1rem;
+  align-items: start;
+}
+@media (max-width: 620px) {
+  .nb-below {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Sidebar fields: segmented toggles + action buttons */
+.nb-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+.nb-field-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.nb-field-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+.nb-seg {
+  display: flex;
+  gap: 0.35rem;
+}
+.nb-seg-btn {
+  flex: 1;
+  font-family: inherit;
+  font-size: 0.74rem;
+  padding: 0.4rem 0.45rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text-dim);
+  cursor: pointer;
+  transition: border-color var(--dur-fast), color var(--dur-fast), background var(--dur-fast);
+}
+.nb-seg-btn:hover {
+  color: var(--text);
+  border-color: var(--text-dim);
+}
+.nb-seg-btn:focus-visible {
+  outline: 2px solid var(--accent2);
+  outline-offset: 2px;
+}
+.nb-seg-btn--on {
+  color: var(--text-hi);
+  border-color: var(--accent2);
+  background: color-mix(in srgb, var(--accent2) 12%, var(--bg2));
+}
+.nb-field-hint {
+  margin: 0;
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  line-height: 1.5;
+}
+.nb-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+/* Presets: pill chips */
+.nb-presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+.nb-chip {
+  font-family: inherit;
+  font-size: 0.74rem;
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text-dim);
+  cursor: pointer;
+  transition: border-color var(--dur-fast), color var(--dur-fast), background var(--dur-fast);
+}
+.nb-chip:hover {
+  color: var(--text-hi);
+  border-color: var(--accent2);
+  background: color-mix(in srgb, var(--accent2) 10%, var(--bg2));
+}
+.nb-chip:focus-visible {
+  outline: 2px solid var(--accent2);
+  outline-offset: 2px;
+}
+.nb-chip--on {
+  color: var(--text-hi);
+  border-color: var(--accent2);
+  background: color-mix(in srgb, var(--accent2) 18%, var(--bg2));
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent2) 40%, transparent);
+}
+
+/* Telemetry extras */
+.nb-drift-warn {
+  color: var(--wip);
+}
+.nb-follow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.6rem;
+  margin-top: 0.55rem;
+  padding: 0.45rem 0.6rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, var(--border));
+  font-size: 0.72rem;
+}
+.nb-follow-label {
+  color: var(--accent);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: 0.66rem;
+}
+.nb-follow-val {
+  font-family: ui-monospace, "SFMono-Regular", "Consolas", monospace;
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+}
+
+/* Debug report */
+.nb-dbg {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  font-size: 0.72rem;
+}
+.nb-dbg-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+.nb-dbg-badge {
+  font-family: ui-monospace, "SFMono-Regular", "Consolas", monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+  color: var(--text-hi);
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--accent2) 45%, var(--border));
+  background: color-mix(in srgb, var(--accent2) 10%, var(--bg));
+}
+.nb-dbg-sec {
+  display: flex;
+  flex-direction: column;
+  gap: 0.12rem;
+}
+.nb-dbg-sec-title {
+  font-size: 0.62rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  padding-bottom: 0.18rem;
+  margin-bottom: 0.12rem;
+  border-bottom: 1px solid var(--border);
+}
+.nb-dbg-row {
+  display: grid;
+  grid-template-columns: minmax(0, auto) 1fr;
+  gap: 0.6rem;
+  align-items: baseline;
+}
+.nb-dbg-k {
+  color: var(--text-dim);
+}
+.nb-dbg-v {
+  text-align: right;
+  font-family: ui-monospace, "SFMono-Regular", "Consolas", monospace;
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+  word-break: break-word;
+}
+.nb-dbg-v--hi {
+  color: var(--accent2);
+  font-weight: 600;
+}
+
+/* Sidebar hint */
+.nb-hint {
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  line-height: 1.5;
+  padding: 0 0.2rem;
+}
+
+@media (max-width: 860px) {
+  .nb-stage {
+    max-height: none;
+  }
+}

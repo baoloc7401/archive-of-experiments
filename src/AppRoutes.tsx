@@ -13,6 +13,7 @@ const RiverCrossing = lazy(() => import("./experiments/river-crossing"));
 const Minesweeper = lazy(() => import("./experiments/minesweeper"));
 const Boids = lazy(() => import("./experiments/boids"));
 const LSystem = lazy(() => import("./experiments/l-system"));
+const NBody = lazy(() => import("./experiments/n-body"));
 const About = lazy(() => import("./pages/About"));
 const Contact = lazy(() => import("./pages/Contact"));
 const NotFound = lazy(() => import("./components/NotFound"));
@@ -35,6 +36,7 @@ export default function AppRoutes() {
         <Route path="/experiments/minesweeper" element={<Minesweeper />} />
         <Route path="/experiments/boids" element={<Boids />} />
         <Route path="/experiments/l-system" element={<LSystem />} />
+        <Route path="/experiments/n-body" element={<NBody />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="*" element={<NotFound />} />
