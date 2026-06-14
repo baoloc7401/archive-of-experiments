@@ -242,6 +242,8 @@ const en = {
       title: "Sorting Visualizer",
       description:
         "Watch bubble, merge, quick, and heap sort race each other in real time.",
+      tagline: "a race between sorting algorithms - bubble, merge, quick, and heap",
+      wip_note: "this experiment is still under construction - check back soon",
     },
     pathfinding: {
       title: "Pathfinding",

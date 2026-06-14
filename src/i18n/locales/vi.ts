@@ -245,6 +245,8 @@ const vi = {
       title: "Trực Quan Sắp Xếp",
       description:
         "Xem các thuật toán bubble, merge, quick, và heap sort đua nhau trong thời gian thực.",
+      tagline: "cuộc đua giữa các thuật toán sắp xếp - bubble, merge, quick và heap",
+      wip_note: "thí nghiệm này vẫn đang được xây dựng - quay lại sau",
     },
     pathfinding: {
       title: "Tìm Đường",

@@ -6,6 +6,7 @@ import App from "./App";
 // per route so the landing page ships only the gateway plus the router.
 // Each lazy import becomes its own chunk (JS + CSS) emitted by Vite.
 const ChessGame = lazy(() => import("./experiments/chess"));
+const SortingVisualizer = lazy(() => import("./experiments/sorting-visualizer"));
 const Pathfinding = lazy(() => import("./experiments/pathfinding"));
 const Elevator = lazy(() => import("./experiments/elevator"));
 const Aco = lazy(() => import("./experiments/aco"));
@@ -29,6 +30,7 @@ export default function AppRoutes() {
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/experiments/chess/:mode?" element={<ChessGame />} />
+        <Route path="/experiments/sorting-visualizer" element={<SortingVisualizer />} />
         <Route path="/experiments/pathfinding/:screen?" element={<Pathfinding />} />
         <Route path="/experiments/elevator" element={<Elevator />} />
         <Route path="/experiments/aco" element={<Aco />} />
