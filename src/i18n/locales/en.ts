@@ -544,6 +544,7 @@ const en = {
       description:
         "The missionaries & cannibals puzzle, solved by BFS / DFS / A* over the state space - play it or watch the search.",
       tagline: "state-space search you can paddle through",
+      crumb: "{{m}}M · {{c}}C · boat {{k}}",
       intro:
         "Ferry {{m}} missionaries and {{c}} cannibals across the river. The boat holds 1–{{k}} and can't sail empty, and cannibals must never outnumber missionaries on either bank. Behind the scenes every legal arrangement is a node and every crossing an edge - BFS finds the fewest trips.",
       hint: "tap people to load the boat, then cross. change the headcount or boat size to morph the puzzle - the same search solves every variant, or proves none exists. stuck? hit a hint step.",

@@ -20,7 +20,7 @@ export default function RiverCrossing() {
       <ExperimentHeader
         crumbs={[
           { label: t("experiments.river-crossing.title").toLowerCase(), to: "/experiments/river-crossing" },
-          { label: `${rc.cfg.m}M · ${rc.cfg.c}C · boat ${rc.cfg.k}` },
+          { label: t('experiments.river-crossing.crumb', { m: rc.cfg.m, c: rc.cfg.c, k: rc.cfg.k }) },
         ]}
       />
 

@@ -547,6 +547,7 @@ const vi = {
       description:
         "Câu đố giáo sĩ & ăn thịt người, giải bằng BFS / DFS / A* trên không gian trạng thái - tự chơi hoặc xem thuật toán tìm.",
       tagline: "tìm kiếm không gian trạng thái mà bạn chèo qua được",
+      crumb: "{{m}}M · {{c}}C · thuyền {{k}}",
       intro:
         "Đưa {{m}} giáo sĩ và {{c}} kẻ ăn thịt người qua sông. Thuyền chở 1–{{k}} người và không tự sang được, và kẻ ăn thịt người không bao giờ được đông hơn giáo sĩ trên mỗi bờ. Đằng sau, mỗi cách sắp xếp hợp lệ là một nút và mỗi lần qua sông là một cạnh - BFS tìm ra số chuyến ít nhất.",
       hint: "bấm vào người để lên thuyền, rồi qua sông. đổi số người hoặc sức chứa thuyền để biến đổi câu đố - cùng một thuật toán giải mọi biến thể, hoặc chứng minh là vô nghiệm. bí? bấm gợi ý một bước.",
