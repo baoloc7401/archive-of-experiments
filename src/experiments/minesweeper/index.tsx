@@ -41,7 +41,7 @@ export default function Minesweeper() {
       <ExperimentHeader
         crumbs={[
           { label: t("experiments.minesweeper.title").toLowerCase(), to: "/experiments/minesweeper" },
-          { label: `${ms.cfg.width}×${ms.cfg.height} · ${ms.cfg.mines} mines` },
+          { label: `${ms.cfg.width}×${ms.cfg.height} · ${ms.cfg.mines} ${t('experiments.minesweeper.setup.mines')}` },
         ]}
       />
 
