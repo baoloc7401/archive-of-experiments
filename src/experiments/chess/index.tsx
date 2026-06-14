@@ -86,7 +86,7 @@ export default function ChessGame() {
     <div className="chess-page">
       <ExperimentHeader
         crumbs={[
-          { label: 'chess', to: '/experiments/chess' },
+          { label: t('experiments.chess.title').toLowerCase(), to: '/experiments/chess' },
           { label: t(`chess.modes.${mode}`).toLowerCase(), to: `/experiments/chess/${mode}` },
         ]}
       />
