@@ -675,6 +675,7 @@ const vi = {
       won: "✓ đã dọn sạch - logic thuần túy, không may mắn",
       lost: "✸ nổ - ô đó vốn có thể suy ra được",
       first_click: "bấm bất kỳ đâu - bãi mìn được tạo quanh lần bấm đầu, đảm bảo an toàn và giải được",
+      forging: "đang tạo bãi mìn...",
       aria: {
         board: "bãi mìn, {{w}} x {{h}}",
         cell: "ô {{x}}, {{y}}",

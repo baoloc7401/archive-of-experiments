@@ -672,6 +672,7 @@ const en = {
       won: "✓ field cleared - pure logic, no luck",
       lost: "✸ boom - that one was deducible",
       first_click: "click anywhere - the field is forged around your first click, guaranteed safe and solvable",
+      forging: "forging field...",
       aria: {
         board: "minefield, {{w}} by {{h}}",
         cell: "cell {{x}}, {{y}}",

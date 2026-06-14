@@ -86,7 +86,7 @@ export default function Minesweeper() {
                 peek={ms.peek}
                 undecided={ms.stats?.undecided ?? []}
                 flagMode={flagMode}
-                locked={ms.solverPlaying}
+                locked={ms.solverPlaying || ms.forging}
                 bestGuess={ms.solverGuess}
                 probabilities={ms.showOdds ? ms.solverProbs : null}
                 onReveal={ms.revealCell}
@@ -99,7 +99,12 @@ export default function Minesweeper() {
                 <ScrambleText text={banner} duration={500} />
               </div>
             )}
-            {ms.status === "fresh" && (
+            {ms.forging && (
+              <div className="ms-overlay" aria-hidden="true">
+                <ScrambleText text={t("experiments.minesweeper.forging")} duration={600} />
+              </div>
+            )}
+            {ms.status === "fresh" && !ms.forging && (
               <div className="ms-overlay" aria-hidden="true">
                 <ScrambleText text={t("experiments.minesweeper.first_click")} duration={600} />
               </div>
