@@ -810,6 +810,104 @@ const vi = {
         empty: "chưa có sự kiện nào - tạo bãi hoặc đổi thiết lập",
       },
     },
+    pacman: {
+      title: "AI Bóng Ma Pac-Man",
+      description:
+        "Chơi mê cung kinh điển trong khi bốn con ma để lộ logic truy đuổi - mỗi con chạy một quy tắc khác nhau, và cùng nhau chúng vây, mai phục và lùa bạn.",
+      subtitle: "bốn quy tắc, một cuộc săn",
+      tagline: "truy đuổi nổi lên từ những quy tắc đơn giản",
+      intro:
+        "Mỗi con ma chọn lối rẽ kế tiếp bằng một quy tắc tầm thường: đi tới lối ra có ô gần ô mục tiêu nhất. Blinky nhắm vào bạn, Pinky nhắm phía trước bạn, Inky nhắm xuyên qua Blinky, còn Clyde mất bình tĩnh khi tới gần. Không con ma nào tự bày bẫy - thế vây chỉ nổi lên khi bốn quy tắc đơn giản cùng chia nhau một mê cung. Con ma thứ năm, Warden, là phần thêm ngoài bản gốc chuyên canh các viên năng lượng; bật hoặc tắt bất kỳ con ma nào để xem cuộc săn thay đổi ra sao.",
+      run: "chơi",
+      pause: "tạm dừng",
+      step: "bước",
+      step_hint: "Tiến trò chơi một nhịp",
+      reset: "đặt lại",
+      reset_hint: "Dựng lại mê cung và chơi lại",
+      overlay: "mục tiêu",
+      overlay_hint: "Hiện ô mục tiêu của từng con ma và đường nó hướng tới",
+      paths: "đường hoạch định",
+      paths_hint:
+        "Phủ đường ngắn nhất thực sự (BFS) tới mỗi mục tiêu - điều một bộ hoạch định thật sẽ làm, so với các lối rẽ tham lam cục bộ của lũ ma",
+      explain: "giải thích",
+      explain_hint:
+        "Đóng băng trò chơi và rê chuột lên một con ma để đọc quyết định của nó tại đúng khung hình này",
+      explain_prompt: "Rê chuột lên một con ma trên bảng để đọc vì sao nó rẽ theo hướng đó.",
+      driver: "người lái",
+      driver_you: "bạn",
+      danger: "nguy hiểm",
+      danger_hint: "Hiện bản đồ nhiệt nguy hiểm của AI (khoảng cách tới mối đe dọa gần nhất)",
+      ai_name_greedy: "tham lam",
+      ai_name_safe: "tham lam an toàn",
+      ai_name_astar: "A* né nguy hiểm",
+      ai_name_search: "nhìn trước",
+      ai_desc_greedy:
+        "Lao thẳng tới hạt gần nhất bằng BFS - phớt lờ hoàn toàn lũ ma. Mức cơ bản ngây thơ.",
+      ai_desc_safe:
+        "Ăn hạt gần nhất tới được mà không đi sát lũ ma; bỏ chạy khi bị dồn.",
+      ai_desc_astar:
+        "Hoạch định bằng A* có trọng số nguy hiểm, uốn đường tránh xa lũ ma; bỏ chạy khi bị ép và săn ma đang hoảng sợ.",
+      ai_desc_search:
+        "Tìm trước vài nước, mô phỏng các cuộc đuổi của lũ ma, rồi chọn nước an toàn mà giá trị cao.",
+      ai_note_greedy: "Tham lam: đi thẳng tới hạt gần nhất, phớt lờ lũ ma.",
+      ai_note_safe: "Tham lam an toàn: lấy hạt gần nhất theo lối tránh xa lũ ma.",
+      ai_note_plan: "Hoạch định: dùng A* tới hạt gần nhất, uốn đường tránh nguy hiểm.",
+      ai_note_flee: "Bỏ chạy: có con ma quá gần, nên nó chạy tới khoảng trống an toàn nhất.",
+      ai_note_hunt: "Đi săn: lũ ma đang hoảng sợ, nên nó đuổi con gần nhất để ăn điểm.",
+      ai_note_search: "Đang tìm: nhìn trước vài nước và chọn nước an toàn mà giá trị cao.",
+      ai_note_idle: "Nghỉ: hiện không có hạt nào tới được.",
+      score: "điểm",
+      lives: "mạng",
+      pellets: "hạt",
+      mode: "chế độ",
+      mode_scatter: "tản ra",
+      mode_chase: "truy đuổi",
+      mode_frightened: "hoảng sợ",
+      mode_eaten: "mắt",
+      ghosts: "bóng ma",
+      target: "mục tiêu",
+      target_flee: "chạy trốn",
+      distance: "khoảng cách",
+      active: "bật",
+      inactive: "tắt",
+      toggle_ghost: "Bật hoặc tắt {{name}}",
+      role_blinky: "Blinky (đỏ) - cái bóng. Trực diện nhất trong bốn con.",
+      role_pinky: "Pinky (hồng) - kẻ mai phục. Cố chặn đầu bạn chứ không đuổi theo.",
+      role_inky: "Inky (lục lam) - kẻ thất thường. Hướng nhắm đổi theo vị trí của Blinky.",
+      role_clyde: "Clyde (cam) - kẻ nhát gan. Bạo ở xa, rụt rè khi gần.",
+      role_warden:
+        "Warden (xanh lá) - người gác. Một con ma tự chế, không có trong bản gốc: nó canh các viên năng lượng, nhưng sẽ săn bạn khi bạn phớt lờ chúng hoặc tới quá gần.",
+      chase_blinky: "Đang đuổi: mục tiêu là đúng ô của bạn, nên nó bám ngay sau lưng.",
+      chase_pinky:
+        "Đang mai phục: mục tiêu là ô cách bốn ô phía trước bạn, nên nó nhắm vào nơi bạn sắp tới.",
+      chase_inky:
+        "Đang khép vòng: nó lấy ô cách hai ô phía trước bạn, kẻ một đường từ Blinky tới đó, rồi nhân đôi đường ấy.",
+      chase_clyde:
+        "Đang đuổi: nó cách xa hơn tám ô, nên lúc này nhắm vào ô của bạn hệt như Blinky.",
+      clyde_retreat:
+        "Đang lùi: bạn ở trong vòng tám ô, nên nó bỏ cuộc đuổi và chạy về góc của mình.",
+      chase_warden:
+        "Đang canh giữ: nó lao thẳng tới viên năng lượng gần bạn nhất, chạy đua để chiếm chỗ trước khi bạn kịp ăn. Khi các viên đã hết, nó quay sang đuổi đúng ô của bạn.",
+      warden_hunt:
+        "Đang săn: bạn không hướng tới viên năng lượng nào (hoặc đã lọt vào tầm vồ), nên nó bỏ canh và đuổi thẳng tới ô của bạn theo đường ngắn nhất.",
+      note_scatter:
+        "Đang tản ra: nó phớt lờ bạn và đi về góc nhà cố định. Mọi con ma đều đảo chiều khi chế độ này bắt đầu.",
+      note_frightened:
+        "Hoảng sợ: một viên năng lượng làm nó hóa xanh, nên nó bỏ chạy - chọn lối ra xa bạn nhất - và có thể bị ăn.",
+      note_eaten: "Mắt: bị ăn và chỉ còn đôi mắt, lao về nhà để hồi sinh.",
+      bug_pinky_up:
+        "Điểm lạ: vì bạn đang quay lên, lỗi tràn nguyên bản còn dịch mục tiêu sang trái bốn ô chứ không chỉ lên trên.",
+      bug_inky_up:
+        "Điểm lạ: vì bạn đang quay lên, ô chốt mang lỗi tràn nguyên bản - hai ô lên và hai ô sang trái.",
+      status_won: "đã dọn sạch mê cung",
+      status_won_sub: "đã ăn hết hạt - đặt lại để chơi tiếp",
+      status_lost: "thua rồi",
+      status_lost_sub: "lũ ma đã bắt được bạn - đặt lại để thử lại",
+      legend_target: "✕ ô mục tiêu",
+      legend_path: "- - đường hoạch định (BFS)",
+      controls_hint: "phím mũi tên hoặc WASD để di chuyển · vuốt khi dùng cảm ứng",
+      canvas_aria: "Mê cung Pac-Man, 28 nhân 31 ô",
+    },
     "binary-tree": {
       title: "Khám Phá Cây Nhị Phân",
       description:

@@ -1,0 +1,225 @@
+/* Pac-Man ghost-AI visualizer. Page shell, topbar and controls come from the
+   shared ui- primitives; only board-specific visuals live here. */
+
+.pacman-info-tagline {
+  font-size: 0.95rem;
+  color: var(--text-hi);
+  letter-spacing: 0.02em;
+}
+
+.pacman-info-desc {
+  margin-top: 0.35rem;
+  color: var(--text-dim);
+  max-width: 60ch;
+  line-height: 1.5;
+}
+
+.pacman-board {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.pacman-stage {
+  width: 100%;
+  max-width: min(560px, 100%);
+  display: flex;
+  justify-content: center;
+}
+
+.pacman-canvas {
+  display: block;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--bg);
+  touch-action: none;
+}
+
+.pacman-canvas:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Win / lose overlay --------------------------------------------------- */
+.pacman-status {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  background: color-mix(in srgb, var(--bg) 72%, transparent);
+  border-radius: var(--radius-md);
+  text-align: center;
+}
+
+.pacman-status-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text-hi);
+}
+
+.pacman-status-sub {
+  color: var(--text-dim);
+}
+
+/* Sidebar toggles ------------------------------------------------------ */
+.pacman-toggles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+}
+
+/* AI driver selector --------------------------------------------------- */
+.pacman-drivers {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.pacman-ai-why {
+  margin-top: 0.6rem;
+  padding-top: 0.6rem;
+  border-top: 1px solid var(--border);
+}
+
+.pacman-ai-meta {
+  margin: 0.2rem 0 0;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Ghost cards ---------------------------------------------------------- */
+.pacman-ghosts {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.pacman-ghost-card {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0.3rem 0.5rem;
+  width: 100%;
+  padding: 0.45rem 0.55rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg2);
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  appearance: none;
+  transition:
+    border-color var(--dur-fast) var(--ease-glide),
+    background var(--dur-fast) var(--ease-glide);
+}
+
+.pacman-ghost-card:hover {
+  border-color: var(--accent2);
+}
+
+.pacman-ghost-card.is-hovered {
+  border-color: var(--accent);
+}
+
+.pacman-ghost-card:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.pacman-ghost-card.is-off {
+  opacity: 0.55;
+}
+
+.pacman-ghost-card.is-off .pacman-ghost-dot {
+  opacity: 0.4;
+}
+
+.pacman-badge--off {
+  opacity: 0.7;
+}
+
+.pacman-ghost-dot {
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 50%;
+}
+
+.pacman-ghost-name {
+  font-weight: 600;
+  color: var(--text-hi);
+}
+
+.pacman-badge {
+  justify-self: end;
+  font-size: 0.72rem;
+  padding: 0.1rem 0.4rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  text-transform: lowercase;
+}
+
+.pacman-badge--chase {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.pacman-badge--scatter {
+  border-color: var(--accent2);
+  color: var(--accent2);
+}
+.pacman-badge--frightened {
+  border-color: #6f86ff;
+  color: #9fb0ff;
+}
+.pacman-badge--eaten {
+  opacity: 0.6;
+}
+
+.pacman-ghost-meta {
+  grid-column: 1 / -1;
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Explain panel -------------------------------------------------------- */
+.pacman-explain-head {
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+}
+
+.pacman-explain-line {
+  margin: 0 0 0.4rem;
+  color: var(--text-dim);
+  line-height: 1.45;
+  font-size: 0.88rem;
+}
+
+.pacman-explain-prompt {
+  margin: 0;
+  color: var(--text-dim);
+  font-size: 0.88rem;
+}
+
+/* Legend --------------------------------------------------------------- */
+.pacman-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1rem;
+  align-items: center;
+  margin-top: 0.75rem;
+  font-size: 0.82rem;
+  color: var(--text-dim);
+}
+
+.pacman-legend-hint {
+  margin-left: auto;
+  color: var(--text-dim);
+  opacity: 0.85;
+}

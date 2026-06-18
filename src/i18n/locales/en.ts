@@ -807,6 +807,103 @@ const en = {
         empty: "no events yet - forge a field or change the setup",
       },
     },
+    pacman: {
+      title: "Pac-Man Ghost AI",
+      description:
+        "Play the classic maze while the four ghosts reveal their targeting logic - each runs a different rule, and together they flank, ambush, and herd.",
+      subtitle: "four rules, one hunt",
+      tagline: "emergent pursuit from simple rules",
+      intro:
+        "Each ghost picks its next turn with one trivial rule: head for the exit whose tile is closest to a target. Blinky aims at you, Pinky aims ahead of you, Inky aims through Blinky, and Clyde loses his nerve up close. No ghost plans the trap - the flanking is what emerges when four simple rules share a maze. A fifth ghost, the Warden, is a non-arcade extra that guards energizers; toggle any ghost on or off to see how the hunt changes.",
+      run: "play",
+      pause: "pause",
+      step: "step",
+      step_hint: "Advance the game one tick",
+      reset: "reset",
+      reset_hint: "Rebuild the maze and restart",
+      overlay: "targets",
+      overlay_hint: "Show each ghost's target tile and the line it steers toward",
+      paths: "planner path",
+      paths_hint:
+        "Overlay the true shortest path (BFS) to each target - what a real planner would do, versus the ghosts' greedy local turns",
+      explain: "explain",
+      explain_hint: "Freeze the game and hover a ghost to read its decision at this exact frame",
+      explain_prompt: "Hover a ghost on the board to read why it is turning the way it is.",
+      driver: "driver",
+      driver_you: "you",
+      danger: "danger",
+      danger_hint: "Show the AI's ghost danger heatmap (distance to the nearest threat)",
+      ai_name_greedy: "greedy",
+      ai_name_safe: "safe-greedy",
+      ai_name_astar: "danger A*",
+      ai_name_search: "look-ahead",
+      ai_desc_greedy:
+        "Beelines to the nearest pellet via BFS - ignores ghosts entirely. The naive baseline.",
+      ai_desc_safe:
+        "Eats the nearest pellet it can reach without routing close to a ghost; flees when cornered.",
+      ai_desc_astar:
+        "Plans with a danger-weighted A* that bends paths away from ghosts; flees under pressure and hunts frightened ghosts.",
+      ai_desc_search:
+        "Searches several moves ahead, modelling the ghosts' chases, and takes the safest high-value move.",
+      ai_note_greedy: "Greedy: heading straight for the nearest pellet, ignoring the ghosts.",
+      ai_note_safe: "Safe-greedy: taking the nearest pellet on a route that stays clear of the ghosts.",
+      ai_note_plan: "Planning: routing to the nearest pellet with A*, bending the path away from danger.",
+      ai_note_flee: "Fleeing: a ghost is too close, so it is running for the safest open ground.",
+      ai_note_hunt: "Hunting: ghosts are frightened, so it is chasing the nearest one for points.",
+      ai_note_search: "Searching: looking several moves ahead and taking the safest high-value move.",
+      ai_note_idle: "Idle: no reachable pellet right now.",
+      score: "score",
+      lives: "lives",
+      pellets: "pellets",
+      mode: "mode",
+      mode_scatter: "scatter",
+      mode_chase: "chase",
+      mode_frightened: "frightened",
+      mode_eaten: "eyes",
+      ghosts: "ghosts",
+      target: "target",
+      target_flee: "flee",
+      distance: "distance",
+      active: "active",
+      inactive: "inactive",
+      toggle_ghost: "Toggle {{name}} on or off",
+      role_blinky: "Blinky (red) - the shadow. The most direct of the four.",
+      role_pinky: "Pinky (pink) - the ambusher. Tries to cut you off, not chase you.",
+      role_inky: "Inky (cyan) - the fickle one. His aim swings with Blinky's position.",
+      role_clyde: "Clyde (orange) - the coward. Bold at range, shy up close.",
+      role_warden:
+        "Warden (green) - the keeper. A custom, non-arcade ghost: it guards energizers, but hunts you down when you ignore them or stray too close.",
+      chase_blinky: "Chasing: his target is your exact tile, so he files in right behind you.",
+      chase_pinky:
+        "Ambushing: his target is four tiles ahead of you, so he aims where you are going.",
+      chase_inky:
+        "Closing in: he takes the tile two ahead of you, draws a line from Blinky to it, then doubles that line.",
+      chase_clyde:
+        "Chasing: he is more than eight tiles away, so right now he targets your tile just like Blinky.",
+      clyde_retreat:
+        "Backing off: you are within eight tiles, so he abandons the chase and flees to his corner.",
+      chase_warden:
+        "Guarding: he heads straight for the energizer nearest you, racing to sit on it before you can grab it. Once they are all eaten he chases your tile instead.",
+      warden_hunt:
+        "Hunting: you are not making for an energizer (or you have strayed within pouncing range), so he abandons the guard and chases your tile by the shortest path.",
+      note_scatter:
+        "Scattering: he ignores you and heads for his fixed home corner. Every ghost reverses when this mode begins.",
+      note_frightened:
+        "Frightened: an energizer flipped him blue, so he flees - taking the exit that gets farthest from you - and can be eaten.",
+      note_eaten: "Eyes: eaten and reduced to eyes, racing back to the house to regenerate.",
+      bug_pinky_up:
+        "Quirk: because you are facing up, the original overflow bug also shifts his target four tiles left, not just up.",
+      bug_inky_up:
+        "Quirk: because you are facing up, the pivot tile carries the original overflow bug - two tiles up and two tiles left.",
+      status_won: "maze cleared",
+      status_won_sub: "every pellet eaten - reset to play again",
+      status_lost: "game over",
+      status_lost_sub: "the ghosts caught you - reset to try again",
+      legend_target: "✕ target tile",
+      legend_path: "- - planner path (BFS)",
+      controls_hint: "arrow keys or WASD to move · swipe on touch",
+      canvas_aria: "Pac-Man maze, 28 by 31 tiles",
+    },
     "binary-tree": {
       title: "Binary Tree Explorer",
       description:

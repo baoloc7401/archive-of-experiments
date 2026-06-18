@@ -51,6 +51,12 @@ export const experiments: Experiment[] = [
     path: "/experiments/minesweeper",
   },
   {
+    id: "pacman",
+    tags: ["algorithms", "AI", "game"],
+    status: "active",
+    path: "/experiments/pacman",
+  },
+  {
     id: "binary-tree",
     tags: ["data structures", "trees"],
     status: "planned",
