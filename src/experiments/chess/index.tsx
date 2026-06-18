@@ -12,7 +12,7 @@ import { GameControls } from './components/GameControls';
 import { MoveHistory } from './components/MoveHistory';
 import { CapturedPieces } from './components/CapturedPieces';
 import { ModeScreen } from './components/ModeScreen';
-import ExperimentHeader from '../../components/ExperimentHeader';
+import { ExperimentLayout } from '../../components/ui';
 import './Chess.css';
 import './chess-board.css';
 import './chess-sidebar.css';
@@ -83,60 +83,16 @@ export default function ChessGame() {
   }[status];
 
   return (
-    <div className="chess-page">
-      <ExperimentHeader
-        crumbs={[
-          { label: t('experiments.chess.title').toLowerCase(), to: '/experiments/chess' },
-          { label: t(`chess.modes.${mode}`).toLowerCase(), to: `/experiments/chess/${mode}` },
-        ]}
-      />
-
-      <div className="chess-content">
-        <div className="chess-layout">
-        <div className="chess-board-col" ref={boardColRef}>
-          <div className="chess-board-area">
-            <Board
-              pos={pos}
-              selected={selected}
-              lastMove={lastMove}
-              moveTos={moveTos}
-              checkKingSq={checkKingSq}
-              slideInfo={slideInfo}
-              castleRookSlide={castleRookSlide}
-              historyLength={history.length}
-              boardGridRef={boardGridRef}
-              onSquareClick={handleSquareClick}
-            />
-            {promotionPending && (
-              <PromotionDialog turn={pos.turn} onPromote={handlePromotion} />
-            )}
-          </div>
-
-          <div className="chess-anim-overlay">
-            {flyingPieces.map(fp => (
-              <div
-                key={fp.id}
-                className="chess-flying-piece"
-                style={{
-                  left: fp.x,
-                  top: fp.y,
-                  '--fly-dy': `${fp.flyDy}px`,
-                  '--fly-size': `${fp.size * 0.78}px`,
-                } as React.CSSProperties}
-              >
-                {fp.symbol}
-              </div>
-            ))}
-          </div>
-
-          <CapturedPieces
-            whiteCaptured={whiteCaptured}
-            blackCaptured={blackCaptured}
-            materialAdv={materialAdv}
-          />
-        </div>
-
-        <aside className="chess-sidebar">
+    <ExperimentLayout
+      crumbs={[
+        { label: t('experiments.chess.title').toLowerCase(), to: '/experiments/chess' },
+        { label: t(`chess.modes.${mode}`).toLowerCase(), to: `/experiments/chess/${mode}` },
+      ]}
+      glow="accent2"
+      centered
+      sidebarWidth="240px"
+      sidebar={
+        <>
           <PlayerStatus
             status={status}
             turn={pos.turn}
@@ -163,9 +119,51 @@ export default function ChessGame() {
             historyRef={historyRef}
             onCopy={copyHistory}
           />
-        </aside>
+        </>
+      }
+    >
+      <div className="chess-board-col" ref={boardColRef}>
+        <div className="chess-board-area">
+          <Board
+            pos={pos}
+            selected={selected}
+            lastMove={lastMove}
+            moveTos={moveTos}
+            checkKingSq={checkKingSq}
+            slideInfo={slideInfo}
+            castleRookSlide={castleRookSlide}
+            historyLength={history.length}
+            boardGridRef={boardGridRef}
+            onSquareClick={handleSquareClick}
+          />
+          {promotionPending && (
+            <PromotionDialog turn={pos.turn} onPromote={handlePromotion} />
+          )}
         </div>
+
+        <div className="chess-anim-overlay">
+          {flyingPieces.map(fp => (
+            <div
+              key={fp.id}
+              className="chess-flying-piece"
+              style={{
+                left: fp.x,
+                top: fp.y,
+                '--fly-dy': `${fp.flyDy}px`,
+                '--fly-size': `${fp.size * 0.78}px`,
+              } as React.CSSProperties}
+            >
+              {fp.symbol}
+            </div>
+          ))}
+        </div>
+
+        <CapturedPieces
+          whiteCaptured={whiteCaptured}
+          blackCaptured={blackCaptured}
+          materialAdv={materialAdv}
+        />
       </div>
-    </div>
+    </ExperimentLayout>
   );
 }

@@ -28,25 +28,6 @@
   --ms-n8: #6b7384;
 }
 
-/* ── Page shell ─────────────────────────────────────────────────── */
-.ms-page {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  background:
-    radial-gradient(65% 55% at 50% 0%, color-mix(in srgb, var(--accent2) 11%, transparent), transparent 62%),
-    var(--bg);
-  color: var(--text);
-}
-
-/* ── Intro strip ────────────────────────────────────────────────── */
-.ms-info-strip {
-  padding: 1.1rem 1.5rem 0.4rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-  max-width: 70ch;
-}
 .ms-info-tagline {
   color: var(--accent);
   font-size: 0.82rem;
@@ -59,23 +40,6 @@
   line-height: 1.5;
 }
 
-/* ── Layout ─────────────────────────────────────────────────────── */
-.ms-layout {
-  flex: 1;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 330px;
-  gap: 1.25rem;
-  padding: 1rem 1.5rem 2rem;
-  align-items: start;
-}
-
-.ms-stage {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 0.7rem;
-  min-width: 0;
-}
 
 /* ── HUD ────────────────────────────────────────────────────────── */
 .ms-hud {
@@ -262,15 +226,6 @@
   padding: 0 0.2rem;
 }
 
-/* ── Sidebar + panels ───────────────────────────────────────────── */
-.ms-sidebar {
-  display: flex;
-  flex-direction: column;
-  gap: 0.85rem;
-  position: sticky;
-  top: 1rem;
-  min-width: 0;
-}
 /* ── Collapsible sections ───────────────────────────────────────── */
 .ms-section {
   background: var(--bg2);
@@ -725,14 +680,6 @@
   outline-offset: 1px;
 }
 
-@media (max-width: 860px) {
-  .ms-layout {
-    grid-template-columns: 1fr;
-  }
-  .ms-sidebar {
-    position: static;
-  }
-}
 
 /* Honour reduced-motion: kill decorative transitions (the auto-solver also
    resolves instantly under this preference - see useMinesweeper). */

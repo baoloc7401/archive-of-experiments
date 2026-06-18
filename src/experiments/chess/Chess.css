@@ -1,21 +1,3 @@
-/* ── Page ───────────────────────────────────────────────────── */
-.chess-page {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  background:
-    radial-gradient(60% 50% at 50% 0%, color-mix(in srgb, var(--accent2) 10%, transparent), transparent 60%),
-    var(--bg);
-  color: var(--text);
-}
-
-.chess-content {
-  max-width: 1100px;
-  width: 100%;
-  margin: 0 auto;
-  padding: 28px 24px 80px;
-  box-sizing: border-box;
-}
 
 /* ── Mode selection screen ──────────────────────────────────── */
 .chess-mode-screen {
@@ -239,12 +221,6 @@
   color: var(--text-dim);
 }
 
-/* ── Game layout ────────────────────────────────────────────── */
-.chess-layout {
-  display: flex;
-  gap: 28px;
-  align-items: flex-start;
-}
 
 /* ── Board column (board + captures stacked) ────────────────── */
 .chess-board-col {
@@ -256,18 +232,9 @@
 }
 
 /* ── Responsive ──────────────────────────────────────────────── */
-@media (max-width: 700px) {
-  .chess-layout {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
+@media (max-width: 860px) {
   .chess-board {
     width: 100%;
-  }
-
-  .chess-sidebar {
-    max-width: 100%;
   }
 
   .chess-controls {
