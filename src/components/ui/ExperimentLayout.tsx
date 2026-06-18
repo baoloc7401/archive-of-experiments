@@ -48,9 +48,9 @@ export default function ExperimentLayout({
           <aside className="ui-sidebar">{sidebar}</aside>
         </div>
       ) : (
-        <div className={centered ? "ui-content ui-content--centered" : "ui-content"}>
+        <main className={centered ? "ui-content ui-content--centered" : "ui-content"}>
           {children}
-        </div>
+        </main>
       )}
     </div>
   );
