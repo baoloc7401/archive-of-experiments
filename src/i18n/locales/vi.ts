@@ -1169,6 +1169,12 @@ const vi = {
         "Leapfrog có tính symplectic nên năng lượng giữ trong giới hạn. Euler bơm thêm năng lượng: xem quỹ đạo xoắn dần ra ngoài và độ trôi tăng lên.",
       merging: "hợp nhất",
       merging_hint: "Vật thể chạm nhau sẽ hợp nhất, bảo toàn khối lượng và động lượng",
+      gpu: "tính trên gpu",
+      gpu_hint:
+        "Chạy vật lý trên GPU bằng WebGPU: leapfrog vét cạn chính xác, dành cho số vật thể rất lớn. theta, bộ tích phân và hợp nhất không áp dụng.",
+      gpu_unavailable: "Trình duyệt này không hỗ trợ WebGPU nên tính trên GPU vẫn tắt.",
+      gpu_exact_hint: "Tính trên GPU cộng chính xác từng cặp nên điều khiển này không có tác dụng.",
+      stat_na_gpu: "không có trên gpu",
       look_title: "hiển thị",
       color: "màu",
       color_speed: "tốc độ",

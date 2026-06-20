@@ -1165,6 +1165,12 @@ const en = {
         "Leapfrog is symplectic, so energy stays bounded. Euler injects energy: watch orbits spiral outward and the drift stat climb.",
       merging: "merging",
       merging_hint: "Bodies that touch merge, conserving mass and momentum",
+      gpu: "gpu compute",
+      gpu_hint:
+        "Run the physics on the GPU via WebGPU: exact brute-force leapfrog, built for huge body counts. theta, the integrator, and merging do not apply.",
+      gpu_unavailable: "WebGPU is not available in this browser, so GPU compute stays off.",
+      gpu_exact_hint: "GPU compute sums every pair exactly, so this control has no effect.",
+      stat_na_gpu: "n/a on gpu",
       look_title: "look",
       color: "color",
       color_speed: "speed",

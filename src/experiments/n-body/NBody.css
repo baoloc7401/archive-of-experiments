@@ -151,6 +151,18 @@
   border-color: var(--accent2);
   background: color-mix(in srgb, var(--accent2) 12%, var(--bg2));
 }
+.nb-seg-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.nb-seg-btn:disabled:hover {
+  color: var(--text-dim);
+  border-color: var(--border);
+}
+.nb-stat-na {
+  color: var(--text-dim);
+  font-style: italic;
+}
 .nb-field-hint {
   margin: 0;
   font-size: 0.7rem;

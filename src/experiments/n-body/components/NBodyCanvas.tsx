@@ -20,12 +20,14 @@ import {
   FOLLOW_LERP,
   INERTIA_DAMPING,
   MAX_COUNT,
+  MAX_SUBSTEPS_PER_FRAME,
   MAX_ZOOM,
   MIN_ZOOM,
   PICK_RADIUS,
   PITCH_LIMIT,
   SPIN_RATE,
   STATS_INTERVAL,
+  SUBSTEP,
   TRAIL_K,
   TRAIL_SAMPLE_DT,
 } from "../constants";
@@ -45,6 +47,7 @@ import {
 import { seed } from "../presets";
 import { readPalette, type Palette } from "../palette";
 import { createRenderer, type NBodyRenderer } from "../renderer";
+import { createGpuSolver, type GpuSolver } from "../gpu/solver";
 
 interface Props {
   params: NBodyParams;
@@ -90,6 +93,13 @@ const NBodyCanvas = forwardRef<NBodyHandle, Props>(function NBodyCanvas(
   const scratchRef = useRef(makeScratch(MAX_COUNT));
   const simRef = useRef(makeSim());
   const rendererRef = useRef<NBodyRenderer | null>(null);
+  // WebGPU compute solver (opt-in, big scenes): owns the bodies on the GPU and
+  // reads them back into bodiesRef each frame. Null until the async device
+  // request resolves, or when WebGPU is unavailable.
+  const gpuRef = useRef<GpuSolver | null>(null);
+  // Set whenever the GPU buffers need the current CPU bodies re-uploaded (mode
+  // switch, reseed, or the device finishing init).
+  const gpuNeedsUploadRef = useRef(false);
   const viewRef = useRef<View>({ ...DEFAULT_VIEW });
   const targetRef = useRef({ x: 0, y: 0, z: 0 });
   const followRef = useRef<FollowBox>({ idx: -1 });
@@ -194,6 +204,11 @@ const NBodyCanvas = forwardRef<NBodyHandle, Props>(function NBodyCanvas(
     const total = totalEnergy(b, s);
     const n = b.count;
     const exact = (n * (n - 1)) / 2;
+    const gpu = gpuRef.current;
+    const gpuActive = propsRef.current.params.compute === "gpu" && gpu !== null && !gpu.lost;
+    // GPU mode sums every pair exactly, so it does the full n^2 work.
+    const evals = gpuActive ? exact : s.evals;
+    const evalsPct = gpuActive ? 100 : exact > 0 ? (s.evals / exact) * 100 : 0;
     // Smoothed speed normalization for the shader's colour ramp.
     const ms = meanSpeed(b);
     if (ms > 0) {
@@ -203,8 +218,9 @@ const NBodyCanvas = forwardRef<NBodyHandle, Props>(function NBodyCanvas(
     propsRef.current.onStats({
       count: n,
       fps: fpsRef.current,
-      evals: s.evals,
-      evalsPct: exact > 0 ? (s.evals / exact) * 100 : 0,
+      evals,
+      evalsPct,
+      gpuActive,
       kinetic: ke,
       total,
       drift: sim.e0 !== 0 ? (total - sim.e0) / Math.abs(sim.e0) : 0,
@@ -274,14 +290,50 @@ const NBodyCanvas = forwardRef<NBodyHandle, Props>(function NBodyCanvas(
       const b = bodiesRef.current;
 
       if (run) {
-        const res = advance(b, p, scratchRef.current, simRef.current, dtMs, followRef.current);
-        if (res.merged > 0) {
-          recomputeMassRange();
-          rendererRef.current?.upload(b, true);
-        } else if (res.steps > 0) {
-          rendererRef.current?.upload(b, false);
+        const gpu = gpuRef.current;
+        if (p.compute === "gpu" && gpu && !gpu.lost) {
+          // GPU path: the solver owns the bodies; we just accumulate substeps
+          // (mirroring advance()'s timing), step the device, and read back a
+          // copy for rendering. No Barnes-Hut, no merging - brute-force leapfrog.
+          if (gpuNeedsUploadRef.current) {
+            gpu.upload(b);
+            gpuNeedsUploadRef.current = false;
+          }
+          const sim = simRef.current;
+          const h = p.substep ?? SUBSTEP;
+          sim.acc += Math.min(dtMs, 100) * 0.001 * p.timeScale;
+          let steps = 0;
+          while (sim.acc >= h && steps < MAX_SUBSTEPS_PER_FRAME) {
+            sim.acc -= h;
+            steps++;
+          }
+          let stepH = h;
+          if (steps === 0 && sim.acc > 0) {
+            // Slow-motion sliver: one sub-substep step so motion stays fluid.
+            stepH = sim.acc;
+            sim.acc = 0;
+            steps = 1;
+          } else if (steps === MAX_SUBSTEPS_PER_FRAME && sim.acc > h) {
+            sim.acc = 0;
+          }
+          if (steps > 0) {
+            gpu.step(stepH, steps, p.gravity, p.softening * p.softening);
+            sim.simTime += stepH * steps;
+          }
+          if (gpu.readInto(b)) {
+            rendererRef.current?.upload(b, false);
+            sampleTrails();
+          }
+        } else {
+          const res = advance(b, p, scratchRef.current, simRef.current, dtMs, followRef.current);
+          if (res.merged > 0) {
+            recomputeMassRange();
+            rendererRef.current?.upload(b, true);
+          } else if (res.steps > 0) {
+            rendererRef.current?.upload(b, false);
+          }
+          if (res.steps > 0) sampleTrails();
         }
-        if (res.steps > 0) sampleTrails();
       }
 
       // Camera transients: auto-spin, drag inertia, follow-target ease.
@@ -353,6 +405,8 @@ const NBodyCanvas = forwardRef<NBodyHandle, Props>(function NBodyCanvas(
     const ms = meanSpeed(b);
     speedScaleRef.current = ms > 0 ? 1 / (2.2 * ms) : 1;
     recomputeMassRange();
+    // The GPU solver holds its own copy of the bodies; a reseed must re-upload.
+    gpuNeedsUploadRef.current = true;
     const renderer = rendererRef.current;
     trailClockRef.current = 0;
     if (renderer) {
@@ -412,6 +466,38 @@ const NBodyCanvas = forwardRef<NBodyHandle, Props>(function NBodyCanvas(
       rendererRef.current = null;
     };
   }, [draw, wake]);
+
+  // --- WebGPU compute solver lifecycle (opt-in) ----------------------------
+  useEffect(() => {
+    let cancelled = false;
+    createGpuSolver(MAX_COUNT, () => {
+      // Device lost: drop to the CPU path and let it recompute accelerations.
+      gpuRef.current = null;
+      simRef.current.accelValid = false;
+      wake();
+    }).then((solver) => {
+      if (cancelled || !solver) {
+        solver?.destroy();
+        return;
+      }
+      gpuRef.current = solver;
+      gpuNeedsUploadRef.current = true;
+      wake();
+    });
+    return () => {
+      cancelled = true;
+      gpuRef.current?.destroy();
+      gpuRef.current = null;
+    };
+  }, [wake]);
+
+  // Switching engines: re-upload to the GPU on entering GPU mode, and force the
+  // CPU to recompute accelerations on returning (the GPU moved the bodies).
+  useEffect(() => {
+    if (params.compute === "gpu") gpuNeedsUploadRef.current = true;
+    simRef.current.accelValid = false;
+    wake();
+  }, [params.compute, wake]);
 
   // Re-seed on mount, on reset, and when the scene or its size changes.
   useEffect(() => {
@@ -618,6 +704,9 @@ const NBodyCanvas = forwardRef<NBodyHandle, Props>(function NBodyCanvas(
         const renderer = rendererRef.current;
         if (renderer) renderer.upload(bodiesRef.current, merged > 0);
         if (merged > 0) recomputeMassRange();
+        // A single paused step runs on the CPU even in GPU mode; re-sync the
+        // GPU buffers so resuming continues from the stepped state.
+        if (propsRef.current.params.compute === "gpu") gpuNeedsUploadRef.current = true;
         sampleTrails();
         emitStats();
         wake();

@@ -36,6 +36,7 @@ function buildReport(
   return [
     "=== N-BODY DEBUG ===",
     `preset:     ${params.preset} | bodies ${snap ? snap.count.toLocaleString() : DASH} (req ${params.count})`,
+    `engine:     ${snap?.gpuActive ? "gpu (webgpu brute-force)" : "cpu (barnes-hut)"}`,
     `physics:    G ${params.gravity.toFixed(1)} | eps ${params.softening.toFixed(3)} | theta ${params.theta.toFixed(2)} | ${params.integrator} | h ${SUBSTEP} | merge ${params.merging ? "on" : "off"}`,
     `time:       scale ${params.timeScale.toFixed(1)}x | simTime ${n(snap?.simTime, 1)}s`,
     "",
@@ -121,7 +122,8 @@ export default function DebugPanel({ snap, params, running, theme, reduced }: Pr
         </div>
 
         <Section title="physics">
-          <Row k="bodies" v={snap ? snap.count.toLocaleString() : DASH} hi />
+          <Row k="engine" v={snap?.gpuActive ? "gpu (webgpu)" : "cpu (barnes-hut)"} hi />
+          <Row k="bodies" v={snap ? snap.count.toLocaleString() : DASH} />
           <Row k="G / eps" v={`${params.gravity.toFixed(1)} / ${params.softening.toFixed(3)}`} />
           <Row k="theta" v={params.theta === 0 ? "0 (exact)" : params.theta.toFixed(2)} />
           <Row k="integrator" v={params.integrator} />

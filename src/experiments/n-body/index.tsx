@@ -4,8 +4,8 @@ import ScrambleText from "../../components/ScrambleText";
 import { ExperimentLayout } from "../../components/ui";
 import { useTheme } from "../../hooks/useTheme";
 import { prefersReducedMotion, useReducedMotion } from "../../hooks/useReducedMotion";
-import type { ColorMode, NBodyParams, NBodySnapshot } from "./types";
-import { DEFAULT_PARAMS, MAX_TRAILS, MAX_TIME_SCALE, MIN_TIME_SCALE } from "./constants";
+import type { ColorMode, Compute, NBodyParams, NBodySnapshot } from "./types";
+import { DEFAULT_PARAMS, MAX_TRAILS, MAX_TIME_SCALE, MIN_TIME_SCALE, webgpuSupported } from "./constants";
 import NBodyCanvas, { type NBodyHandle } from "./components/NBodyCanvas";
 import Controls from "./components/Controls";
 import Look from "./components/Look";
@@ -20,6 +20,7 @@ interface SavedLook {
   trails?: number;
   spin?: boolean;
   timeScale?: number;
+  compute?: Compute;
 }
 
 const COLOR_MODES: readonly ColorMode[] = ["speed", "mass", "mono"];
@@ -32,6 +33,8 @@ function sanitizeLook(raw: unknown): SavedLook {
   if (typeof obj.trails === "number" && obj.trails >= 0 && obj.trails <= MAX_TRAILS) out.trails = obj.trails;
   if (typeof obj.spin === "boolean") out.spin = obj.spin;
   if (typeof obj.timeScale === "number" && obj.timeScale >= MIN_TIME_SCALE && obj.timeScale <= MAX_TIME_SCALE) out.timeScale = obj.timeScale;
+  // Only restore "gpu" where WebGPU exists, else the toggle reads on-but-dead.
+  if (obj.compute === "cpu" || (obj.compute === "gpu" && webgpuSupported())) out.compute = obj.compute;
   return out;
 }
 
@@ -73,10 +76,11 @@ export default function NBody() {
         trails: params.trails,
         spin: params.spin,
         timeScale: params.timeScale,
+        compute: params.compute,
       };
       localStorage.setItem(LOOK_KEY, JSON.stringify(look));
     } catch { /* storage quota */ }
-  }, [params.colorMode, params.trails, params.spin, params.timeScale]);
+  }, [params.colorMode, params.trails, params.spin, params.timeScale, params.compute]);
 
   const handleStats = useCallback((s: NBodySnapshot) => setSnap(s), []);
 
