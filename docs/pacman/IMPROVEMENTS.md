@@ -1,4 +1,6 @@
-# Pac-Man: Improvement Ideas
+# Pac-Man - Improvement Roadmap
+
+Reference: [`src/experiments/pacman/`](../../src/experiments/pacman/) (framework-free engine: `simulation.ts`, `targeting.ts`, `bfs.ts`, `render.ts`, plus `pacai/`; React stays glue)
 
 A living backlog for evolving the Pac-Man ghost-AI experiment into a more
 future-proof, extensible playground. The north star stays the same: **an
@@ -216,3 +218,9 @@ loop or i18n turning into a liability.
 **Guardrails:** keep the engine framework-free and the "source of truth" in the
 simulation; every new visible string lands in en + vi; new content is a registry
 entry, not a special case in the loop; reduced-motion and theming respected.
+
+---
+
+*Maintained alongside the code. When an item ships, flip its marker to DONE and
+fold the lasting lessons into [TEXTBOOK.md](TEXTBOOK.md); this file tracks intent,
+the textbook records what was learned.*

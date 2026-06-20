@@ -1,4 +1,4 @@
-# Elevator Scheduling - Known Issues & Craft Log
+# Elevator Scheduling - Known Issues
 
 Reference:
 [`src/experiments/elevator/algorithms.ts`](../../src/experiments/elevator/algorithms.ts),
@@ -6,16 +6,18 @@ Reference:
 [`src/experiments/elevator/components/Building.tsx`](../../src/experiments/elevator/components/Building.tsx),
 [`src/experiments/elevator/Elevator.css`](../../src/experiments/elevator/Elevator.css)
 
-This is the running record of bugs hit, *why* they happened, and the design
-decisions taken so they don't get re-litigated or regressed. Read it before
-touching the animation or the scheduling decisions.
+The running record of bugs hit, *why* they happened, and the design decisions
+taken so they don't get re-litigated or regressed. Doubles as a craft log; read
+it before touching the animation or the scheduling decisions.
+
+Severity: **High** (correctness, fix soon) · **Medium** (quality / polish) · **Low** (nice-to-have / future).
+Status: **Open** · **Fixed** · **Fixed (needs verification)** · **Resolved** · **Skipped**.
 
 ---
 
 ## ISSUE-1: Car "teleports" between floors instead of gliding ("nausea jumping")
 
-**Status:** Fixed (three independent causes) - needs in-browser confirmation
-**Severity:** High - the whole point of the experiment is watching the car move
+**Status:** Fixed (needs verification) · **Severity:** High - the whole point of the experiment is watching the car move
 
 The car snapping from floor to floor had **three** distinct causes discovered in
 sequence. All three are fixed; any one regressing brings the jumping back.
@@ -55,8 +57,7 @@ media query at the bottom of
 
 ## ISSUE-2: C-SCAN / C-LOOK circular return modelled as a single instant step
 
-**Status:** Fixed (re-modelled) - needs in-browser confirmation
-**Severity:** Medium - produced an unphysical "teleport"; also understated cost
+**Status:** Fixed (needs verification) · **Severity:** Medium - produced an unphysical "teleport"; also understated cost
 
 The **scheduling decisions were always correct** (verified against textbook
 C-SCAN / C-LOOK on a real debug log). The real defect was in the *model*: the
@@ -114,8 +115,7 @@ step pre-sets the heading back to `up`). Don't reintroduce a phantom reversal he
 
 ## ISSUE-3: C-SCAN crawled to the top floor on an idle restart
 
-**Status:** Fixed
-**Severity:** Medium - wasted up to a full building height of pointless travel
+**Status:** Fixed · **Severity:** Medium - wasted up to a full building height of pointless travel
 
 When C-SCAN went idle mid-building and a new call arrived **below** it, the
 up-only rule made it trundle all the way to the top floor just to wrap around -

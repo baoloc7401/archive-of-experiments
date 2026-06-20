@@ -1,7 +1,7 @@
-# Chess AI Improvement Roadmap
+# Chess AI - Improvement Roadmap
 
-Reference: [`src/experiments/chess/ai.ts`](../../src/experiments/chess/ai.ts),
-[`src/experiments/chess/engine.ts`](../../src/experiments/chess/engine.ts)
+Reference: [`src/experiments/chess/ai/`](../../src/experiments/chess/ai/) (search + evaluation engine: `search.ts`, `evaluate.ts`, `ordering.ts`, `index.ts`),
+[`src/experiments/chess/engine.ts`](../../src/experiments/chess/engine.ts) (board state + move generation)
 
 Sources: [CPW Transposition Table](https://www.chessprogramming.org/Transposition_Table) ·
 [CPW Move Ordering](https://www.chessprogramming.org/Move_Ordering) ·
@@ -13,7 +13,8 @@ Sources: [CPW Transposition Table](https://www.chessprogramming.org/Transpositio
 [CPW Killer Heuristic](https://www.chessprogramming.org/Killer_Heuristic) ·
 [CPW Zobrist Hashing](https://www.chessprogramming.org/Zobrist_Hashing)
 
-Note: As we move down on the implementations, update the progress as TODO/Doing/Done.
+Note: As we move down the implementations, update each entry's PROGRESS as
+TODO / Doing / Done.
 
 ---
 
@@ -478,3 +479,9 @@ PROGRESS: TODO
 | + Tier 2 | NMP + futility + extensions + mobility | 2100–2500 |
 | + Tier 3 | Pawn structure + king safety + LMR + PVS + Zobrist + make/unmake | 2300–2700 |
 | Reference | Stockfish | 3600+ |
+
+---
+
+*Maintained alongside the code. When an item ships, flip its PROGRESS to Done and
+fold the lasting lessons into [TEXTBOOK.md](TEXTBOOK.md); this file tracks intent,
+the textbook records what was learned.*

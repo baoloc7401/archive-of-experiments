@@ -4,12 +4,19 @@ Reference: [`src/experiments/chess/ai/search.ts`](../../src/experiments/chess/ai
 [`src/experiments/chess/ai/evaluate.ts`](../../src/experiments/chess/ai/evaluate.ts),
 [`src/experiments/chess/ai/index.ts`](../../src/experiments/chess/ai/index.ts)
 
+The running record of bugs hit in the chess engine, *why* they happened, and the
+fixes taken so they are not re-litigated or regressed. Companion to
+[IMPROVEMENTS.md](./IMPROVEMENTS.md) (the feature roadmap); this file tracks
+correctness defects.
+
+Severity: **High** (correctness, fix soon) · **Medium** (quality / polish) · **Low** (nice-to-have / future).
+Status: **Open** · **Fixed** · **Fixed (needs verification)** · **Resolved** · **Skipped**.
+
 ---
 
 ## ISSUE-1: Engine fails to convert overwhelmingly won endgames
 
-**Status:** Fixes applied - needs in-game verification
-**Severity:** High - turns trivially won games into draws
+**Status:** Fixed (needs verification) · **Severity:** High - turns trivially won games into draws
 
 ### Symptoms
 
@@ -86,4 +93,4 @@ corner-driving gradient, but issues #1–#3 still prevent the final mate.
   not reduce search depth.
 - Aspiration windows (roadmap #14) were implemented then reverted - negligible
   benefit at fixed depth and a slight tie-break risk. See
-  [`IMPROVEMENT.md`](./IMPROVEMENT.md).
+  [IMPROVEMENTS.md](./IMPROVEMENTS.md).

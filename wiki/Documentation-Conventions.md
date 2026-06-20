@@ -11,7 +11,7 @@ the repo docs are the **single source of truth** (so nothing drifts).
 |---|---|---|
 | **TEXTBOOK.md** | Research record: the canonical algorithm + how faithfully the code models it + the real findings discovered building/debugging it. The *why it behaves this way* and *where the model parts ways with reality*. | reader who wants to understand |
 | **ISSUES.md** | Craft log: specific bugs, their root causes, the fixes, and regressions to avoid. The full debugging narrative. | maintainer touching the code |
-| **IMPROVEMENT.md** | Roadmap: what exists and what's planned next (used by the chess engine). | maintainer planning work |
+| **IMPROVEMENTS.md** | Roadmap: what exists and what's planned next (used by the chess engine). | maintainer planning work |
 
 A `TEXTBOOK` **summarizes** a finding and points to `ISSUES` for the gory detail -
 they cross-link, they don't duplicate.
