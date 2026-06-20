@@ -159,6 +159,16 @@ body {
   transition: background-color var(--dur-fast) ease, color var(--dur-fast) ease;
 }
 
+/* Clip horizontal overflow from decorative overlays (e.g. the idle, invisible
+   `.ui-tip` bubbles, which are absolutely positioned and can extend past the
+   right edge near edge-aligned triggers) so they never add a horizontal
+   scrollbar / empty gutter. `clip` (not `hidden`) leaves the vertical axis
+   visible and does NOT establish a scroll container, so the sticky topbar /
+   sidebar keep sticking to the viewport. */
+#root {
+  overflow-x: clip;
+}
+
 /* Placeholder shown by <Suspense> while a lazy route chunk loads. Holds the
    viewport (page background) so deep links don't flash blank; no layout shift. */
 .route-fallback {

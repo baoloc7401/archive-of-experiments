@@ -11,14 +11,19 @@ import type {
 import { DEFAULT_CONFIG, DEFAULT_DIFFICULTY, PRESETS } from "./constants";
 import { neighbors } from "./grid";
 import { prefersReducedMotion } from "../../hooks/useReducedMotion";
-import { clampMines, generateField } from "./generator";
+import { clampMines } from "./generator";
 import { getSolver } from "./solvers";
 import type { SolverAction, SolverId, SolverReport } from "./solvers/types";
+import type { ForgeRequest, ForgeResponse } from "./generator.worker";
 
 /** Auto-solver playback: tick interval, and how many of the solver's moves to
  *  apply per tick (scaled so any board finishes in a roughly constant time). */
 const SOLVE_TICK_MS = 70;
 const SOLVE_MOVE_STEPS = 60;
+
+type PendingForge =
+  | { type: "reveal"; cell: number }
+  | { type: "solver"; solverId: SolverId };
 
 function freshView(width: number, height: number): CellView[] {
   return new Array(width * height).fill("hidden");
@@ -91,7 +96,19 @@ export function useMinesweeper() {
   const [mineHit, setMineHit] = useState<number | null>(null);
   const [peek, setPeek] = useState(false);
   const [log, setLog] = useState<LogEntry[]>([]);
+  /** True while the Web Worker is generating a field - blocks board interaction. */
+  const [forging, setForging] = useState(false);
   const logId = useRef(0);
+
+  // ── Worker refs ────────────────────────────────────────────────────────────
+  const workerRef = useRef<Worker | null>(null);
+  /** Monotonic request ID. Incremented on every dispatch and on reset/cancel so
+   *  responses from superseded requests are silently discarded. */
+  const forgeIdRef = useRef(0);
+  const pendingRef = useRef<PendingForge | null>(null);
+  /** Mirror of cfg read inside the stable worker effect closure. */
+  const cfgRef = useRef(cfg);
+  useEffect(() => { cfgRef.current = cfg; }, [cfg]);
 
   // ── Auto-solver state ──────────────────────────────────────────────────────
   const [solverId, setSolverId] = useState<SolverId>("backtracking");
@@ -110,6 +127,76 @@ export function useMinesweeper() {
       return next.length > 400 ? next.slice(-400) : next;
     });
   }, []);
+
+  // ── Web Worker: field generation off the main thread ──────────────────────
+  // Created once on mount; terminated on unmount. The onmessage handler only
+  // closes over stable values (refs, state setters, pushLog, module functions)
+  // so the effect runs exactly once and needs no teardown beyond termination.
+  useEffect(() => {
+    const w = new Worker(new URL("./generator.worker.ts", import.meta.url), { type: "module" });
+
+    w.onmessage = (e: MessageEvent<ForgeResponse>): void => {
+      const data = e.data;
+      if (data.id !== forgeIdRef.current) return; // stale - a newer forge was started
+
+      const pending = pendingRef.current;
+      pendingRef.current = null;
+      setForging(false);
+
+      if ("error" in data) {
+        pushLog("warn", `forge error: ${data.error}`);
+        return;
+      }
+
+      const { field: f, stats: s } = data;
+      setField(f);
+      setStats(s);
+      setMineHit(null);
+      pushLog(
+        "gen",
+        `forged ${f.width}×${f.height} · ${f.mineCount} mines · ${s.solved ? "no-guess ✓" : `${s.undecided.length} guess pts ✗`} · ${s.hardest} · 3BV ${s.threeBV} · ${s.attempts}a/${s.swaps}s · ${s.ms}ms`,
+      );
+
+      if (pending?.type === "reveal") {
+        const { view: v } = revealCascade(freshView(f.width, f.height), f, pending.cell);
+        setView(v);
+        const allClear = countRevealedSafe(v, f) === f.width * f.height - f.mineCount;
+        setStatus(allClear ? "won" : "playing");
+        if (allClear) pushLog("win", "field opened completely on the first click");
+      } else if (pending?.type === "solver") {
+        const { solverId: sid } = pending;
+        setSolverId(sid);
+        const report = getSolver(sid).solve(f, f.safeOrigin);
+        solverRef.current = { report, field: f };
+        setSolverReport(report);
+        setSolverGuess(null);
+        setShowOdds(false);
+        pushLog("play", `${sid} → ${report.status}: ${report.safe.length} safe, ${report.mines.length} mines, ${report.undecided.length} undecided`);
+
+        if (prefersReducedMotion()) {
+          setView(replayAll(f, report.actions));
+          setSolverMoves([]);
+          setSolverPlaying(false);
+          if (report.status === "solved") {
+            setStatus("won");
+            pushLog("win", `${sid} cleared the field - no guess`);
+          } else {
+            setStatus("playing");
+            setSolverGuess(report.bestGuess ?? null);
+            pushLog("play", `${sid} stuck - ${report.undecided.length} undecided`);
+          }
+        } else {
+          setView(freshView(f.width, f.height));
+          setStatus("playing");
+          setSolverMoves(report.actions);
+          setSolverPlaying(true);
+        }
+      }
+    };
+
+    workerRef.current = w;
+    return () => { w.terminate(); };
+  }, [pushLog]);
 
   // Counts derived from the current view - cheap at these board sizes.
   const flagsUsed = useMemo(() => view.filter((v) => v === "flagged").length, [view]);
@@ -177,6 +264,9 @@ export function useMinesweeper() {
   // Reset to a fresh, un-forged board for the current config.
   const reset = useCallback(
     (next: FieldConfig, label: string) => {
+      forgeIdRef.current++; // invalidate any in-flight forge response
+      pendingRef.current = null;
+      setForging(false);
       clearSolver();
       setField(null);
       setStats(null);
@@ -214,37 +304,15 @@ export function useMinesweeper() {
     [cfg, reset],
   );
 
-  // Forge the field around `origin` and (optionally) open it there.
-  const forgeAt = useCallback(
-    (origin: number, autoReveal: boolean) => {
-      const { field: f, stats: s } = generateField(cfg, origin);
-      setField(f);
-      setStats(s);
-      setMineHit(null);
-      pushLog(
-        "gen",
-        `forged ${f.width}×${f.height} · ${f.mineCount} mines · ${s.solved ? "no-guess ✓" : `${s.undecided.length} guess pts ✗`} · ${s.hardest} · 3BV ${s.threeBV} · ${s.attempts}a/${s.swaps}s · ${s.ms}ms`,
-      );
-      if (autoReveal) {
-        const { view: v } = revealCascade(freshView(f.width, f.height), f, origin);
-        setView(v);
-        const allClear = countRevealedSafe(v, f) === f.width * f.height - f.mineCount;
-        setStatus(allClear ? "won" : "playing");
-        if (allClear) pushLog("win", "field opened completely on the first click");
-      } else {
-        setView(freshView(f.width, f.height));
-        setStatus("playing");
-      }
-      return f;
-    },
-    [cfg, pushLog],
-  );
-
-  /** Forge around the centre and open it (inspect a generated field). */
+  /** Forge the field at the board centre via the Web Worker, then reveal from it. */
   const forgeCenter = useCallback(() => {
-    const origin = Math.floor(cfg.height / 2) * cfg.width + Math.floor(cfg.width / 2);
-    forgeAt(origin, true);
-  }, [cfg, forgeAt]);
+    const c = cfgRef.current;
+    const origin = Math.floor(c.height / 2) * c.width + Math.floor(c.width / 2);
+    forgeIdRef.current++;
+    pendingRef.current = { type: "reveal", cell: origin };
+    setForging(true);
+    workerRef.current?.postMessage({ cfg: c, origin, id: forgeIdRef.current } satisfies ForgeRequest);
+  }, []);
 
   const newField = useCallback(() => {
     reset(cfg, "new field - click to forge");
@@ -252,19 +320,23 @@ export function useMinesweeper() {
 
   // ── Auto-solver controls ───────────────────────────────────────────────────
   /** Run a solver from the field's safe origin and watch it play out. Forges a
-   *  field first if none exists yet. */
+   *  field first via the Web Worker if none exists yet. */
   const runSolver = useCallback(
     (id: SolverId) => {
-      setSolverId(id);
-      let f = field;
-      if (!f) {
-        const origin = Math.floor(cfg.height / 2) * cfg.width + Math.floor(cfg.width / 2);
-        const gen = generateField(cfg, origin);
-        f = gen.field;
-        setField(gen.field);
-        setStats(gen.stats);
-        pushLog("gen", `forged ${gen.field.width}×${gen.field.height} · ${gen.field.mineCount} mines for the solver`);
+      if (!field) {
+        // No field yet - forge one off the main thread, then run the solver in the response handler.
+        const c = cfgRef.current;
+        const origin = Math.floor(c.height / 2) * c.width + Math.floor(c.width / 2);
+        setSolverId(id);
+        forgeIdRef.current++;
+        pendingRef.current = { type: "solver", solverId: id };
+        setForging(true);
+        workerRef.current?.postMessage({ cfg: c, origin, id: forgeIdRef.current } satisfies ForgeRequest);
+        return;
       }
+
+      setSolverId(id);
+      const f = field;
       const report = getSolver(id).solve(f, f.safeOrigin);
       solverRef.current = { report, field: f };
       setSolverReport(report);
@@ -293,7 +365,7 @@ export function useMinesweeper() {
         setSolverPlaying(true);
       }
     },
-    [field, cfg, pushLog],
+    [field, pushLog],
   );
 
   const stopSolver = useCallback(() => {
@@ -313,18 +385,16 @@ export function useMinesweeper() {
 
   const revealCell = useCallback(
     (i: number) => {
-      if (solverPlaying) return;
+      if (forging || solverPlaying) return;
       if (status === "won" || status === "lost") return;
       if (view[i] === "flagged") return;
 
-      // First click forges the field around it (true first-click safety).
+      // First click forges the field around it via the Web Worker (true first-click safety).
       if (!field || status === "fresh") {
-        const f = forgeAt(i, false);
-        const { view: v } = revealCascade(freshView(f.width, f.height), f, i);
-        setView(v);
-        const allClear = countRevealedSafe(v, f) === f.width * f.height - f.mineCount;
-        setStatus(allClear ? "won" : "playing");
-        if (allClear) pushLog("win", "cleared in one click");
+        forgeIdRef.current++;
+        pendingRef.current = { type: "reveal", cell: i };
+        setForging(true);
+        workerRef.current?.postMessage({ cfg: cfgRef.current, origin: i, id: forgeIdRef.current } satisfies ForgeRequest);
         return;
       }
 
@@ -343,7 +413,7 @@ export function useMinesweeper() {
         pushLog("win", "all safe cells cleared");
       }
     },
-    [solverPlaying, status, view, field, forgeAt, pushLog],
+    [forging, solverPlaying, status, view, field, pushLog],
   );
 
   const toggleFlag = useCallback(
@@ -436,6 +506,7 @@ export function useMinesweeper() {
     mineHit,
     peek,
     log,
+    forging,
     flagsUsed,
     revealedSafe,
     minesLeft,

@@ -5,7 +5,7 @@ import { ExperimentLayout } from "../../components/ui";
 import { useTheme } from "../../hooks/useTheme";
 import { prefersReducedMotion, useReducedMotion } from "../../hooks/useReducedMotion";
 import type { ColorMode, NBodyParams, NBodySnapshot } from "./types";
-import { DEFAULT_PARAMS } from "./constants";
+import { DEFAULT_PARAMS, MAX_TRAILS, MAX_TIME_SCALE, MIN_TIME_SCALE } from "./constants";
 import NBodyCanvas, { type NBodyHandle } from "./components/NBodyCanvas";
 import Controls from "./components/Controls";
 import Look from "./components/Look";
@@ -22,10 +22,23 @@ interface SavedLook {
   timeScale?: number;
 }
 
+const COLOR_MODES: readonly ColorMode[] = ["speed", "mass", "mono"];
+
+function sanitizeLook(raw: unknown): SavedLook {
+  if (!raw || typeof raw !== "object" || Array.isArray(raw)) return {};
+  const obj = raw as Record<string, unknown>;
+  const out: SavedLook = {};
+  if (COLOR_MODES.includes(obj.colorMode as ColorMode)) out.colorMode = obj.colorMode as ColorMode;
+  if (typeof obj.trails === "number" && obj.trails >= 0 && obj.trails <= MAX_TRAILS) out.trails = obj.trails;
+  if (typeof obj.spin === "boolean") out.spin = obj.spin;
+  if (typeof obj.timeScale === "number" && obj.timeScale >= MIN_TIME_SCALE && obj.timeScale <= MAX_TIME_SCALE) out.timeScale = obj.timeScale;
+  return out;
+}
+
 function loadLook(): SavedLook {
   try {
     const raw = localStorage.getItem(LOOK_KEY);
-    return raw ? (JSON.parse(raw) as SavedLook) : {};
+    return raw ? sanitizeLook(JSON.parse(raw)) : {};
   } catch {
     return {};
   }

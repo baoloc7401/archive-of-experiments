@@ -1,12 +1,3 @@
-/* ── Sidebar ─────────────────────────────────────────────────── */
-.chess-sidebar {
-  flex: 1;
-  min-width: 180px;
-  max-width: 240px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
 
 /* ── Player scoreboard ───────────────────────────────────────── */
 .chess-players {

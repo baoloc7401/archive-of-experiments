@@ -6,11 +6,13 @@ import App from "./App";
 // per route so the landing page ships only the gateway plus the router.
 // Each lazy import becomes its own chunk (JS + CSS) emitted by Vite.
 const ChessGame = lazy(() => import("./experiments/chess"));
+const SortingVisualizer = lazy(() => import("./experiments/sorting-visualizer"));
 const Pathfinding = lazy(() => import("./experiments/pathfinding"));
 const Elevator = lazy(() => import("./experiments/elevator"));
 const Aco = lazy(() => import("./experiments/aco"));
 const RiverCrossing = lazy(() => import("./experiments/river-crossing"));
 const Minesweeper = lazy(() => import("./experiments/minesweeper"));
+const Pacman = lazy(() => import("./experiments/pacman"));
 const Boids = lazy(() => import("./experiments/boids"));
 const LSystem = lazy(() => import("./experiments/l-system"));
 const NBody = lazy(() => import("./experiments/n-body"));
@@ -29,11 +31,13 @@ export default function AppRoutes() {
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/experiments/chess/:mode?" element={<ChessGame />} />
+        <Route path="/experiments/sorting-visualizer" element={<SortingVisualizer />} />
         <Route path="/experiments/pathfinding/:screen?" element={<Pathfinding />} />
         <Route path="/experiments/elevator" element={<Elevator />} />
         <Route path="/experiments/aco" element={<Aco />} />
         <Route path="/experiments/river-crossing" element={<RiverCrossing />} />
         <Route path="/experiments/minesweeper" element={<Minesweeper />} />
+        <Route path="/experiments/pacman" element={<Pacman />} />
         <Route path="/experiments/boids" element={<Boids />} />
         <Route path="/experiments/l-system" element={<LSystem />} />
         <Route path="/experiments/n-body" element={<NBody />} />

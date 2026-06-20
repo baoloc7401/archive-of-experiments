@@ -11,14 +11,14 @@ the repo docs are the **single source of truth** (so nothing drifts).
 |---|---|---|
 | **TEXTBOOK.md** | Research record: the canonical algorithm + how faithfully the code models it + the real findings discovered building/debugging it. The *why it behaves this way* and *where the model parts ways with reality*. | reader who wants to understand |
 | **ISSUES.md** | Craft log: specific bugs, their root causes, the fixes, and regressions to avoid. The full debugging narrative. | maintainer touching the code |
-| **IMPROVEMENT.md** | Roadmap: what exists and what's planned next (used by the chess engine). | maintainer planning work |
+| **IMPROVEMENTS.md** | Roadmap: what exists and what's planned next (used by the chess engine). | maintainer planning work |
 
 A `TEXTBOOK` **summarizes** a finding and points to `ISSUES` for the gory detail -
 they cross-link, they don't duplicate.
 
 ## What's written so far
 
-| Experiment | TEXTBOOK | ISSUES | IMPROVEMENT |
+| Experiment | TEXTBOOK | ISSUES | IMPROVEMENTS |
 |---|---|---|---|
 | [[Experiment ACO]] | [✓](https://github.com/baoloc7401/archive-of-experiments/blob/main/docs/aco/TEXTBOOK.md) | - | - |
 | [[Experiment River Crossing]] | [✓](https://github.com/baoloc7401/archive-of-experiments/blob/main/docs/river-crossing/TEXTBOOK.md) | - | - |
@@ -39,14 +39,26 @@ one experiment - it lives under `docs/<topic>/` and is just as canonical. So far
 |---|---|---|---|
 | [[Site Performance]] (PageSpeed & accessibility) | [✓](https://github.com/baoloc7401/archive-of-experiments/blob/main/docs/pagespeed/TEXTBOOK.md) | - | [✓](https://github.com/baoloc7401/archive-of-experiments/blob/main/docs/pagespeed/IMPROVEMENTS.md) |
 
-## The `textbook` skill
+## The `docs-*` skills
 
-The repo ships a Claude Code skill at
-[`.claude/skills/textbook/`](https://github.com/baoloc7401/archive-of-experiments/blob/main/.claude/skills/textbook/SKILL.md)
-that writes/updates a `TEXTBOOK.md` in the house style - gather ground truth from
-the code, find the single most important finding (the `§0` blockquote), blend
-canonical definitions with fidelity notes, end with a scorecard and a scope
-boundary. Invoke it with `/textbook` or "make a textbook for <experiment>".
+The repo ships one Claude Code skill per doc-family member, each writing/updating
+its file in the house style:
+
+- [`docs-textbook`](https://github.com/baoloc7401/archive-of-experiments/blob/main/.claude/skills/docs-textbook/SKILL.md)
+  - gather ground truth from the code, find the single most important finding (the
+  `§0` blockquote), blend canonical definitions with fidelity notes, end with a
+  scorecard and a scope boundary. Invoke with `/docs-textbook`.
+- [`docs-issues`](https://github.com/baoloc7401/archive-of-experiments/blob/main/.claude/skills/docs-issues/SKILL.md)
+  - flat `ISSUE-N` entries with a `Status · Severity` (and optional `Area`) line,
+  root-cause and fix narrative, and a "Verified clean" section. Invoke with
+  `/docs-issues`.
+- [`docs-improvements`](https://github.com/baoloc7401/archive-of-experiments/blob/main/.claude/skills/docs-improvements/SKILL.md)
+  - a "What it already does" table, tier-ranked `#### N.` entries each with a
+  `PROGRESS` marker and `Shipped/What/Why/Caveat` fields, and a maintenance
+  footer. Invoke with `/docs-improvements`.
+
+Each can also be triggered in plain language ("make a textbook for <experiment>",
+"log this bug in ISSUES", "add this to the roadmap").
 
 ## House style (in brief)
 

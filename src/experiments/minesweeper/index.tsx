@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import ExperimentHeader from "../../components/ExperimentHeader";
+import { ExperimentLayout } from "../../components/ui";
 import ScrambleText from "../../components/ScrambleText";
 import { useMinesweeper } from "./useMinesweeper";
 import Board from "./components/Board";
@@ -37,81 +37,25 @@ export default function Minesweeper() {
         : "";
 
   return (
-    <div className="ms-page">
-      <ExperimentHeader
-        crumbs={[
-          { label: t("experiments.minesweeper.title").toLowerCase(), to: "/experiments/minesweeper" },
-          { label: `${ms.cfg.width}×${ms.cfg.height} · ${ms.cfg.mines} mines` },
-        ]}
-      />
-
-      <div className="ms-info-strip">
-        <div className="ms-info-tagline">
-          <ScrambleText text={t("experiments.minesweeper.tagline")} duration={600} />
-        </div>
-        <div className="ms-info-desc">
-          <ScrambleText text={t("experiments.minesweeper.intro")} duration={600} />
-        </div>
-      </div>
-
-      <div className="ms-sr-only" role="status" aria-live="polite">
-        {live}
-      </div>
-
-      <div className="ms-layout">
-        <section className="ms-stage">
-          <Hud minesLeft={ms.minesLeft} status={ms.status} onReset={ms.newField} />
-
-          <BoardTools
-            flagMode={flagMode}
-            onFlagMode={setFlagMode}
-            peek={ms.peek}
-            onPeek={ms.setPeek}
-            hasField={ms.field !== null}
-            showOdds={ms.showOdds}
-            onShowOdds={ms.setShowOdds}
-            hasOdds={ms.solverProbs !== null}
-            disabled={ms.solverPlaying}
-          />
-
-          <div className="ms-board-wrap">
-            <div className="ms-board-scroll">
-              <Board
-                field={ms.field}
-                view={ms.view}
-                width={ms.cfg.width}
-                height={ms.cfg.height}
-                status={ms.status}
-                mineHit={ms.mineHit}
-                peek={ms.peek}
-                undecided={ms.stats?.undecided ?? []}
-                flagMode={flagMode}
-                locked={ms.solverPlaying}
-                bestGuess={ms.solverGuess}
-                probabilities={ms.showOdds ? ms.solverProbs : null}
-                onReveal={ms.revealCell}
-                onChord={ms.chord}
-                onFlag={ms.toggleFlag}
-              />
-            </div>
-            {banner && (
-              <div className={`ms-banner ms-banner--${ms.status}`} aria-hidden="true">
-                <ScrambleText text={banner} duration={500} />
-              </div>
-            )}
-            {ms.status === "fresh" && (
-              <div className="ms-overlay" aria-hidden="true">
-                <ScrambleText text={t("experiments.minesweeper.first_click")} duration={600} />
-              </div>
-            )}
+    <ExperimentLayout
+      crumbs={[
+        { label: t("experiments.minesweeper.title").toLowerCase(), to: "/experiments/minesweeper" },
+        { label: `${ms.cfg.width}×${ms.cfg.height} · ${ms.cfg.mines} ${t('experiments.minesweeper.setup.mines')}` },
+      ]}
+      glow="accent2"
+      sidebarWidth="330px"
+      info={
+        <>
+          <div className="ms-info-tagline">
+            <ScrambleText text={t("experiments.minesweeper.tagline")} duration={600} />
           </div>
-
-          <div className="ms-hint">
-            <ScrambleText text={t("experiments.minesweeper.hint")} duration={600} />
+          <div className="ms-info-desc">
+            <ScrambleText text={t("experiments.minesweeper.intro")} duration={600} />
           </div>
-        </section>
-
-        <aside className="ms-sidebar">
+        </>
+      }
+      sidebar={
+        <>
           <Section title={t("experiments.minesweeper.setup.title")}>
             <SetupPanel
               difficulty={ms.difficulty}
@@ -141,8 +85,69 @@ export default function Minesweeper() {
           <Section title={t("experiments.minesweeper.debug.title")} defaultOpen={false}>
             <DebugLog entries={ms.log} buildReport={ms.buildReport} onClear={ms.clearLog} />
           </Section>
-        </aside>
+        </>
+      }
+    >
+      <div className="ms-sr-only" role="status" aria-live="polite">
+        {live}
       </div>
-    </div>
+
+      <Hud minesLeft={ms.minesLeft} status={ms.status} onReset={ms.newField} />
+
+      <BoardTools
+        flagMode={flagMode}
+        onFlagMode={setFlagMode}
+        peek={ms.peek}
+        onPeek={ms.setPeek}
+        hasField={ms.field !== null}
+        showOdds={ms.showOdds}
+        onShowOdds={ms.setShowOdds}
+        hasOdds={ms.solverProbs !== null}
+        disabled={ms.solverPlaying}
+      />
+
+      <div className="ms-board-wrap">
+        <div className="ms-board-scroll">
+          <Board
+            field={ms.field}
+            view={ms.view}
+            width={ms.cfg.width}
+            height={ms.cfg.height}
+            status={ms.status}
+            mineHit={ms.mineHit}
+            peek={ms.peek}
+            undecided={ms.stats?.undecided ?? []}
+            flagMode={flagMode}
+            locked={ms.solverPlaying || ms.forging}
+            bestGuess={ms.solverGuess}
+            probabilities={ms.showOdds ? ms.solverProbs : null}
+            onReveal={ms.revealCell}
+            onChord={ms.chord}
+            onFlag={ms.toggleFlag}
+          />
+        </div>
+        {banner && (
+          <div className={`ms-banner ms-banner--${ms.status}`} aria-hidden="true">
+            <ScrambleText text={banner} duration={500} />
+          </div>
+        )}
+        {ms.forging && (
+          <div className="ms-overlay" aria-hidden="true">
+            <ScrambleText text={t("experiments.minesweeper.forging")} duration={600} />
+          </div>
+        )}
+        {ms.status === "fresh" && !ms.forging && (
+          <div className="ms-overlay" aria-hidden="true">
+            <ScrambleText text={t("experiments.minesweeper.first_click")} duration={600} />
+          </div>
+        )}
+      </div>
+
+      <div className="ms-hint">
+        <ScrambleText text={t("experiments.minesweeper.hint")} duration={600} />
+      </div>
+
+      <p className="ms-trademark">{t("experiments.minesweeper.trademark")}</p>
+    </ExperimentLayout>
   );
 }

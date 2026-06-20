@@ -21,14 +21,19 @@
   left: 0;
   top: 0;
   z-index: 30;
-  white-space: nowrap;
+  /* Hug the text on one line, but wrap (and cap width) for long labels so the
+     bubble can never grow wider than the viewport and widen the page. */
+  width: max-content;
+  max-width: min(18rem, calc(100vw - 1rem));
+  white-space: normal;
+  overflow-wrap: break-word;
   padding: 0.3rem 0.5rem;
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   background: var(--bg2);
   color: var(--text-hi);
   font-size: 0.7rem;
-  line-height: 1;
+  line-height: 1.3;
   letter-spacing: 0.02em;
   text-transform: none;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);

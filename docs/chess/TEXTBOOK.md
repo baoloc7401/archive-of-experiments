@@ -10,7 +10,7 @@ Reference code:
 [`ai/worker.ts`](../../src/experiments/chess/ai/worker.ts) (off-thread search),
 [`ai/book.ts`](../../src/experiments/chess/ai/book.ts) (opening book),
 [`ai/constants.ts`](../../src/experiments/chess/ai/constants.ts).
-Roadmap: [`IMPROVEMENT.md`](./IMPROVEMENT.md). Bug/craft log: [`ISSUES.md`](./ISSUES.md).
+Roadmap: [`IMPROVEMENTS.md`](./IMPROVEMENTS.md). Bug/craft log: [`ISSUES.md`](./ISSUES.md).
 
 This is the research record for the chess engine: the canonical search and
 evaluation machinery, how faithfully we implement it, and - importantly -
@@ -545,7 +545,7 @@ We implemented them, tested, and **reverted** for two reasons:
    the root tiebreak. In a project where §5.3 *adds* a tiebreak specifically
    to discriminate equal-looking moves, this was the wrong direction.
 
-The roadmap entry in [`IMPROVEMENT.md`](./IMPROVEMENT.md#14-aspiration-windows)
+The roadmap entry in [`IMPROVEMENTS.md`](./IMPROVEMENTS.md#14-aspiration-windows)
 records this as "implemented then reverted" so a future revisit knows the
 context.
 

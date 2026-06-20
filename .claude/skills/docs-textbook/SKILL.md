@@ -1,5 +1,5 @@
 ---
-name: textbook
+name: docs-textbook
 description: >-
   Write or update a research-grade TEXTBOOK.md for an experiment in this repo
   (docs/<id>/TEXTBOOK.md). Use when the user asks to "make a textbook", "record
@@ -26,10 +26,13 @@ and [`docs/aco/TEXTBOOK.md`](../../../docs/aco/TEXTBOOK.md).
 ## What a TEXTBOOK is (vs its siblings)
 
 - **TEXTBOOK.md** - theory + fidelity + research findings. The *why it behaves
-  this way* and *where the model parts ways with reality*.
+  this way* and *where the model parts ways with reality*. (This skill.)
 - **ISSUES.md** - bug/craft log: specific bugs, causes, fixes, regressions to
   avoid. If one exists, **cross-link it; do not duplicate it.** TEXTBOOK
   summarizes a finding and points to ISSUES for the full debugging narrative.
+  (Skill: `docs-issues`.)
+- **IMPROVEMENTS.md** - the forward-looking roadmap of what to build next.
+  (Skill: `docs-improvements`.)
 
 ## Procedure
 
@@ -37,7 +40,7 @@ and [`docs/aco/TEXTBOOK.md`](../../../docs/aco/TEXTBOOK.md).
    - Read the experiment source under `src/experiments/<id>/` (engine, hooks,
      constants, rendering). Quote real names, constants, and equations; verify
      every numeric claim (default params, thresholds) against the code.
-   - Read `docs/<id>/ISSUES.md` and `IMPROVEMENT.md` if present.
+   - Read `docs/<id>/ISSUES.md` and `IMPROVEMENTS.md` if present.
    - Skim git history for the experiment (`git log --oneline -- src/experiments/<id>`).
    - Mine the conversation: bugs hit, *why*, decisions made, fidelity trade-offs,
      anything that surprised you. These become the findings sections.
@@ -53,7 +56,7 @@ and [`docs/aco/TEXTBOOK.md`](../../../docs/aco/TEXTBOOK.md).
    the human-facing portal stays in step with the code-adjacent doc. Minimum
    set to touch:
    - `wiki/Home.md` - the "Experiment status" table's *Research docs* column
-     for that experiment should list `TEXTBOOK` alongside ISSUES/IMPROVEMENT.
+     for that experiment should list `TEXTBOOK` alongside ISSUES/IMPROVEMENTS.
    - `wiki/Experiment-<Name>.md` - add (or refresh) a deep-dive link to the
      new `TEXTBOOK.md`; while you're there, sanity-check the prose summary
      against what the TEXTBOOK actually says.
@@ -68,7 +71,7 @@ and [`docs/aco/TEXTBOOK.md`](../../../docs/aco/TEXTBOOK.md).
 - **Title:** `# <Experiment Name> - Textbook & Real-World Research`.
 - **Lead block:** `Reference code:` with relative links from `docs/<id>/`
   (i.e. `../../src/experiments/<id>/...`) to the key files. Cross-link
-  `ISSUES.md` as the "Bug/craft log" if it exists. Then a 2–4 sentence framing
+  `ISSUES.md` as the "Bug/craft log" if it exists. Then a 2-4 sentence framing
   of what the record covers, ending on "Findings accumulated while building and
   debugging."
 - **§0 - The single most important finding.** A `>` blockquote stating the
@@ -77,7 +80,7 @@ and [`docs/aco/TEXTBOOK.md`](../../../docs/aco/TEXTBOOK.md).
 - **Numbered sections** thereafter. Blend canonical definition with fidelity.
   For a family of algorithms, give each a compact entry (Definition / Character /
   Our implementation / Fidelity). For one mechanism, use thematic sections
-  (model & equations → implementation choices → parameter intuition → findings).
+  (model & equations -> implementation choices -> parameter intuition -> findings).
 - **Be honest about deviations.** State every place the code departs from the
   textbook and *why* it was a conscious choice. Findings are the product, not an
   afterthought.
@@ -102,7 +105,7 @@ and [`docs/aco/TEXTBOOK.md`](../../../docs/aco/TEXTBOOK.md).
 Reference code: [`file.ts`](../../src/experiments/<id>/file.ts), … .
 Bug/craft log: [`ISSUES.md`](./ISSUES.md).
 
-<2–4 sentence framing. Ends on "Findings accumulated while building and debugging.">
+<2-4 sentence framing. Ends on "Findings accumulated while building and debugging.">
 
 ---
 
@@ -122,3 +125,4 @@ Bug/craft log: [`ISSUES.md`](./ISSUES.md).
 
 *Maintained alongside the code. If <X> changes, update <sections>.*
 ```
+</content>

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import ExperimentHeader from '../../components/ExperimentHeader';
+import { ExperimentLayout } from '../../components/ui';
 import ScrambleText from '../../components/ScrambleText';
 import type { AlgorithmId } from './types';
 import { ALGORITHM_BY_ID, SPEED_PRESETS, DEFAULT_SPEED_INDEX } from './constants';
@@ -55,14 +55,45 @@ export default function Elevator() {
     : ALGORITHM_BY_ID[selected[0]].name;
 
   return (
-    <div className="elev-page">
-      <ExperimentHeader
-        crumbs={[
-          { label: t('experiments.elevator.title').toLowerCase(), to: '/experiments/elevator' },
-          { label: headTitle },
-        ]}
-      />
-
+    <ExperimentLayout
+      crumbs={[
+        { label: t('experiments.elevator.title').toLowerCase(), to: '/experiments/elevator' },
+        { label: headTitle },
+      ]}
+      glow="accent2"
+      sidebarWidth="320px"
+      sidebar={
+        <>
+          <section className="elev-side elev-side--inside">
+            <div className="elev-side-label">
+              <span className="elev-side-tag"><ScrambleText text={t('experiments.elevator.inside')} duration={600} /></span>
+              <span className="elev-side-desc"><ScrambleText text={t('experiments.elevator.cop_desc')} duration={600} /></span>
+            </div>
+            <CarPanel
+              state={sim.state}
+              activeCalls={sim.activeCalls}
+              onCarCall={(f) => sim.addRequest(f, 'car')}
+            />
+          </section>
+          <StatsPanel state={sim.state} />
+          <Controls
+            status={sim.state.status}
+            speedIndex={speedIndex}
+            playDisabled={playDisabled}
+            onSpeedChange={setSpeedIndex}
+            onPlayPause={handlePlayPause}
+            onReset={sim.reset}
+            onRandom={() => sim.seedRandom(5)}
+            onClear={sim.clearAll}
+          />
+          <Queue activeCalls={sim.activeCalls} tick={sim.state.tick} />
+          <History state={sim.state} speedLabel={SPEED_PRESETS[speedIndex].label} />
+          <div className="elev-hint">
+            <ScrambleText text={t('experiments.elevator.hint')} duration={600} />
+          </div>
+        </>
+      }
+    >
       <AlgorithmPicker
         selected={selected}
         compareMode={compareMode}
@@ -90,58 +121,25 @@ export default function Elevator() {
         </div>
       )}
 
-      <div className="elev-layout">
-        <section className="elev-side elev-side--outside">
-          <div className="elev-side-label">
-            <span className="elev-side-tag"><ScrambleText text={t('experiments.elevator.outside')} duration={600} /></span>
-            <span className="elev-side-desc">
-              <ScrambleText
-                text={t(comparing ? 'experiments.elevator.hall_calls_other' : 'experiments.elevator.hall_calls_one')}
-                duration={600}
-              />
-            </span>
-          </div>
-          <div className="elev-stage">
-            <Building
-              state={sim.state}
-              activeCalls={sim.activeCalls}
-              tickMs={tickMs}
-              onHallCall={sim.addRequest}
+      <section className="elev-side elev-side--outside">
+        <div className="elev-side-label">
+          <span className="elev-side-tag"><ScrambleText text={t('experiments.elevator.outside')} duration={600} /></span>
+          <span className="elev-side-desc">
+            <ScrambleText
+              text={t(comparing ? 'experiments.elevator.hall_calls_other' : 'experiments.elevator.hall_calls_one')}
+              duration={600}
             />
-          </div>
-        </section>
-
-        <aside className="elev-sidebar">
-          <section className="elev-side elev-side--inside">
-            <div className="elev-side-label">
-              <span className="elev-side-tag"><ScrambleText text={t('experiments.elevator.inside')} duration={600} /></span>
-              <span className="elev-side-desc"><ScrambleText text={t('experiments.elevator.cop_desc')} duration={600} /></span>
-            </div>
-            <CarPanel
-              state={sim.state}
-              activeCalls={sim.activeCalls}
-              onCarCall={(f) => sim.addRequest(f, 'car')}
-            />
-          </section>
-
-          <StatsPanel state={sim.state} />
-          <Controls
-            status={sim.state.status}
-            speedIndex={speedIndex}
-            playDisabled={playDisabled}
-            onSpeedChange={setSpeedIndex}
-            onPlayPause={handlePlayPause}
-            onReset={sim.reset}
-            onRandom={() => sim.seedRandom(5)}
-            onClear={sim.clearAll}
+          </span>
+        </div>
+        <div className="elev-stage">
+          <Building
+            state={sim.state}
+            activeCalls={sim.activeCalls}
+            tickMs={tickMs}
+            onHallCall={sim.addRequest}
           />
-          <Queue activeCalls={sim.activeCalls} tick={sim.state.tick} />
-          <History state={sim.state} speedLabel={SPEED_PRESETS[speedIndex].label} />
-          <div className="elev-hint">
-            <ScrambleText text={t('experiments.elevator.hint')} duration={600} />
-          </div>
-        </aside>
-      </div>
-    </div>
+        </div>
+      </section>
+    </ExperimentLayout>
   );
 }

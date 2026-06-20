@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { GameMode, SkillLevel } from '../types';
 import { DEFAULT_SKILL, SKILL_LEVELS, SKILL_PIECES } from '../ai/skill';
-import ExperimentHeader from '../../../components/ExperimentHeader';
+import { ExperimentLayout } from '../../../components/ui';
 import ScrambleText from '../../../components/ScrambleText';
 
 interface Props {
@@ -31,9 +31,7 @@ export function ModeScreen({ onStart }: Props) {
   }
 
   return (
-    <div className="chess-page">
-      <ExperimentHeader crumbs={[{ label: 'chess', to: '/experiments/chess' }]} />
-      <div className="chess-content">
+    <ExperimentLayout crumbs={[{ label: 'chess', to: '/experiments/chess' }]} glow="accent2" centered>
       <div className="chess-mode-screen">
         <div className="chess-mode-title">
           <span className="chess-title-text"><ScrambleText text="chess" duration={600} /></span>
@@ -99,8 +97,7 @@ export function ModeScreen({ onStart }: Props) {
           </div>
         )}
       </div>
-      </div>
-    </div>
+    </ExperimentLayout>
   );
 }
 

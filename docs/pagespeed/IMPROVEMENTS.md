@@ -1,4 +1,4 @@
-# Performance Improvements
+# Home Page - Performance Improvements
 
 Action plan for the home page (`https://baoloc7401.github.io/archive-of-experiments/`),
 driven by PageSpeed Insights / Lighthouse 13.3.0. Raw reports live in
@@ -286,3 +286,9 @@ moves is **Speed Index**, and it is noisy - trust a clear directional move acros
 several runs, not a single decimal. Drop new reports in
 [pagespeed-scannings/](../../pagespeed-scannings/); the analyze/compare scripts
 auto-pick the newest by embedded timestamp.
+
+---
+
+*Maintained alongside each PageSpeed round. When a fix ships, record it here and
+fold the durable lessons into [TEXTBOOK.md](TEXTBOOK.md); this file tracks the
+optimization arc, the textbook records what was learned.*

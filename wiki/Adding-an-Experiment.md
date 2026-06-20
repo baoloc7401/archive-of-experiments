@@ -57,6 +57,7 @@ the maintainer pushes.
 ## Document it (optional but encouraged)
 
 If the experiment models a real algorithm, write a research doc - see
-[[Documentation Conventions]] and the `textbook` skill.
+[[Documentation Conventions]] and the `docs-textbook` / `docs-issues` /
+`docs-improvements` skills.
 
 See also: [[Architecture]]
