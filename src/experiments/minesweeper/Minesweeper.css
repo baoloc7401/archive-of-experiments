@@ -681,6 +681,15 @@
 }
 
 
+.ms-trademark {
+  margin-top: 0.75rem;
+  max-width: 70ch;
+  font-size: 0.72rem;
+  line-height: 1.5;
+  color: var(--text-dim);
+  opacity: 0.7;
+}
+
 /* Honour reduced-motion: kill decorative transitions (the auto-solver also
    resolves instantly under this preference - see useMinesweeper). */
 @media (prefers-reduced-motion: reduce) {

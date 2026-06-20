@@ -146,6 +146,8 @@ export default function Minesweeper() {
       <div className="ms-hint">
         <ScrambleText text={t("experiments.minesweeper.hint")} duration={600} />
       </div>
+
+      <p className="ms-trademark">{t("experiments.minesweeper.trademark")}</p>
     </ExperimentLayout>
   );
 }

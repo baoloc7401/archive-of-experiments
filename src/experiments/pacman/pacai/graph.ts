@@ -3,8 +3,9 @@
 // numeric tile id (id = row * COLS + col). All searches reuse module-scope
 // scratch buffers, so a decision costs no steady-state allocation.
 
-import { COLS, DIR_VEC, MAZE, ROWS, TIE_ORDER } from "../constants";
-import type { Direction, Tile } from "../types";
+import { COLS, DIR_VEC, ROWS, TIE_ORDER } from "../constants";
+import { getActiveMaze, getMazeVersion } from "../maze";
+import type { Direction, PacmanState, Tile } from "../types";
 
 export const TILE_COUNT = COLS * ROWS;
 /** Neighbour probe order = the ghosts' tie-break order (up, left, down, right). */
@@ -22,16 +23,19 @@ export function idToTile(id: number): Tile {
 function passable(col: number, row: number): boolean {
   if (row < 0 || row >= ROWS) return false;
   const c = ((col % COLS) + COLS) % COLS;
-  const ch = MAZE[row][c];
+  const ch = getActiveMaze()[row][c];
   return ch !== "#" && ch !== "-";
 }
 
 // adj[id * 4 + k] = neighbour id reached by DIRS[k], or -1 if blocked.
 const adj = new Int32Array(TILE_COUNT * 4).fill(-1);
 const degree = new Int8Array(TILE_COUNT);
-let built = false;
+// Cache is keyed on the active-maze version so it rebuilds after a maze swap.
+let builtVersion = -1;
 
 function build() {
+  adj.fill(-1);
+  degree.fill(0);
   for (let row = 0; row < ROWS; row++) {
     for (let col = 0; col < COLS; col++) {
       if (!passable(col, row)) continue;
@@ -51,11 +55,37 @@ function build() {
       degree[id] = deg;
     }
   }
-  built = true;
+  builtVersion = getMazeVersion();
 }
 
 function ensure() {
-  if (!built) build();
+  if (builtVersion !== getMazeVersion()) build();
+}
+
+// --- Wormhole edges ---------------------------------------------------------
+// Stepping onto a wormhole endpoint relocates the actor to its pair, so for the
+// planners the tile you *land on* after entering an endpoint is its pair. We
+// model this by resolving every discovered neighbour through `portalOf` before
+// recording it: a teleport is not a separate node, it just redirects where the
+// step arrives. `portalOf[id]` = paired endpoint id, or -1. Set per decision
+// from live state (the pairs are toggleable, so this is not baked into `adj`).
+const portalOf = new Int32Array(TILE_COUNT).fill(-1);
+
+/** Install the active wormhole pairs (or clear them when teleport is off). */
+export function setPortalsFromState(state: PacmanState): void {
+  portalOf.fill(-1);
+  if (!state.enabledPellets.teleport) return;
+  for (const [aKey, bKey] of state.wormholes) {
+    const [ac, ar] = aKey.split(",").map(Number);
+    const [bc, br] = bKey.split(",").map(Number);
+    portalOf[tileToId(ac, ar)] = tileToId(bc, br);
+  }
+}
+
+/** The tile an actor ends up on after stepping onto `id` (its portal pair, else itself). */
+export function resolvePortal(id: number): number {
+  const p = portalOf[id];
+  return p >= 0 ? p : id;
 }
 
 /** True at a branch tile (more than two ways out) - where search must fan out. */
@@ -110,8 +140,10 @@ export function nearestInSet(startId: number, targets: Set<number>): NearestResu
     }
     const base = cur * 4;
     for (let k = 0; k < 4; k++) {
-      const n = adj[base + k];
-      if (n < 0 || dist[n] >= 0) continue;
+      const raw = adj[base + k];
+      if (raw < 0) continue;
+      const n = resolvePortal(raw);
+      if (dist[n] >= 0) continue;
       dist[n] = dist[cur] + 1;
       firstDirIdx[n] = cur === startId ? k : firstDirIdx[cur];
       queue[tail++] = n;
@@ -145,8 +177,10 @@ export function nearestInSetMasked(
     }
     const base = cur * 4;
     for (let k = 0; k < 4; k++) {
-      const n = adj[base + k];
-      if (n < 0 || dist[n] >= 0 || blocked(n)) continue;
+      const raw = adj[base + k];
+      if (raw < 0) continue;
+      const n = resolvePortal(raw);
+      if (dist[n] >= 0 || blocked(n)) continue;
       dist[n] = dist[cur] + 1;
       firstDirIdx[n] = cur === startId ? k : firstDirIdx[cur];
       queue[tail++] = n;
@@ -175,8 +209,10 @@ export function multiSourceBFS(sources: number[]): Int32Array {
     const cur = queue[head++];
     const base = cur * 4;
     for (let k = 0; k < 4; k++) {
-      const n = adj[base + k];
-      if (n < 0 || dist[n] >= 0) continue;
+      const raw = adj[base + k];
+      if (raw < 0) continue;
+      const n = resolvePortal(raw);
+      if (dist[n] >= 0) continue;
       dist[n] = dist[cur] + 1;
       queue[tail++] = n;
     }
@@ -249,8 +285,9 @@ export function weightedPath(
     const g = gCost[cur];
     const base = cur * 4;
     for (let k = 0; k < 4; k++) {
-      const n = adj[base + k];
-      if (n < 0) continue;
+      const raw = adj[base + k];
+      if (raw < 0) continue;
+      const n = resolvePortal(raw);
       const ng = g + 1 + extraCost(n);
       if (ng < gCost[n]) {
         gCost[n] = ng;

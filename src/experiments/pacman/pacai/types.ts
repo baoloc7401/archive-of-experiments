@@ -1,6 +1,6 @@
 import type { Direction, PacmanState, Tile } from "../types";
 
-export type PacStrategyId = "greedy" | "safe" | "astar" | "search";
+export type PacStrategyId = "greedy" | "safe" | "astar" | "coverage" | "search" | "montecarlo";
 export type PacController = "human" | PacStrategyId;
 
 export interface PacCandidate {
@@ -17,8 +17,10 @@ export interface PacPlan {
   path: Tile[];
   /** Per-tile ghost danger (length TILE_COUNT), or null when not computed. */
   danger: Float32Array | null;
-  /** Search agent only: immediate moves with their backed-up scores. */
+  /** Search/Monte-Carlo only: immediate moves with their backed-up scores. */
   candidates: PacCandidate[] | null;
+  /** Monte-Carlo only: a sample of simulated playout paths (the rollout fan). */
+  rollouts?: Tile[][] | null;
   /** i18n suffix under `experiments.pacman.ai_note_*` explaining the choice. */
   noteKey: string;
 }

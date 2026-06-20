@@ -1,9 +1,20 @@
 import { useTranslation } from "react-i18next";
 import ScrambleText from "../../../components/ScrambleText";
 import { Button, ControlBar, Panel, Stat, StatGrid } from "../../../components/ui";
-import { GHOST_COLOR } from "../constants";
+import { FRUIT_COLOR, GHOST_COLOR, WORMHOLE_COLOR } from "../constants";
 import { PAC_STRATEGY_IDS, type PacController } from "../pacai";
+import { PELLET_KINDS, SPECIAL_KINDS, type SpecialKind } from "../pellets/registry";
 import type { Direction, GhostId, GhostSnapshot, Snapshot } from "../types";
+
+const PELLET_COLOR: Record<SpecialKind, string> = {
+  energizer: PELLET_KINDS.energizer.color,
+  decoy: PELLET_KINDS.decoy.color,
+  freeze: PELLET_KINDS.freeze.color,
+  speed: PELLET_KINDS.speed.color,
+  trap: PELLET_KINDS.trap.color,
+  fruit: FRUIT_COLOR,
+  teleport: WORMHOLE_COLOR,
+};
 
 interface Props {
   snap: Snapshot | null;
@@ -24,6 +35,14 @@ interface Props {
   onToggleGhost: (id: GhostId) => void;
   pacController: PacController;
   onSetController: (c: PacController) => void;
+  enabledPellets: Record<SpecialKind, boolean>;
+  onTogglePellet: (k: SpecialKind) => void;
+  coordinated: boolean;
+  onToggleCoordinate: () => void;
+  soundOn: boolean;
+  onToggleSound: () => void;
+  mazeLabel: string;
+  onEditMaze: () => void;
 }
 
 const GHOST_NAME: Record<GhostId, string> = {
@@ -60,12 +79,25 @@ export default function Sidebar({
   onToggleGhost,
   pacController,
   onSetController,
+  enabledPellets,
+  onTogglePellet,
+  coordinated,
+  onToggleCoordinate,
+  soundOn,
+  onToggleSound,
+  mazeLabel,
+  onEditMaze,
 }: Props) {
   const { t } = useTranslation();
 
   /** Plain-language breakdown of a ghost's decision this frame. */
   function explain(g: GhostSnapshot): string[] {
     const lines: string[] = [t(`experiments.pacman.role_${g.id}`)];
+    // Coordinated mode overrides the per-ghost heuristic with a shared role.
+    if (g.role) {
+      lines.push(t(`experiments.pacman.coord_${g.role}`));
+      return lines;
+    }
     if (g.mode === "frightened") lines.push(t("experiments.pacman.note_frightened"));
     else if (g.mode === "eaten") lines.push(t("experiments.pacman.note_eaten"));
     else if (g.id === "warden")
@@ -134,8 +166,76 @@ export default function Sidebar({
           >
             <ScrambleText text={t("experiments.pacman.explain")} duration={400} />
           </Button>
+          <Button
+            variant={coordinated ? "primary" : "ghost"}
+            size="sm"
+            aria-pressed={coordinated}
+            onClick={onToggleCoordinate}
+            tooltip={t("experiments.pacman.coordinate_hint")}
+          >
+            <ScrambleText text={t("experiments.pacman.coordinate")} duration={400} />
+          </Button>
+          <Button
+            variant={soundOn ? "primary" : "ghost"}
+            size="sm"
+            aria-pressed={soundOn}
+            onClick={onToggleSound}
+            tooltip={t("experiments.pacman.sound_hint")}
+          >
+            <ScrambleText
+              text={t(soundOn ? "experiments.pacman.sound_on" : "experiments.pacman.sound_off")}
+              duration={400}
+            />
+          </Button>
         </div>
       </ControlBar>
+
+      <div className="pacman-strip">
+        <span className="pacman-strip-label">
+          <ScrambleText text={t("experiments.pacman.content")} duration={400} />
+        </span>
+        <div className="pacman-toggles">
+          {SPECIAL_KINDS.map((k) => {
+            const on = enabledPellets[k];
+            return (
+              <Button
+                key={k}
+                size="sm"
+                variant={on ? "primary" : "ghost"}
+                className="pacman-chip"
+                aria-pressed={on}
+                tooltip={t(`experiments.pacman.pellet_desc_${k}`)}
+                aria-label={t("experiments.pacman.toggle_pellet", {
+                  name: t(`experiments.pacman.pellet_${k}`),
+                })}
+                onClick={() => onTogglePellet(k)}
+              >
+                <span className="pacman-chip-dot" style={{ background: PELLET_COLOR[k] }} />
+                {t(`experiments.pacman.pellet_${k}`)}
+              </Button>
+            );
+          })}
+        </div>
+      </div>
+
+      <div className="pacman-maze-bar">
+        <span className="pacman-strip-label">
+          <ScrambleText text={t("experiments.pacman.maze")} duration={400} />
+        </span>
+        <div className="pacman-maze-current">
+          <span className="pacman-maze-name">
+            <ScrambleText text={mazeLabel} duration={400} />
+          </span>
+          <Button
+            size="sm"
+            variant="ghost"
+            onClick={onEditMaze}
+            tooltip={t("experiments.pacman.maze_edit_hint")}
+          >
+            <ScrambleText text={t("experiments.pacman.maze_edit")} duration={400} />
+          </Button>
+        </div>
+      </div>
 
       <Panel title={t("experiments.pacman.driver")} collapsible={false}>
         <div className="pacman-drivers">
@@ -178,7 +278,10 @@ export default function Sidebar({
       </Panel>
 
       <StatGrid columns={2}>
-        <Stat label={t("experiments.pacman.score")} value={snap?.score ?? 0} />
+        <Stat
+          label={t("experiments.pacman.score")}
+          value={<span aria-live="polite">{snap?.score ?? 0}</span>}
+        />
         <Stat label={t("experiments.pacman.lives")} value={snap?.lives ?? 0} />
         <Stat
           label={t("experiments.pacman.pellets")}
@@ -190,6 +293,43 @@ export default function Sidebar({
           highlight={snap?.frightened}
         />
       </StatGrid>
+
+      {snap &&
+        (snap.effects.frightened > 0 ||
+          snap.effects.freeze > 0 ||
+          snap.effects.speed > 0 ||
+          snap.effects.decoy > 0 ||
+          snap.effects.stun > 0 ||
+          snap.fruit) && (
+          <div className="pacman-fx-row">
+            {snap.effects.frightened > 0 && (
+              <span className="pacman-fx">
+                {t("experiments.pacman.fx_frightened")} {snap.effects.frightened.toFixed(1)}s
+              </span>
+            )}
+            {snap.effects.freeze > 0 && (
+              <span className="pacman-fx">
+                {t("experiments.pacman.fx_freeze")} {snap.effects.freeze.toFixed(1)}s
+              </span>
+            )}
+            {snap.effects.speed > 0 && (
+              <span className="pacman-fx">
+                {t("experiments.pacman.fx_speed")} {snap.effects.speed.toFixed(1)}s
+              </span>
+            )}
+            {snap.effects.decoy > 0 && (
+              <span className="pacman-fx">
+                {t("experiments.pacman.fx_decoy")} {snap.effects.decoy.toFixed(1)}s
+              </span>
+            )}
+            {snap.effects.stun > 0 && (
+              <span className="pacman-fx">
+                {t("experiments.pacman.fx_stun")} {snap.effects.stun.toFixed(1)}s
+              </span>
+            )}
+            {snap.fruit && <span className="pacman-fx">{t("experiments.pacman.fx_fruit")}</span>}
+          </div>
+        )}
 
       {explainMode && (
         <Panel title={t("experiments.pacman.explain")} collapsible={false}>
@@ -235,6 +375,15 @@ export default function Sidebar({
                 </span>
                 {on && (
                   <>
+                    {g.role && (
+                      <span className="pacman-ghost-meta">
+                        {t("experiments.pacman.role_label")}:{" "}
+                        <ScrambleText
+                          text={t(`experiments.pacman.coord_role_${g.role}`)}
+                          duration={400}
+                        />
+                      </span>
+                    )}
                     <span className="pacman-ghost-meta">
                       {t("experiments.pacman.target")}:{" "}
                       {g.mode === "frightened"
@@ -251,6 +400,7 @@ export default function Sidebar({
           })}
         </div>
       </Panel>
+
     </>
   );
 }

@@ -1,16 +1,39 @@
 import { COLS, MAZE, ROWS } from "./constants";
 import type { Direction, Tile } from "./types";
 import { DIR_VEC } from "./constants";
+import { CHAR_KIND, type PelletKind } from "./pellets/registry";
 
 export function tileKey(col: number, row: number): string {
   return `${col},${row}`;
+}
+
+// The maze is now runtime data: built-in, generated, edited or shared layouts all
+// flow through a single active grid the whole engine reads. `setActiveMaze` bumps
+// a version so caches keyed on the layout (the AI graph) know to rebuild.
+let activeMaze: readonly string[] = MAZE;
+let mazeVersion = 0;
+
+/** Swap the layout the engine plays on. Call before resetting the game. */
+export function setActiveMaze(grid: readonly string[]): void {
+  activeMaze = grid;
+  mazeVersion++;
+}
+
+/** The layout currently in play. */
+export function getActiveMaze(): readonly string[] {
+  return activeMaze;
+}
+
+/** Increments whenever the active maze changes - lets layout caches invalidate. */
+export function getMazeVersion(): number {
+  return mazeVersion;
 }
 
 /** Character at a cell; out-of-range rows read as wall. Columns wrap (tunnel). */
 export function charAt(col: number, row: number): string {
   if (row < 0 || row >= ROWS) return "#";
   const c = ((col % COLS) + COLS) % COLS;
-  return MAZE[row][c];
+  return activeMaze[row][c];
 }
 
 export function isWall(col: number, row: number): boolean {
@@ -52,16 +75,34 @@ export function tileDistanceSq(a: Tile, b: Tile): number {
   return dc * dc + dr * dr;
 }
 
-/** Parse the maze into the live pellet and energizer sets. */
-export function makePelletSets(): { pellets: Set<string>; energizers: Set<string> } {
-  const pellets = new Set<string>();
-  const energizers = new Set<string>();
+/**
+ * Build the board content directly from the active layout's characters: '.' dot,
+ * 'o' energizer, D/F/S/T the board specials, and 'W' a dot that is also a
+ * wormhole endpoint. Consecutive 'W' tiles link into bidirectional pairs. The
+ * layout now carries its own content (placed/edited/generated), so there are no
+ * separate placement constants.
+ */
+export function buildBoard(): { board: Map<string, PelletKind>; wormholes: Map<string, string> } {
+  const board = new Map<string, PelletKind>();
+  const endpoints: [number, number][] = [];
   for (let row = 0; row < ROWS; row++) {
     for (let col = 0; col < COLS; col++) {
-      const ch = MAZE[row][col];
-      if (ch === ".") pellets.add(tileKey(col, row));
-      else if (ch === "o") energizers.add(tileKey(col, row));
+      const ch = activeMaze[row][col];
+      if (ch === "W") {
+        board.set(tileKey(col, row), "dot");
+        endpoints.push([col, row]);
+        continue;
+      }
+      const kind = CHAR_KIND[ch];
+      if (kind) board.set(tileKey(col, row), kind);
     }
   }
-  return { pellets, energizers };
+  const wormholes = new Map<string, string>();
+  for (let i = 0; i + 1 < endpoints.length; i += 2) {
+    const ka = tileKey(endpoints[i][0], endpoints[i][1]);
+    const kb = tileKey(endpoints[i + 1][0], endpoints[i + 1][1]);
+    wormholes.set(ka, kb);
+    wormholes.set(kb, ka);
+  }
+  return { board, wormholes };
 }

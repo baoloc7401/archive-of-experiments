@@ -10,10 +10,12 @@ import { useTranslation } from "react-i18next";
 import type { Theme } from "../../../hooks/useTheme";
 import { COLS, FIXED_DT, ROWS, SNAPSHOT_INTERVAL, TILE_PX } from "../constants";
 import { drawScene, readPalette, type Palette } from "../render";
-import { computeSnapshot, makeInitialState, step } from "../simulation";
+import { computeSnapshot, ghostMode, makeInitialState, step } from "../simulation";
+import { closeAudio, playCue, setMuted, setSiren, stopSiren } from "../sound";
 import { tileOf } from "../targeting";
 import type { PacController } from "../pacai";
-import type { Direction, GhostId, PacmanState, Snapshot } from "../types";
+import type { SpecialKind } from "../pellets/registry";
+import type { Direction, GhostId, PacmanState, SfxCue, Snapshot } from "../types";
 
 interface Props {
   running: boolean;
@@ -25,8 +27,14 @@ interface Props {
   explainMode: boolean;
   /** Which ghosts are switched on. */
   enabled: Record<GhostId, boolean>;
+  /** Which special board-content types are switched on. */
+  enabledPellets: Record<SpecialKind, boolean>;
   /** Who drives Pac-Man. */
   pacController: PacController;
+  /** Coordinated ghost mode (shared blackboard + role assignment). */
+  coordinated: boolean;
+  /** Whether sound effects play. */
+  soundOn: boolean;
   /** Bumping this rebuilds the board. */
   resetKey: number;
   onSnapshot: (s: Snapshot) => void;
@@ -55,6 +63,25 @@ const KEY_DIR: Record<string, Direction> = {
   D: "right",
 };
 
+/** Danger 0..1 for the siren: how close the nearest lethal active ghost is. */
+function sirenLevel(s: PacmanState): number {
+  if (s.status !== "playing") return 0;
+  const px = Math.round(s.pac.x);
+  const py = Math.round(s.pac.y);
+  let best = Infinity;
+  for (const g of s.ghosts) {
+    if (!s.enabled[g.id] || g.pen !== "active") continue;
+    const em = ghostMode(s, g);
+    if (em !== "chase" && em !== "scatter") continue; // ignore frightened / eyes
+    let dc = Math.abs(Math.round(g.x) - px);
+    dc = Math.min(dc, COLS - dc); // tunnel wrap
+    const d = dc + Math.abs(Math.round(g.y) - py);
+    if (d < best) best = d;
+  }
+  if (best === Infinity) return 0;
+  return Math.max(0, 1 - best / 8);
+}
+
 const PacmanCanvas = forwardRef<PacmanHandle, Props>(function PacmanCanvas(
   {
     running,
@@ -65,7 +92,10 @@ const PacmanCanvas = forwardRef<PacmanHandle, Props>(function PacmanCanvas(
     showDanger,
     explainMode,
     enabled,
+    enabledPellets,
     pacController,
+    coordinated,
+    soundOn,
     resetKey,
     onSnapshot,
     onHover,
@@ -93,7 +123,10 @@ const PacmanCanvas = forwardRef<PacmanHandle, Props>(function PacmanCanvas(
     showDanger,
     explainMode,
     enabled,
+    enabledPellets,
     pacController,
+    coordinated,
+    soundOn,
     onSnapshot,
     onTakeControl,
   });
@@ -106,7 +139,10 @@ const PacmanCanvas = forwardRef<PacmanHandle, Props>(function PacmanCanvas(
     showDanger,
     explainMode,
     enabled,
+    enabledPellets,
     pacController,
+    coordinated,
+    soundOn,
     onSnapshot,
     onTakeControl,
   };
@@ -138,6 +174,24 @@ const PacmanCanvas = forwardRef<PacmanHandle, Props>(function PacmanCanvas(
     propsRef.current.onSnapshot(computeSnapshot(stateRef.current));
   }, []);
 
+  // Drain the engine's sound cues, playing them when sound is on. Identical cues
+  // queued within one frame (e.g. two dots eaten in two substeps) collapse to a
+  // single blip so they do not stack at the same instant. Always clears the
+  // queue so a muted run does not back up a burst of blips on unmute.
+  const drainSfx = useCallback(() => {
+    const cues = stateRef.current.sfx;
+    if (!cues.length) return;
+    if (propsRef.current.soundOn) {
+      const seen = new Set<SfxCue>();
+      for (const c of cues) {
+        if (seen.has(c)) continue;
+        seen.add(c);
+        playCue(c);
+      }
+    }
+    cues.length = 0;
+  }, []);
+
   // --- Keyboard input ----------------------------------------------------
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
@@ -156,6 +210,9 @@ const PacmanCanvas = forwardRef<PacmanHandle, Props>(function PacmanCanvas(
   useEffect(() => {
     stateRef.current = makeInitialState();
     stateRef.current.enabled = { ...propsRef.current.enabled };
+    stateRef.current.enabledPellets = { ...propsRef.current.enabledPellets };
+    stateRef.current.pacController = propsRef.current.pacController;
+    stateRef.current.coordinated = propsRef.current.coordinated;
     timeRef.current = 0;
     hoverRef.current = null;
     onHover(null);
@@ -169,12 +226,36 @@ const PacmanCanvas = forwardRef<PacmanHandle, Props>(function PacmanCanvas(
     if (!propsRef.current.running || propsRef.current.explainMode) draw();
   }, [enabled, draw]);
 
+  // Live board-content toggles flow straight into the engine state.
+  useEffect(() => {
+    stateRef.current.enabledPellets = { ...enabledPellets };
+    emit();
+    if (!propsRef.current.running || propsRef.current.explainMode) draw();
+  }, [enabledPellets, emit, draw]);
+
   // Live driver changes flow into the engine; clear any stale AI plan.
   useEffect(() => {
     stateRef.current.pacController = pacController;
     if (pacController === "human") stateRef.current.pacPlan = null;
     if (!propsRef.current.running || propsRef.current.explainMode) draw();
   }, [pacController, draw]);
+
+  // Live coordinated-mode toggle flows into the engine; clear any stale blackboard.
+  useEffect(() => {
+    stateRef.current.coordinated = coordinated;
+    if (!coordinated) stateRef.current.blackboard = null;
+    emit();
+    if (!propsRef.current.running || propsRef.current.explainMode) draw();
+  }, [coordinated, emit, draw]);
+
+  // Mute/unmute the synth. Unmuting is a user gesture, so the AudioContext can
+  // be resumed here without tripping the browser's autoplay policy.
+  useEffect(() => {
+    setMuted(!soundOn);
+  }, [soundOn]);
+
+  // Release the shared AudioContext when leaving the experiment.
+  useEffect(() => () => closeAudio(), []);
 
   // --- Theme repaint -----------------------------------------------------
   useEffect(() => {
@@ -192,6 +273,7 @@ const PacmanCanvas = forwardRef<PacmanHandle, Props>(function PacmanCanvas(
     // Freeze the simulation in explain mode (hover to inspect a frozen frame).
     if (!running || explainMode) {
       draw();
+      stopSiren(); // no ambient siren while paused / inspecting
       return;
     }
     let raf = 0;
@@ -211,7 +293,11 @@ const PacmanCanvas = forwardRef<PacmanHandle, Props>(function PacmanCanvas(
         step(stateRef.current, FIXED_DT);
         acc -= FIXED_DT;
       }
+      drainSfx();
       draw();
+      const st = stateRef.current;
+      if (st.status === "playing") setSiren(sirenLevel(st), st.frightTime > 0);
+      else stopSiren();
       snapAcc += dt * 1000;
       if (snapAcc >= SNAPSHOT_INTERVAL) {
         snapAcc = 0;
@@ -223,8 +309,9 @@ const PacmanCanvas = forwardRef<PacmanHandle, Props>(function PacmanCanvas(
     return () => {
       stopped = true;
       cancelAnimationFrame(raf);
+      stopSiren();
     };
-  }, [running, explainMode, draw, emit]);
+  }, [running, explainMode, draw, emit, drainSfx]);
 
   // --- Sizing ------------------------------------------------------------
   useEffect(() => {
@@ -329,12 +416,16 @@ const PacmanCanvas = forwardRef<PacmanHandle, Props>(function PacmanCanvas(
       step() {
         step(stateRef.current, FIXED_DT);
         timeRef.current += FIXED_DT;
+        drainSfx();
         emit();
         draw();
       },
       reset() {
         stateRef.current = makeInitialState();
         stateRef.current.enabled = { ...propsRef.current.enabled };
+        stateRef.current.enabledPellets = { ...propsRef.current.enabledPellets };
+        stateRef.current.pacController = propsRef.current.pacController;
+        stateRef.current.coordinated = propsRef.current.coordinated;
         timeRef.current = 0;
         hoverRef.current = null;
         onHover(null);
@@ -342,7 +433,7 @@ const PacmanCanvas = forwardRef<PacmanHandle, Props>(function PacmanCanvas(
         draw();
       },
     }),
-    [emit, draw, onHover],
+    [emit, draw, onHover, drainSfx],
   );
 
   return (

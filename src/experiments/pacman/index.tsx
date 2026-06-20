@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import ScrambleText from "../../components/ScrambleText";
 import { ExperimentLayout } from "../../components/ui";
@@ -6,9 +6,18 @@ import { useTheme } from "../../hooks/useTheme";
 import { prefersReducedMotion, useReducedMotion } from "../../hooks/useReducedMotion";
 import PacmanCanvas, { type PacmanHandle } from "./components/PacmanCanvas";
 import Sidebar from "./components/Sidebar";
+import MazeEditor from "./components/MazeEditor";
+import { setActiveMaze } from "./maze";
+import { classicGrid, type MazeGrid } from "./mazes/structure";
 import type { PacController } from "./pacai";
+import { SPECIAL_KINDS, type SpecialKind } from "./pellets/registry";
 import type { GhostId, Snapshot } from "./types";
 import "./Pacman.css";
+
+const ALL_PELLETS = Object.fromEntries(SPECIAL_KINDS.map((k) => [k, true])) as Record<
+  SpecialKind,
+  boolean
+>;
 
 export default function Pacman() {
   const { t } = useTranslation();
@@ -31,13 +40,38 @@ export default function Pacman() {
   });
   const [pacController, setPacController] = useState<PacController>("human");
   const [showDanger, setShowDanger] = useState(false);
+  const [enabledPellets, setEnabledPellets] = useState<Record<SpecialKind, boolean>>(ALL_PELLETS);
+  const [coordinated, setCoordinated] = useState(false);
+  const [soundOn, setSoundOn] = useState(() => {
+    try {
+      return localStorage.getItem("pacman.sound") === "on";
+    } catch {
+      return false; // default off (autoplay etiquette) if storage is unavailable
+    }
+  });
+  const [mode, setMode] = useState<"play" | "edit">("play");
+  const [mazeName, setMazeName] = useState("classic");
+  const [mazeGrid, setMazeGrid] = useState<MazeGrid>(() => classicGrid());
 
   const canvasRef = useRef<PacmanHandle>(null);
+
+  // Remember the sound preference across visits.
+  useEffect(() => {
+    try {
+      localStorage.setItem("pacman.sound", soundOn ? "on" : "off");
+    } catch {
+      // ignore storage failures (private mode, quota)
+    }
+  }, [soundOn]);
 
   const handleSnapshot = useCallback((s: Snapshot) => setSnap(s), []);
   const handleHover = useCallback((id: GhostId | null) => setHoveredId(id), []);
   const toggleGhost = useCallback(
     (id: GhostId) => setEnabled((e) => ({ ...e, [id]: !e[id] })),
+    [],
+  );
+  const togglePellet = useCallback(
+    (k: SpecialKind) => setEnabledPellets((e) => ({ ...e, [k]: !e[k] })),
     [],
   );
   const takeControl = useCallback(() => setPacController("human"), []);
@@ -49,7 +83,43 @@ export default function Pacman() {
     setResetKey((k) => k + 1);
   }
 
+  const enterEdit = useCallback(() => setMode("edit"), []);
+  const cancelEdit = useCallback(() => setMode("play"), []);
+  const applyMaze = useCallback((grid: MazeGrid, name: string) => {
+    setActiveMaze(grid); // engine reads the active maze on the next reset/mount
+    setMazeGrid(grid);
+    setMazeName(name.trim() || "custom");
+    setExplainMode(false);
+    setRunning(!prefersReducedMotion());
+    setMode("play");
+    setResetKey((k) => k + 1);
+  }, []);
+
+  const mazeLabel =
+    mazeName === "classic" || mazeName === "custom"
+      ? t(`experiments.pacman.maze_${mazeName}`)
+      : mazeName;
+
   const status = snap?.status ?? "playing";
+
+  if (mode === "edit") {
+    return (
+      <ExperimentLayout
+        glow="accent2"
+        crumbs={[
+          { label: t("experiments.pacman.title").toLowerCase(), to: "/experiments/pacman" },
+          { label: t("experiments.pacman.editor_crumb") },
+        ]}
+      >
+        <MazeEditor
+          initialGrid={mazeGrid}
+          initialName={mazeName === "classic" || mazeName === "custom" ? "" : mazeName}
+          onPlay={applyMaze}
+          onCancel={cancelEdit}
+        />
+      </ExperimentLayout>
+    );
+  }
 
   return (
     <ExperimentLayout
@@ -88,6 +158,14 @@ export default function Pacman() {
           onSetController={setPacController}
           showDanger={showDanger}
           onToggleDanger={() => setShowDanger((v) => !v)}
+          enabledPellets={enabledPellets}
+          onTogglePellet={togglePellet}
+          coordinated={coordinated}
+          onToggleCoordinate={() => setCoordinated((v) => !v)}
+          soundOn={soundOn}
+          onToggleSound={() => setSoundOn((v) => !v)}
+          mazeLabel={mazeLabel}
+          onEditMaze={enterEdit}
         />
       }
     >
@@ -102,7 +180,10 @@ export default function Pacman() {
           showDanger={showDanger}
           explainMode={explainMode}
           enabled={enabled}
+          enabledPellets={enabledPellets}
           pacController={pacController}
+          coordinated={coordinated}
+          soundOn={soundOn}
           resetKey={resetKey}
           onSnapshot={handleSnapshot}
           onHover={handleHover}
@@ -136,6 +217,7 @@ export default function Pacman() {
           <ScrambleText text={t("experiments.pacman.controls_hint")} duration={600} />
         </span>
       </div>
+      <p className="pacman-trademark">{t("experiments.pacman.trademark")}</p>
     </ExperimentLayout>
   );
 }

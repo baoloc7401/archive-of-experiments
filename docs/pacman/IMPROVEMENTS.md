@@ -23,7 +23,7 @@ Design constraints to honour (from CLAUDE.md and the current build):
 
 ## 0. The two seed ideas (expanded)
 
-### 0.1 More pellet / board-content types, individually toggleable (M, PLAY+EDU)
+### 0.1 More pellet / board-content types, individually toggleable (M, PLAY+EDU) - DONE
 Generalise pellets from "dot | energizer" into a small content system, and let
 each type be switched on/off the way ghosts already are.
 
@@ -46,24 +46,24 @@ Implementation sketch: replace the two `Set<string>` pellet stores with a
 mirroring the ghost toggles. Render reads the registry; `eatPellets` dispatches on
 type. Sidebar gains a "board content" panel of toggle cards.
 
-### 0.2 Pac-Man AI with real solving (L, EDU+PLAY) - the headline feature
+### 0.2 Pac-Man AI with real solving (L, EDU+PLAY) - the headline feature - DONE (full 6-rung ladder)
 Let the player hand control to an AI Pac-Man and watch it reason. This is the
 natural counterpart to the ghost overlay and ties directly into the repo's
 pathfinding experiment.
 
-Strategy ladder (selectable, each its own teaching moment):
-1. **Greedy nearest pellet** - BFS to the closest dot. Baseline; gets cornered.
+Strategy ladder (selectable, each its own teaching moment) - all six shipped:
+1. **Greedy nearest pellet** - BFS to the closest dot. Baseline; gets cornered. DONE (`greedy`)
 2. **Safe greedy** - nearest pellet whose path does not pass within N tiles of a
-   ghost's predicted position (ghost danger map).
+   ghost's predicted position (ghost danger map). DONE (`safe`)
 3. **Danger-aware A\*** - A\* where cost = distance + ghost-proximity penalty
-   field; replans every few ticks.
-4. **Hamiltonian / coverage planner** - precompute a route that sweeps all
-   pellets (TSP-ish over the dot graph) and patch locally when threatened. Direct
-   bridge to the issue-thread's planned Snake + Hamiltonian idea.
+   field; replans every few ticks. DONE (`astar`)
+4. **Hamiltonian / coverage planner** - precompute a nearest-neighbour sweep tour
+   over the pellet graph (cached on state), follow it waypoint by waypoint, patch
+   locally when threatened. DONE (`coverage`)
 5. **Expectimax / short-horizon search** - search a few ply ahead modelling ghost
-   targeting; the "thinking" version. Show the search depth and chosen branch.
-6. **Monte-Carlo rollout** - run K random playouts per move, pick the safest.
-   Visualise the rollout fan.
+   targeting; the "thinking" version. Show the considered branches. DONE (`search`)
+6. **Monte-Carlo rollout** - run K random playouts per move, pick the best average.
+   Visualise the rollout fan. DONE (`montecarlo`)
 
 Overlay: draw the AI's intended path, its current target, the ghost danger field
 (heatmap), and (for search agents) the considered branches. An "AI vs you" toggle
@@ -84,10 +84,15 @@ the pathfinding experiment registers algorithms.
   *Interceptor* (targets the tile where it predicts you and Pac collide),
   *Patroller* (fixed waypoint loop), *Hunter-pack* (coordinates with a sibling to
   pincer). Each is one pure target function + a registry entry.
-- **Coordinated / communicating ghosts (L, EDU).** Opt-in mode where ghosts share
-  a blackboard (claimed tiles, role assignment: chaser/cutter/lurker). Teaches the
-  jump from independent agents to actual multi-agent coordination - the thing the
-  issue thread calls out as the repo's gap.
+- **Coordinated / communicating ghosts (L, EDU). DONE (2026-06-19).** Opt-in
+  "coordinate" toggle: active chasers share a per-tick blackboard and split roles
+  (chaser / ambusher / cutter x2 / lurker) assigned by greedy min-cost matching
+  over true shortest-path distances, so they *surround* Pac instead of each
+  chasing independently. Only sets target tiles (movement rule unchanged); chase
+  only (scatter/frightened/eaten stay canonical). `coordination.ts` +
+  `state.coordinated`/`state.blackboard`; overlay stamps a role letter, sidebar +
+  explain show each ghost's role. Teaches the jump from independent agents to
+  multi-agent coordination - the gap the issue thread calls out.
 - **Learned ghost (L, EDU, ambitious).** A tiny tabular Q-learning or evolved
   policy ghost trained in-browser against the player or AI Pac-Man, with a
   "training vs playing" view. Big payoff for a "future-proof / modern AI" angle.
@@ -112,13 +117,20 @@ the pathfinding experiment registers algorithms.
 
 ## 3. Levels, mazes & content
 
-- **Maze editor (L, PLAY+EDU).** Paint walls/pellets/spawns; validate with the
-  existing flood-fill (connectivity, 4 energizers) before play. Persist to
-  localStorage / shareable URL. Reuses the validation already written for the
-  default board.
-- **Multiple built-in mazes + procedural generator (M-L).** Ship a few classic
-  layouts; later a generator (Shaun Lebron-style) for endless boards. Ties to the
-  repo's planned maze-generator experiment - could share code.
+- **Maze editor (L, PLAY+EDU). DONE (2026-06-19).** Dedicated edit mode: paint
+  walls/dots/energizers on the 28x31 grid with the ghost house, spawns and tunnel
+  locked; live flood-fill validation (connectivity + >=1 energizer); save to
+  localStorage and export/import a maze string (copy/paste). `mazes/structure.ts`
+  (lock mask + applyStructure), `mazes/validate.ts`, `mazes/serialize.ts`,
+  `components/MazeEditor.tsx`.
+- **Multiple built-in mazes + procedural generator (M-L). DONE (2026-06-19).**
+  Symmetric tile generator (`mazes/generate.ts`): walls grown as a spanning forest
+  over an even-coordinate pillar lattice (union-find forbids wall loops, so
+  corridors stay connected with loops), left half mirrored, classic house/tunnel/
+  spawns fixed, 4 corner energizers; reseeds on the rare invalid layout. Ships the
+  classic board plus two deterministic generated originals + a Random button
+  (`mazes/registry.ts`). The whole engine now reads a runtime active maze
+  (`maze.ts` setActiveMaze + version; the AI graph rebuilds on change).
 - **Level progression (S-M, HOMAGE).** Faithful speed/timing tables per level,
   fruit ladder, and the famous level-256 "kill screen" as an easter egg.
 

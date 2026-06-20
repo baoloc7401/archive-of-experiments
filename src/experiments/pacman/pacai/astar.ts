@@ -3,7 +3,7 @@
 // being forbidden. Flees to the safest tile under PANIC, and hunts frightened
 // ghosts while they are edible.
 
-import { DANGER_WEIGHT, PANIC_DIST } from "../constants";
+import { DANGER_WEIGHT, ENERGIZER_LURE_DIST, PANIC_DIST, TRAP_AVOID_COST } from "../constants";
 import { idToTile, nearestInSet, tileToId, weightedPath } from "./graph";
 import {
   computeThreatDist,
@@ -12,7 +12,7 @@ import {
   safestTile,
   tileDanger,
 } from "./danger";
-import { fallbackDir, pelletIds } from "./util";
+import { energizerIds, fallbackDir, pelletIds, trapIds } from "./util";
 import type { PacPlan, PacStrategy } from "./types";
 
 export const astar: PacStrategy = {
@@ -21,7 +21,9 @@ export const astar: PacStrategy = {
     const start = tileToId(col, row);
     const dist = computeThreatDist(state);
     const danger = dangerField(dist);
-    const cost = (id: number) => DANGER_WEIGHT * tileDanger(dist, id);
+    const traps = trapIds(state);
+    const cost = (id: number) =>
+      DANGER_WEIGHT * tileDanger(dist, id) + (traps.has(id) ? TRAP_AVOID_COST : 0);
 
     // Hunt frightened ghosts.
     const edible = edibleGhostIds(state);
@@ -33,8 +35,13 @@ export const astar: PacStrategy = {
       }
     }
 
-    // Flee when a threat is within PANIC distance.
+    // Under threat: grab a nearby energizer to turn the tables, else flee.
     if (dist && dist[start] >= 0 && dist[start] <= PANIC_DIST) {
+      const power = nearestInSet(start, energizerIds(state));
+      if (power && power.dist <= ENERGIZER_LURE_DIST) {
+        const pr = weightedPath(start, power.id, cost);
+        if (pr?.firstDir) return plan(pr.firstDir, idToTile(power.id), pr.path, danger, "power");
+      }
       const goal = safestTile(dist);
       const pr = weightedPath(start, goal, cost);
       if (pr?.firstDir) return plan(pr.firstDir, idToTile(goal), pr.path, danger, "flee");

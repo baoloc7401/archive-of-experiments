@@ -65,3 +65,11 @@ Each experiment lives under `src/experiments/<id>/`. Add a new entry to `experim
 ## Philosophy
 
 > The best way to learn is to build something, break it, and understand why.
+
+## License & notices
+
+Original code and artwork are licensed under
+[CC BY-NC 4.0](LICENSE) (non-commercial, with attribution). Some experiments are
+educational homages to existing games and reference third-party trademarks
+nominatively; see [NOTICE.md](NOTICE.md) for the attributions and
+non-affiliation disclaimers (e.g. the Pac-Man and Minesweeper studies).

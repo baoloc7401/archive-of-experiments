@@ -136,7 +136,7 @@ If it is a visual bug, a screenshot or a five-second clip is worth a thousand "i
 
 ## Stuck?
 
-Skim the open issues and the notes in [docs/](docs/) first, because past-you (or past-someone) may have already left an answer there. If not, open an issue and tell us what you were trying to do. "It does not work" is a feeling, not a report.
+Skim the [open issues](https://github.com/baoloc7401/archive-of-experiments/issues) and the notes in [docs/](docs/) first, because past-you (or past-someone) may have already left an answer there. If not, [open an issue](https://github.com/baoloc7401/archive-of-experiments/issues/new) and tell us what you were trying to do. "It does not work" is a feeling, not a report.
 
 ## The legal bit
 

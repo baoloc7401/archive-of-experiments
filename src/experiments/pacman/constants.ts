@@ -132,6 +132,12 @@ export const WARDEN_OPPORTUNISM = 5;
 /** Warden: guard an energizer while Pac-Man is within this many tiles of it. */
 export const WARDEN_GUARD_RADIUS = 8;
 
+// --- Coordinated ghost mode (opt-in) --------------------------------------
+/** How far ahead/to the side of Pac-Man the surround stations sit (tiles). */
+export const COORD_LOOKAHEAD = 5;
+/** Max ring radius searched when snapping an off-wall station to a free tile. */
+export const COORD_RING = 6;
+
 // --- AI Pac-Man (driver strategies) ---------------------------------------
 /** Tiles over which ghost danger fades from 1 (on the ghost) to 0. */
 export const DANGER_RADIUS = 6;
@@ -141,6 +147,10 @@ export const DANGER_WEIGHT = 6;
 export const PANIC_DIST = 3;
 /** Safe-greedy refuses to route through tiles this close to a threat. */
 export const SAFE_MIN_DIST = 3;
+/** Step-cost penalty for entering a trap tile, so planners route around them. */
+export const TRAP_AVOID_COST = 50;
+/** When cornered, divert to an energizer instead of fleeing if one is this close. */
+export const ENERGIZER_LURE_DIST = 8;
 /** Look-ahead search: plies deep, and max moves explored at a branch tile. */
 export const SEARCH_DEPTH = 12;
 export const SEARCH_BRANCH = 4;
@@ -152,6 +162,17 @@ export const AI_EVAL = {
   capture: 100000,
   ghostNear: 9,
   ghostNearCap: 6,
+  trap: 120,
+} as const;
+/** Monte-Carlo rollout driver: playouts per move, plies per playout, sample paths drawn. */
+export const MC_ROLLOUTS = 24;
+export const MC_DEPTH = 20;
+export const MC_FAN = 10;
+/** Monte-Carlo terminal-state weights. */
+export const MC_EVAL = {
+  pellet: 12,
+  survive: 80,
+  death: 500,
 } as const;
 /** Overlay colours for the AI driver. */
 export const AI_PATH_COLOR = "#ffe24a";
@@ -214,6 +235,62 @@ export const ENERGIZER_POINTS = 50;
 /** Eating frightened ghosts: 200, 400, 800, 1600 within one energizer. */
 export const GHOST_POINTS = [200, 400, 800, 1600];
 export const START_LIVES = 3;
+/** One bonus life is awarded the first time the score reaches this (arcade 1UP). */
+export const EXTRA_LIFE_SCORE = 10000;
+/** Frightened time at/under which a "running out" warning blip fires (once). */
+export const FRIGHT_WARN_SECONDS = 2;
+
+/** How long a floating "+N"/"-N" score popup rises and fades (seconds). */
+export const POPUP_DURATION = 0.9;
+
+// --- Board content (special pellets) --------------------------------------
+/** Effect durations (seconds) and tuning. */
+export const DECOY_SECONDS = 6;
+export const FREEZE_SECONDS = 4;
+export const SPEED_SECONDS = 6;
+export const SPEED_BOOST = 1.6;
+export const STUN_SECONDS = 0.6;
+export const TRAP_PENALTY = 100;
+export const FRUIT_INTERVAL = 12; // seconds between fruit spawns (when none present)
+export const FRUIT_TTL = 8; // seconds a fruit stays before vanishing
+export const FRUIT_POINTS = 200;
+export const FRUIT_TILE: Tile = { col: 13, row: 17 };
+export const FRUIT_COLOR = "#ff5d6c";
+export const WORMHOLE_COLOR = "#b06bff";
+
+/**
+ * Hand-placed special pellets, applied only where the base maze cell is a dot.
+ * Energizers come from the maze 'o' cells; fruit and teleport are not in the
+ * board map (spawner + portal feature).
+ */
+export const SPECIAL_PLACEMENT: Partial<Record<"decoy" | "freeze" | "speed" | "trap", Tile[]>> = {
+  decoy: [
+    { col: 6, row: 8 },
+    { col: 21, row: 8 },
+  ],
+  freeze: [
+    { col: 6, row: 11 },
+    { col: 21, row: 11 },
+  ],
+  speed: [
+    { col: 3, row: 5 },
+    { col: 24, row: 5 },
+  ],
+  trap: [
+    { col: 9, row: 26 },
+    { col: 18, row: 26 },
+    { col: 13, row: 5 },
+    { col: 14, row: 5 },
+  ],
+};
+
+/** Wormhole endpoint pairs (each on a dot tile); stepping one emerges at the other. */
+export const WORMHOLE_PAIRS: [Tile, Tile][] = [
+  [
+    { col: 1, row: 5 },
+    { col: 26, row: 29 },
+  ],
+];
 
 // ---------------------------------------------------------------------------
 // Rendering
