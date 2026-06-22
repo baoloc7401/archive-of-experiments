@@ -1,0 +1,18 @@
+---
+source_file: "src/seo/site.ts"
+type: "code"
+community: "Routing & SEO Shell"
+location: "L107"
+tags:
+  - graphify/code
+  - graphify/EXTRACTED
+  - community/Routing__SEO_Shell
+---
+
+# homeJsonLd()
+
+## Connections
+- [[site.ts]] - `contains` [EXTRACTED]
+- [[siteUrl()]] - `calls` [EXTRACTED]
+
+#graphify/code #graphify/EXTRACTED #community/Routing__SEO_Shell

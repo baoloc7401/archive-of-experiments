@@ -1,0 +1,85 @@
+---
+source_file: "src/components/ScrambleText.tsx"
+type: "code"
+community: "Shared UI: ScrambleText & Panels"
+location: "L22"
+tags:
+  - graphify/code
+  - graphify/EXTRACTED
+  - community/Shared_UI_ScrambleText__Panels
+---
+
+# ScrambleText()
+
+## Connections
+- [[AboutTerminal.tsx]] - `imports` [EXTRACTED]
+- [[AlgoPanel.tsx]] - `imports` [EXTRACTED]
+- [[AlgorithmPicker.tsx]] - `imports` [EXTRACTED]
+- [[AlgorithmSelect.tsx]] - `imports` [EXTRACTED]
+- [[App.tsx]] - `imports` [EXTRACTED]
+- [[BoardTools.tsx]] - `imports` [EXTRACTED]
+- [[Building.tsx]] - `imports` [EXTRACTED]
+- [[CarPanel.tsx]] - `imports` [EXTRACTED]
+- [[ControlBar.tsx]] - `imports` [EXTRACTED]
+- [[Controls.tsx_1]] - `imports` [EXTRACTED]
+- [[Controls.tsx_2]] - `imports` [EXTRACTED]
+- [[Controls.tsx_3]] - `imports` [EXTRACTED]
+- [[Controls.tsx_4]] - `imports` [EXTRACTED]
+- [[Controls.tsx_5]] - `imports` [EXTRACTED]
+- [[Convergence.tsx]] - `imports` [EXTRACTED]
+- [[DebugLog.tsx]] - `imports` [EXTRACTED]
+- [[DebugLog.tsx_1]] - `imports` [EXTRACTED]
+- [[DebugLog.tsx_2]] - `imports` [EXTRACTED]
+- [[DebugPanel.tsx]] - `imports` [EXTRACTED]
+- [[DebugPanel.tsx_1]] - `imports` [EXTRACTED]
+- [[Editor.tsx]] - `imports` [EXTRACTED]
+- [[ExperimentCard.tsx]] - `imports` [EXTRACTED]
+- [[ExperimentHeader.tsx]] - `imports` [EXTRACTED]
+- [[FilterBar.tsx]] - `imports` [EXTRACTED]
+- [[GameControls.tsx]] - `imports` [EXTRACTED]
+- [[GenStats.tsx]] - `imports` [EXTRACTED]
+- [[History.tsx]] - `imports` [EXTRACTED]
+- [[Legend.tsx]] - `imports` [EXTRACTED]
+- [[Look.tsx]] - `imports` [EXTRACTED]
+- [[MazeBuilder.tsx]] - `imports` [EXTRACTED]
+- [[MazeEditor.tsx]] - `imports` [EXTRACTED]
+- [[ModeScreen.tsx]] - `imports` [EXTRACTED]
+- [[MoveHistory.tsx]] - `imports` [EXTRACTED]
+- [[NBodyCanvas.tsx]] - `imports` [EXTRACTED]
+- [[OrderChart.tsx]] - `imports` [EXTRACTED]
+- [[Panel.tsx]] - `imports` [EXTRACTED]
+- [[Params.tsx]] - `imports` [EXTRACTED]
+- [[PlayerStatus.tsx]] - `imports` [EXTRACTED]
+- [[PromotionDialog.tsx]] - `imports` [EXTRACTED]
+- [[Queue.tsx]] - `imports` [EXTRACTED]
+- [[RiverScene.tsx]] - `imports` [EXTRACTED]
+- [[Run.tsx]] - `imports` [EXTRACTED]
+- [[ScrambleText.tsx]] - `contains` [EXTRACTED]
+- [[SearchGraph.tsx]] - `imports` [EXTRACTED]
+- [[Section.tsx]] - `imports` [EXTRACTED]
+- [[SegRow.tsx]] - `imports` [EXTRACTED]
+- [[Setup.tsx]] - `imports` [EXTRACTED]
+- [[SetupPanel.tsx]] - `imports` [EXTRACTED]
+- [[Sidebar.tsx]] - `imports` [EXTRACTED]
+- [[Slider.tsx]] - `imports` [EXTRACTED]
+- [[SolverPanel.tsx]] - `imports` [EXTRACTED]
+- [[SolverPanel.tsx_1]] - `imports` [EXTRACTED]
+- [[Stat.tsx]] - `imports` [EXTRACTED]
+- [[Stats.tsx]] - `imports` [EXTRACTED]
+- [[Stats.tsx_3]] - `imports` [EXTRACTED]
+- [[StatsPanel.tsx]] - `imports` [EXTRACTED]
+- [[StoryPanel.tsx]] - `imports` [EXTRACTED]
+- [[index.tsx]] - `imports` [EXTRACTED]
+- [[index.tsx_12]] - `imports` [EXTRACTED]
+- [[index.tsx_1]] - `imports` [EXTRACTED]
+- [[index.tsx_2]] - `imports` [EXTRACTED]
+- [[index.tsx_13]] - `imports` [EXTRACTED]
+- [[index.tsx_4]] - `imports` [EXTRACTED]
+- [[index.tsx_5]] - `imports` [EXTRACTED]
+- [[index.tsx_6]] - `imports` [EXTRACTED]
+- [[index.tsx_7]] - `imports` [EXTRACTED]
+- [[index.tsx_8]] - `imports` [EXTRACTED]
+- [[index.tsx_10]] - `imports` [EXTRACTED]
+- [[index.tsx_11]] - `imports` [EXTRACTED]
+
+#graphify/code #graphify/EXTRACTED #community/Shared_UI_ScrambleText__Panels

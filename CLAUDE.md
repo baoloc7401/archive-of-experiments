@@ -2,6 +2,10 @@
 
 Guidance for Claude Code working in this repo.
 
+## Knowledge graph (query before reading)
+
+A prebuilt graphify knowledge graph lives in `graphify-out/` (gitignored): `graph.json` (~1584 nodes, 65 communities, scoped to `src` + `docs`) and a human digest `GRAPH_REPORT.md`. For "how does X work / what connects to Y / where is Z" questions, run `/graphify query "<question>"` (it answers from `graph.json` and returns `source_location`s, so only the 1-2 relevant files need opening) **before** falling back to Grep/Read across many files. For a fast architecture overview, read `GRAPH_REPORT.md` rather than the tree. The graph is a point-in-time snapshot - after substantial code changes, refresh it with `/graphify . --update`.
+
 ## Critical rules
 
 Hard constraints - each is detailed in its section below, collected here so they're never missed:
@@ -106,3 +110,13 @@ Wrap visible UI text from [src/components/ScrambleText.tsx](src/components/Scram
 - Static propless JSX → JSX constants, not function components.
 - Headings: `<h1>` hero, `<h2>` cards.
 - All interactives need `:focus-visible`. Global reset in `index.css`; overrides in `App.css`.
+
+## graphify
+
+This project has a knowledge graph at graphify-out/ with god nodes, community structure, and cross-file relationships.
+
+Rules:
+- For codebase questions, first run `graphify query "<question>"` when graphify-out/graph.json exists. Use `graphify path "<A>" "<B>"` for relationships and `graphify explain "<concept>"` for focused concepts. These return a scoped subgraph, usually much smaller than GRAPH_REPORT.md or raw grep output.
+- If graphify-out/wiki/index.md exists, use it for broad navigation instead of raw source browsing.
+- Read graphify-out/GRAPH_REPORT.md only for broad architecture review or when query/path/explain do not surface enough context.
+- After modifying code, run `graphify update .` to keep the graph current (AST-only, no API cost).
