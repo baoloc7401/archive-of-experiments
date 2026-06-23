@@ -1,11 +1,11 @@
 # Graph Report - archive-of-experiments  (2026-06-23)
 
 ## Corpus Check
-- 314 files · ~6,148,577 words
+- 314 files · ~6,148,985 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 2336 nodes · 5074 edges · 132 communities (126 shown, 6 thin omitted)
+- 2339 nodes · 5080 edges · 138 communities (133 shown, 5 thin omitted)
 - Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 35 edges (avg confidence: 0.82)
 - Token cost: 0 input · 0 output
 
@@ -144,6 +144,12 @@
 - [[_COMMUNITY_Community 129|Community 129]]
 - [[_COMMUNITY_Community 130|Community 130]]
 - [[_COMMUNITY_Community 131|Community 131]]
+- [[_COMMUNITY_Community 132|Community 132]]
+- [[_COMMUNITY_Community 133|Community 133]]
+- [[_COMMUNITY_Community 134|Community 134]]
+- [[_COMMUNITY_Community 135|Community 135]]
+- [[_COMMUNITY_Community 136|Community 136]]
+- [[_COMMUNITY_Community 137|Community 137]]
 
 ## God Nodes (most connected - your core abstractions)
 1. `ScrambleText()` - 75 edges
@@ -166,8 +172,8 @@
   docs/minesweeper/TEXTBOOK.md → docs/river-crossing/TEXTBOOK.md
 - `6-Rung Pac AI Driver Ladder` --semantically_similar_to--> `A* Search (Manhattan Heuristic)`  [INFERRED] [semantically similar]
   docs/pacman/TEXTBOOK.md → docs/pathfinding/TEXTBOOK.md
-- `Aco()` --calls--> `useTheme()`  [EXTRACTED]
-  src/experiments/aco/index.tsx → src/hooks/useTheme.ts
+- `App()` --calls--> `useTheme()`  [EXTRACTED]
+  src/App.tsx → src/hooks/useTheme.ts
 
 ## Import Cycles
 - 3-file cycle: `src/experiments/pacman/constants.ts -> src/experiments/pacman/types.ts -> src/experiments/pacman/pellets/registry.ts -> src/experiments/pacman/constants.ts`
@@ -180,35 +186,35 @@
 - **Solver/Sim as Source of Truth Pattern** — minesweeper_textbook_solver_as_truth, river_crossing_textbook_solvability_output, pacman_textbook_framework_free_engine [INFERRED 0.75]
 - **Headless Throwaway Harness Verification** — nbody_textbook_tsx_harness, pacman_textbook_framework_free_engine, river_crossing_textbook_debug_bridge [INFERRED 0.75]
 
-## Communities (132 total, 6 thin omitted)
+## Communities (138 total, 5 thin omitted)
 
 ### Community 0 - "Graph Search Core (A*/Monte-Carlo)"
-Cohesion: 0.12
-Nodes (43): astar, coverage, computeThreatDist(), dangerField(), edibleGhostIds(), safestTile(), threatTiles(), tileDanger() (+35 more)
+Cohesion: 0.13
+Nodes (38): astar, buildTour(), coverage, computeThreatDist(), dangerField(), edibleGhostIds(), safestTile(), threatTiles() (+30 more)
 
 ### Community 1 - "Elevator Simulation UI"
 Cohesion: 0.07
 Nodes (45): Props, FloorCalls, Props, ShaftProps, CarPanel(), Props, Props, Props (+37 more)
 
 ### Community 2 - "Boids Flocking Simulation"
-Cohesion: 0.13
-Nodes (18): DEFAULT_PARAMS, PRESETS, BoidParams, ColorMode, EdgeMode, Obstacle, PointerMode, PointerTool (+10 more)
+Cohesion: 0.11
+Nodes (20): DEFAULT_PARAMS, PRESETS, makeFlock(), placeFormation(), ColorMode, EdgeMode, Obstacle, PointerMode (+12 more)
 
 ### Community 3 - "L-System Editor & Canvas"
-Cohesion: 0.10
-Nodes (33): Props, build(), DEFAULT_VIEW, LCanvas, LHandle, Props, COLOR_MODES, DEFAULT_PARAMS (+25 more)
+Cohesion: 0.11
+Nodes (30): Props, build(), DEFAULT_VIEW, LCanvas, LHandle, Props, COLOR_MODES, DEFAULT_PARAMS (+22 more)
 
 ### Community 4 - "Maze Editor & Registry"
-Cohesion: 0.08
-Nodes (46): Brush, CONTENT, POP_CHARS, Props, randomizeContent(), SCAN_DELAY_MULT, TERRAIN, mql() (+38 more)
+Cohesion: 0.07
+Nodes (52): Brush, CONTENT, POP_CHARS, Props, randomizeContent(), SCAN_DELAY_MULT, TERRAIN, mql() (+44 more)
 
 ### Community 5 - "Routing & SEO Shell"
-Cohesion: 0.06
+Cohesion: 0.05
 Nodes (39): loaders, loadLocale(), restoreLanguage(), en, Translation, Widen, esc(), renderSeoTags() (+31 more)
 
 ### Community 6 - "Pac-Man Simulation Engine"
-Cohesion: 0.06
-Nodes (71): PathResult, bfsPath(), clamp(), DIR_VEC, FRUIT_TILE, GATE_EXIT, GHOST_HOME, GHOST_POINTS (+63 more)
+Cohesion: 0.07
+Nodes (60): setPortalsFromState(), DIR_VEC, FRUIT_TILE, GATE_EXIT, GHOST_HOME, GHOST_POINTS, GHOST_START, MC_EVAL (+52 more)
 
 ### Community 7 - "About Terminal & PageSpeed"
 Cohesion: 0.08
@@ -219,24 +225,24 @@ Cohesion: 0.10
 Nodes (36): Actor, buildRoster(), CANNIBAL_NAMES, chooseCrossers(), MISSIONARY_NAMES, Roster, mulberry32(), pick() (+28 more)
 
 ### Community 9 - "Theme & Layout Hooks"
-Cohesion: 0.14
-Nodes (18): Boids(), BoidsCanvas, BoidsHandle, ExperimentHeader(), Props, LangToggle(), ThemeToggle(), useReducedMotion() (+10 more)
+Cohesion: 0.13
+Nodes (19): Aco(), Boids(), useReducedMotion(), useTheme(), LSystem(), NBody(), TERMINAL_LINES, Debris (+11 more)
 
 ### Community 10 - "Minesweeper UI & Worker"
-Cohesion: 0.08
-Nodes (36): FACE, Hud(), Props, DEFAULT_CONFIG, Preset, PRESETS, clampMines(), compute3BV() (+28 more)
+Cohesion: 0.11
+Nodes (24): Props, DEFAULT_CONFIG, Preset, PRESETS, ForgeRequest, ForgeResponse, Cell, CellView (+16 more)
 
 ### Community 11 - "ACO Colony UI"
-Cohesion: 0.12
-Nodes (20): Colony, DEFAULT_LAYOUT, DEFAULT_PARAMS, LAYOUTS, PARAM_RANGES, ParamRange, Aco(), AcoDebug (+12 more)
+Cohesion: 0.14
+Nodes (16): Colony, DEFAULT_LAYOUT, DEFAULT_PARAMS, PARAM_RANGES, ParamRange, AcoDebug, AcoParams, ColonySnapshot (+8 more)
 
 ### Community 12 - "Pac-Man UI & State"
-Cohesion: 0.08
-Nodes (49): KEY_DIR, PacmanCanvas, PacmanHandle, Props, sirenLevel(), DIR_GLYPH, GHOST_NAME, PELLET_COLOR (+41 more)
+Cohesion: 0.14
+Nodes (25): Props, DIR_GLYPH, GHOST_NAME, PELLET_COLOR, Props, Sidebar(), NearestResult, PathResult (+17 more)
 
 ### Community 13 - "Chess Engine Core"
-Cohesion: 0.10
-Nodes (30): addKingMoves(), addKnightMoves(), addPawnMoves(), addSlidingMoves(), ALL_DIRS, cloneBoard(), clonePosition(), DIAGS (+22 more)
+Cohesion: 0.08
+Nodes (29): book, OPENING_LINES, addKingMoves(), addKnightMoves(), addPawnMoves(), addSlidingMoves(), ALL_DIRS, cloneBoard() (+21 more)
 
 ### Community 14 - "Algorithm Textbooks (ACO/Boids/L-System)"
 Cohesion: 0.18
@@ -244,15 +250,15 @@ Nodes (11): HiDPI canvas backing-buffer feedback bug, Contrast-normalization ren
 
 ### Community 15 - "Shared UI: ScrambleText & Panels"
 Cohesion: 0.18
-Nodes (10): fmt(), Props, Props, Stats(), Panel(), Props, Stat(), StatGrid() (+2 more)
+Nodes (11): Convergence(), Props, compact(), fmt(), Props, Stats(), Stats(), Stat() (+3 more)
 
 ### Community 16 - "River Crossing UI"
-Cohesion: 0.14
-Nodes (24): Props, ALGO_BY_ID, AlgoKind, ALGOS, DEFAULT_CONFIG, randomShoutIndex(), SPEED_PRESETS, loadLabel() (+16 more)
+Cohesion: 0.17
+Nodes (20): Props, ALGO_BY_ID, AlgoKind, ALGOS, DEFAULT_CONFIG, randomShoutIndex(), SPEED_PRESETS, loadLabel() (+12 more)
 
 ### Community 17 - "Chess Search (Alpha-Beta)"
-Cohesion: 0.19
-Nodes (25): lookupBookMove(), isEndgame(), getBestMove(), weightedPickIndex(), histKey(), isSameMove(), moveScore(), orderMoves() (+17 more)
+Cohesion: 0.17
+Nodes (28): lookupBookMove(), isEndgame(), getBestMove(), weightedPickIndex(), histKey(), isSameMove(), moveScore(), orderMoves() (+20 more)
 
 ### Community 18 - "Pathfinding Maze Builder"
 Cohesion: 0.13
@@ -264,47 +270,47 @@ Nodes (18): Node, expandOne(), Node, Node, blocked(), jump(), Node, open() (+10 
 
 ### Community 20 - "N-Body Controls & UI"
 Cohesion: 0.13
-Nodes (21): INTEGRATORS, COLOR_MODES, NBodyHandle, SegRow(), SegRowProps, DEFAULT_PARAMS, webgpuSupported(), COLOR_MODES (+13 more)
+Nodes (22): INTEGRATORS, COLOR_MODES, NBodyHandle, SegRow(), SegRowProps, DEFAULT_PARAMS, webgpuSupported(), COLOR_MODES (+14 more)
 
 ### Community 21 - "Minesweeper Backtracking Solver"
-Cohesion: 0.14
-Nodes (20): backtrackingSolver, constraintPropagationSolver, Knowledge, GENERATE_AND_TEST, getSolver(), SOLVERS, linearAlgebraSolver, probabilisticSolver (+12 more)
+Cohesion: 0.16
+Nodes (15): backtrackingSolver, constraintPropagationSolver, GENERATE_AND_TEST, SOLVERS, linearAlgebraSolver, probabilisticSolver, singlePointSolver, singlePointBacktrackingSolver (+7 more)
 
 ### Community 22 - "N-Body Physics (Barnes-Hut)"
-Cohesion: 0.13
-Nodes (27): appendBody(), bhForces(), buildOctree(), childOf(), ForceSink, growNodes(), makeOctree(), newNode() (+19 more)
+Cohesion: 0.15
+Nodes (24): DEFAULT_VIEW, NBodyCanvas, PointerState, multiply(), orbitView(), perspective(), projectToScreen(), bhForces() (+16 more)
 
 ### Community 23 - "Pathfinding Run & Algo Panel"
 Cohesion: 0.11
 Nodes (17): ALGO_FACTORIES, AlgoState, Overlay, OVERLAY_CLS, Props, VCell, Props, Props (+9 more)
 
 ### Community 24 - "River Crossing Solver"
-Cohesion: 0.10
-Nodes (25): edgeKey(), SearchGraph(), XY, SEARCH_STEP_MS, assembleBidir(), boatLoads(), Came, floodCount() (+17 more)
+Cohesion: 0.11
+Nodes (21): assembleBidir(), boatLoads(), Came, floodCount(), Frame, FrontierOpts, isGoal(), isValid() (+13 more)
 
 ### Community 25 - "Chess Evaluation"
 Cohesion: 0.14
 Nodes (22): FUTILITY_MARGINS, PIECE_VALUE, PST, PST_KING_EG, evaluate(), isMatable(), KING_OFFSETS, kingRestriction() (+14 more)
 
 ### Community 26 - "Pac-Man Rendering"
-Cohesion: 0.23
-Nodes (20): getActiveMaze(), center(), DIR_ANGLE, drawBoard(), drawDanger(), drawFruit(), drawGhost(), drawMaze() (+12 more)
+Cohesion: 0.22
+Nodes (20): center(), DIR_ANGLE, drawBoard(), drawDanger(), drawFruit(), drawGhost(), drawMaze(), DrawOpts (+12 more)
 
 ### Community 27 - "N-Body WebGL Renderer"
-Cohesion: 0.15
-Nodes (18): DEFAULT_VIEW, NBodyCanvas, PointerState, mat4, multiply(), orbitView(), perspective(), projectToScreen() (+10 more)
+Cohesion: 0.19
+Nodes (11): mat4, Palette, readPalette(), rgb, compile(), createRenderer(), DrawState, GlResources (+3 more)
 
 ### Community 28 - "Pac-Man Ghost Pathfinding"
-Cohesion: 0.19
-Nodes (7): ORIGIN_GLYPH, ORIGIN_LABEL_KEY, ButtonVariant, Props, Props, Props, trackTip()
+Cohesion: 0.17
+Nodes (21): bfsPath(), clamp(), TIE_ORDER, assignRoles(), distsToGhosts(), nearestPassable(), queue, seen (+13 more)
 
 ### Community 29 - "Minesweeper SAT & Constraints"
 Cohesion: 0.25
-Nodes (28): solve(), solve(), applyForced(), buildConstraints(), components(), Constraint, createKnowledge(), enumerate() (+20 more)
+Nodes (29): solve(), solve(), applyForced(), buildConstraints(), components(), Constraint, createKnowledge(), enumerate() (+21 more)
 
 ### Community 30 - "Minesweeper Board Tools"
-Cohesion: 0.09
-Nodes (14): BoardTools(), Props, Props, ITEMS, Legend(), Props, ScrambleText(), Props (+6 more)
+Cohesion: 0.08
+Nodes (22): BoardTools(), Props, FACE, Hud(), Props, ORIGIN_GLYPH, ORIGIN_LABEL_KEY, ScrambleText() (+14 more)
 
 ### Community 31 - "Shared UI Primitives"
 Cohesion: 0.20
@@ -319,12 +325,12 @@ Cohesion: 0.19
 Nodes (16): FILES, PIECE_SORT, PIECE_VAL, RANKS, SYMBOLS, applyMove(), getGameStatus(), Piece (+8 more)
 
 ### Community 34 - "Minesweeper Field Generator"
-Cohesion: 0.07
-Nodes (37): fieldVerdict(), Preview(), Props, Props, RDCanvas, RDHandle, DEFAULT_PARAMS, clamp01() (+29 more)
+Cohesion: 0.06
+Nodes (39): fieldVerdict(), Preview(), Props, Props, RDCanvas, RDHandle, DEFAULT_PARAMS, RES_LEVELS (+31 more)
 
 ### Community 35 - "N-Body Scene Presets"
-Cohesion: 0.20
-Nodes (19): gauss(), genBelt(), genBinary(), genBlackHole(), genCloud(), genCluster(), genCollision(), genDisk() (+11 more)
+Cohesion: 0.18
+Nodes (21): gauss(), genBelt(), genBinary(), genBlackHole(), genCloud(), genCluster(), genCollision(), genDisk() (+13 more)
 
 ### Community 36 - "Pac-Man Docs & Design Notes"
 Cohesion: 0.11
@@ -335,16 +341,16 @@ Cohesion: 0.06
 Nodes (33): dependencies, i18next, react, react-dom, react-i18next, react-router-dom, devDependencies, eslint (+25 more)
 
 ### Community 38 - "Chess AI Worker"
-Cohesion: 0.14
-Nodes (16): book, OPENING_LINES, ClearRequest, ctx, SearchRequest, SearchResult, WorkerRequest, AI_DELAY (+8 more)
+Cohesion: 0.21
+Nodes (14): ClearRequest, ctx, SearchRequest, SearchResult, WorkerRequest, AI_DELAY, AIConfig, Move (+6 more)
 
 ### Community 39 - "Chess AI Docs & Findings"
 Cohesion: 0.32
 Nodes (7): Math.random() at module load is thread-local (cross-thread hash bug), Difficulty as a vector of knobs (noise, top-N, eval toggles), Flat objective makes a correct optimiser pick randomly, Make/unmake mutation pattern, Mate-distance encoding (leaf + TT round-trip), Web Worker off-thread search, Deterministic seeded Zobrist hashing
 
 ### Community 40 - "Home Gateway & Experiment Cards"
-Cohesion: 0.16
-Nodes (19): ExperimentCard(), Props, STATUS_CLS, FilterBar(), Props, STATUSES, StatusFilter, Props (+11 more)
+Cohesion: 0.19
+Nodes (14): ExperimentCard(), Props, STATUS_CLS, FilterBar(), Props, STATUSES, StatusFilter, useScrambledText() (+6 more)
 
 ### Community 41 - "Chess Types & Pieces"
 Cohesion: 0.22
@@ -355,12 +361,12 @@ Cohesion: 0.27
 Nodes (14): add(), deduceFromRows(), div(), eq(), Frac, gcd(), isNeg(), isPos() (+6 more)
 
 ### Community 43 - "N-Body Physics Docs"
-Cohesion: 0.22
-Nodes (10): N-Body Gravity Textbook, Barnes-Hut Octree, Black Hole Capped Singularity, Individual/Block Timesteps & Regularization, Symplectic Leapfrog Integrator, Plummer Softening, Solar System Moons Removed (Hill Sphere), Substep vs TimeScale Separation (+2 more)
+Cohesion: 0.15
+Nodes (14): N-Body Gravity Textbook, Barnes-Hut Octree, Black Hole Capped Singularity, Individual/Block Timesteps & Regularization, Figure-8 Choreography, Symplectic Leapfrog Integrator, Plummer Softening, Solar System Moons Removed (Hill Sphere) (+6 more)
 
 ### Community 44 - "Community 44"
-Cohesion: 0.23
-Nodes (8): Props, compact(), NBodySnapshot, buildReport(), DebugPanel(), wrapDeg(), Props, Stats()
+Cohesion: 0.27
+Nodes (7): Props, NBodySnapshot, buildReport(), DebugPanel(), Props, wrapDeg(), Props
 
 ### Community 45 - "PageSpeed / Performance Docs"
 Cohesion: 0.11
@@ -371,12 +377,12 @@ Cohesion: 0.18
 Nodes (7): DEFAULT_MAZE_OPTIONS, loadGrid(), PF_STEPS, SCREEN_SLUG, SLUG_SCREEN, makeDefaultGrid(), AppScreen
 
 ### Community 47 - "River Crossing Scene"
-Cohesion: 0.31
-Nodes (8): PersonKind, doomedBank(), people(), Props, RiverScene(), RiverCrossing(), rightBank(), useRiverCrossing()
+Cohesion: 0.22
+Nodes (10): PersonKind, Props, doomedBank(), people(), Props, RiverScene(), RiverCrossing(), rightBank() (+2 more)
 
 ### Community 48 - "River Crossing Docs"
-Cohesion: 0.12
-Nodes (15): Replay Decisions Not Result, Figure-8 Choreography, Three-Body Ejection / Hierarchical Triple, Throwaway tsx Verification Harness, Bidirectional BFS, Bidirectional Illegal-Goal Gotcha, More Algorithms (Greedy/IDDFS/Bidir/UCS), Narrative Story Layer (+7 more)
+Cohesion: 0.20
+Nodes (9): Bidirectional BFS, Bidirectional Illegal-Goal Gotcha, More Algorithms (Greedy/IDDFS/Bidir/UCS), Narrative Story Layer, River Crossing - Improvement Roadmap, Animate Search (Frontier/Explored), What the Experiment Already Does, A Search Result is a Path, Not a Policy (+1 more)
 
 ### Community 49 - "Minesweeper Probability Solver"
 Cohesion: 0.18
@@ -387,16 +393,16 @@ Cohesion: 0.20
 Nodes (11): Spanning-Forest Maze Generator, Heuristic Admissibility (weights >= 1), A* Search (Manhattan Heuristic), Depth-First Search, Dijkstra's Algorithm, Generator Snapshot Visualization, Greedy Best-First Search, Harabor & Grastien 2011 (JPS paper) (+3 more)
 
 ### Community 51 - "Pathfinding Algorithm Docs"
-Cohesion: 0.13
-Nodes (26): buildTour(), adj, build(), degree, dirBetweenIds(), dist, ensure(), firstDirIdx (+18 more)
+Cohesion: 0.14
+Nodes (24): adj, build(), degree, dirBetweenIds(), dist, ensure(), firstDirIdx, gCost (+16 more)
 
 ### Community 52 - "N-Body WebGPU Solver"
-Cohesion: 0.20
-Nodes (8): createGpuSolver(), GpuSolver, StagingSlot, PresetDef, Bodies, Integrator, PresetId, View
+Cohesion: 0.22
+Nodes (6): createGpuSolver(), GpuSolver, StagingSlot, PresetDef, Bodies, PresetId
 
 ### Community 53 - "Minesweeper Docs"
-Cohesion: 0.28
-Nodes (8): 3BV (Bechtel Board Benchmark Value), Exact Probability Under Global Budget, fullPropagate Pipeline, Single-Mine Hill-Climb Repair, No-Guess Generate-and-Test, Solver-as-Oracle Pattern, Seven Solver Engines, Subset Elimination as Tractability Step
+Cohesion: 0.22
+Nodes (10): 3BV (Bechtel Board Benchmark Value), Exact Probability Under Global Budget, fullPropagate Pipeline, Single-Mine Hill-Climb Repair, No-Guess Generate-and-Test, Replay Decisions Not Result, Solver-as-Oracle Pattern, Seven Solver Engines (+2 more)
 
 ### Community 54 - "ACO City Layouts"
 Cohesion: 0.11
@@ -415,8 +421,8 @@ Cohesion: 0.06
 Nodes (34): 1a. Transition duration outran the tick at higher speeds - **FIXED**, 1b. Position driven through a CSS variable never transitioned - **FIXED** (PRIMARY), 1c. `prefers-reduced-motion` forced an instant teleport - **FIXED**, Design decisions (the "craft") - don't regress these, Elevator Scheduling - Known Issues, Circular return as multi-tick express run, Fix: model the return as a real, multi-tick, non-stop EXPRESS run, ISSUE-1: Car "teleports" between floors instead of gliding ("nausea jumping") (+26 more)
 
 ### Community 59 - "Setup Panel / Stepper"
-Cohesion: 0.12
-Nodes (17): 0. The single most important finding, 1.1 Setup, 1.2 Tour construction (one ant), 1.3 Pheromone update (once per generation, after *all* ants finish), 1. The algorithm: Ant System on the TSP, 2.1 `buildGeneration()` / `commit()` split, 2.2 Initial pheromone τ₀ = m / L_nn, 2.3 Scaled coordinate space (+9 more)
+Cohesion: 0.17
+Nodes (12): 0. The single most important finding, 1.1 Setup, 1.2 Tour construction (one ant), 1.3 Pheromone update (once per generation, after *all* ants finish), 1. The algorithm: Ant System on the TSP, 3. Parameter intuition (observed behaviour), 5. The animation model, 6. Engineering findings (the canvas/layout bug) (+4 more)
 
 ### Community 60 - "Debug Log Component"
 Cohesion: 0.10
@@ -431,12 +437,12 @@ Cohesion: 0.33
 Nodes (5): Branding, Files, Lightning-bolt experiment-spark mark, Shipped derivatives, The mark
 
 ### Community 65 - "Community 65"
-Cohesion: 0.27
-Nodes (12): makeFlock(), placeFormation(), Palette, readPalette(), rgb(), addTriangle(), drawScene(), DrawState (+4 more)
+Cohesion: 0.25
+Nodes (14): Palette, readPalette(), rgb(), addTriangle(), drawScene(), DrawState, BoidParams, BoidSnapshot (+6 more)
 
 ### Community 66 - "Community 66"
-Cohesion: 0.13
-Nodes (15): 10. Color by heading or cluster, 1. Spatial hash grid for neighbor queries, 2. Toroidal (wrapped) neighbor distance, 3. Visualize the rules (radius + steering vectors), 4. Edge behavior toggle (wrap / bounce / steer-away), 5. Predator / mouse interaction, 6. Field of view (perception angle), 7. Behavior presets (+7 more)
+Cohesion: 0.08
+Nodes (25): 10. Color by heading or cluster, 13. Flow field / wind (Perlin), 14. Obstacles, 15. Multiple species / factions, 16. Autonomous predators + population, 17. Waypoint / goal seeking, 18. Light-painting trails + PNG export, 19. Startup formations (+17 more)
 
 ### Community 67 - "Community 67"
 Cohesion: 0.22
@@ -447,8 +453,8 @@ Cohesion: 0.10
 Nodes (19): compilerOptions, allowImportingTsExtensions, isolatedModules, jsx, lib, module, moduleDetection, moduleResolution (+11 more)
 
 ### Community 69 - "Community 69"
-Cohesion: 0.23
-Nodes (9): BoidSnapshot, Props, Convergence(), Props, OrderChart(), Props, Props, Theme (+1 more)
+Cohesion: 0.27
+Nodes (6): OrderChart(), Props, Props, ThemeToggle(), Theme, Props
 
 ### Community 70 - "Community 70"
 Cohesion: 0.10
@@ -467,8 +473,8 @@ Cohesion: 0.11
 Nodes (17): compilerOptions, allowImportingTsExtensions, isolatedModules, lib, module, moduleDetection, moduleResolution, noEmit (+9 more)
 
 ### Community 75 - "Community 75"
-Cohesion: 0.08
-Nodes (26): 0. The single most important finding, 10. Where this is *not* "real" Minesweeper (scope boundary), 11. Further real-world context, 1. Shared model & terminology, 2.1 First-click safety, 2.2 Generate-and-test, 2.3 Single-mine hill-climb repair (the speed trick), 2.4 Honesty when the budget runs out (+18 more)
+Cohesion: 0.12
+Nodes (17): 0. The single most important finding, 10. Where this is *not* "real" Minesweeper (scope boundary), 11. Further real-world context, 1. Shared model & terminology, 2.1 First-click safety, 2.2 Generate-and-test, 2.3 Single-mine hill-climb repair (the speed trick), 2.4 Honesty when the budget runs out (+9 more)
 
 ### Community 76 - "Community 76"
 Cohesion: 0.12
@@ -495,12 +501,12 @@ Cohesion: 0.17
 Nodes (12): 0. The single most important finding, 10. Further real-world context, 1. The model and our steering form, 2. The three rules, as implemented (and their fidelity), 3. Parameter intuition, as observed, 4. Seeing emergence: the order parameter and heading colour, 5. Scaling findings: O(n) neighbors, SoA, batched draw, 6. The engineering finding: the component is glue, the work is modules (+4 more)
 
 ### Community 82 - "Community 82"
-Cohesion: 0.10
-Nodes (18): Component is glue, work is modules, Reynolds three-rule flocking, Reynolds steering (desired - velocity), Toroidal wrap breaks distance & cohesion, Approach, Decisions (locked), ExperimentLayout, Canonical house style (+10 more)
+Cohesion: 0.17
+Nodes (12): Approach, Decisions (locked), ExperimentLayout, i18n compile-time type safety, Phase 1 - Foundation tokens & hooks, Phase 2 - Shared primitive library, Phase 3 - Per-experiment sync, Phase 4 - Guardrails ✅ (+4 more)
 
 ### Community 83 - "Community 83"
-Cohesion: 0.20
-Nodes (5): LogEntry, KIND_MARK, Props, Button(), Props
+Cohesion: 0.50
+Nodes (3): LogEntry, KIND_MARK, Props
 
 ### Community 84 - "Community 84"
 Cohesion: 0.20
@@ -512,11 +518,15 @@ Nodes (10): 1. Transposition Table (TT), 2. Iterative Deepening (ID), 3. Better 
 
 ### Community 86 - "Community 86"
 Cohesion: 0.20
-Nodes (7): TERMINAL_LINES, MascotView, Mood, useMascotPhysics(), Phase, TermView, useTypingTerminal()
+Nodes (14): clampMines(), compute3BV(), generateField(), hardestOf(), rate(), disk(), neighbors(), neighborTable() (+6 more)
+
+### Community 87 - "Community 87"
+Cohesion: 0.31
+Nodes (5): Crumb, ExperimentHeader(), Props, LangToggle(), Props
 
 ### Community 88 - "Community 88"
-Cohesion: 0.20
-Nodes (10): 13. Flow field / wind (Perlin), 14. Obstacles, 15. Multiple species / factions, 16. Autonomous predators + population, 17. Waypoint / goal seeking, 18. Light-painting trails + PNG export, 19. Startup formations, 20. Shareable URL config [N/A] (+2 more)
+Cohesion: 0.21
+Nodes (15): KEY_DIR, PacmanCanvas, PacmanHandle, sirenLevel(), Palette, readPalette(), closeAudio(), ensure() (+7 more)
 
 ### Community 89 - "Community 89"
 Cohesion: 0.20
@@ -651,12 +661,12 @@ Cohesion: 0.25
 Nodes (8): 4.1 JPS "no path" on open grids (the §0 finding), 4.2 JPS path rendered as disconnected dots, 4.3 Path overlay contrast on colorful terrain, 4.4 CSS stacking and the JPS warning tooltip, 4.5 Scroll layout: the flex-collapse trap, 4.6 Bidirectional BFS meeting condition, 4.7 Generator step count vs. "explored" node count, 4. Real findings from building the visualization
 
 ### Community 126 - "Community 126"
-Cohesion: 0.33
-Nodes (8): binom(), binomCache, convolve(), Detail, enumerateDetailed(), probabilities(), ProbResult, ratio()
+Cohesion: 0.25
+Nodes (10): Knowledge, binom(), binomCache, convolve(), Detail, enumerateDetailed(), probabilities(), ProbResult (+2 more)
 
 ### Community 127 - "Community 127"
-Cohesion: 0.62
-Nodes (6): clusters(), generateCities(), grid(), ring(), rnd(), scatter()
+Cohesion: 0.29
+Nodes (9): LAYOUTS, clusters(), generateCities(), grid(), ring(), rnd(), scatter(), LayoutId (+1 more)
 
 ### Community 128 - "Community 128"
 Cohesion: 0.40
@@ -671,32 +681,56 @@ Cohesion: 0.40
 Nodes (5): 1.1 State, 1.2 Validity, 1.3 Moves and the branching factor, 1.4 State-space size, 1. The model & the state space
 
 ### Community 131 - "Community 131"
-Cohesion: 0.48
-Nodes (4): matchPreset(), buildReport(), DebugPanel(), wrapDeg()
+Cohesion: 0.16
+Nodes (10): matchPreset(), LSnapshot, Props, buildReport(), DebugPanel(), Props, wrapDeg(), Props (+2 more)
+
+### Community 132 - "Community 132"
+Cohesion: 0.24
+Nodes (8): ITEMS, Legend(), Props, effectiveDelayFor(), frameAt(), Options, randGlyph(), scrambled()
+
+### Community 133 - "Community 133"
+Cohesion: 0.22
+Nodes (6): Component is glue, work is modules, Reynolds three-rule flocking, Reynolds steering (desired - velocity), Toroidal wrap breaks distance & cohesion, Canonical house style, Motion & structural tokens
+
+### Community 134 - "Community 134"
+Cohesion: 0.22
+Nodes (9): 3.7 `fullPropagate` - the shared complete pipeline, 3. The solver suite, Backtracking ("tank"), Constraint Propagation, Linear Algebra, Probabilistic, SAT / CSP, Single-Point (+1 more)
+
+### Community 135 - "Community 135"
+Cohesion: 0.39
+Nodes (8): appendBody(), buildOctree(), childOf(), ForceSink, growNodes(), newNode(), Octree, Scratch
+
+### Community 136 - "Community 136"
+Cohesion: 0.47
+Nodes (5): edgeKey(), SearchGraph(), XY, SEARCH_STEP_MS, startState()
+
+### Community 137 - "Community 137"
+Cohesion: 0.40
+Nodes (5): 2.1 `buildGeneration()` / `commit()` split, 2.2 Initial pheromone τ₀ = m / L_nn, 2.3 Scaled coordinate space, 2.4 Convergence detection, 2. Implementation choices
 
 ## Ambiguous Edges - Review These
 - `Euclidean Traveling Salesman Problem` → `Uniform spatial hash grid`  [AMBIGUOUS]
   docs/boids/IMPROVEMENTS.md · relation: semantically_similar_to
 
 ## Knowledge Gaps
-- **789 isolated node(s):** `CORE`, `SKIP_MODES`, `name`, `private`, `version` (+784 more)
+- **790 isolated node(s):** `CORE`, `SKIP_MODES`, `name`, `private`, `version` (+785 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **6 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **5 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
 - **What is the exact relationship between `Euclidean Traveling Salesman Problem` and `Uniform spatial hash grid`?**
   _Edge tagged AMBIGUOUS (relation: semantically_similar_to) - confidence is low._
-- **Why does `ScrambleText()` connect `Minesweeper Board Tools` to `Elevator Simulation UI`, `Community 129`, `L-System Editor & Canvas`, `Maze Editor & Registry`, `Boids Flocking Simulation`, `Community 131`, `About Terminal & PageSpeed`, `Theme & Layout Hooks`, `Minesweeper UI & Worker`, `ACO Colony UI`, `Pac-Man UI & State`, `Shared UI: ScrambleText & Panels`, `River Crossing UI`, `Pathfinding Maze Builder`, `N-Body Controls & UI`, `Minesweeper Backtracking Solver`, `Pathfinding Run & Algo Panel`, `River Crossing Solver`, `N-Body WebGL Renderer`, `Pac-Man Ghost Pathfinding`, `Chess Game Mode & Setup`, `Minesweeper Field Generator`, `Chess AI Worker`, `Home Gateway & Experiment Cards`, `Chess Types & Pieces`, `Community 44`, `River Crossing Scene`, `Community 69`, `Community 83`?**
-  _High betweenness centrality (0.111) - this node is a cross-community bridge._
-- **Why does `Theme` connect `Community 69` to `Community 65`, `L-System Editor & Canvas`, `Theme & Layout Hooks`, `ACO Colony UI`, `Community 44`, `Pac-Man UI & State`, `Shared UI: ScrambleText & Panels`, `N-Body WebGL Renderer`?**
+- **Why does `ScrambleText()` connect `Minesweeper Board Tools` to `Elevator Simulation UI`, `Community 129`, `L-System Editor & Canvas`, `Community 132`, `Maze Editor & Registry`, `Routing & SEO Shell`, `About Terminal & PageSpeed`, `Community 136`, `Theme & Layout Hooks`, `Boids Flocking Simulation`, `ACO Colony UI`, `Pac-Man UI & State`, `Minesweeper UI & Worker`, `Shared UI: ScrambleText & Panels`, `River Crossing UI`, `Pathfinding Maze Builder`, `N-Body Controls & UI`, `Community 131`, `N-Body Physics (Barnes-Hut)`, `Pathfinding Run & Algo Panel`, `Minesweeper Backtracking Solver`, `Chess Game Mode & Setup`, `Minesweeper Field Generator`, `Chess AI Worker`, `Home Gateway & Experiment Cards`, `Chess Types & Pieces`, `Community 44`, `River Crossing Scene`, `Community 65`, `Community 69`, `Community 83`, `Community 87`, `Community 127`?**
+  _High betweenness centrality (0.116) - this node is a cross-community bridge._
+- **Why does `Theme` connect `Community 69` to `Community 65`, `L-System Editor & Canvas`, `ACO Colony UI`, `Community 44`, `Pac-Man UI & State`, `Shared UI: ScrambleText & Panels`, `N-Body Physics (Barnes-Hut)`, `Community 88`?**
   _High betweenness centrality (0.016) - this node is a cross-community bridge._
-- **Why does `prefersReducedMotion()` connect `Maze Editor & Registry` to `Minesweeper Field Generator`, `L-System Editor & Canvas`, `Home Gateway & Experiment Cards`, `Theme & Layout Hooks`, `Minesweeper UI & Worker`, `Pac-Man UI & State`, `N-Body Controls & UI`?**
-  _High betweenness centrality (0.013) - this node is a cross-community bridge._
+- **Why does `search()` connect `Graph Search Core (A*/Monte-Carlo)` to `Chess Search (Alpha-Beta)`, `Minesweeper SAT & Constraints`?**
+  _High betweenness centrality (0.012) - this node is a cross-community bridge._
 - **What connects `CORE`, `SKIP_MODES`, `name` to the rest of the system?**
-  _801 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _802 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Graph Search Core (A*/Monte-Carlo)` be split into smaller, more focused modules?**
-  _Cohesion score 0.12098188194038574 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.125544267053701 - nodes in this community are weakly interconnected._
 - **Should `Elevator Simulation UI` be split into smaller, more focused modules?**
   _Cohesion score 0.06693803708729082 - nodes in this community are weakly interconnected._

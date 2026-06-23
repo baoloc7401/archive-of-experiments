@@ -1065,13 +1065,13 @@
     "semantic_hash": "0a7297df4943c3eaba92e40290c9dab3"
   },
   "src/i18n/locales/en.ts": {
-    "mtime": 1782099445.2633677,
-    "ast_hash": "ed290980d5732cc56d0d9079bfd2623e",
+    "mtime": 1782230405.7772028,
+    "ast_hash": "c57392ee53af5ecd9ff9c1a87e71d2b8",
     "semantic_hash": ""
   },
   "src/i18n/locales/vi.ts": {
-    "mtime": 1782099452.137985,
-    "ast_hash": "d1d64ec413d438770782682326c596f8",
+    "mtime": 1782230413.3531058,
+    "ast_hash": "65fdd9ce4608d928b82b83bc734db4f5",
     "semantic_hash": ""
   },
   "src/main.tsx": {
@@ -1390,8 +1390,8 @@
     "semantic_hash": ""
   },
   "src/experiments/reaction-diffusion/components/Look.tsx": {
-    "mtime": 1782094875.0323608,
-    "ast_hash": "4e7315f4c9c27497232bb0cf98f29add",
+    "mtime": 1782228904.7180142,
+    "ast_hash": "a3b5d89db1a005b87e59f223b0f9d1eb",
     "semantic_hash": ""
   },
   "src/experiments/reaction-diffusion/components/Preview.tsx": {
@@ -1400,18 +1400,18 @@
     "semantic_hash": ""
   },
   "src/experiments/reaction-diffusion/components/RDCanvas.tsx": {
-    "mtime": 1782104650.0500169,
-    "ast_hash": "87140084b5d4385ee92a99b82c31fd42",
+    "mtime": 1782228883.3508916,
+    "ast_hash": "cf13f3571bcce5b4cad78070460b4844",
     "semantic_hash": ""
   },
   "src/experiments/reaction-diffusion/constants.ts": {
-    "mtime": 1782225835.2837315,
-    "ast_hash": "54c8c50d683691509870dfb2640580de",
+    "mtime": 1782230399.0601547,
+    "ast_hash": "de3056fa382391dc30d56eacc4da7d81",
     "semantic_hash": ""
   },
   "src/experiments/reaction-diffusion/index.tsx": {
-    "mtime": 1782188298.174063,
-    "ast_hash": "77aaebdbd8c8ae82bb54c7d0c17ee6fb",
+    "mtime": 1782228997.7385747,
+    "ast_hash": "dc25a004256250a6af129056c40b4db8",
     "semantic_hash": ""
   },
   "src/experiments/reaction-diffusion/palettes.ts": {
@@ -1430,13 +1430,13 @@
     "semantic_hash": ""
   },
   "src/experiments/reaction-diffusion/simulation.ts": {
-    "mtime": 1782191467.5576327,
-    "ast_hash": "3e26515643c4622a8b8fb052344a0cef",
+    "mtime": 1782228827.2980678,
+    "ast_hash": "3ee693350a16aa32ec44c82430cf480e",
     "semantic_hash": ""
   },
   "src/experiments/reaction-diffusion/types.ts": {
-    "mtime": 1782104644.543364,
-    "ast_hash": "9b09a79f23d0d1fee7d3a4e22a1c8080",
+    "mtime": 1782228735.0094025,
+    "ast_hash": "fa0de5d01762cfc3175bf17fab940609",
     "semantic_hash": ""
   },
   "tsconfig.app.json": {
