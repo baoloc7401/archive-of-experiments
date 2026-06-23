@@ -116,4 +116,10 @@ export const experiments: Experiment[] = [
     status: "planned",
     path: "/experiments/quadtree",
   },
+  {
+    id: "reaction-diffusion",
+    tags: ["simulation", "math", "visualization"],
+    status: "active",
+    path: "/experiments/reaction-diffusion",
+  },
 ];
