@@ -20,15 +20,22 @@ export default function Stats({ snap }: Props) {
   const { t } = useTranslation();
   const k = (key: string) => t(`experiments.n-body.${key}`);
 
+  // The GPU path is float32 brute force with no potential-energy term, so the
+  // float64 energy/drift readouts do not apply - say so rather than mislead.
+  const gpu = snap?.gpuActive ?? false;
+  const naGpu = k("stat_na_gpu");
   const driftPct = snap ? snap.drift * 100 : 0;
-  const driftWarn = snap !== null && Math.abs(snap.drift) > DRIFT_WARN;
-  const driftValue = snap ? (
+  const driftWarn = snap !== null && !gpu && Math.abs(snap.drift) > DRIFT_WARN;
+  const driftValue = !snap ? (
+    DASH
+  ) : gpu ? (
+    <span className="nb-stat-na">{naGpu}</span>
+  ) : (
     <span className={driftWarn ? "nb-drift-warn" : undefined}>
       {`${driftPct >= 0 ? "+" : ""}${driftPct.toFixed(2)}%`}
     </span>
-  ) : (
-    DASH
   );
+  const energyValue = !snap ? DASH : gpu ? <span className="nb-stat-na">{naGpu}</span> : snap.total.toFixed(3);
 
   return (
     <Panel title={k("telemetry")}>
@@ -40,7 +47,7 @@ export default function Stats({ snap }: Props) {
           value={snap ? `${compact(snap.evals)} · ${snap.evalsPct.toFixed(1)}%` : DASH}
         />
         <Stat label={k("stat_time")} value={snap ? `${snap.simTime.toFixed(1)}s` : DASH} />
-        <Stat label={k("stat_energy")} value={snap ? snap.total.toFixed(3) : DASH} />
+        <Stat label={k("stat_energy")} value={energyValue} />
         <Stat label={k("stat_drift")} value={driftValue} highlight />
       </StatGrid>
       {snap && snap.follow >= 0 && (

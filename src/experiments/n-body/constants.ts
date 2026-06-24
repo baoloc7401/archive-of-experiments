@@ -74,4 +74,10 @@ export const DEFAULT_PARAMS: NBodyParams = {
   trails: 2,
   colorMode: "speed",
   spin: true,
+  compute: "cpu",
 };
+
+/** Whether this browser exposes the WebGPU API (gates the GPU-compute toggle). */
+export function webgpuSupported(): boolean {
+  return typeof navigator !== "undefined" && !!navigator.gpu;
+}

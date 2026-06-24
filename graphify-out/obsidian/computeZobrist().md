@@ -1,0 +1,20 @@
+---
+source_file: "src/experiments/chess/zobrist.ts"
+type: "code"
+community: "Chess Engine Core"
+location: "L51"
+tags:
+  - graphify/code
+  - graphify/EXTRACTED
+  - community/Chess_Engine_Core
+---
+
+# computeZobrist()
+
+## Connections
+- [[engine.ts]] - `imports` [EXTRACTED]
+- [[initialPosition()]] - `calls` [EXTRACTED]
+- [[zPiece()]] - `calls` [EXTRACTED]
+- [[zobrist.ts]] - `contains` [EXTRACTED]
+
+#graphify/code #graphify/EXTRACTED #community/Chess_Engine_Core

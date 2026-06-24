@@ -26,6 +26,13 @@ export type Integrator = "leapfrog" | "euler";
 /** How each body is tinted by the shader. */
 export type ColorMode = "speed" | "mass" | "mono";
 
+/**
+ * Which engine integrates the bodies. `cpu` is the default Barnes-Hut float64
+ * truth engine; `gpu` is the opt-in WebGPU brute-force float32 solver for big
+ * scenes (no Barnes-Hut, no merging, leapfrog only - see gpu/solver.ts).
+ */
+export type Compute = "cpu" | "gpu";
+
 /** Initial-condition scene applied on seed/reset. */
 export type PresetId =
   | "collision"
@@ -71,6 +78,8 @@ export interface NBodyParams {
   colorMode: ColorMode;
   /** Slow auto-orbit of the camera while running. */
   spin: boolean;
+  /** Physics engine: CPU Barnes-Hut (default) or the WebGPU brute-force solver. */
+  compute: Compute;
 }
 
 /** Orbit camera state driven by drag, wheel/pinch, and auto-spin. */
@@ -105,4 +114,6 @@ export interface NBodySnapshot {
   dpr: number;
   /** GL renderer string for perf debugging (empty until known). */
   gpu: string;
+  /** True while the WebGPU compute solver is actively integrating. */
+  gpuActive: boolean;
 }

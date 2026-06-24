@@ -2,6 +2,10 @@
 
 Guidance for Claude Code working in this repo.
 
+## Knowledge graph (query before reading)
+
+A prebuilt graphify knowledge graph lives in `graphify-out/` (gitignored): `graph.json` (~1584 nodes, 65 communities, scoped to `src` + `docs`) and a human digest `GRAPH_REPORT.md`. For "how does X work / what connects to Y / where is Z" questions, run `/graphify query "<question>"` (it answers from `graph.json` and returns `source_location`s, so only the 1-2 relevant files need opening) **before** falling back to Grep/Read across many files. For a fast architecture overview, read `GRAPH_REPORT.md` rather than the tree. The graph is a point-in-time snapshot - after substantial code changes, refresh it with `/graphify . --update`.
+
 ## Critical rules
 
 Hard constraints - each is detailed in its section below, collected here so they're never missed:
@@ -12,7 +16,7 @@ Hard constraints - each is detailed in its section below, collected here so they
 - **Never use the em dash (U+2014)** anywhere - prose, code, comments, i18n, docs, commits. Use ` - `, a comma, colon, or parentheses.
 - **Translate every user-facing string** in both `en` and `vi` - no hardcoded English (see i18n exemptions below).
 - **Prefer the shared UI primitives** in `src/components/ui/` over bespoke per-experiment CSS.
-- **Run `npx tsc --noEmit && npm run build` before committing.**
+- **Run `npx tsc --noEmit && npm run lint && npm run build` as one chained command before committing** (single verify step, not three separate calls).
 
 ## Commands
 
@@ -23,7 +27,7 @@ npm run lint       # ESLint (lints .ts/.tsx/.js/.jsx)
 npx tsc --noEmit   # type-check only
 ```
 
-No tests. Run `npx tsc --noEmit && npm run build` before committing. The `dev` server is the user's to run - never start it yourself.
+No tests. Verify with a single chained command - `npx tsc --noEmit && npm run lint && npm run build` - before committing, rather than three separate tool calls (saves the verify-step tokens). The `dev` server is the user's to run - never start it yourself.
 
 ## Git
 
@@ -106,3 +110,13 @@ Wrap visible UI text from [src/components/ScrambleText.tsx](src/components/Scram
 - Static propless JSX → JSX constants, not function components.
 - Headings: `<h1>` hero, `<h2>` cards.
 - All interactives need `:focus-visible`. Global reset in `index.css`; overrides in `App.css`.
+
+## graphify
+
+This project has a knowledge graph at graphify-out/ with god nodes, community structure, and cross-file relationships.
+
+Rules:
+- For codebase questions, first run `graphify query "<question>"` when graphify-out/graph.json exists. Use `graphify path "<A>" "<B>"` for relationships and `graphify explain "<concept>"` for focused concepts. These return a scoped subgraph, usually much smaller than GRAPH_REPORT.md or raw grep output.
+- If graphify-out/wiki/index.md exists, use it for broad navigation instead of raw source browsing.
+- Read graphify-out/GRAPH_REPORT.md only for broad architecture review or when query/path/explain do not surface enough context.
+- After modifying code, run `graphify update .` to keep the graph current (AST-only, no API cost).

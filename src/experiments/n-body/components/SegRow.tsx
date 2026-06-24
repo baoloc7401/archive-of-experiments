@@ -8,6 +8,8 @@ interface SegRowProps<T extends string> {
   value: T;
   options: readonly T[];
   onSelect: (value: T) => void;
+  /** Greys out and blocks the whole row (e.g. when the engine ignores it). */
+  disabled?: boolean;
 }
 
 /** A labeled row of mutually-exclusive segmented buttons. */
@@ -17,6 +19,7 @@ export default function SegRow<T extends string>({
   value,
   options,
   onSelect,
+  disabled,
 }: SegRowProps<T>) {
   const { t } = useTranslation();
   return (
@@ -31,6 +34,7 @@ export default function SegRow<T extends string>({
             type="button"
             className={`nb-seg-btn${opt === value ? " nb-seg-btn--on" : ""}`}
             aria-pressed={opt === value}
+            disabled={disabled}
             onClick={() => onSelect(opt)}
           >
             <ScrambleText text={t(`${prefix}${opt}`)} duration={400} />

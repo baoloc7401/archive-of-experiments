@@ -29,6 +29,7 @@ they cross-link, they don't duplicate.
 | [[Experiment Boids]] | [✓](https://github.com/baoloc7401/archive-of-experiments/blob/main/docs/boids/TEXTBOOK.md) | - | [✓](https://github.com/baoloc7401/archive-of-experiments/blob/main/docs/boids/IMPROVEMENTS.md) |
 | [[Experiment L-System]] | [✓](https://github.com/baoloc7401/archive-of-experiments/blob/main/docs/l-system/TEXTBOOK.md) | - | - |
 | [[Experiment N-Body]] | [✓](https://github.com/baoloc7401/archive-of-experiments/blob/main/docs/n-body/TEXTBOOK.md) | - | - |
+| [[Experiment Reaction-Diffusion]] | [✓](https://github.com/baoloc7401/archive-of-experiments/blob/main/docs/reaction-diffusion/TEXTBOOK.md) | - | - |
 
 ## Site-level docs
 

@@ -9,6 +9,7 @@ import {
   MAX_THETA,
   MIN_GRAVITY,
   MIN_SOFTENING,
+  webgpuSupported,
 } from "../constants";
 import { PRESETS, presetById } from "../presets";
 import SegRow from "./SegRow";
@@ -34,6 +35,9 @@ export default function Controls({
 }: Props) {
   const { t } = useTranslation();
   const def = presetById(params.preset);
+  const gpu = params.compute === "gpu";
+  // Static capability check; the device itself is requested lazily in the canvas.
+  const canGpu = webgpuSupported();
 
   return (
     <>
@@ -111,15 +115,17 @@ export default function Controls({
           max={MAX_THETA}
           step={0.05}
           display={params.theta === 0 ? t("experiments.n-body.theta_exact") : params.theta.toFixed(2)}
+          disabled={gpu}
           onChange={(v) => onChange({ theta: v })}
-          hint={t("experiments.n-body.theta_hint")}
+          hint={gpu ? t("experiments.n-body.gpu_exact_hint") : t("experiments.n-body.theta_hint")}
         />
         <div className="nb-field">
           <SegRow
             label={t("experiments.n-body.integrator")}
             prefix="experiments.n-body.integrator_"
-            value={params.integrator}
+            value={gpu ? "leapfrog" : params.integrator}
             options={INTEGRATORS}
+            disabled={gpu}
             onSelect={(v) => onChange({ integrator: v })}
           />
           <p className="nb-field-hint">
@@ -127,11 +133,26 @@ export default function Controls({
           </p>
           <div className="nb-actions">
             <Button
+              variant={gpu ? "accent" : "ghost"}
+              size="sm"
+              onClick={() => onChange({ compute: gpu ? "cpu" : "gpu" })}
+              aria-pressed={gpu}
+              disabled={!canGpu}
+              tooltip={
+                canGpu
+                  ? t("experiments.n-body.gpu_hint")
+                  : t("experiments.n-body.gpu_unavailable")
+              }
+            >
+              <ScrambleText text={t("experiments.n-body.gpu")} duration={400} />
+            </Button>
+            <Button
               variant={params.merging ? "accent" : "ghost"}
               size="sm"
               onClick={() => onChange({ merging: !params.merging })}
               aria-pressed={params.merging}
-              tooltip={t("experiments.n-body.merging_hint")}
+              disabled={gpu}
+              tooltip={gpu ? t("experiments.n-body.gpu_exact_hint") : t("experiments.n-body.merging_hint")}
             >
               <ScrambleText text={t("experiments.n-body.merging")} duration={400} />
             </Button>

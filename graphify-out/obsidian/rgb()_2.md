@@ -1,0 +1,18 @@
+---
+source_file: "src/experiments/l-system/palette.ts"
+type: "code"
+community: "L-System Editor & Canvas"
+location: "L10"
+tags:
+  - graphify/code
+  - graphify/EXTRACTED
+  - community/L-System_Editor__Canvas
+---
+
+# rgb()
+
+## Connections
+- [[palette.ts_1]] - `contains` [EXTRACTED]
+- [[readPalette()_2]] - `calls` [EXTRACTED]
+
+#graphify/code #graphify/EXTRACTED #community/L-System_Editor__Canvas

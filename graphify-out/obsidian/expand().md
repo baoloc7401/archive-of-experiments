@@ -1,0 +1,19 @@
+---
+source_file: "src/experiments/l-system/lsystem.ts"
+type: "code"
+community: "L-System Editor & Canvas"
+location: "L35"
+tags:
+  - graphify/code
+  - graphify/EXTRACTED
+  - community/L-System_Editor__Canvas
+---
+
+# expand()
+
+## Connections
+- [[LCanvas.tsx]] - `imports` [EXTRACTED]
+- [[build()]] - `calls` [EXTRACTED]
+- [[lsystem.ts]] - `contains` [EXTRACTED]
+
+#graphify/code #graphify/EXTRACTED #community/L-System_Editor__Canvas
