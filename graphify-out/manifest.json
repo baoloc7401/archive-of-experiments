@@ -1610,13 +1610,13 @@
     "semantic_hash": ""
   },
   "wiki/Experiments.md": {
-    "mtime": 1781202116.078173,
-    "ast_hash": "18621db0cadbcc18e02019d4e02603b7",
+    "mtime": 1782328468.6697943,
+    "ast_hash": "350fa76ef49db02eea782776fa850911",
     "semantic_hash": ""
   },
   "wiki/Home.md": {
-    "mtime": 1781202108.1150725,
-    "ast_hash": "74aa9af9cffd96fbbbf832f6efebb68f",
+    "mtime": 1782328438.40404,
+    "ast_hash": "4004cb0c5011bc673c77f437cdfa6c33",
     "semantic_hash": ""
   },
   "wiki/Site-Performance.md": {
@@ -1672,6 +1672,11 @@
   "docs/reaction-diffusion/TEXTBOOK.md": {
     "mtime": 1782328116.7884765,
     "ast_hash": "7e8c82e09079e744933794e0a6588378",
+    "semantic_hash": ""
+  },
+  "wiki/Experiment-Reaction-Diffusion.md": {
+    "mtime": 1782328402.7942955,
+    "ast_hash": "c5c9cbec5087756d4ad33cf019054b8b",
     "semantic_hash": ""
   }
 }
