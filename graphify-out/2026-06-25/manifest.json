@@ -1560,8 +1560,8 @@
     "semantic_hash": ""
   },
   "wiki/Documentation-Conventions.md": {
-    "mtime": 1782328190.6722033,
-    "ast_hash": "debf6abaa2f35d375354238f35dfde80",
+    "mtime": 1781922999.5807686,
+    "ast_hash": "6aea7d70a1d560e57367d5c3732cb4cb",
     "semantic_hash": ""
   },
   "wiki/Experiment-ACO.md": {
@@ -1667,11 +1667,6 @@
   ".claude/skills/verify-experiment/SKILL.md": {
     "mtime": 1782192190.1058462,
     "ast_hash": "cbc704f40585a2892afd6c7101f0e66e",
-    "semantic_hash": ""
-  },
-  "docs/reaction-diffusion/TEXTBOOK.md": {
-    "mtime": 1782328116.7884765,
-    "ast_hash": "7e8c82e09079e744933794e0a6588378",
     "semantic_hash": ""
   }
 }
