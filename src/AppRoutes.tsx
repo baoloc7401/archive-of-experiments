@@ -16,6 +16,7 @@ const Pacman = lazy(() => import("./experiments/pacman"));
 const Boids = lazy(() => import("./experiments/boids"));
 const LSystem = lazy(() => import("./experiments/l-system"));
 const NBody = lazy(() => import("./experiments/n-body"));
+const ReactionDiffusion = lazy(() => import("./experiments/reaction-diffusion"));
 const About = lazy(() => import("./pages/About"));
 const Contact = lazy(() => import("./pages/Contact"));
 const NotFound = lazy(() => import("./components/NotFound"));
@@ -41,6 +42,7 @@ export default function AppRoutes() {
         <Route path="/experiments/boids" element={<Boids />} />
         <Route path="/experiments/l-system" element={<LSystem />} />
         <Route path="/experiments/n-body" element={<NBody />} />
+        <Route path="/experiments/reaction-diffusion" element={<ReactionDiffusion />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="*" element={<NotFound />} />
