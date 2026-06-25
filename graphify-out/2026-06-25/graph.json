@@ -87,14 +87,184 @@
   },
   "nodes": [
     {
+      "label": "Experiment-Reaction-Diffusion.md",
+      "file_type": "document",
+      "source_file": "wiki/Experiment-Reaction-Diffusion.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "wiki_experiment_reaction_diffusion",
+      "community": 112,
+      "norm_label": "experiment-reaction-diffusion.md"
+    },
+    {
+      "label": "Experiment: Reaction-Diffusion (Gray-Scott)",
+      "file_type": "document",
+      "source_file": "wiki/Experiment-Reaction-Diffusion.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "wiki_experiment_reaction_diffusion_experiment_reaction_diffusion_gray_scott",
+      "community": 112,
+      "norm_label": "experiment: reaction-diffusion (gray-scott)"
+    },
+    {
+      "label": "What it is",
+      "file_type": "document",
+      "source_file": "wiki/Experiment-Reaction-Diffusion.md",
+      "source_location": "L12",
+      "_origin": "ast",
+      "id": "wiki_experiment_reaction_diffusion_what_it_is",
+      "community": 112,
+      "norm_label": "what it is"
+    },
+    {
+      "label": "Try this",
+      "file_type": "document",
+      "source_file": "wiki/Experiment-Reaction-Diffusion.md",
+      "source_location": "L32",
+      "_origin": "ast",
+      "id": "wiki_experiment_reaction_diffusion_try_this",
+      "community": 112,
+      "norm_label": "try this"
+    },
+    {
+      "label": "Key findings (the short version)",
+      "file_type": "document",
+      "source_file": "wiki/Experiment-Reaction-Diffusion.md",
+      "source_location": "L46",
+      "_origin": "ast",
+      "id": "wiki_experiment_reaction_diffusion_key_findings_the_short_version",
+      "community": 112,
+      "norm_label": "key findings (the short version)"
+    },
+    {
+      "label": "Deep dive",
+      "file_type": "document",
+      "source_file": "wiki/Experiment-Reaction-Diffusion.md",
+      "source_location": "L66",
+      "_origin": "ast",
+      "id": "wiki_experiment_reaction_diffusion_deep_dive",
+      "community": 112,
+      "norm_label": "deep dive"
+    },
+    {
+      "label": "Code",
+      "file_type": "document",
+      "source_file": "wiki/Experiment-Reaction-Diffusion.md",
+      "source_location": "L76",
+      "_origin": "ast",
+      "id": "wiki_experiment_reaction_diffusion_code",
+      "community": 112,
+      "norm_label": "code"
+    },
+    {
+      "label": "Experiments.md",
+      "file_type": "document",
+      "source_file": "wiki/Experiments.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "wiki_experiments",
+      "community": 74,
+      "norm_label": "experiments.md"
+    },
+    {
+      "label": "Experiments",
+      "file_type": "document",
+      "source_file": "wiki/Experiments.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "wiki_experiments_experiments",
+      "community": 122,
+      "norm_label": "experiments"
+    },
+    {
+      "label": "Status legend",
+      "file_type": "document",
+      "source_file": "wiki/Experiments.md",
+      "source_location": "L28",
+      "_origin": "ast",
+      "id": "wiki_experiments_status_legend",
+      "community": 122,
+      "norm_label": "status legend"
+    },
+    {
+      "label": "Adding to this list",
+      "file_type": "document",
+      "source_file": "wiki/Experiments.md",
+      "source_location": "L34",
+      "_origin": "ast",
+      "id": "wiki_experiments_adding_to_this_list",
+      "community": 122,
+      "norm_label": "adding to this list"
+    },
+    {
+      "label": "Home.md",
+      "file_type": "document",
+      "source_file": "wiki/Home.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "wiki_home",
+      "community": 74,
+      "norm_label": "home.md"
+    },
+    {
+      "label": "archive-of-experiments",
+      "file_type": "document",
+      "source_file": "wiki/Home.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "wiki_home_archive_of_experiments",
+      "community": 116,
+      "norm_label": "archive-of-experiments"
+    },
+    {
+      "label": "Start here",
+      "file_type": "document",
+      "source_file": "wiki/Home.md",
+      "source_location": "L15",
+      "_origin": "ast",
+      "id": "wiki_home_start_here",
+      "community": 116,
+      "norm_label": "start here"
+    },
+    {
+      "label": "Experiment status",
+      "file_type": "document",
+      "source_file": "wiki/Home.md",
+      "source_location": "L25",
+      "_origin": "ast",
+      "id": "wiki_home_experiment_status",
+      "community": 116,
+      "norm_label": "experiment status"
+    },
+    {
+      "label": "Site-level research",
+      "file_type": "document",
+      "source_file": "wiki/Home.md",
+      "source_location": "L49",
+      "_origin": "ast",
+      "id": "wiki_home_site_level_research",
+      "community": 116,
+      "norm_label": "site-level research"
+    },
+    {
+      "label": "What makes this repo unusual",
+      "file_type": "document",
+      "source_file": "wiki/Home.md",
+      "source_location": "L64",
+      "_origin": "ast",
+      "id": "wiki_home_what_makes_this_repo_unusual",
+      "community": 116,
+      "norm_label": "what makes this repo unusual"
+    },
+    {
       "label": "TEXTBOOK.md",
       "file_type": "document",
       "source_file": "docs/reaction-diffusion/TEXTBOOK.md",
       "source_location": "L1",
       "_origin": "ast",
-      "id": "reaction_diffusion_textbook",
       "community": 31,
-      "norm_label": "textbook.md"
+      "norm_label": "textbook.md",
+      "id": "reaction_diffusion_textbook"
     },
     {
       "label": "Reaction-Diffusion (Gray-Scott) - Textbook & Real-World Research",
@@ -102,9 +272,9 @@
       "source_file": "docs/reaction-diffusion/TEXTBOOK.md",
       "source_location": "L1",
       "_origin": "ast",
-      "id": "reaction_diffusion_textbook_reaction_diffusion_gray_scott_textbook_real_world_research",
       "community": 31,
-      "norm_label": "reaction-diffusion (gray-scott) - textbook & real-world research"
+      "norm_label": "reaction-diffusion (gray-scott) - textbook & real-world research",
+      "id": "reaction_diffusion_textbook_reaction_diffusion_gray_scott_textbook_real_world_research"
     },
     {
       "label": "0. The single most important finding",
@@ -112,9 +282,9 @@
       "source_file": "docs/reaction-diffusion/TEXTBOOK.md",
       "source_location": "L24",
       "_origin": "ast",
-      "id": "reaction_diffusion_textbook_0_the_single_most_important_finding",
       "community": 31,
-      "norm_label": "0. the single most important finding"
+      "norm_label": "0. the single most important finding",
+      "id": "reaction_diffusion_textbook_0_the_single_most_important_finding"
     },
     {
       "label": "1. The model and its equations",
@@ -122,9 +292,9 @@
       "source_file": "docs/reaction-diffusion/TEXTBOOK.md",
       "source_location": "L58",
       "_origin": "ast",
-      "id": "reaction_diffusion_textbook_1_the_model_and_its_equations",
       "community": 31,
-      "norm_label": "1. the model and its equations"
+      "norm_label": "1. the model and its equations",
+      "id": "reaction_diffusion_textbook_1_the_model_and_its_equations"
     },
     {
       "label": "2. The GPU implementation",
@@ -132,9 +302,9 @@
       "source_file": "docs/reaction-diffusion/TEXTBOOK.md",
       "source_location": "L98",
       "_origin": "ast",
-      "id": "reaction_diffusion_textbook_2_the_gpu_implementation",
       "community": 31,
-      "norm_label": "2. the gpu implementation"
+      "norm_label": "2. the gpu implementation",
+      "id": "reaction_diffusion_textbook_2_the_gpu_implementation"
     },
     {
       "label": "Fidelity",
@@ -142,9 +312,9 @@
       "source_file": "docs/reaction-diffusion/TEXTBOOK.md",
       "source_location": "L119",
       "_origin": "ast",
-      "id": "reaction_diffusion_textbook_fidelity",
       "community": 31,
-      "norm_label": "fidelity"
+      "norm_label": "fidelity",
+      "id": "reaction_diffusion_textbook_fidelity"
     },
     {
       "label": "3. The parameter map and presets",
@@ -152,9 +322,9 @@
       "source_file": "docs/reaction-diffusion/TEXTBOOK.md",
       "source_location": "L127",
       "_origin": "ast",
-      "id": "reaction_diffusion_textbook_3_the_parameter_map_and_presets",
       "community": 31,
-      "norm_label": "3. the parameter map and presets"
+      "norm_label": "3. the parameter map and presets",
+      "id": "reaction_diffusion_textbook_3_the_parameter_map_and_presets"
     },
     {
       "label": "4. The seeding research (the core finding)",
@@ -162,9 +332,9 @@
       "source_file": "docs/reaction-diffusion/TEXTBOOK.md",
       "source_location": "L168",
       "_origin": "ast",
-      "id": "reaction_diffusion_textbook_4_the_seeding_research_the_core_finding",
       "community": 31,
-      "norm_label": "4. the seeding research (the core finding)"
+      "norm_label": "4. the seeding research (the core finding)",
+      "id": "reaction_diffusion_textbook_4_the_seeding_research_the_core_finding"
     },
     {
       "label": "4.1 Flooding V \u2192 \"the brush erases\"",
@@ -172,9 +342,9 @@
       "source_file": "docs/reaction-diffusion/TEXTBOOK.md",
       "source_location": "L173",
       "_origin": "ast",
-      "id": "reaction_diffusion_textbook_4_1_flooding_v_the_brush_erases",
       "community": 31,
-      "norm_label": "4.1 flooding v \u2192 \"the brush erases\""
+      "norm_label": "4.1 flooding v \u2192 \"the brush erases\"",
+      "id": "reaction_diffusion_textbook_4_1_flooding_v_the_brush_erases"
     },
     {
       "label": "4.2 The two families want opposite-sized seeds",
@@ -182,9 +352,9 @@
       "source_file": "docs/reaction-diffusion/TEXTBOOK.md",
       "source_location": "L186",
       "_origin": "ast",
-      "id": "reaction_diffusion_textbook_4_2_the_two_families_want_opposite_sized_seeds",
       "community": 31,
-      "norm_label": "4.2 the two families want opposite-sized seeds"
+      "norm_label": "4.2 the two families want opposite-sized seeds",
+      "id": "reaction_diffusion_textbook_4_2_the_two_families_want_opposite_sized_seeds"
     },
     {
       "label": "4.3 The seed that works: jittered grid of mixed-size hard discs",
@@ -192,9 +362,9 @@
       "source_file": "docs/reaction-diffusion/TEXTBOOK.md",
       "source_location": "L201",
       "_origin": "ast",
-      "id": "reaction_diffusion_textbook_4_3_the_seed_that_works_jittered_grid_of_mixed_size_hard_discs",
       "community": 31,
-      "norm_label": "4.3 the seed that works: jittered grid of mixed-size hard discs"
+      "norm_label": "4.3 the seed that works: jittered grid of mixed-size hard discs",
+      "id": "reaction_diffusion_textbook_4_3_the_seed_that_works_jittered_grid_of_mixed_size_hard_discs"
     },
     {
       "label": "4.4 The resize bug that masqueraded as \"always near-empty\"",
@@ -202,9 +372,9 @@
       "source_file": "docs/reaction-diffusion/TEXTBOOK.md",
       "source_location": "L219",
       "_origin": "ast",
-      "id": "reaction_diffusion_textbook_4_4_the_resize_bug_that_masqueraded_as_always_near_empty",
       "community": 31,
-      "norm_label": "4.4 the resize bug that masqueraded as \"always near-empty\""
+      "norm_label": "4.4 the resize bug that masqueraded as \"always near-empty\"",
+      "id": "reaction_diffusion_textbook_4_4_the_resize_bug_that_masqueraded_as_always_near_empty"
     },
     {
       "label": "5. Numeric findings",
@@ -212,9 +382,9 @@
       "source_file": "docs/reaction-diffusion/TEXTBOOK.md",
       "source_location": "L231",
       "_origin": "ast",
-      "id": "reaction_diffusion_textbook_5_numeric_findings",
       "community": 31,
-      "norm_label": "5. numeric findings"
+      "norm_label": "5. numeric findings",
+      "id": "reaction_diffusion_textbook_5_numeric_findings"
     },
     {
       "label": "5.1 Float16 is not enough - use float32",
@@ -222,9 +392,9 @@
       "source_file": "docs/reaction-diffusion/TEXTBOOK.md",
       "source_location": "L233",
       "_origin": "ast",
-      "id": "reaction_diffusion_textbook_5_1_float16_is_not_enough_use_float32",
       "community": 31,
-      "norm_label": "5.1 float16 is not enough - use float32"
+      "norm_label": "5.1 float16 is not enough - use float32",
+      "id": "reaction_diffusion_textbook_5_1_float16_is_not_enough_use_float32"
     },
     {
       "label": "5.2 Explicit Euler is conditionally stable",
@@ -232,9 +402,9 @@
       "source_file": "docs/reaction-diffusion/TEXTBOOK.md",
       "source_location": "L245",
       "_origin": "ast",
-      "id": "reaction_diffusion_textbook_5_2_explicit_euler_is_conditionally_stable",
       "community": 31,
-      "norm_label": "5.2 explicit euler is conditionally stable"
+      "norm_label": "5.2 explicit euler is conditionally stable",
+      "id": "reaction_diffusion_textbook_5_2_explicit_euler_is_conditionally_stable"
     },
     {
       "label": "5.3 \"Converged\" is the steady state, not a dead loop",
@@ -242,9 +412,9 @@
       "source_file": "docs/reaction-diffusion/TEXTBOOK.md",
       "source_location": "L255",
       "_origin": "ast",
-      "id": "reaction_diffusion_textbook_5_3_converged_is_the_steady_state_not_a_dead_loop",
       "community": 31,
-      "norm_label": "5.3 \"converged\" is the steady state, not a dead loop"
+      "norm_label": "5.3 \"converged\" is the steady state, not a dead loop",
+      "id": "reaction_diffusion_textbook_5_3_converged_is_the_steady_state_not_a_dead_loop"
     },
     {
       "label": "6. Resolution and the blur",
@@ -252,9 +422,9 @@
       "source_file": "docs/reaction-diffusion/TEXTBOOK.md",
       "source_location": "L268",
       "_origin": "ast",
-      "id": "reaction_diffusion_textbook_6_resolution_and_the_blur",
       "community": 31,
-      "norm_label": "6. resolution and the blur"
+      "norm_label": "6. resolution and the blur",
+      "id": "reaction_diffusion_textbook_6_resolution_and_the_blur"
     },
     {
       "label": "7. Verification methodology (a finding in itself)",
@@ -262,9 +432,9 @@
       "source_file": "docs/reaction-diffusion/TEXTBOOK.md",
       "source_location": "L294",
       "_origin": "ast",
-      "id": "reaction_diffusion_textbook_7_verification_methodology_a_finding_in_itself",
       "community": 31,
-      "norm_label": "7. verification methodology (a finding in itself)"
+      "norm_label": "7. verification methodology (a finding in itself)",
+      "id": "reaction_diffusion_textbook_7_verification_methodology_a_finding_in_itself"
     },
     {
       "label": "8. Fidelity scorecard",
@@ -272,9 +442,9 @@
       "source_file": "docs/reaction-diffusion/TEXTBOOK.md",
       "source_location": "L322",
       "_origin": "ast",
-      "id": "reaction_diffusion_textbook_8_fidelity_scorecard",
       "community": 31,
-      "norm_label": "8. fidelity scorecard"
+      "norm_label": "8. fidelity scorecard",
+      "id": "reaction_diffusion_textbook_8_fidelity_scorecard"
     },
     {
       "label": "9. Where this is *not* real chemistry (scope boundary)",
@@ -282,9 +452,9 @@
       "source_file": "docs/reaction-diffusion/TEXTBOOK.md",
       "source_location": "L338",
       "_origin": "ast",
-      "id": "reaction_diffusion_textbook_9_where_this_is_not_real_chemistry_scope_boundary",
       "community": 31,
-      "norm_label": "9. where this is *not* real chemistry (scope boundary)"
+      "norm_label": "9. where this is *not* real chemistry (scope boundary)",
+      "id": "reaction_diffusion_textbook_9_where_this_is_not_real_chemistry_scope_boundary"
     },
     {
       "label": "10. Further real-world context",
@@ -292,9 +462,9 @@
       "source_file": "docs/reaction-diffusion/TEXTBOOK.md",
       "source_location": "L357",
       "_origin": "ast",
-      "id": "reaction_diffusion_textbook_10_further_real_world_context",
       "community": 31,
-      "norm_label": "10. further real-world context"
+      "norm_label": "10. further real-world context",
+      "id": "reaction_diffusion_textbook_10_further_real_world_context"
     },
     {
       "label": "Documentation-Conventions.md",
@@ -302,9 +472,9 @@
       "source_file": "wiki/Documentation-Conventions.md",
       "source_location": "L1",
       "_origin": "ast",
-      "id": "wiki_documentation_conventions",
       "community": 74,
-      "norm_label": "documentation-conventions.md"
+      "norm_label": "documentation-conventions.md",
+      "id": "wiki_documentation_conventions"
     },
     {
       "label": "Documentation Conventions",
@@ -312,9 +482,9 @@
       "source_file": "wiki/Documentation-Conventions.md",
       "source_location": "L1",
       "_origin": "ast",
-      "id": "wiki_documentation_conventions_documentation_conventions",
       "community": 104,
-      "norm_label": "documentation conventions"
+      "norm_label": "documentation conventions",
+      "id": "wiki_documentation_conventions_documentation_conventions"
     },
     {
       "label": "The doc family",
@@ -322,9 +492,9 @@
       "source_file": "wiki/Documentation-Conventions.md",
       "source_location": "L8",
       "_origin": "ast",
-      "id": "wiki_documentation_conventions_the_doc_family",
       "community": 104,
-      "norm_label": "the doc family"
+      "norm_label": "the doc family",
+      "id": "wiki_documentation_conventions_the_doc_family"
     },
     {
       "label": "What's written so far",
@@ -332,9 +502,9 @@
       "source_file": "wiki/Documentation-Conventions.md",
       "source_location": "L19",
       "_origin": "ast",
-      "id": "wiki_documentation_conventions_what_s_written_so_far",
       "community": 104,
-      "norm_label": "what's written so far"
+      "norm_label": "what's written so far",
+      "id": "wiki_documentation_conventions_what_s_written_so_far"
     },
     {
       "label": "Site-level docs",
@@ -342,9 +512,9 @@
       "source_file": "wiki/Documentation-Conventions.md",
       "source_location": "L34",
       "_origin": "ast",
-      "id": "wiki_documentation_conventions_site_level_docs",
       "community": 104,
-      "norm_label": "site-level docs"
+      "norm_label": "site-level docs",
+      "id": "wiki_documentation_conventions_site_level_docs"
     },
     {
       "label": "The `docs-*` skills",
@@ -352,9 +522,9 @@
       "source_file": "wiki/Documentation-Conventions.md",
       "source_location": "L43",
       "_origin": "ast",
-      "id": "wiki_documentation_conventions_the_docs_skills",
       "community": 104,
-      "norm_label": "the `docs-*` skills"
+      "norm_label": "the `docs-*` skills",
+      "id": "wiki_documentation_conventions_the_docs_skills"
     },
     {
       "label": "House style (in brief)",
@@ -362,9 +532,9 @@
       "source_file": "wiki/Documentation-Conventions.md",
       "source_location": "L64",
       "_origin": "ast",
-      "id": "wiki_documentation_conventions_house_style_in_brief",
       "community": 104,
-      "norm_label": "house style (in brief)"
+      "norm_label": "house style (in brief)",
+      "id": "wiki_documentation_conventions_house_style_in_brief"
     },
     {
       "label": "SKILL.md",
@@ -962,7 +1132,7 @@
       "source_file": "src/AppRoutes.tsx",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 44,
+      "community": 5,
       "norm_label": "approutes.tsx",
       "id": "src_approutes"
     },
@@ -972,7 +1142,7 @@
       "source_file": "src/AppRoutes.tsx",
       "source_location": "L8",
       "_origin": "ast",
-      "community": 44,
+      "community": 5,
       "norm_label": "chessgame",
       "id": "src_approutes_chessgame"
     },
@@ -982,7 +1152,7 @@
       "source_file": "src/AppRoutes.tsx",
       "source_location": "L9",
       "_origin": "ast",
-      "community": 44,
+      "community": 5,
       "norm_label": "sortingvisualizer",
       "id": "src_approutes_sortingvisualizer"
     },
@@ -992,7 +1162,7 @@
       "source_file": "src/AppRoutes.tsx",
       "source_location": "L10",
       "_origin": "ast",
-      "community": 44,
+      "community": 5,
       "norm_label": "pathfinding",
       "id": "src_approutes_pathfinding"
     },
@@ -1002,7 +1172,7 @@
       "source_file": "src/AppRoutes.tsx",
       "source_location": "L11",
       "_origin": "ast",
-      "community": 44,
+      "community": 5,
       "norm_label": "elevator",
       "id": "src_approutes_elevator"
     },
@@ -1012,7 +1182,7 @@
       "source_file": "src/AppRoutes.tsx",
       "source_location": "L12",
       "_origin": "ast",
-      "community": 44,
+      "community": 5,
       "norm_label": "aco",
       "id": "src_approutes_aco"
     },
@@ -1022,7 +1192,7 @@
       "source_file": "src/AppRoutes.tsx",
       "source_location": "L13",
       "_origin": "ast",
-      "community": 44,
+      "community": 5,
       "norm_label": "rivercrossing",
       "id": "src_approutes_rivercrossing"
     },
@@ -1032,7 +1202,7 @@
       "source_file": "src/AppRoutes.tsx",
       "source_location": "L14",
       "_origin": "ast",
-      "community": 44,
+      "community": 5,
       "norm_label": "minesweeper",
       "id": "src_approutes_minesweeper"
     },
@@ -1042,7 +1212,7 @@
       "source_file": "src/AppRoutes.tsx",
       "source_location": "L15",
       "_origin": "ast",
-      "community": 44,
+      "community": 5,
       "norm_label": "pacman",
       "id": "src_approutes_pacman"
     },
@@ -1052,7 +1222,7 @@
       "source_file": "src/AppRoutes.tsx",
       "source_location": "L16",
       "_origin": "ast",
-      "community": 44,
+      "community": 5,
       "norm_label": "boids",
       "id": "src_approutes_boids"
     },
@@ -1062,7 +1232,7 @@
       "source_file": "src/AppRoutes.tsx",
       "source_location": "L17",
       "_origin": "ast",
-      "community": 44,
+      "community": 5,
       "norm_label": "lsystem",
       "id": "src_approutes_lsystem"
     },
@@ -1072,7 +1242,7 @@
       "source_file": "src/AppRoutes.tsx",
       "source_location": "L18",
       "_origin": "ast",
-      "community": 44,
+      "community": 5,
       "norm_label": "nbody",
       "id": "src_approutes_nbody"
     },
@@ -1082,7 +1252,7 @@
       "source_file": "src/AppRoutes.tsx",
       "source_location": "L19",
       "_origin": "ast",
-      "community": 44,
+      "community": 5,
       "norm_label": "reactiondiffusion",
       "id": "src_approutes_reactiondiffusion"
     },
@@ -1092,7 +1262,7 @@
       "source_file": "src/AppRoutes.tsx",
       "source_location": "L20",
       "_origin": "ast",
-      "community": 44,
+      "community": 5,
       "norm_label": "about",
       "id": "src_approutes_about"
     },
@@ -1102,7 +1272,7 @@
       "source_file": "src/AppRoutes.tsx",
       "source_location": "L21",
       "_origin": "ast",
-      "community": 44,
+      "community": 5,
       "norm_label": "contact",
       "id": "src_approutes_contact"
     },
@@ -1112,7 +1282,7 @@
       "source_file": "src/AppRoutes.tsx",
       "source_location": "L22",
       "_origin": "ast",
-      "community": 44,
+      "community": 5,
       "norm_label": "notfound",
       "id": "src_approutes_notfound"
     },
@@ -1122,7 +1292,7 @@
       "source_file": "src/AppRoutes.tsx",
       "source_location": "L29",
       "_origin": "ast",
-      "community": 44,
+      "community": 5,
       "norm_label": "approutes()",
       "id": "src_approutes_approutes"
     },
@@ -1162,7 +1332,7 @@
       "source_file": "src/experiments.ts",
       "source_location": "L10",
       "_origin": "ast",
-      "community": 9,
+      "community": 40,
       "norm_label": "experiments",
       "id": "src_experiments_experiments"
     },
@@ -1812,7 +1982,7 @@
       "source_file": "src/i18n/locales/en.ts",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 86,
+      "community": 5,
       "norm_label": "en.ts",
       "id": "locales_en"
     },
@@ -1822,7 +1992,7 @@
       "source_file": "src/i18n/locales/en.ts",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 86,
+      "community": 5,
       "norm_label": "en",
       "id": "locales_en_en"
     },
@@ -1832,7 +2002,7 @@
       "source_file": "src/i18n/locales/en.ts",
       "source_location": "L1424",
       "_origin": "ast",
-      "community": 86,
+      "community": 5,
       "norm_label": "widen",
       "id": "locales_en_widen"
     },
@@ -1842,7 +2012,7 @@
       "source_file": "src/i18n/locales/en.ts",
       "source_location": "L1432",
       "_origin": "ast",
-      "community": 86,
+      "community": 5,
       "norm_label": "translation",
       "id": "locales_en_translation"
     },
@@ -1852,7 +2022,7 @@
       "source_file": "src/i18n/locales/vi.ts",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 86,
+      "community": 5,
       "norm_label": "vi.ts",
       "id": "locales_vi"
     },
@@ -2202,7 +2372,7 @@
       "source_file": "src/App.tsx",
       "source_location": "L31",
       "_origin": "ast",
-      "community": 40,
+      "community": 20,
       "norm_label": "app()",
       "id": "src_app_app"
     },
@@ -2252,7 +2422,7 @@
       "source_file": "src/components/ExperimentHeader.tsx",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 87,
+      "community": 69,
       "norm_label": "experimentheader.tsx",
       "id": "components_experimentheader"
     },
@@ -2262,7 +2432,7 @@
       "source_file": "src/components/ExperimentHeader.tsx",
       "source_location": "L10",
       "_origin": "ast",
-      "community": 87,
+      "community": 69,
       "norm_label": "crumb",
       "id": "components_experimentheader_crumb"
     },
@@ -2272,7 +2442,7 @@
       "source_file": "src/components/ExperimentHeader.tsx",
       "source_location": "L17",
       "_origin": "ast",
-      "community": 87,
+      "community": 69,
       "norm_label": "props",
       "id": "components_experimentheader_props"
     },
@@ -2282,7 +2452,7 @@
       "source_file": "src/components/ExperimentHeader.tsx",
       "source_location": "L21",
       "_origin": "ast",
-      "community": 87,
+      "community": 20,
       "norm_label": "experimentheader()",
       "id": "components_experimentheader_experimentheader"
     },
@@ -2342,7 +2512,7 @@
       "source_file": "src/components/LangToggle.tsx",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 86,
+      "community": 5,
       "norm_label": "langtoggle.tsx",
       "id": "components_langtoggle"
     },
@@ -2352,7 +2522,7 @@
       "source_file": "src/components/LangToggle.tsx",
       "source_location": "L5",
       "_origin": "ast",
-      "community": 87,
+      "community": 5,
       "norm_label": "langtoggle()",
       "id": "components_langtoggle_langtoggle"
     },
@@ -2532,7 +2702,7 @@
       "source_file": "src/components/ScrambleText.tsx",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 132,
+      "community": 40,
       "norm_label": "scrambletext.tsx",
       "id": "components_scrambletext"
     },
@@ -2542,7 +2712,7 @@
       "source_file": "src/components/ScrambleText.tsx",
       "source_location": "L10",
       "_origin": "ast",
-      "community": 132,
+      "community": 40,
       "norm_label": "props",
       "id": "components_scrambletext_props"
     },
@@ -2562,7 +2732,7 @@
       "source_file": "src/components/ThemeToggle.tsx",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 87,
+      "community": 69,
       "norm_label": "themetoggle.tsx",
       "id": "components_themetoggle"
     },
@@ -2572,7 +2742,7 @@
       "source_file": "src/components/ThemeToggle.tsx",
       "source_location": "L5",
       "_origin": "ast",
-      "community": 87,
+      "community": 69,
       "norm_label": "props",
       "id": "components_themetoggle_props"
     },
@@ -2582,7 +2752,7 @@
       "source_file": "src/components/ThemeToggle.tsx",
       "source_location": "L30",
       "_origin": "ast",
-      "community": 87,
+      "community": 69,
       "norm_label": "themetoggle()",
       "id": "components_themetoggle_themetoggle"
     },
@@ -2592,7 +2762,7 @@
       "source_file": "src/components/ui/Button.tsx",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 15,
+      "community": 30,
       "norm_label": "button.tsx",
       "id": "ui_button"
     },
@@ -2602,7 +2772,7 @@
       "source_file": "src/components/ui/Button.tsx",
       "source_location": "L6",
       "_origin": "ast",
-      "community": 15,
+      "community": 30,
       "norm_label": "buttonvariant",
       "id": "ui_button_buttonvariant"
     },
@@ -2612,7 +2782,7 @@
       "source_file": "src/components/ui/Button.tsx",
       "source_location": "L8",
       "_origin": "ast",
-      "community": 15,
+      "community": 30,
       "norm_label": "props",
       "id": "ui_button_props"
     },
@@ -2632,7 +2802,7 @@
       "source_file": "src/components/ui/ControlBar.tsx",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 15,
+      "community": 30,
       "norm_label": "controlbar.tsx",
       "id": "ui_controlbar"
     },
@@ -2642,7 +2812,7 @@
       "source_file": "src/components/ui/ControlBar.tsx",
       "source_location": "L6",
       "_origin": "ast",
-      "community": 15,
+      "community": 30,
       "norm_label": "props",
       "id": "ui_controlbar_props"
     },
@@ -2652,7 +2822,7 @@
       "source_file": "src/components/ui/ControlBar.tsx",
       "source_location": "L27",
       "_origin": "ast",
-      "community": 15,
+      "community": 30,
       "norm_label": "controlbar()",
       "id": "ui_controlbar_controlbar"
     },
@@ -2662,7 +2832,7 @@
       "source_file": "src/components/ui/ExperimentLayout.tsx",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 87,
+      "community": 69,
       "norm_label": "experimentlayout.tsx",
       "id": "ui_experimentlayout"
     },
@@ -2672,7 +2842,7 @@
       "source_file": "src/components/ui/ExperimentLayout.tsx",
       "source_location": "L5",
       "_origin": "ast",
-      "community": 87,
+      "community": 69,
       "norm_label": "props",
       "id": "ui_experimentlayout_props"
     },
@@ -2682,7 +2852,7 @@
       "source_file": "src/components/ui/ExperimentLayout.tsx",
       "source_location": "L25",
       "_origin": "ast",
-      "community": 87,
+      "community": 69,
       "norm_label": "experimentlayout()",
       "id": "ui_experimentlayout_experimentlayout"
     },
@@ -2752,7 +2922,7 @@
       "source_file": "src/components/ui/Stat.tsx",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 15,
+      "community": 69,
       "norm_label": "stat.tsx",
       "id": "ui_stat"
     },
@@ -2762,7 +2932,7 @@
       "source_file": "src/components/ui/Stat.tsx",
       "source_location": "L5",
       "_origin": "ast",
-      "community": 15,
+      "community": 69,
       "norm_label": "statgridprops",
       "id": "ui_stat_statgridprops"
     },
@@ -2772,7 +2942,7 @@
       "source_file": "src/components/ui/Stat.tsx",
       "source_location": "L11",
       "_origin": "ast",
-      "community": 15,
+      "community": 69,
       "norm_label": "statgrid()",
       "id": "ui_stat_statgrid"
     },
@@ -2782,7 +2952,7 @@
       "source_file": "src/components/ui/Stat.tsx",
       "source_location": "L22",
       "_origin": "ast",
-      "community": 15,
+      "community": 69,
       "norm_label": "statprops",
       "id": "ui_stat_statprops"
     },
@@ -2792,7 +2962,7 @@
       "source_file": "src/components/ui/Stat.tsx",
       "source_location": "L30",
       "_origin": "ast",
-      "community": 15,
+      "community": 69,
       "norm_label": "stat()",
       "id": "ui_stat_stat"
     },
@@ -2822,7 +2992,7 @@
       "source_file": "src/components/ui/Tooltip.tsx",
       "source_location": "L24",
       "_origin": "ast",
-      "community": 1,
+      "community": 30,
       "norm_label": "tooltip()",
       "id": "ui_tooltip_tooltip"
     },
@@ -2832,7 +3002,7 @@
       "source_file": "src/components/ui/index.ts",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 15,
+      "community": 30,
       "norm_label": "index.ts",
       "id": "ui_index"
     },
@@ -2862,7 +3032,7 @@
       "source_file": "src/components/useScrambledText.ts",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 132,
+      "community": 40,
       "norm_label": "usescrambledtext.ts",
       "id": "components_usescrambledtext"
     },
@@ -2872,7 +3042,7 @@
       "source_file": "src/components/useScrambledText.ts",
       "source_location": "L5",
       "_origin": "ast",
-      "community": 132,
+      "community": 40,
       "norm_label": "options",
       "id": "components_usescrambledtext_options"
     },
@@ -2882,7 +3052,7 @@
       "source_file": "src/components/useScrambledText.ts",
       "source_location": "L15",
       "_origin": "ast",
-      "community": 132,
+      "community": 40,
       "norm_label": "randglyph()",
       "id": "components_usescrambledtext_randglyph"
     },
@@ -2892,7 +3062,7 @@
       "source_file": "src/components/useScrambledText.ts",
       "source_location": "L20",
       "_origin": "ast",
-      "community": 132,
+      "community": 40,
       "norm_label": "scrambled()",
       "id": "components_usescrambledtext_scrambled"
     },
@@ -2902,7 +3072,7 @@
       "source_file": "src/components/useScrambledText.ts",
       "source_location": "L30",
       "_origin": "ast",
-      "community": 132,
+      "community": 40,
       "norm_label": "effectivedelayfor()",
       "id": "components_usescrambledtext_effectivedelayfor"
     },
@@ -2912,7 +3082,7 @@
       "source_file": "src/components/useScrambledText.ts",
       "source_location": "L39",
       "_origin": "ast",
-      "community": 132,
+      "community": 40,
       "norm_label": "frameat()",
       "id": "components_usescrambledtext_frameat"
     },
@@ -3102,7 +3272,7 @@
       "source_file": "src/experiments/aco/components/Controls.tsx",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 15,
+      "community": 30,
       "norm_label": "controls.tsx",
       "id": "src_experiments_aco_components_controls_tsx_components_controls"
     },
@@ -3112,7 +3282,7 @@
       "source_file": "src/experiments/aco/components/Controls.tsx",
       "source_location": "L5",
       "_origin": "ast",
-      "community": 15,
+      "community": 30,
       "norm_label": "props",
       "id": "src_experiments_aco_components_controls_tsx_components_controls_props"
     },
@@ -3122,7 +3292,7 @@
       "source_file": "src/experiments/aco/components/Controls.tsx",
       "source_location": "L17",
       "_origin": "ast",
-      "community": 15,
+      "community": 30,
       "norm_label": "controls()",
       "id": "src_experiments_aco_components_controls_tsx_components_controls_controls"
     },
@@ -3402,7 +3572,7 @@
       "source_file": "src/experiments/aco/index.tsx",
       "source_location": "L23",
       "_origin": "ast",
-      "community": 9,
+      "community": 20,
       "norm_label": "aco()",
       "id": "aco_index_aco"
     },
@@ -3862,7 +4032,7 @@
       "source_file": "src/experiments/boids/index.tsx",
       "source_location": "L14",
       "_origin": "ast",
-      "community": 9,
+      "community": 20,
       "norm_label": "boids()",
       "id": "boids_index_boids"
     },
@@ -5972,7 +6142,7 @@
       "source_file": "src/experiments/elevator/algorithms.ts",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 83,
+      "community": 1,
       "norm_label": "algorithms.ts",
       "id": "elevator_algorithms"
     },
@@ -5982,7 +6152,7 @@
       "source_file": "src/experiments/elevator/algorithms.ts",
       "source_location": "L3",
       "_origin": "ast",
-      "community": 83,
+      "community": 1,
       "norm_label": "decision",
       "id": "elevator_algorithms_decision"
     },
@@ -5992,7 +6162,7 @@
       "source_file": "src/experiments/elevator/algorithms.ts",
       "source_location": "L13",
       "_origin": "ast",
-      "community": 83,
+      "community": 1,
       "norm_label": "ctx",
       "id": "elevator_algorithms_ctx"
     },
@@ -6002,7 +6172,7 @@
       "source_file": "src/experiments/elevator/algorithms.ts",
       "source_location": "L23",
       "_origin": "ast",
-      "community": 83,
+      "community": 1,
       "norm_label": "decide()",
       "id": "elevator_algorithms_decide"
     },
@@ -6012,7 +6182,7 @@
       "source_file": "src/experiments/elevator/algorithms.ts",
       "source_location": "L35",
       "_origin": "ast",
-      "community": 83,
+      "community": 1,
       "norm_label": "step()",
       "id": "elevator_algorithms_step"
     },
@@ -6022,7 +6192,7 @@
       "source_file": "src/experiments/elevator/algorithms.ts",
       "source_location": "L39",
       "_origin": "ast",
-      "community": 83,
+      "community": 1,
       "norm_label": "decidefcfs()",
       "id": "elevator_algorithms_decidefcfs"
     },
@@ -6032,7 +6202,7 @@
       "source_file": "src/experiments/elevator/algorithms.ts",
       "source_location": "L46",
       "_origin": "ast",
-      "community": 83,
+      "community": 1,
       "norm_label": "decidesstf()",
       "id": "elevator_algorithms_decidesstf"
     },
@@ -6042,7 +6212,7 @@
       "source_file": "src/experiments/elevator/algorithms.ts",
       "source_location": "L58",
       "_origin": "ast",
-      "community": 83,
+      "community": 1,
       "norm_label": "decidescan()",
       "id": "elevator_algorithms_decidescan"
     },
@@ -6052,7 +6222,7 @@
       "source_file": "src/experiments/elevator/algorithms.ts",
       "source_location": "L78",
       "_origin": "ast",
-      "community": 83,
+      "community": 1,
       "norm_label": "decidelook()",
       "id": "elevator_algorithms_decidelook"
     },
@@ -6062,7 +6232,7 @@
       "source_file": "src/experiments/elevator/algorithms.ts",
       "source_location": "L92",
       "_origin": "ast",
-      "community": 83,
+      "community": 1,
       "norm_label": "decidecscan()",
       "id": "elevator_algorithms_decidecscan"
     },
@@ -6072,7 +6242,7 @@
       "source_file": "src/experiments/elevator/algorithms.ts",
       "source_location": "L111",
       "_origin": "ast",
-      "community": 83,
+      "community": 1,
       "norm_label": "decideclook()",
       "id": "elevator_algorithms_decideclook"
     },
@@ -6282,7 +6452,7 @@
       "source_file": "src/experiments/elevator/components/Queue.tsx",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 30,
+      "community": 1,
       "norm_label": "queue.tsx",
       "id": "components_queue"
     },
@@ -6292,7 +6462,7 @@
       "source_file": "src/experiments/elevator/components/Queue.tsx",
       "source_location": "L7",
       "_origin": "ast",
-      "community": 30,
+      "community": 1,
       "norm_label": "props",
       "id": "components_queue_props"
     },
@@ -6302,7 +6472,7 @@
       "source_file": "src/experiments/elevator/components/Queue.tsx",
       "source_location": "L12",
       "_origin": "ast",
-      "community": 30,
+      "community": 1,
       "norm_label": "origin_glyph",
       "id": "components_queue_origin_glyph"
     },
@@ -6312,7 +6482,7 @@
       "source_file": "src/experiments/elevator/components/Queue.tsx",
       "source_location": "L18",
       "_origin": "ast",
-      "community": 30,
+      "community": 1,
       "norm_label": "origin_label_key",
       "id": "components_queue_origin_label_key"
     },
@@ -6322,7 +6492,7 @@
       "source_file": "src/experiments/elevator/components/Queue.tsx",
       "source_location": "L24",
       "_origin": "ast",
-      "community": 30,
+      "community": 1,
       "norm_label": "queue()",
       "id": "components_queue_queue"
     },
@@ -6472,7 +6642,7 @@
       "source_file": "src/experiments/elevator/types.ts",
       "source_location": "L3",
       "_origin": "ast",
-      "community": 83,
+      "community": 1,
       "norm_label": "direction",
       "id": "elevator_types_direction"
     },
@@ -6682,7 +6852,7 @@
       "source_file": "src/experiments/l-system/components/Controls.tsx",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 15,
+      "community": 3,
       "norm_label": "controls.tsx",
       "id": "src_experiments_l_system_components_controls_tsx_components_controls"
     },
@@ -6702,7 +6872,7 @@
       "source_file": "src/experiments/l-system/components/Controls.tsx",
       "source_location": "L17",
       "_origin": "ast",
-      "community": 15,
+      "community": 3,
       "norm_label": "controls()",
       "id": "src_experiments_l_system_components_controls_tsx_components_controls_controls"
     },
@@ -6882,7 +7052,7 @@
       "source_file": "src/experiments/l-system/components/Stats.tsx",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 15,
+      "community": 69,
       "norm_label": "stats.tsx",
       "id": "src_experiments_l_system_components_stats_tsx_components_stats"
     },
@@ -6892,7 +7062,7 @@
       "source_file": "src/experiments/l-system/components/Stats.tsx",
       "source_location": "L5",
       "_origin": "ast",
-      "community": 3,
+      "community": 69,
       "norm_label": "props",
       "id": "src_experiments_l_system_components_stats_tsx_components_stats_props"
     },
@@ -6902,7 +7072,7 @@
       "source_file": "src/experiments/l-system/components/Stats.tsx",
       "source_location": "L9",
       "_origin": "ast",
-      "community": 15,
+      "community": 69,
       "norm_label": "stats()",
       "id": "src_experiments_l_system_components_stats_tsx_components_stats_stats"
     },
@@ -6962,7 +7132,7 @@
       "source_file": "src/experiments/l-system/index.tsx",
       "source_location": "L16",
       "_origin": "ast",
-      "community": 3,
+      "community": 20,
       "norm_label": "lsystem()",
       "id": "l_system_index_lsystem"
     },
@@ -7292,7 +7462,7 @@
       "source_file": "src/experiments/minesweeper/components/DebugLog.tsx",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 132,
+      "community": 30,
       "norm_label": "debuglog.tsx",
       "id": "src_experiments_minesweeper_components_debuglog_tsx_components_debuglog"
     },
@@ -7312,7 +7482,7 @@
       "source_file": "src/experiments/minesweeper/components/DebugLog.tsx",
       "source_location": "L13",
       "_origin": "ast",
-      "community": 132,
+      "community": 30,
       "norm_label": "kind_mark",
       "id": "src_experiments_minesweeper_components_debuglog_tsx_components_debuglog_kind_mark"
     },
@@ -7322,7 +7492,7 @@
       "source_file": "src/experiments/minesweeper/components/DebugLog.tsx",
       "source_location": "L22",
       "_origin": "ast",
-      "community": 132,
+      "community": 30,
       "norm_label": "debuglog()",
       "id": "src_experiments_minesweeper_components_debuglog_tsx_components_debuglog_debuglog"
     },
@@ -7332,7 +7502,7 @@
       "source_file": "src/experiments/minesweeper/components/GenStats.tsx",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 132,
+      "community": 10,
       "norm_label": "genstats.tsx",
       "id": "components_genstats"
     },
@@ -7352,7 +7522,7 @@
       "source_file": "src/experiments/minesweeper/components/GenStats.tsx",
       "source_location": "L12",
       "_origin": "ast",
-      "community": 132,
+      "community": 10,
       "norm_label": "genstats()",
       "id": "components_genstats_genstats"
     },
@@ -7362,7 +7532,7 @@
       "source_file": "src/experiments/minesweeper/components/GenStats.tsx",
       "source_location": "L75",
       "_origin": "ast",
-      "community": 132,
+      "community": 10,
       "norm_label": "stat()",
       "id": "components_genstats_stat"
     },
@@ -7552,7 +7722,7 @@
       "source_file": "src/experiments/minesweeper/generator.ts",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 10,
+      "community": 44,
       "norm_label": "generator.ts",
       "id": "minesweeper_generator"
     },
@@ -7562,7 +7732,7 @@
       "source_file": "src/experiments/minesweeper/generator.ts",
       "source_location": "L24",
       "_origin": "ast",
-      "community": 10,
+      "community": 44,
       "norm_label": "buildfield()",
       "id": "minesweeper_generator_buildfield"
     },
@@ -7572,7 +7742,7 @@
       "source_file": "src/experiments/minesweeper/generator.ts",
       "source_location": "L53",
       "_origin": "ast",
-      "community": 10,
+      "community": 44,
       "norm_label": "compute3bv()",
       "id": "minesweeper_generator_compute3bv"
     },
@@ -7582,7 +7752,7 @@
       "source_file": "src/experiments/minesweeper/generator.ts",
       "source_location": "L82",
       "_origin": "ast",
-      "community": 10,
+      "community": 44,
       "norm_label": "hardestof()",
       "id": "minesweeper_generator_hardestof"
     },
@@ -7592,7 +7762,7 @@
       "source_file": "src/experiments/minesweeper/generator.ts",
       "source_location": "L88",
       "_origin": "ast",
-      "community": 10,
+      "community": 44,
       "norm_label": "rate()",
       "id": "minesweeper_generator_rate"
     },
@@ -7602,7 +7772,7 @@
       "source_file": "src/experiments/minesweeper/generator.ts",
       "source_location": "L107",
       "_origin": "ast",
-      "community": 10,
+      "community": 44,
       "norm_label": "clampmines()",
       "id": "minesweeper_generator_clampmines"
     },
@@ -7612,7 +7782,7 @@
       "source_file": "src/experiments/minesweeper/generator.ts",
       "source_location": "L115",
       "_origin": "ast",
-      "community": 10,
+      "community": 44,
       "norm_label": "generatefield()",
       "id": "minesweeper_generator_generatefield"
     },
@@ -7652,7 +7822,7 @@
       "source_file": "src/experiments/minesweeper/grid.ts",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 10,
+      "community": 44,
       "norm_label": "grid.ts",
       "id": "minesweeper_grid"
     },
@@ -7662,7 +7832,7 @@
       "source_file": "src/experiments/minesweeper/grid.ts",
       "source_location": "L3",
       "_origin": "ast",
-      "community": 10,
+      "community": 44,
       "norm_label": "idx()",
       "id": "minesweeper_grid_idx"
     },
@@ -7672,7 +7842,7 @@
       "source_file": "src/experiments/minesweeper/grid.ts",
       "source_location": "L8",
       "_origin": "ast",
-      "community": 10,
+      "community": 44,
       "norm_label": "neighbors()",
       "id": "minesweeper_grid_neighbors"
     },
@@ -7682,7 +7852,7 @@
       "source_file": "src/experiments/minesweeper/grid.ts",
       "source_location": "L26",
       "_origin": "ast",
-      "community": 10,
+      "community": 44,
       "norm_label": "neighbortable()",
       "id": "minesweeper_grid_neighbortable"
     },
@@ -7692,7 +7862,7 @@
       "source_file": "src/experiments/minesweeper/grid.ts",
       "source_location": "L34",
       "_origin": "ast",
-      "community": 10,
+      "community": 44,
       "norm_label": "disk()",
       "id": "minesweeper_grid_disk"
     },
@@ -7722,7 +7892,7 @@
       "source_file": "src/experiments/minesweeper/rng.ts",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 10,
+      "community": 44,
       "norm_label": "rng.ts",
       "id": "minesweeper_rng"
     },
@@ -7732,7 +7902,7 @@
       "source_file": "src/experiments/minesweeper/rng.ts",
       "source_location": "L3",
       "_origin": "ast",
-      "community": 10,
+      "community": 44,
       "norm_label": "mulberry32()",
       "id": "minesweeper_rng_mulberry32"
     },
@@ -7742,7 +7912,7 @@
       "source_file": "src/experiments/minesweeper/rng.ts",
       "source_location": "L14",
       "_origin": "ast",
-      "community": 10,
+      "community": 44,
       "norm_label": "rng",
       "id": "minesweeper_rng_rng"
     },
@@ -7752,7 +7922,7 @@
       "source_file": "src/experiments/minesweeper/rng.ts",
       "source_location": "L17",
       "_origin": "ast",
-      "community": 10,
+      "community": 44,
       "norm_label": "randint()",
       "id": "minesweeper_rng_randint"
     },
@@ -7762,7 +7932,7 @@
       "source_file": "src/experiments/minesweeper/rng.ts",
       "source_location": "L22",
       "_origin": "ast",
-      "community": 10,
+      "community": 44,
       "norm_label": "shuffle()",
       "id": "minesweeper_rng_shuffle"
     },
@@ -7772,7 +7942,7 @@
       "source_file": "src/experiments/minesweeper/solvers/backtracking.ts",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 21,
+      "community": 29,
       "norm_label": "backtracking.ts",
       "id": "solvers_backtracking"
     },
@@ -7842,7 +8012,7 @@
       "source_file": "src/experiments/minesweeper/solvers/core.ts",
       "source_location": "L10",
       "_origin": "ast",
-      "community": 29,
+      "community": 83,
       "norm_label": "knowledge",
       "id": "solvers_core_knowledge"
     },
@@ -7882,7 +8052,7 @@
       "source_file": "src/experiments/minesweeper/solvers/core.ts",
       "source_location": "L56",
       "_origin": "ast",
-      "community": 29,
+      "community": 44,
       "norm_label": "issolved()",
       "id": "solvers_core_issolved"
     },
@@ -7992,7 +8162,7 @@
       "source_file": "src/experiments/minesweeper/solvers/core.ts",
       "source_location": "L298",
       "_origin": "ast",
-      "community": 29,
+      "community": 44,
       "norm_label": "fulltechniques",
       "id": "solvers_core_fulltechniques"
     },
@@ -8242,7 +8412,7 @@
       "source_file": "src/experiments/minesweeper/solvers/linearAlgebra.ts",
       "source_location": "L150",
       "_origin": "ast",
-      "community": 42,
+      "community": 21,
       "norm_label": "linearalgebrasolver",
       "id": "solvers_linearalgebra_linearalgebrasolver"
     },
@@ -8252,7 +8422,7 @@
       "source_file": "src/experiments/minesweeper/solvers/probabilistic.ts",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 29,
+      "community": 83,
       "norm_label": "probabilistic.ts",
       "id": "solvers_probabilistic"
     },
@@ -8262,7 +8432,7 @@
       "source_file": "src/experiments/minesweeper/solvers/probabilistic.ts",
       "source_location": "L28",
       "_origin": "ast",
-      "community": 29,
+      "community": 83,
       "norm_label": "detail",
       "id": "solvers_probabilistic_detail"
     },
@@ -8272,7 +8442,7 @@
       "source_file": "src/experiments/minesweeper/solvers/probabilistic.ts",
       "source_location": "L36",
       "_origin": "ast",
-      "community": 29,
+      "community": 83,
       "norm_label": "enumeratedetailed()",
       "id": "solvers_probabilistic_enumeratedetailed"
     },
@@ -8282,7 +8452,7 @@
       "source_file": "src/experiments/minesweeper/solvers/probabilistic.ts",
       "source_location": "L89",
       "_origin": "ast",
-      "community": 29,
+      "community": 83,
       "norm_label": "binomcache",
       "id": "solvers_probabilistic_binomcache"
     },
@@ -8292,7 +8462,7 @@
       "source_file": "src/experiments/minesweeper/solvers/probabilistic.ts",
       "source_location": "L90",
       "_origin": "ast",
-      "community": 29,
+      "community": 83,
       "norm_label": "binom()",
       "id": "solvers_probabilistic_binom"
     },
@@ -8302,7 +8472,7 @@
       "source_file": "src/experiments/minesweeper/solvers/probabilistic.ts",
       "source_location": "L108",
       "_origin": "ast",
-      "community": 29,
+      "community": 83,
       "norm_label": "convolve()",
       "id": "solvers_probabilistic_convolve"
     },
@@ -8312,7 +8482,7 @@
       "source_file": "src/experiments/minesweeper/solvers/probabilistic.ts",
       "source_location": "L119",
       "_origin": "ast",
-      "community": 29,
+      "community": 83,
       "norm_label": "ratio()",
       "id": "solvers_probabilistic_ratio"
     },
@@ -8322,7 +8492,7 @@
       "source_file": "src/experiments/minesweeper/solvers/probabilistic.ts",
       "source_location": "L125",
       "_origin": "ast",
-      "community": 29,
+      "community": 83,
       "norm_label": "probresult",
       "id": "solvers_probabilistic_probresult"
     },
@@ -8332,7 +8502,7 @@
       "source_file": "src/experiments/minesweeper/solvers/probabilistic.ts",
       "source_location": "L134",
       "_origin": "ast",
-      "community": 29,
+      "community": 83,
       "norm_label": "probabilities()",
       "id": "solvers_probabilistic_probabilities"
     },
@@ -8352,7 +8522,7 @@
       "source_file": "src/experiments/minesweeper/solvers/probabilistic.ts",
       "source_location": "L250",
       "_origin": "ast",
-      "community": 29,
+      "community": 21,
       "norm_label": "probabilisticsolver",
       "id": "solvers_probabilistic_probabilisticsolver"
     },
@@ -8422,7 +8592,7 @@
       "source_file": "src/experiments/minesweeper/solvers/singlePoint.ts",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 21,
+      "community": 29,
       "norm_label": "singlepoint.ts",
       "id": "solvers_singlepoint"
     },
@@ -8492,7 +8662,7 @@
       "source_file": "src/experiments/minesweeper/solvers/types.ts",
       "source_location": "L4",
       "_origin": "ast",
-      "community": 21,
+      "community": 83,
       "norm_label": "board",
       "id": "solvers_types_board"
     },
@@ -8532,7 +8702,7 @@
       "source_file": "src/experiments/minesweeper/solvers/types.ts",
       "source_location": "L36",
       "_origin": "ast",
-      "community": 29,
+      "community": 83,
       "norm_label": "solveraction",
       "id": "solvers_types_solveraction"
     },
@@ -8562,7 +8732,7 @@
       "source_file": "src/experiments/minesweeper/solvers/types.ts",
       "source_location": "L78",
       "_origin": "ast",
-      "community": 21,
+      "community": 29,
       "norm_label": "solver",
       "id": "solvers_types_solver"
     },
@@ -8782,7 +8952,7 @@
       "source_file": "src/experiments/n-body/components/Controls.tsx",
       "source_location": "L17",
       "_origin": "ast",
-      "community": 20,
+      "community": 15,
       "norm_label": "props",
       "id": "src_experiments_n_body_components_controls_tsx_components_controls_props"
     },
@@ -8812,7 +8982,7 @@
       "source_file": "src/experiments/n-body/components/DebugPanel.tsx",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 20,
+      "community": 15,
       "norm_label": "debugpanel.tsx",
       "id": "src_experiments_n_body_components_debugpanel_tsx_components_debugpanel"
     },
@@ -8822,7 +8992,7 @@
       "source_file": "src/experiments/n-body/components/DebugPanel.tsx",
       "source_location": "L8",
       "_origin": "ast",
-      "community": 20,
+      "community": 15,
       "norm_label": "props",
       "id": "src_experiments_n_body_components_debugpanel_tsx_components_debugpanel_props"
     },
@@ -8832,7 +9002,7 @@
       "source_file": "src/experiments/n-body/components/DebugPanel.tsx",
       "source_location": "L20",
       "_origin": "ast",
-      "community": 20,
+      "community": 15,
       "norm_label": "wrapdeg()",
       "id": "src_experiments_n_body_components_debugpanel_tsx_components_debugpanel_wrapdeg"
     },
@@ -8842,7 +9012,7 @@
       "source_file": "src/experiments/n-body/components/DebugPanel.tsx",
       "source_location": "L28",
       "_origin": "ast",
-      "community": 20,
+      "community": 15,
       "norm_label": "buildreport()",
       "id": "src_experiments_n_body_components_debugpanel_tsx_components_debugpanel_buildreport"
     },
@@ -8852,7 +9022,7 @@
       "source_file": "src/experiments/n-body/components/DebugPanel.tsx",
       "source_location": "L60",
       "_origin": "ast",
-      "community": 20,
+      "community": 15,
       "norm_label": "row()",
       "id": "src_experiments_n_body_components_debugpanel_tsx_components_debugpanel_row"
     },
@@ -8862,7 +9032,7 @@
       "source_file": "src/experiments/n-body/components/DebugPanel.tsx",
       "source_location": "L69",
       "_origin": "ast",
-      "community": 20,
+      "community": 15,
       "norm_label": "section()",
       "id": "src_experiments_n_body_components_debugpanel_tsx_components_debugpanel_section"
     },
@@ -8872,7 +9042,7 @@
       "source_file": "src/experiments/n-body/components/DebugPanel.tsx",
       "source_location": "L78",
       "_origin": "ast",
-      "community": 20,
+      "community": 15,
       "norm_label": "debugpanel()",
       "id": "src_experiments_n_body_components_debugpanel_tsx_components_debugpanel_debugpanel"
     },
@@ -8892,7 +9062,7 @@
       "source_file": "src/experiments/n-body/components/Look.tsx",
       "source_location": "L8",
       "_origin": "ast",
-      "community": 20,
+      "community": 15,
       "norm_label": "props",
       "id": "src_experiments_n_body_components_look_tsx_components_look_props"
     },
@@ -8932,7 +9102,7 @@
       "source_file": "src/experiments/n-body/components/NBodyCanvas.tsx",
       "source_location": "L52",
       "_origin": "ast",
-      "community": 20,
+      "community": 15,
       "norm_label": "props",
       "id": "components_nbodycanvas_props"
     },
@@ -8942,7 +9112,7 @@
       "source_file": "src/experiments/n-body/components/NBodyCanvas.tsx",
       "source_location": "L62",
       "_origin": "ast",
-      "community": 27,
+      "community": 20,
       "norm_label": "nbodyhandle",
       "id": "components_nbodycanvas_nbodyhandle"
     },
@@ -9022,7 +9192,7 @@
       "source_file": "src/experiments/n-body/components/Stats.tsx",
       "source_location": "L7",
       "_origin": "ast",
-      "community": 20,
+      "community": 15,
       "norm_label": "props",
       "id": "src_experiments_n_body_components_stats_tsx_components_stats_props"
     },
@@ -9192,7 +9362,7 @@
       "source_file": "src/experiments/n-body/index.tsx",
       "source_location": "L50",
       "_origin": "ast",
-      "community": 9,
+      "community": 20,
       "norm_label": "nbody()",
       "id": "n_body_index_nbody"
     },
@@ -9422,7 +9592,7 @@
       "source_file": "src/experiments/n-body/physics.ts",
       "source_location": "L15",
       "_origin": "ast",
-      "community": 22,
+      "community": 27,
       "norm_label": "makebodies()",
       "id": "n_body_physics_makebodies"
     },
@@ -9452,7 +9622,7 @@
       "source_file": "src/experiments/n-body/physics.ts",
       "source_location": "L57",
       "_origin": "ast",
-      "community": 22,
+      "community": 27,
       "norm_label": "makesim()",
       "id": "n_body_physics_makesim"
     },
@@ -9492,7 +9662,7 @@
       "source_file": "src/experiments/n-body/physics.ts",
       "source_location": "L142",
       "_origin": "ast",
-      "community": 22,
+      "community": 27,
       "norm_label": "meanspeed()",
       "id": "n_body_physics_meanspeed"
     },
@@ -9542,7 +9712,7 @@
       "source_file": "src/experiments/n-body/physics.ts",
       "source_location": "L305",
       "_origin": "ast",
-      "community": 22,
+      "community": 27,
       "norm_label": "followbox",
       "id": "n_body_physics_followbox"
     },
@@ -9812,7 +9982,7 @@
       "source_file": "src/experiments/n-body/presets.ts",
       "source_location": "L518",
       "_origin": "ast",
-      "community": 35,
+      "community": 15,
       "norm_label": "presets",
       "id": "n_body_presets_presets"
     },
@@ -9932,7 +10102,7 @@
       "source_file": "src/experiments/n-body/types.ts",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 20,
+      "community": 52,
       "norm_label": "types.ts",
       "id": "n_body_types"
     },
@@ -9952,7 +10122,7 @@
       "source_file": "src/experiments/n-body/types.ts",
       "source_location": "L24",
       "_origin": "ast",
-      "community": 20,
+      "community": 15,
       "norm_label": "integrator",
       "id": "n_body_types_integrator"
     },
@@ -9962,7 +10132,7 @@
       "source_file": "src/experiments/n-body/types.ts",
       "source_location": "L27",
       "_origin": "ast",
-      "community": 20,
+      "community": 27,
       "norm_label": "colormode",
       "id": "n_body_types_colormode"
     },
@@ -9992,7 +10162,7 @@
       "source_file": "src/experiments/n-body/types.ts",
       "source_location": "L52",
       "_origin": "ast",
-      "community": 20,
+      "community": 15,
       "norm_label": "nbodyparams",
       "id": "n_body_types_nbodyparams"
     },
@@ -10002,7 +10172,7 @@
       "source_file": "src/experiments/n-body/types.ts",
       "source_location": "L86",
       "_origin": "ast",
-      "community": 27,
+      "community": 52,
       "norm_label": "view",
       "id": "n_body_types_view"
     },
@@ -10012,7 +10182,7 @@
       "source_file": "src/experiments/n-body/types.ts",
       "source_location": "L93",
       "_origin": "ast",
-      "community": 20,
+      "community": 15,
       "norm_label": "nbodysnapshot",
       "id": "n_body_types_nbodysnapshot"
     },
@@ -10282,7 +10452,7 @@
       "source_file": "src/experiments/pacman/constants.ts",
       "source_location": "L11",
       "_origin": "ast",
-      "community": 4,
+      "community": 28,
       "norm_label": "maze",
       "id": "pacman_constants_maze"
     },
@@ -10302,7 +10472,7 @@
       "source_file": "src/experiments/pacman/constants.ts",
       "source_location": "L61",
       "_origin": "ast",
-      "community": 4,
+      "community": 6,
       "norm_label": "pac_start",
       "id": "pacman_constants_pac_start"
     },
@@ -10592,7 +10762,7 @@
       "source_file": "src/experiments/pacman/index.tsx",
       "source_location": "L22",
       "_origin": "ast",
-      "community": 9,
+      "community": 12,
       "norm_label": "pacman()",
       "id": "pacman_index_pacman"
     },
@@ -10632,7 +10802,7 @@
       "source_file": "src/experiments/pacman/maze.ts",
       "source_location": "L23",
       "_origin": "ast",
-      "community": 26,
+      "community": 51,
       "norm_label": "getactivemaze()",
       "id": "pacman_maze_getactivemaze"
     },
@@ -10692,7 +10862,7 @@
       "source_file": "src/experiments/pacman/maze.ts",
       "source_location": "L62",
       "_origin": "ast",
-      "community": 0,
+      "community": 28,
       "norm_label": "neighbor()",
       "id": "pacman_maze_neighbor"
     },
@@ -11322,7 +11492,7 @@
       "source_file": "src/experiments/pacman/pacai/graph.ts",
       "source_location": "L75",
       "_origin": "ast",
-      "community": 0,
+      "community": 6,
       "norm_label": "setportalsfromstate()",
       "id": "pacai_graph_setportalsfromstate"
     },
@@ -11412,7 +11582,7 @@
       "source_file": "src/experiments/pacman/pacai/graph.ts",
       "source_location": "L117",
       "_origin": "ast",
-      "community": 0,
+      "community": 51,
       "norm_label": "nearestresult",
       "id": "pacai_graph_nearestresult"
     },
@@ -11422,7 +11592,7 @@
       "source_file": "src/experiments/pacman/pacai/graph.ts",
       "source_location": "L127",
       "_origin": "ast",
-      "community": 51,
+      "community": 0,
       "norm_label": "nearestinset()",
       "id": "pacai_graph_nearestinset"
     },
@@ -11502,7 +11672,7 @@
       "source_file": "src/experiments/pacman/pacai/graph.ts",
       "source_location": "L262",
       "_origin": "ast",
-      "community": 28,
+      "community": 51,
       "norm_label": "pathresult",
       "id": "pacai_graph_pathresult"
     },
@@ -11642,7 +11812,7 @@
       "source_file": "src/experiments/pacman/pacai/node.ts",
       "source_location": "L14",
       "_origin": "ast",
-      "community": 0,
+      "community": 51,
       "norm_label": "gnode",
       "id": "pacai_node_gnode"
     },
@@ -11952,7 +12122,7 @@
       "source_file": "src/experiments/pacman/pellets/registry.ts",
       "source_location": "L59",
       "_origin": "ast",
-      "community": 28,
+      "community": 12,
       "norm_label": "char_kind",
       "id": "pellets_registry_char_kind"
     },
@@ -12032,7 +12202,7 @@
       "source_file": "src/experiments/pacman/render.ts",
       "source_location": "L45",
       "_origin": "ast",
-      "community": 12,
+      "community": 4,
       "norm_label": "readpalette()",
       "id": "pacman_render_readpalette"
     },
@@ -12242,7 +12412,7 @@
       "source_file": "src/experiments/pacman/simulation.ts",
       "source_location": "L65",
       "_origin": "ast",
-      "community": 28,
+      "community": 6,
       "norm_label": "energizertiles()",
       "id": "pacman_simulation_energizertiles"
     },
@@ -12432,7 +12602,7 @@
       "source_file": "src/experiments/pacman/simulation.ts",
       "source_location": "L340",
       "_origin": "ast",
-      "community": 28,
+      "community": 6,
       "norm_label": "ghostspeed()",
       "id": "pacman_simulation_ghostspeed"
     },
@@ -12452,7 +12622,7 @@
       "source_file": "src/experiments/pacman/simulation.ts",
       "source_location": "L360",
       "_origin": "ast",
-      "community": 28,
+      "community": 6,
       "norm_label": "stepghostactive()",
       "id": "pacman_simulation_stepghostactive"
     },
@@ -12462,7 +12632,7 @@
       "source_file": "src/experiments/pacman/simulation.ts",
       "source_location": "L428",
       "_origin": "ast",
-      "community": 0,
+      "community": 6,
       "norm_label": "steppac()",
       "id": "pacman_simulation_steppac"
     },
@@ -12682,7 +12852,7 @@
       "source_file": "src/experiments/pacman/targeting.ts",
       "source_location": "L45",
       "_origin": "ast",
-      "community": 28,
+      "community": 12,
       "norm_label": "targetresult",
       "id": "pacman_targeting_targetresult"
     },
@@ -12792,7 +12962,7 @@
       "source_file": "src/experiments/pacman/types.ts",
       "source_location": "L7",
       "_origin": "ast",
-      "community": 0,
+      "community": 51,
       "norm_label": "direction",
       "id": "pacman_types_direction"
     },
@@ -12802,7 +12972,7 @@
       "source_file": "src/experiments/pacman/types.ts",
       "source_location": "L10",
       "_origin": "ast",
-      "community": 28,
+      "community": 12,
       "norm_label": "tile",
       "id": "pacman_types_tile"
     },
@@ -12822,7 +12992,7 @@
       "source_file": "src/experiments/pacman/types.ts",
       "source_location": "L24",
       "_origin": "ast",
-      "community": 28,
+      "community": 12,
       "norm_label": "ghostmode",
       "id": "pacman_types_ghostmode"
     },
@@ -14052,7 +14222,7 @@
       "source_file": "src/experiments/river-crossing/components/DebugLog.tsx",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 15,
+      "community": 30,
       "norm_label": "debuglog.tsx",
       "id": "src_experiments_river_crossing_components_debuglog_tsx_components_debuglog"
     },
@@ -14062,7 +14232,7 @@
       "source_file": "src/experiments/river-crossing/components/DebugLog.tsx",
       "source_location": "L7",
       "_origin": "ast",
-      "community": 136,
+      "community": 30,
       "norm_label": "props",
       "id": "src_experiments_river_crossing_components_debuglog_tsx_components_debuglog_props"
     },
@@ -14072,7 +14242,7 @@
       "source_file": "src/experiments/river-crossing/components/DebugLog.tsx",
       "source_location": "L14",
       "_origin": "ast",
-      "community": 15,
+      "community": 30,
       "norm_label": "kind_mark",
       "id": "src_experiments_river_crossing_components_debuglog_tsx_components_debuglog_kind_mark"
     },
@@ -14082,7 +14252,7 @@
       "source_file": "src/experiments/river-crossing/components/DebugLog.tsx",
       "source_location": "L23",
       "_origin": "ast",
-      "community": 15,
+      "community": 30,
       "norm_label": "debuglog()",
       "id": "src_experiments_river_crossing_components_debuglog_tsx_components_debuglog_debuglog"
     },
@@ -14192,7 +14362,7 @@
       "source_file": "src/experiments/river-crossing/components/SearchGraph.tsx",
       "source_location": "L8",
       "_origin": "ast",
-      "community": 136,
+      "community": 16,
       "norm_label": "props",
       "id": "components_searchgraph_props"
     },
@@ -14982,7 +15152,7 @@
       "source_file": "src/experiments/river-crossing/solver.ts",
       "source_location": "L99",
       "_origin": "ast",
-      "community": 136,
+      "community": 24,
       "norm_label": "came",
       "id": "river_crossing_solver_came"
     },
@@ -15062,7 +15232,7 @@
       "source_file": "src/experiments/river-crossing/solver.ts",
       "source_location": "L146",
       "_origin": "ast",
-      "community": 136,
+      "community": 24,
       "norm_label": "opennode",
       "id": "river_crossing_solver_opennode"
     },
@@ -15072,7 +15242,7 @@
       "source_file": "src/experiments/river-crossing/solver.ts",
       "source_location": "L152",
       "_origin": "ast",
-      "community": 136,
+      "community": 24,
       "norm_label": "frontieropts",
       "id": "river_crossing_solver_frontieropts"
     },
@@ -15112,7 +15282,7 @@
       "source_file": "src/experiments/river-crossing/solver.ts",
       "source_location": "L306",
       "_origin": "ast",
-      "community": 136,
+      "community": 24,
       "norm_label": "frame",
       "id": "river_crossing_solver_frame"
     },
@@ -15202,7 +15372,7 @@
       "source_file": "src/experiments/river-crossing/types.ts",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 136,
+      "community": 16,
       "norm_label": "types.ts",
       "id": "river_crossing_types"
     },
@@ -15212,7 +15382,7 @@
       "source_file": "src/experiments/river-crossing/types.ts",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 47,
+      "community": 8,
       "norm_label": "side",
       "id": "river_crossing_types_side"
     },
@@ -15252,7 +15422,7 @@
       "source_file": "src/experiments/river-crossing/types.ts",
       "source_location": "L29",
       "_origin": "ast",
-      "community": 136,
+      "community": 24,
       "norm_label": "puzzlestate",
       "id": "river_crossing_types_puzzlestate"
     },
@@ -15272,7 +15442,7 @@
       "source_file": "src/experiments/river-crossing/types.ts",
       "source_location": "L42",
       "_origin": "ast",
-      "community": 136,
+      "community": 24,
       "norm_label": "move",
       "id": "river_crossing_types_move"
     },
@@ -15282,7 +15452,7 @@
       "source_file": "src/experiments/river-crossing/types.ts",
       "source_location": "L46",
       "_origin": "ast",
-      "community": 136,
+      "community": 16,
       "norm_label": "debugkind",
       "id": "river_crossing_types_debugkind"
     },
@@ -15292,7 +15462,7 @@
       "source_file": "src/experiments/river-crossing/types.ts",
       "source_location": "L48",
       "_origin": "ast",
-      "community": 136,
+      "community": 16,
       "norm_label": "debugentry",
       "id": "river_crossing_types_debugentry"
     },
@@ -15312,7 +15482,7 @@
       "source_file": "src/experiments/river-crossing/types.ts",
       "source_location": "L78",
       "_origin": "ast",
-      "community": 136,
+      "community": 16,
       "norm_label": "searchstep",
       "id": "river_crossing_types_searchstep"
     },
@@ -15322,7 +15492,7 @@
       "source_file": "src/experiments/river-crossing/types.ts",
       "source_location": "L96",
       "_origin": "ast",
-      "community": 136,
+      "community": 16,
       "norm_label": "stategraph",
       "id": "river_crossing_types_stategraph"
     },
@@ -15352,7 +15522,7 @@
       "source_file": "src/experiments/river-crossing/useRiverCrossing.ts",
       "source_location": "L36",
       "_origin": "ast",
-      "community": 136,
+      "community": 16,
       "norm_label": "rivercrossing",
       "id": "river_crossing_userivercrossing_rivercrossing"
     },
@@ -15372,7 +15542,7 @@
       "source_file": "src/experiments/sorting-visualizer/index.tsx",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 15,
+      "community": 30,
       "norm_label": "index.tsx",
       "id": "sorting_visualizer_index"
     },
@@ -15382,7 +15552,7 @@
       "source_file": "src/experiments/sorting-visualizer/index.tsx",
       "source_location": "L6",
       "_origin": "ast",
-      "community": 15,
+      "community": 30,
       "norm_label": "sortingvisualizer()",
       "id": "sorting_visualizer_index_sortingvisualizer"
     },
@@ -15392,7 +15562,7 @@
       "source_file": "src/hooks/useReducedMotion.ts",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 3,
+      "community": 20,
       "norm_label": "usereducedmotion.ts",
       "id": "hooks_usereducedmotion"
     },
@@ -15402,7 +15572,7 @@
       "source_file": "src/hooks/useReducedMotion.ts",
       "source_location": "L5",
       "_origin": "ast",
-      "community": 3,
+      "community": 20,
       "norm_label": "mql()",
       "id": "hooks_usereducedmotion_mql"
     },
@@ -15412,7 +15582,7 @@
       "source_file": "src/hooks/useReducedMotion.ts",
       "source_location": "L13",
       "_origin": "ast",
-      "community": 3,
+      "community": 20,
       "norm_label": "prefersreducedmotion()",
       "id": "hooks_usereducedmotion_prefersreducedmotion"
     },
@@ -15422,7 +15592,7 @@
       "source_file": "src/hooks/useReducedMotion.ts",
       "source_location": "L17",
       "_origin": "ast",
-      "community": 3,
+      "community": 20,
       "norm_label": "subscribe()",
       "id": "hooks_usereducedmotion_subscribe"
     },
@@ -15432,7 +15602,7 @@
       "source_file": "src/hooks/useReducedMotion.ts",
       "source_location": "L29",
       "_origin": "ast",
-      "community": 9,
+      "community": 20,
       "norm_label": "usereducedmotion()",
       "id": "hooks_usereducedmotion_usereducedmotion"
     },
@@ -15472,7 +15642,7 @@
       "source_file": "src/hooks/useTheme.ts",
       "source_location": "L10",
       "_origin": "ast",
-      "community": 9,
+      "community": 20,
       "norm_label": "usetheme()",
       "id": "hooks_usetheme_usetheme"
     },
@@ -15482,7 +15652,7 @@
       "source_file": "src/i18n/index.ts",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 86,
+      "community": 5,
       "norm_label": "index.ts",
       "id": "i18n_index"
     },
@@ -15492,7 +15662,7 @@
       "source_file": "src/i18n/index.ts",
       "source_location": "L18",
       "_origin": "ast",
-      "community": 86,
+      "community": 5,
       "norm_label": "loaders",
       "id": "i18n_index_loaders"
     },
@@ -15502,7 +15672,7 @@
       "source_file": "src/i18n/index.ts",
       "source_location": "L23",
       "_origin": "ast",
-      "community": 86,
+      "community": 5,
       "norm_label": "loadlocale()",
       "id": "i18n_index_loadlocale"
     },
@@ -15512,7 +15682,7 @@
       "source_file": "src/i18n/index.ts",
       "source_location": "L33",
       "_origin": "ast",
-      "community": 86,
+      "community": 5,
       "norm_label": "restorelanguage()",
       "id": "i18n_index_restorelanguage"
     },
@@ -15522,7 +15692,7 @@
       "source_file": "src/main.tsx",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 44,
+      "community": 5,
       "norm_label": "main.tsx",
       "id": "src_main"
     },
@@ -15532,7 +15702,7 @@
       "source_file": "src/main.tsx",
       "source_location": "L9",
       "_origin": "ast",
-      "community": 44,
+      "community": 5,
       "norm_label": "root",
       "id": "src_main_root"
     },
@@ -15542,7 +15712,7 @@
       "source_file": "src/main.tsx",
       "source_location": "L12",
       "_origin": "ast",
-      "community": 44,
+      "community": 5,
       "norm_label": "mount()",
       "id": "src_main_mount"
     },
@@ -15982,7 +16152,7 @@
       "source_file": "src/pages/Contact/index.tsx",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 15,
+      "community": 5,
       "norm_label": "index.tsx",
       "id": "contact_index"
     },
@@ -15992,7 +16162,7 @@
       "source_file": "src/pages/Contact/index.tsx",
       "source_location": "L14",
       "_origin": "ast",
-      "community": 15,
+      "community": 5,
       "norm_label": "contact()",
       "id": "contact_index_contact"
     },
@@ -20662,7 +20832,7 @@
       "source_file": "docs/pathfinding/TEXTBOOK.md",
       "source_location": "L94",
       "_origin": "ast",
-      "community": 49,
+      "community": 86,
       "norm_label": "2. the seven algorithms",
       "id": "pathfinding_textbook_2_the_seven_algorithms"
     },
@@ -20672,7 +20842,7 @@
       "source_file": "docs/pathfinding/TEXTBOOK.md",
       "source_location": "L96",
       "_origin": "ast",
-      "community": 49,
+      "community": 86,
       "norm_label": "2.1 breadth-first search (bfs)",
       "id": "pathfinding_textbook_2_1_breadth_first_search_bfs"
     },
@@ -20682,7 +20852,7 @@
       "source_file": "docs/pathfinding/TEXTBOOK.md",
       "source_location": "L114",
       "_origin": "ast",
-      "community": 49,
+      "community": 86,
       "norm_label": "2.2 depth-first search (dfs)",
       "id": "pathfinding_textbook_2_2_depth_first_search_dfs"
     },
@@ -20692,7 +20862,7 @@
       "source_file": "docs/pathfinding/TEXTBOOK.md",
       "source_location": "L137",
       "_origin": "ast",
-      "community": 49,
+      "community": 86,
       "norm_label": "2.3 dijkstra's algorithm",
       "id": "pathfinding_textbook_2_3_dijkstra_s_algorithm"
     },
@@ -20702,7 +20872,7 @@
       "source_file": "docs/pathfinding/TEXTBOOK.md",
       "source_location": "L157",
       "_origin": "ast",
-      "community": 49,
+      "community": 86,
       "norm_label": "2.4 a* search",
       "id": "pathfinding_textbook_2_4_a_search"
     },
@@ -20712,7 +20882,7 @@
       "source_file": "docs/pathfinding/TEXTBOOK.md",
       "source_location": "L186",
       "_origin": "ast",
-      "community": 49,
+      "community": 86,
       "norm_label": "2.5 greedy best-first search",
       "id": "pathfinding_textbook_2_5_greedy_best_first_search"
     },
@@ -20722,7 +20892,7 @@
       "source_file": "docs/pathfinding/TEXTBOOK.md",
       "source_location": "L207",
       "_origin": "ast",
-      "community": 49,
+      "community": 86,
       "norm_label": "2.6 bidirectional bfs",
       "id": "pathfinding_textbook_2_6_bidirectional_bfs"
     },
@@ -20732,7 +20902,7 @@
       "source_file": "docs/pathfinding/TEXTBOOK.md",
       "source_location": "L241",
       "_origin": "ast",
-      "community": 49,
+      "community": 86,
       "norm_label": "2.7 jump point search (jps)",
       "id": "pathfinding_textbook_2_7_jump_point_search_jps"
     },
@@ -20782,7 +20952,7 @@
       "source_file": "docs/pathfinding/TEXTBOOK.md",
       "source_location": "L342",
       "_origin": "ast",
-      "community": 49,
+      "community": 87,
       "norm_label": "4. real findings from building the visualization",
       "id": "pathfinding_textbook_4_real_findings_from_building_the_visualization"
     },
@@ -20792,7 +20962,7 @@
       "source_file": "docs/pathfinding/TEXTBOOK.md",
       "source_location": "L344",
       "_origin": "ast",
-      "community": 49,
+      "community": 87,
       "norm_label": "4.1 jps \"no path\" on open grids (the \u00a70 finding)",
       "id": "pathfinding_textbook_4_1_jps_no_path_on_open_grids_the_0_finding"
     },
@@ -20802,7 +20972,7 @@
       "source_file": "docs/pathfinding/TEXTBOOK.md",
       "source_location": "L352",
       "_origin": "ast",
-      "community": 49,
+      "community": 87,
       "norm_label": "4.2 jps path rendered as disconnected dots",
       "id": "pathfinding_textbook_4_2_jps_path_rendered_as_disconnected_dots"
     },
@@ -20812,7 +20982,7 @@
       "source_file": "docs/pathfinding/TEXTBOOK.md",
       "source_location": "L363",
       "_origin": "ast",
-      "community": 49,
+      "community": 87,
       "norm_label": "4.3 path overlay contrast on colorful terrain",
       "id": "pathfinding_textbook_4_3_path_overlay_contrast_on_colorful_terrain"
     },
@@ -20822,7 +20992,7 @@
       "source_file": "docs/pathfinding/TEXTBOOK.md",
       "source_location": "L373",
       "_origin": "ast",
-      "community": 49,
+      "community": 87,
       "norm_label": "4.4 css stacking and the jps warning tooltip",
       "id": "pathfinding_textbook_4_4_css_stacking_and_the_jps_warning_tooltip"
     },
@@ -20832,7 +21002,7 @@
       "source_file": "docs/pathfinding/TEXTBOOK.md",
       "source_location": "L383",
       "_origin": "ast",
-      "community": 49,
+      "community": 87,
       "norm_label": "4.5 scroll layout: the flex-collapse trap",
       "id": "pathfinding_textbook_4_5_scroll_layout_the_flex_collapse_trap"
     },
@@ -20842,7 +21012,7 @@
       "source_file": "docs/pathfinding/TEXTBOOK.md",
       "source_location": "L396",
       "_origin": "ast",
-      "community": 49,
+      "community": 87,
       "norm_label": "4.6 bidirectional bfs meeting condition",
       "id": "pathfinding_textbook_4_6_bidirectional_bfs_meeting_condition"
     },
@@ -20852,7 +21022,7 @@
       "source_file": "docs/pathfinding/TEXTBOOK.md",
       "source_location": "L403",
       "_origin": "ast",
-      "community": 49,
+      "community": 87,
       "norm_label": "4.7 generator step count vs. \"explored\" node count",
       "id": "pathfinding_textbook_4_7_generator_step_count_vs_explored_node_count"
     },
@@ -21112,7 +21282,7 @@
       "source_file": "docs/river-crossing/TEXTBOOK.md",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 53,
+      "community": 48,
       "norm_label": "textbook.md",
       "id": "river_crossing_textbook"
     },
@@ -21142,7 +21312,7 @@
       "source_file": "docs/river-crossing/TEXTBOOK.md",
       "source_location": "L61",
       "_origin": "ast",
-      "community": 130,
+      "community": 54,
       "norm_label": "1. the model & the state space",
       "id": "river_crossing_textbook_1_the_model_the_state_space"
     },
@@ -21152,7 +21322,7 @@
       "source_file": "docs/river-crossing/TEXTBOOK.md",
       "source_location": "L67",
       "_origin": "ast",
-      "community": 130,
+      "community": 54,
       "norm_label": "1.1 state",
       "id": "river_crossing_textbook_1_1_state"
     },
@@ -21162,7 +21332,7 @@
       "source_file": "docs/river-crossing/TEXTBOOK.md",
       "source_location": "L80",
       "_origin": "ast",
-      "community": 130,
+      "community": 54,
       "norm_label": "1.2 validity",
       "id": "river_crossing_textbook_1_2_validity"
     },
@@ -21172,7 +21342,7 @@
       "source_file": "docs/river-crossing/TEXTBOOK.md",
       "source_location": "L93",
       "_origin": "ast",
-      "community": 130,
+      "community": 54,
       "norm_label": "1.3 moves and the branching factor",
       "id": "river_crossing_textbook_1_3_moves_and_the_branching_factor"
     },
@@ -21182,7 +21352,7 @@
       "source_file": "docs/river-crossing/TEXTBOOK.md",
       "source_location": "L100",
       "_origin": "ast",
-      "community": 130,
+      "community": 54,
       "norm_label": "1.4 state-space size",
       "id": "river_crossing_textbook_1_4_state_space_size"
     },
@@ -21192,7 +21362,7 @@
       "source_file": "docs/river-crossing/TEXTBOOK.md",
       "source_location": "L115",
       "_origin": "ast",
-      "community": 112,
+      "community": 54,
       "norm_label": "2. the search algorithms (three core, four more)",
       "id": "river_crossing_textbook_2_the_search_algorithms_three_core_four_more"
     },
@@ -21202,7 +21372,7 @@
       "source_file": "docs/river-crossing/TEXTBOOK.md",
       "source_location": "L124",
       "_origin": "ast",
-      "community": 112,
+      "community": 54,
       "norm_label": "bfs - breadth-first search",
       "id": "river_crossing_textbook_bfs_breadth_first_search"
     },
@@ -21212,7 +21382,7 @@
       "source_file": "docs/river-crossing/TEXTBOOK.md",
       "source_location": "L133",
       "_origin": "ast",
-      "community": 112,
+      "community": 54,
       "norm_label": "dfs - depth-first search",
       "id": "river_crossing_textbook_dfs_depth_first_search"
     },
@@ -21222,7 +21392,7 @@
       "source_file": "docs/river-crossing/TEXTBOOK.md",
       "source_location": "L145",
       "_origin": "ast",
-      "community": 112,
+      "community": 54,
       "norm_label": "a\\* - best-first with an admissible heuristic",
       "id": "river_crossing_textbook_a_best_first_with_an_admissible_heuristic"
     },
@@ -21232,7 +21402,7 @@
       "source_file": "docs/river-crossing/TEXTBOOK.md",
       "source_location": "L163",
       "_origin": "ast",
-      "community": 112,
+      "community": 54,
       "norm_label": "four more, sharing the same graph",
       "id": "river_crossing_textbook_four_more_sharing_the_same_graph"
     },
@@ -21242,7 +21412,7 @@
       "source_file": "docs/river-crossing/TEXTBOOK.md",
       "source_location": "L186",
       "_origin": "ast",
-      "community": 112,
+      "community": 54,
       "norm_label": "watching the search, not just the answer",
       "id": "river_crossing_textbook_watching_the_search_not_just_the_answer"
     },
@@ -22095,106 +22265,6 @@
       "community": 110,
       "norm_label": "code",
       "id": "wiki_experiment_river_crossing_code"
-    },
-    {
-      "label": "Experiments.md",
-      "file_type": "document",
-      "source_file": "wiki/Experiments.md",
-      "source_location": "L1",
-      "_origin": "ast",
-      "community": 74,
-      "norm_label": "experiments.md",
-      "id": "wiki_experiments"
-    },
-    {
-      "label": "Experiments",
-      "file_type": "document",
-      "source_file": "wiki/Experiments.md",
-      "source_location": "L1",
-      "_origin": "ast",
-      "community": 122,
-      "norm_label": "experiments",
-      "id": "wiki_experiments_experiments"
-    },
-    {
-      "label": "Status legend",
-      "file_type": "document",
-      "source_file": "wiki/Experiments.md",
-      "source_location": "L27",
-      "_origin": "ast",
-      "community": 122,
-      "norm_label": "status legend",
-      "id": "wiki_experiments_status_legend"
-    },
-    {
-      "label": "Adding to this list",
-      "file_type": "document",
-      "source_file": "wiki/Experiments.md",
-      "source_location": "L33",
-      "_origin": "ast",
-      "community": 122,
-      "norm_label": "adding to this list",
-      "id": "wiki_experiments_adding_to_this_list"
-    },
-    {
-      "label": "Home.md",
-      "file_type": "document",
-      "source_file": "wiki/Home.md",
-      "source_location": "L1",
-      "_origin": "ast",
-      "community": 74,
-      "norm_label": "home.md",
-      "id": "wiki_home"
-    },
-    {
-      "label": "archive-of-experiments",
-      "file_type": "document",
-      "source_file": "wiki/Home.md",
-      "source_location": "L1",
-      "_origin": "ast",
-      "community": 116,
-      "norm_label": "archive-of-experiments",
-      "id": "wiki_home_archive_of_experiments"
-    },
-    {
-      "label": "Start here",
-      "file_type": "document",
-      "source_file": "wiki/Home.md",
-      "source_location": "L15",
-      "_origin": "ast",
-      "community": 116,
-      "norm_label": "start here",
-      "id": "wiki_home_start_here"
-    },
-    {
-      "label": "Experiment status",
-      "file_type": "document",
-      "source_file": "wiki/Home.md",
-      "source_location": "L25",
-      "_origin": "ast",
-      "community": 116,
-      "norm_label": "experiment status",
-      "id": "wiki_home_experiment_status"
-    },
-    {
-      "label": "Site-level research",
-      "file_type": "document",
-      "source_file": "wiki/Home.md",
-      "source_location": "L48",
-      "_origin": "ast",
-      "community": 116,
-      "norm_label": "site-level research",
-      "id": "wiki_home_site_level_research"
-    },
-    {
-      "label": "What makes this repo unusual",
-      "file_type": "document",
-      "source_file": "wiki/Home.md",
-      "source_location": "L63",
-      "_origin": "ast",
-      "community": 116,
-      "norm_label": "what makes this repo unusual",
-      "id": "wiki_home_what_makes_this_repo_unusual"
     },
     {
       "label": "Site-Performance.md",
@@ -23345,7 +23415,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 43,
+      "community": 48,
       "norm_label": "three-body ejection / hierarchical triple",
       "id": "nbody_textbook_three_body_ejection"
     },
@@ -23384,7 +23454,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 43,
+      "community": 48,
       "norm_label": "throwaway tsx verification harness",
       "id": "nbody_textbook_tsx_harness"
     },
@@ -23423,7 +23493,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 43,
+      "community": 48,
       "norm_label": "figure-8 choreography",
       "id": "nbody_textbook_figure8"
     },
@@ -23995,7 +24065,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 53,
+      "community": 48,
       "norm_label": "bidirectional illegal-goal gotcha",
       "id": "river_crossing_improvements_bidir_gotcha"
     },
@@ -24021,7 +24091,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 53,
+      "community": 48,
       "norm_label": "a search result is a path, not a policy",
       "id": "river_crossing_textbook_path_not_policy"
     },
@@ -24034,7 +24104,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 53,
+      "community": 48,
       "norm_label": "committed-plan playback",
       "id": "river_crossing_textbook_committed_plan"
     },
@@ -24060,7 +24130,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 53,
+      "community": 48,
       "norm_label": "solvability as first-class output",
       "id": "river_crossing_textbook_solvability_output"
     },
@@ -24073,7 +24143,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 43,
+      "community": 48,
       "norm_label": "debug-bridge methodology",
       "id": "river_crossing_textbook_debug_bridge"
     },
@@ -24108,12 +24178,462 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "wiki/Experiment-Reaction-Diffusion.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "wiki_experiment_reaction_diffusion",
+      "target": "wiki_experiment_reaction_diffusion_experiment_reaction_diffusion_gray_scott",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/Experiment-Reaction-Diffusion.md",
+      "source_location": "L84",
+      "weight": 1.0,
+      "source": "wiki_experiment_reaction_diffusion",
+      "target": "wiki_experiments",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/Home.md",
+      "source_location": "L38",
+      "weight": 1.0,
+      "source": "wiki_home",
+      "target": "wiki_experiment_reaction_diffusion",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/Experiment-Reaction-Diffusion.md",
+      "source_location": "L76",
+      "weight": 1.0,
+      "source": "wiki_experiment_reaction_diffusion_experiment_reaction_diffusion_gray_scott",
+      "target": "wiki_experiment_reaction_diffusion_code",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/Experiment-Reaction-Diffusion.md",
+      "source_location": "L66",
+      "weight": 1.0,
+      "source": "wiki_experiment_reaction_diffusion_experiment_reaction_diffusion_gray_scott",
+      "target": "wiki_experiment_reaction_diffusion_deep_dive",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/Experiment-Reaction-Diffusion.md",
+      "source_location": "L46",
+      "weight": 1.0,
+      "source": "wiki_experiment_reaction_diffusion_experiment_reaction_diffusion_gray_scott",
+      "target": "wiki_experiment_reaction_diffusion_key_findings_the_short_version",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/Experiment-Reaction-Diffusion.md",
+      "source_location": "L32",
+      "weight": 1.0,
+      "source": "wiki_experiment_reaction_diffusion_experiment_reaction_diffusion_gray_scott",
+      "target": "wiki_experiment_reaction_diffusion_try_this",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/Experiment-Reaction-Diffusion.md",
+      "source_location": "L12",
+      "weight": 1.0,
+      "source": "wiki_experiment_reaction_diffusion_experiment_reaction_diffusion_gray_scott",
+      "target": "wiki_experiment_reaction_diffusion_what_it_is",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/Documentation-Conventions.md",
+      "source_location": "L72",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "wiki_documentation_conventions",
+      "target": "wiki_experiments"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/Experiment-ACO.md",
+      "source_location": "L55",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "wiki_experiment_aco",
+      "target": "wiki_experiments"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/Experiment-Boids.md",
+      "source_location": "L69",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "wiki_experiment_boids",
+      "target": "wiki_experiments"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/Experiment-Chess.md",
+      "source_location": "L57",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "wiki_experiment_chess",
+      "target": "wiki_experiments"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/Experiment-Elevator.md",
+      "source_location": "L47",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "wiki_experiment_elevator",
+      "target": "wiki_experiments"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/Experiment-L-System.md",
+      "source_location": "L72",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "wiki_experiment_l_system",
+      "target": "wiki_experiments"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/Experiment-Minesweeper.md",
+      "source_location": "L77",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "wiki_experiment_minesweeper",
+      "target": "wiki_experiments"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/Experiment-N-Body.md",
+      "source_location": "L75",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "wiki_experiment_n_body",
+      "target": "wiki_experiments"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/Experiment-Pathfinding.md",
+      "source_location": "L51",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "wiki_experiment_pathfinding",
+      "target": "wiki_experiments"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/Experiment-River-Crossing.md",
+      "source_location": "L65",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "wiki_experiment_river_crossing",
+      "target": "wiki_experiments"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/Experiments.md",
+      "source_location": "L35",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "wiki_experiments",
+      "target": "wiki_adding_an_experiment"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/Experiments.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "wiki_experiments",
+      "target": "wiki_experiments_experiments"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/_Footer.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "wiki_footer",
+      "target": "wiki_experiments"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/Home.md",
+      "source_location": "L17",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "wiki_home",
+      "target": "wiki_experiments"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/_Sidebar.md",
+      "source_location": "L14",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "wiki_sidebar",
+      "target": "wiki_experiments"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/Experiments.md",
+      "source_location": "L33",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "wiki_experiments_experiments",
+      "target": "wiki_experiments_adding_to_this_list"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/Experiments.md",
+      "source_location": "L27",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "wiki_experiments_experiments",
+      "target": "wiki_experiments_status_legend"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/Documentation-Conventions.md",
+      "source_location": "L72",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "wiki_documentation_conventions",
+      "target": "wiki_home"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/_Footer.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "wiki_footer",
+      "target": "wiki_home"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/Home.md",
+      "source_location": "L19",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "wiki_home",
+      "target": "wiki_adding_an_experiment"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/Home.md",
+      "source_location": "L18",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "wiki_home",
+      "target": "wiki_architecture"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/Home.md",
+      "source_location": "L32",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "wiki_home",
+      "target": "wiki_experiment_aco"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/Home.md",
+      "source_location": "L35",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "wiki_home",
+      "target": "wiki_experiment_boids"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/Home.md",
+      "source_location": "L29",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "wiki_home",
+      "target": "wiki_experiment_chess"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/Home.md",
+      "source_location": "L31",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "wiki_home",
+      "target": "wiki_experiment_elevator"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/Home.md",
+      "source_location": "L36",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "wiki_home",
+      "target": "wiki_experiment_l_system"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/Home.md",
+      "source_location": "L34",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "wiki_home",
+      "target": "wiki_experiment_minesweeper"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/Home.md",
+      "source_location": "L37",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "wiki_home",
+      "target": "wiki_experiment_n_body"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/Home.md",
+      "source_location": "L30",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "wiki_home",
+      "target": "wiki_experiment_pathfinding"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/Home.md",
+      "source_location": "L33",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "wiki_home",
+      "target": "wiki_experiment_river_crossing"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/Home.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "wiki_home",
+      "target": "wiki_home_archive_of_experiments"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/Home.md",
+      "source_location": "L21",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "wiki_home",
+      "target": "wiki_site_performance"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/_Sidebar.md",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "wiki_sidebar",
+      "target": "wiki_home"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/Home.md",
+      "source_location": "L25",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "wiki_home_archive_of_experiments",
+      "target": "wiki_home_experiment_status"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/Home.md",
+      "source_location": "L48",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "wiki_home_archive_of_experiments",
+      "target": "wiki_home_site_level_research"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/Home.md",
+      "source_location": "L15",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "wiki_home_archive_of_experiments",
+      "target": "wiki_home_start_here"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "wiki/Home.md",
+      "source_location": "L63",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "wiki_home_archive_of_experiments",
+      "target": "wiki_home_what_makes_this_repo_unusual"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "docs/reaction-diffusion/TEXTBOOK.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "reaction_diffusion_textbook",
-      "target": "reaction_diffusion_textbook_reaction_diffusion_gray_scott_textbook_real_world_research",
-      "confidence_score": 1.0
+      "target": "reaction_diffusion_textbook_reaction_diffusion_gray_scott_textbook_real_world_research"
     },
     {
       "relation": "contains",
@@ -24121,9 +24641,9 @@
       "source_file": "docs/reaction-diffusion/TEXTBOOK.md",
       "source_location": "L24",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "reaction_diffusion_textbook_reaction_diffusion_gray_scott_textbook_real_world_research",
-      "target": "reaction_diffusion_textbook_0_the_single_most_important_finding",
-      "confidence_score": 1.0
+      "target": "reaction_diffusion_textbook_0_the_single_most_important_finding"
     },
     {
       "relation": "contains",
@@ -24131,9 +24651,9 @@
       "source_file": "docs/reaction-diffusion/TEXTBOOK.md",
       "source_location": "L357",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "reaction_diffusion_textbook_reaction_diffusion_gray_scott_textbook_real_world_research",
-      "target": "reaction_diffusion_textbook_10_further_real_world_context",
-      "confidence_score": 1.0
+      "target": "reaction_diffusion_textbook_10_further_real_world_context"
     },
     {
       "relation": "contains",
@@ -24141,9 +24661,9 @@
       "source_file": "docs/reaction-diffusion/TEXTBOOK.md",
       "source_location": "L58",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "reaction_diffusion_textbook_reaction_diffusion_gray_scott_textbook_real_world_research",
-      "target": "reaction_diffusion_textbook_1_the_model_and_its_equations",
-      "confidence_score": 1.0
+      "target": "reaction_diffusion_textbook_1_the_model_and_its_equations"
     },
     {
       "relation": "contains",
@@ -24151,9 +24671,9 @@
       "source_file": "docs/reaction-diffusion/TEXTBOOK.md",
       "source_location": "L98",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "reaction_diffusion_textbook_reaction_diffusion_gray_scott_textbook_real_world_research",
-      "target": "reaction_diffusion_textbook_2_the_gpu_implementation",
-      "confidence_score": 1.0
+      "target": "reaction_diffusion_textbook_2_the_gpu_implementation"
     },
     {
       "relation": "contains",
@@ -24161,9 +24681,9 @@
       "source_file": "docs/reaction-diffusion/TEXTBOOK.md",
       "source_location": "L127",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "reaction_diffusion_textbook_reaction_diffusion_gray_scott_textbook_real_world_research",
-      "target": "reaction_diffusion_textbook_3_the_parameter_map_and_presets",
-      "confidence_score": 1.0
+      "target": "reaction_diffusion_textbook_3_the_parameter_map_and_presets"
     },
     {
       "relation": "contains",
@@ -24171,9 +24691,9 @@
       "source_file": "docs/reaction-diffusion/TEXTBOOK.md",
       "source_location": "L168",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "reaction_diffusion_textbook_reaction_diffusion_gray_scott_textbook_real_world_research",
-      "target": "reaction_diffusion_textbook_4_the_seeding_research_the_core_finding",
-      "confidence_score": 1.0
+      "target": "reaction_diffusion_textbook_4_the_seeding_research_the_core_finding"
     },
     {
       "relation": "contains",
@@ -24181,9 +24701,9 @@
       "source_file": "docs/reaction-diffusion/TEXTBOOK.md",
       "source_location": "L231",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "reaction_diffusion_textbook_reaction_diffusion_gray_scott_textbook_real_world_research",
-      "target": "reaction_diffusion_textbook_5_numeric_findings",
-      "confidence_score": 1.0
+      "target": "reaction_diffusion_textbook_5_numeric_findings"
     },
     {
       "relation": "contains",
@@ -24191,9 +24711,9 @@
       "source_file": "docs/reaction-diffusion/TEXTBOOK.md",
       "source_location": "L268",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "reaction_diffusion_textbook_reaction_diffusion_gray_scott_textbook_real_world_research",
-      "target": "reaction_diffusion_textbook_6_resolution_and_the_blur",
-      "confidence_score": 1.0
+      "target": "reaction_diffusion_textbook_6_resolution_and_the_blur"
     },
     {
       "relation": "contains",
@@ -24201,9 +24721,9 @@
       "source_file": "docs/reaction-diffusion/TEXTBOOK.md",
       "source_location": "L294",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "reaction_diffusion_textbook_reaction_diffusion_gray_scott_textbook_real_world_research",
-      "target": "reaction_diffusion_textbook_7_verification_methodology_a_finding_in_itself",
-      "confidence_score": 1.0
+      "target": "reaction_diffusion_textbook_7_verification_methodology_a_finding_in_itself"
     },
     {
       "relation": "contains",
@@ -24211,9 +24731,9 @@
       "source_file": "docs/reaction-diffusion/TEXTBOOK.md",
       "source_location": "L322",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "reaction_diffusion_textbook_reaction_diffusion_gray_scott_textbook_real_world_research",
-      "target": "reaction_diffusion_textbook_8_fidelity_scorecard",
-      "confidence_score": 1.0
+      "target": "reaction_diffusion_textbook_8_fidelity_scorecard"
     },
     {
       "relation": "contains",
@@ -24221,9 +24741,9 @@
       "source_file": "docs/reaction-diffusion/TEXTBOOK.md",
       "source_location": "L338",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "reaction_diffusion_textbook_reaction_diffusion_gray_scott_textbook_real_world_research",
-      "target": "reaction_diffusion_textbook_9_where_this_is_not_real_chemistry_scope_boundary",
-      "confidence_score": 1.0
+      "target": "reaction_diffusion_textbook_9_where_this_is_not_real_chemistry_scope_boundary"
     },
     {
       "relation": "contains",
@@ -24231,9 +24751,9 @@
       "source_file": "docs/reaction-diffusion/TEXTBOOK.md",
       "source_location": "L119",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "reaction_diffusion_textbook_2_the_gpu_implementation",
-      "target": "reaction_diffusion_textbook_fidelity",
-      "confidence_score": 1.0
+      "target": "reaction_diffusion_textbook_fidelity"
     },
     {
       "relation": "contains",
@@ -24241,9 +24761,9 @@
       "source_file": "docs/reaction-diffusion/TEXTBOOK.md",
       "source_location": "L173",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "reaction_diffusion_textbook_4_the_seeding_research_the_core_finding",
-      "target": "reaction_diffusion_textbook_4_1_flooding_v_the_brush_erases",
-      "confidence_score": 1.0
+      "target": "reaction_diffusion_textbook_4_1_flooding_v_the_brush_erases"
     },
     {
       "relation": "contains",
@@ -24251,9 +24771,9 @@
       "source_file": "docs/reaction-diffusion/TEXTBOOK.md",
       "source_location": "L186",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "reaction_diffusion_textbook_4_the_seeding_research_the_core_finding",
-      "target": "reaction_diffusion_textbook_4_2_the_two_families_want_opposite_sized_seeds",
-      "confidence_score": 1.0
+      "target": "reaction_diffusion_textbook_4_2_the_two_families_want_opposite_sized_seeds"
     },
     {
       "relation": "contains",
@@ -24261,9 +24781,9 @@
       "source_file": "docs/reaction-diffusion/TEXTBOOK.md",
       "source_location": "L201",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "reaction_diffusion_textbook_4_the_seeding_research_the_core_finding",
-      "target": "reaction_diffusion_textbook_4_3_the_seed_that_works_jittered_grid_of_mixed_size_hard_discs",
-      "confidence_score": 1.0
+      "target": "reaction_diffusion_textbook_4_3_the_seed_that_works_jittered_grid_of_mixed_size_hard_discs"
     },
     {
       "relation": "contains",
@@ -24271,9 +24791,9 @@
       "source_file": "docs/reaction-diffusion/TEXTBOOK.md",
       "source_location": "L219",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "reaction_diffusion_textbook_4_the_seeding_research_the_core_finding",
-      "target": "reaction_diffusion_textbook_4_4_the_resize_bug_that_masqueraded_as_always_near_empty",
-      "confidence_score": 1.0
+      "target": "reaction_diffusion_textbook_4_4_the_resize_bug_that_masqueraded_as_always_near_empty"
     },
     {
       "relation": "contains",
@@ -24281,9 +24801,9 @@
       "source_file": "docs/reaction-diffusion/TEXTBOOK.md",
       "source_location": "L233",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "reaction_diffusion_textbook_5_numeric_findings",
-      "target": "reaction_diffusion_textbook_5_1_float16_is_not_enough_use_float32",
-      "confidence_score": 1.0
+      "target": "reaction_diffusion_textbook_5_1_float16_is_not_enough_use_float32"
     },
     {
       "relation": "contains",
@@ -24291,9 +24811,9 @@
       "source_file": "docs/reaction-diffusion/TEXTBOOK.md",
       "source_location": "L245",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "reaction_diffusion_textbook_5_numeric_findings",
-      "target": "reaction_diffusion_textbook_5_2_explicit_euler_is_conditionally_stable",
-      "confidence_score": 1.0
+      "target": "reaction_diffusion_textbook_5_2_explicit_euler_is_conditionally_stable"
     },
     {
       "relation": "contains",
@@ -24301,9 +24821,9 @@
       "source_file": "docs/reaction-diffusion/TEXTBOOK.md",
       "source_location": "L255",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "reaction_diffusion_textbook_5_numeric_findings",
-      "target": "reaction_diffusion_textbook_5_3_converged_is_the_steady_state_not_a_dead_loop",
-      "confidence_score": 1.0
+      "target": "reaction_diffusion_textbook_5_3_converged_is_the_steady_state_not_a_dead_loop"
     },
     {
       "relation": "references",
@@ -24414,26 +24934,6 @@
       "confidence_score": 1.0,
       "source": "wiki_documentation_conventions",
       "target": "wiki_experiment_river_crossing"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "wiki/Documentation-Conventions.md",
-      "source_location": "L72",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "wiki_documentation_conventions",
-      "target": "wiki_experiments"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "wiki/Documentation-Conventions.md",
-      "source_location": "L72",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "wiki_documentation_conventions",
-      "target": "wiki_home"
     },
     {
       "relation": "references",
@@ -75829,26 +76329,6 @@
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "wiki/Experiments.md",
-      "source_location": "L35",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "wiki_experiments",
-      "target": "wiki_adding_an_experiment"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "wiki/Home.md",
-      "source_location": "L19",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "wiki_home",
-      "target": "wiki_adding_an_experiment"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
       "source_file": "wiki/_Sidebar.md",
       "source_location": "L7",
       "weight": 1.0,
@@ -75939,16 +76419,6 @@
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "wiki/Home.md",
-      "source_location": "L18",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "wiki_home",
-      "target": "wiki_architecture"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
       "source_file": "wiki/_Sidebar.md",
       "source_location": "L6",
       "weight": 1.0,
@@ -76029,26 +76499,6 @@
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "wiki/Experiment-ACO.md",
-      "source_location": "L55",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "wiki_experiment_aco",
-      "target": "wiki_experiments"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "wiki/Home.md",
-      "source_location": "L32",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "wiki_home",
-      "target": "wiki_experiment_aco"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
       "source_file": "wiki/_Sidebar.md",
       "source_location": "L18",
       "weight": 1.0,
@@ -76115,26 +76565,6 @@
       "confidence_score": 1.0,
       "source": "wiki_experiment_boids",
       "target": "wiki_experiment_boids_experiment_boids_flocking"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "wiki/Experiment-Boids.md",
-      "source_location": "L69",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "wiki_experiment_boids",
-      "target": "wiki_experiments"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "wiki/Home.md",
-      "source_location": "L35",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "wiki_home",
-      "target": "wiki_experiment_boids"
     },
     {
       "relation": "references",
@@ -76209,26 +76639,6 @@
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "wiki/Experiment-Chess.md",
-      "source_location": "L57",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "wiki_experiment_chess",
-      "target": "wiki_experiments"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "wiki/Home.md",
-      "source_location": "L29",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "wiki_home",
-      "target": "wiki_experiment_chess"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
       "source_file": "wiki/_Sidebar.md",
       "source_location": "L15",
       "weight": 1.0,
@@ -76275,26 +76685,6 @@
       "confidence_score": 1.0,
       "source": "wiki_experiment_elevator",
       "target": "wiki_experiment_elevator_experiment_elevator_scheduling"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "wiki/Experiment-Elevator.md",
-      "source_location": "L47",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "wiki_experiment_elevator",
-      "target": "wiki_experiments"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "wiki/Home.md",
-      "source_location": "L31",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "wiki_home",
-      "target": "wiki_experiment_elevator"
     },
     {
       "relation": "references",
@@ -76355,26 +76745,6 @@
       "confidence_score": 1.0,
       "source": "wiki_experiment_l_system",
       "target": "wiki_experiment_l_system_experiment_l_systems"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "wiki/Experiment-L-System.md",
-      "source_location": "L72",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "wiki_experiment_l_system",
-      "target": "wiki_experiments"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "wiki/Home.md",
-      "source_location": "L36",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "wiki_home",
-      "target": "wiki_experiment_l_system"
     },
     {
       "relation": "references",
@@ -76449,26 +76819,6 @@
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "wiki/Experiment-Minesweeper.md",
-      "source_location": "L77",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "wiki_experiment_minesweeper",
-      "target": "wiki_experiments"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "wiki/Home.md",
-      "source_location": "L34",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "wiki_home",
-      "target": "wiki_experiment_minesweeper"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
       "source_file": "wiki/_Sidebar.md",
       "source_location": "L20",
       "weight": 1.0,
@@ -76537,26 +76887,6 @@
       "target": "wiki_experiment_n_body_experiment_n_body_gravity"
     },
     {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "wiki/Experiment-N-Body.md",
-      "source_location": "L75",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "wiki_experiment_n_body",
-      "target": "wiki_experiments"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "wiki/Home.md",
-      "source_location": "L37",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "wiki_home",
-      "target": "wiki_experiment_n_body"
-    },
-    {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "wiki/Experiment-N-Body.md",
@@ -76615,26 +76945,6 @@
       "confidence_score": 1.0,
       "source": "wiki_experiment_pathfinding",
       "target": "wiki_experiment_pathfinding_experiment_pathfinding"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "wiki/Experiment-Pathfinding.md",
-      "source_location": "L51",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "wiki_experiment_pathfinding",
-      "target": "wiki_experiments"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "wiki/Home.md",
-      "source_location": "L30",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "wiki_home",
-      "target": "wiki_experiment_pathfinding"
     },
     {
       "relation": "references",
@@ -76699,26 +77009,6 @@
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "wiki/Experiment-River-Crossing.md",
-      "source_location": "L65",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "wiki_experiment_river_crossing",
-      "target": "wiki_experiments"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "wiki/Home.md",
-      "source_location": "L33",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "wiki_home",
-      "target": "wiki_experiment_river_crossing"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
       "source_file": "wiki/_Sidebar.md",
       "source_location": "L19",
       "weight": 1.0,
@@ -76775,146 +77065,6 @@
       "confidence_score": 1.0,
       "source": "wiki_experiment_river_crossing_experiment_river_crossing",
       "target": "wiki_experiment_river_crossing_what_it_is"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "wiki/Experiments.md",
-      "source_location": "L1",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "wiki_experiments",
-      "target": "wiki_experiments_experiments"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "wiki/_Footer.md",
-      "source_location": "L1",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "wiki_footer",
-      "target": "wiki_experiments"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "wiki/Home.md",
-      "source_location": "L17",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "wiki_home",
-      "target": "wiki_experiments"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "wiki/_Sidebar.md",
-      "source_location": "L14",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "wiki_sidebar",
-      "target": "wiki_experiments"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "wiki/Experiments.md",
-      "source_location": "L33",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "wiki_experiments_experiments",
-      "target": "wiki_experiments_adding_to_this_list"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "wiki/Experiments.md",
-      "source_location": "L27",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "wiki_experiments_experiments",
-      "target": "wiki_experiments_status_legend"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "wiki/_Footer.md",
-      "source_location": "L1",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "wiki_footer",
-      "target": "wiki_home"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "wiki/Home.md",
-      "source_location": "L1",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "wiki_home",
-      "target": "wiki_home_archive_of_experiments"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "wiki/Home.md",
-      "source_location": "L21",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "wiki_home",
-      "target": "wiki_site_performance"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "wiki/_Sidebar.md",
-      "source_location": "L3",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "wiki_sidebar",
-      "target": "wiki_home"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "wiki/Home.md",
-      "source_location": "L25",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "wiki_home_archive_of_experiments",
-      "target": "wiki_home_experiment_status"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "wiki/Home.md",
-      "source_location": "L48",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "wiki_home_archive_of_experiments",
-      "target": "wiki_home_site_level_research"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "wiki/Home.md",
-      "source_location": "L15",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "wiki_home_archive_of_experiments",
-      "target": "wiki_home_start_here"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "wiki/Home.md",
-      "source_location": "L63",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "wiki_home_archive_of_experiments",
-      "target": "wiki_home_what_makes_this_repo_unusual"
     },
     {
       "relation": "references",
@@ -78009,5 +78159,5 @@
       "source_file": "docs/n-body/TEXTBOOK.md"
     }
   ],
-  "built_at_commit": "0c2a13cc31fa971fbf63a2bfe29871bca037775b"
+  "built_at_commit": "7b01050c91aee0cb5df8df8cfd7eb9167f4a4937"
 }
