@@ -1,33 +1,33 @@
 {
   "src/App.tsx": {
-    "mtime": 1782328830.171185,
-    "ast_hash": "55780fe0c23fd6984306694cad0459d8",
-    "semantic_hash": "55780fe0c23fd6984306694cad0459d8"
+    "mtime": 1784941025.1039498,
+    "ast_hash": "05683df791175eb457766930348be0c6",
+    "semantic_hash": "05683df791175eb457766930348be0c6"
   },
   "src/AppRoutes.tsx": {
     "mtime": 1784912559.7588909,
     "ast_hash": "c72a0c767b47d1562b9c37e0891c2fd3",
-    "semantic_hash": ""
+    "semantic_hash": "c72a0c767b47d1562b9c37e0891c2fd3"
   },
   "src/components/ExperimentCard.tsx": {
-    "mtime": 1782328830.1799057,
-    "ast_hash": "c0fe5628909c281bea6e9bd8cf5e5fc2",
-    "semantic_hash": "c0fe5628909c281bea6e9bd8cf5e5fc2"
+    "mtime": 1784941025.1039498,
+    "ast_hash": "5343b030a122f95c95d2679151dc6a2b",
+    "semantic_hash": "5343b030a122f95c95d2679151dc6a2b"
   },
   "src/components/ExperimentHeader.tsx": {
-    "mtime": 1780372192.3976114,
-    "ast_hash": "5139677382378b3b57b864d0feced35c",
-    "semantic_hash": "5139677382378b3b57b864d0feced35c"
+    "mtime": 1784941025.1049504,
+    "ast_hash": "728d9b855fc3577d6adffbefb53266fc",
+    "semantic_hash": "728d9b855fc3577d6adffbefb53266fc"
   },
   "src/components/FilterBar.tsx": {
-    "mtime": 1780335004.5982833,
-    "ast_hash": "953d57864798c5cdbd6182921cd6d35b",
-    "semantic_hash": "953d57864798c5cdbd6182921cd6d35b"
+    "mtime": 1784941025.1049504,
+    "ast_hash": "3eec23fd113daaa72a6501f6b1c0b7bb",
+    "semantic_hash": "3eec23fd113daaa72a6501f6b1c0b7bb"
   },
   "src/components/LangToggle.tsx": {
-    "mtime": 1782328830.1901567,
-    "ast_hash": "f42188afa99bfc9e23433632f3d5a3ff",
-    "semantic_hash": "f42188afa99bfc9e23433632f3d5a3ff"
+    "mtime": 1784941025.1049504,
+    "ast_hash": "9176d40e1c44a8c74dd54fec78068b19",
+    "semantic_hash": "9176d40e1c44a8c74dd54fec78068b19"
   },
   "src/components/NotFound/constants.ts": {
     "mtime": 1782328830.2001827,
@@ -35,9 +35,9 @@
     "semantic_hash": "e3096f912390b8bceb188724dff98f55"
   },
   "src/components/NotFound/index.tsx": {
-    "mtime": 1782328830.2041812,
-    "ast_hash": "03a857244336c11cb06cf654824f7090",
-    "semantic_hash": "03a857244336c11cb06cf654824f7090"
+    "mtime": 1784941521.1808834,
+    "ast_hash": "d07a0a4268e8c0593df311a7ee00b43d",
+    "semantic_hash": "d07a0a4268e8c0593df311a7ee00b43d"
   },
   "src/components/NotFound/useMascotPhysics.ts": {
     "mtime": 1782328830.208685,
@@ -55,9 +55,9 @@
     "semantic_hash": "ec3351cb3dd849c6ace85043aac83cb9"
   },
   "src/components/ThemeToggle.tsx": {
-    "mtime": 1779706635.5276346,
-    "ast_hash": "1961e94c50f3b0516f7360b6112d2064",
-    "semantic_hash": "1961e94c50f3b0516f7360b6112d2064"
+    "mtime": 1784941025.1059504,
+    "ast_hash": "a9275c88c2e1c1c992da0e23f35aafa7",
+    "semantic_hash": "a9275c88c2e1c1c992da0e23f35aafa7"
   },
   "src/components/ui/Button.tsx": {
     "mtime": 1782328830.2284088,
@@ -112,7 +112,7 @@
   "src/experiments.ts": {
     "mtime": 1784912550.449374,
     "ast_hash": "062dac966be636d611b7c337093a4a38",
-    "semantic_hash": ""
+    "semantic_hash": "062dac966be636d611b7c337093a4a38"
   },
   "src/experiments/aco/aco.ts": {
     "mtime": 1780333579.624263,
@@ -120,44 +120,44 @@
     "semantic_hash": "7d196b5f358c15f7b179a353c4fe5809"
   },
   "src/experiments/aco/components/ColonyCanvas.tsx": {
-    "mtime": 1782328830.3070583,
-    "ast_hash": "71bff05a6cd8ba36edd88493d4e8fff6",
-    "semantic_hash": "71bff05a6cd8ba36edd88493d4e8fff6"
+    "mtime": 1784941521.1818838,
+    "ast_hash": "4e406c02c37e8e204a96228c5d2ad8d7",
+    "semantic_hash": "4e406c02c37e8e204a96228c5d2ad8d7"
   },
   "src/experiments/aco/components/Controls.tsx": {
-    "mtime": 1782328830.3112674,
-    "ast_hash": "a1b5c282ea64d522cfe2da171eb60585",
-    "semantic_hash": "a1b5c282ea64d522cfe2da171eb60585"
+    "mtime": 1784941521.1818838,
+    "ast_hash": "53c8100b202d3d74312411fdeec772c2",
+    "semantic_hash": "53c8100b202d3d74312411fdeec772c2"
   },
   "src/experiments/aco/components/Convergence.tsx": {
-    "mtime": 1782328830.315267,
-    "ast_hash": "3748e7c8eec4e709c7918319e93aca69",
-    "semantic_hash": "3748e7c8eec4e709c7918319e93aca69"
+    "mtime": 1784941521.1818838,
+    "ast_hash": "8c7762b4da3d87b549ad1252ed5773eb",
+    "semantic_hash": "8c7762b4da3d87b549ad1252ed5773eb"
   },
   "src/experiments/aco/components/DebugLog.tsx": {
-    "mtime": 1782328830.319976,
-    "ast_hash": "f28857588159a9fb3973c0945f305158",
-    "semantic_hash": "f28857588159a9fb3973c0945f305158"
+    "mtime": 1784941521.182884,
+    "ast_hash": "cce50a2e720b8d3eaed1659b8a226bd2",
+    "semantic_hash": "cce50a2e720b8d3eaed1659b8a226bd2"
   },
   "src/experiments/aco/components/Legend.tsx": {
-    "mtime": 1782328830.3239803,
-    "ast_hash": "b389c4a228a7c6f9c6e02ac37fce7241",
-    "semantic_hash": "b389c4a228a7c6f9c6e02ac37fce7241"
+    "mtime": 1784941521.182884,
+    "ast_hash": "8e9320dc0302bf2e9ada2eaf61c36161",
+    "semantic_hash": "8e9320dc0302bf2e9ada2eaf61c36161"
   },
   "src/experiments/aco/components/Params.tsx": {
-    "mtime": 1782328830.3284836,
-    "ast_hash": "cbf5e928f41047680993f7e2c7c97f00",
-    "semantic_hash": "cbf5e928f41047680993f7e2c7c97f00"
+    "mtime": 1784941521.182884,
+    "ast_hash": "93fffe2e3977777ddd976e79295b2b6a",
+    "semantic_hash": "93fffe2e3977777ddd976e79295b2b6a"
   },
   "src/experiments/aco/components/Setup.tsx": {
-    "mtime": 1782328830.3325825,
-    "ast_hash": "377810c3d1a5ba2e6f326bf9e04ebcd3",
-    "semantic_hash": "377810c3d1a5ba2e6f326bf9e04ebcd3"
+    "mtime": 1784941521.182884,
+    "ast_hash": "1f3e0fe9a6ad4528a5ed1503ee2bbb08",
+    "semantic_hash": "1f3e0fe9a6ad4528a5ed1503ee2bbb08"
   },
   "src/experiments/aco/components/Stats.tsx": {
-    "mtime": 1782328830.336581,
-    "ast_hash": "39729a69de62475f02a6fbf729cf99ae",
-    "semantic_hash": "39729a69de62475f02a6fbf729cf99ae"
+    "mtime": 1784941521.1838837,
+    "ast_hash": "d5a09d23c24b486655ce8b3e1ee0fdd7",
+    "semantic_hash": "d5a09d23c24b486655ce8b3e1ee0fdd7"
   },
   "src/experiments/aco/constants.ts": {
     "mtime": 1782328830.3407896,
@@ -165,9 +165,9 @@
     "semantic_hash": "13bedf93ad55c61a194859af81bec037"
   },
   "src/experiments/aco/index.tsx": {
-    "mtime": 1782328830.34479,
-    "ast_hash": "76d2287d288de6000d6a2e5d2b52cde2",
-    "semantic_hash": "76d2287d288de6000d6a2e5d2b52cde2"
+    "mtime": 1784941521.1838837,
+    "ast_hash": "98364c26d8e78c35f79a6c2595d6f10d",
+    "semantic_hash": "98364c26d8e78c35f79a6c2595d6f10d"
   },
   "src/experiments/aco/layouts.ts": {
     "mtime": 1780332974.2396727,
@@ -180,24 +180,24 @@
     "semantic_hash": "f45d33ce0870269f441c56979d0066be"
   },
   "src/experiments/boids/components/BoidsCanvas.tsx": {
-    "mtime": 1782328830.360412,
-    "ast_hash": "e106fadcecadf5b261fc7c078868cd1b",
-    "semantic_hash": "e106fadcecadf5b261fc7c078868cd1b"
+    "mtime": 1784941521.1843874,
+    "ast_hash": "6e3b8e74226b2de4c23a58e6b3f84071",
+    "semantic_hash": "6e3b8e74226b2de4c23a58e6b3f84071"
   },
   "src/experiments/boids/components/Controls.tsx": {
-    "mtime": 1782328830.3644104,
-    "ast_hash": "9694f0fc523ae3e95f08d18744a58919",
-    "semantic_hash": "9694f0fc523ae3e95f08d18744a58919"
+    "mtime": 1784941521.1853914,
+    "ast_hash": "4780408190790b0b3072b2e12b644118",
+    "semantic_hash": "4780408190790b0b3072b2e12b644118"
   },
   "src/experiments/boids/components/OrderChart.tsx": {
-    "mtime": 1782328830.3684044,
-    "ast_hash": "fdf511a5eae24883d2656367c7e612aa",
-    "semantic_hash": "fdf511a5eae24883d2656367c7e612aa"
+    "mtime": 1784941521.1853914,
+    "ast_hash": "79c2793ee9fd048876e820d7cd3d9729",
+    "semantic_hash": "79c2793ee9fd048876e820d7cd3d9729"
   },
   "src/experiments/boids/components/Stats.tsx": {
-    "mtime": 1782328830.3731809,
-    "ast_hash": "3f14e9ca091271b096bcedea023d034e",
-    "semantic_hash": "3f14e9ca091271b096bcedea023d034e"
+    "mtime": 1784941521.1853914,
+    "ast_hash": "3dc84533f12f7e107ac6ac7bd7bf9cec",
+    "semantic_hash": "3dc84533f12f7e107ac6ac7bd7bf9cec"
   },
   "src/experiments/boids/constants.ts": {
     "mtime": 1782328830.3771815,
@@ -210,9 +210,9 @@
     "semantic_hash": "7f83955580f89cc95bbf2ae604547889"
   },
   "src/experiments/boids/index.tsx": {
-    "mtime": 1782328830.3859422,
-    "ast_hash": "86b700d8af187b5f8ca50cedbdd38ac7",
-    "semantic_hash": "86b700d8af187b5f8ca50cedbdd38ac7"
+    "mtime": 1784941521.1863966,
+    "ast_hash": "3a87a45be9b5320c7daffb7d1cb7195d",
+    "semantic_hash": "3a87a45be9b5320c7daffb7d1cb7195d"
   },
   "src/experiments/boids/palette.ts": {
     "mtime": 1782328830.3909771,
@@ -220,9 +220,9 @@
     "semantic_hash": "535f6df6ae5171e20d330e3556a2df60"
   },
   "src/experiments/boids/render.ts": {
-    "mtime": 1782328830.3949778,
-    "ast_hash": "4a0647158ffd1e22d5ca2a5d1558b109",
-    "semantic_hash": "4a0647158ffd1e22d5ca2a5d1558b109"
+    "mtime": 1784941521.1863966,
+    "ast_hash": "469c4ed614f46d5ea6b75412158f5460",
+    "semantic_hash": "469c4ed614f46d5ea6b75412158f5460"
   },
   "src/experiments/boids/simulation.ts": {
     "mtime": 1782328830.4002056,
@@ -310,29 +310,29 @@
     "semantic_hash": "b6c12c2b96b04454ddcdd8d3ee0bbce3"
   },
   "src/experiments/chess/components/GameControls.tsx": {
-    "mtime": 1779960870.7217116,
-    "ast_hash": "c84364df0235889e3e999cdad6c53da4",
-    "semantic_hash": "c84364df0235889e3e999cdad6c53da4"
+    "mtime": 1784941521.1903965,
+    "ast_hash": "4377c1b4ba550d93b2a2f0fc8ea916d0",
+    "semantic_hash": "4377c1b4ba550d93b2a2f0fc8ea916d0"
   },
   "src/experiments/chess/components/ModeScreen.tsx": {
-    "mtime": 1782328830.5019586,
-    "ast_hash": "9d7b416649d9d935af97c638355d6ebd",
-    "semantic_hash": "9d7b416649d9d935af97c638355d6ebd"
+    "mtime": 1784941521.1903965,
+    "ast_hash": "1b0696a00ebaab1bb82f1976b433aa8a",
+    "semantic_hash": "1b0696a00ebaab1bb82f1976b433aa8a"
   },
   "src/experiments/chess/components/MoveHistory.tsx": {
-    "mtime": 1782328830.5059578,
-    "ast_hash": "8610e89ea9e5357f4cfacde93923ccd5",
-    "semantic_hash": "8610e89ea9e5357f4cfacde93923ccd5"
+    "mtime": 1784941521.1913955,
+    "ast_hash": "ad6ca4b1ee40ae06d343cc795603142c",
+    "semantic_hash": "ad6ca4b1ee40ae06d343cc795603142c"
   },
   "src/experiments/chess/components/PlayerStatus.tsx": {
-    "mtime": 1779960856.110159,
-    "ast_hash": "48d0b4f161b52b3589441cf8b651bb18",
-    "semantic_hash": "48d0b4f161b52b3589441cf8b651bb18"
+    "mtime": 1784941521.1913955,
+    "ast_hash": "95096c59f0326d7acedfebaff8d35609",
+    "semantic_hash": "95096c59f0326d7acedfebaff8d35609"
   },
   "src/experiments/chess/components/PromotionDialog.tsx": {
-    "mtime": 1779960898.0828636,
-    "ast_hash": "c95ac9ce831a1830abcd291b9a086cf7",
-    "semantic_hash": "c95ac9ce831a1830abcd291b9a086cf7"
+    "mtime": 1784941521.1913955,
+    "ast_hash": "dde8b2c4b11ab57a71b10a22a1fc4503",
+    "semantic_hash": "dde8b2c4b11ab57a71b10a22a1fc4503"
   },
   "src/experiments/chess/constants.ts": {
     "mtime": 1779856645.7119582,
@@ -355,9 +355,9 @@
     "semantic_hash": "d237a30171c444cfe5a528420d7083f9"
   },
   "src/experiments/chess/index.tsx": {
-    "mtime": 1782328830.5230281,
-    "ast_hash": "f1f1c912b0d5bd35a67affa9961c4e6c",
-    "semantic_hash": "f1f1c912b0d5bd35a67affa9961c4e6c"
+    "mtime": 1784941521.1923957,
+    "ast_hash": "6f238448edd4b969d2683e29814dea0a",
+    "semantic_hash": "6f238448edd4b969d2683e29814dea0a"
   },
   "src/experiments/chess/types.ts": {
     "mtime": 1779856468.552317,
@@ -380,39 +380,39 @@
     "semantic_hash": "dfa65f37c356139f838b3aa695ce5fba"
   },
   "src/experiments/elevator/components/AlgorithmPicker.tsx": {
-    "mtime": 1782328830.5395718,
-    "ast_hash": "ffdcecf5df0f2e3b7a512f64082049e5",
-    "semantic_hash": "ffdcecf5df0f2e3b7a512f64082049e5"
+    "mtime": 1784941521.1923957,
+    "ast_hash": "d0e95d317e2bac29a146eed0c31d88c9",
+    "semantic_hash": "d0e95d317e2bac29a146eed0c31d88c9"
   },
   "src/experiments/elevator/components/Building.tsx": {
-    "mtime": 1782328830.5443232,
-    "ast_hash": "d4d8ce4dd5e69da2e51dda70646e0dfd",
-    "semantic_hash": "d4d8ce4dd5e69da2e51dda70646e0dfd"
+    "mtime": 1784941521.1923957,
+    "ast_hash": "66d7a3152ad0eba0a27ec8b63b89fc06",
+    "semantic_hash": "66d7a3152ad0eba0a27ec8b63b89fc06"
   },
   "src/experiments/elevator/components/CarPanel.tsx": {
-    "mtime": 1779963628.463836,
-    "ast_hash": "9e10bad8aae4dfb415d2edb3447f5c53",
-    "semantic_hash": "9e10bad8aae4dfb415d2edb3447f5c53"
+    "mtime": 1784941521.1923957,
+    "ast_hash": "9c35e1c8b2fa1f96e2c476d3f40fdb47",
+    "semantic_hash": "9c35e1c8b2fa1f96e2c476d3f40fdb47"
   },
   "src/experiments/elevator/components/Controls.tsx": {
-    "mtime": 1779963597.6284397,
-    "ast_hash": "c89d7c4936802c5d580e06d4af1694c0",
-    "semantic_hash": "c89d7c4936802c5d580e06d4af1694c0"
+    "mtime": 1784941521.1938996,
+    "ast_hash": "349fb91b495a8c6e38ed49d397c75710",
+    "semantic_hash": "349fb91b495a8c6e38ed49d397c75710"
   },
   "src/experiments/elevator/components/History.tsx": {
-    "mtime": 1782328830.5488253,
-    "ast_hash": "2f1acccd46854ee2289f1ab82e7cbdc3",
-    "semantic_hash": "2f1acccd46854ee2289f1ab82e7cbdc3"
+    "mtime": 1784941521.1938996,
+    "ast_hash": "a8d2762d24a7a14449d3ba9926f156a1",
+    "semantic_hash": "a8d2762d24a7a14449d3ba9926f156a1"
   },
   "src/experiments/elevator/components/Queue.tsx": {
-    "mtime": 1782328830.5523307,
-    "ast_hash": "0df5994caa65c315c650840cb9fbd8af",
-    "semantic_hash": "0df5994caa65c315c650840cb9fbd8af"
+    "mtime": 1784941521.1938996,
+    "ast_hash": "b8a6e35778f599a53ad1b5a426e23e89",
+    "semantic_hash": "b8a6e35778f599a53ad1b5a426e23e89"
   },
   "src/experiments/elevator/components/StatsPanel.tsx": {
-    "mtime": 1782328830.5573306,
-    "ast_hash": "c6f073904ad6824629a6109e4ecdc848",
-    "semantic_hash": "c6f073904ad6824629a6109e4ecdc848"
+    "mtime": 1784941521.1949067,
+    "ast_hash": "2edcc07d4def56baad6845a1ef5ecbb4",
+    "semantic_hash": "2edcc07d4def56baad6845a1ef5ecbb4"
   },
   "src/experiments/elevator/constants.ts": {
     "mtime": 1779963524.9322004,
@@ -420,9 +420,9 @@
     "semantic_hash": "b979eb7ca0ab42478a3dbf276c466f50"
   },
   "src/experiments/elevator/index.tsx": {
-    "mtime": 1782328830.5610752,
-    "ast_hash": "62aaed69a11734af19dd82fc838dd6b1",
-    "semantic_hash": "62aaed69a11734af19dd82fc838dd6b1"
+    "mtime": 1784941521.1949067,
+    "ast_hash": "9a8e2befdf79d571e57179487c182ecf",
+    "semantic_hash": "9a8e2befdf79d571e57179487c182ecf"
   },
   "src/experiments/elevator/types.ts": {
     "mtime": 1779963514.978431,
@@ -435,29 +435,29 @@
     "semantic_hash": "e4981b47e46d9ad815a0258e010de3d0"
   },
   "src/experiments/l-system/components/Controls.tsx": {
-    "mtime": 1782328830.5737884,
-    "ast_hash": "daaa4466ca1e55f74fa4f678ab39ea1f",
-    "semantic_hash": "daaa4466ca1e55f74fa4f678ab39ea1f"
+    "mtime": 1784941521.1949067,
+    "ast_hash": "e6b20d301bc848b4c3b465160b986948",
+    "semantic_hash": "e6b20d301bc848b4c3b465160b986948"
   },
   "src/experiments/l-system/components/DebugPanel.tsx": {
-    "mtime": 1782328830.5767963,
-    "ast_hash": "fa06438c12bb706c31babf59f7342409",
-    "semantic_hash": "fa06438c12bb706c31babf59f7342409"
+    "mtime": 1784941521.195906,
+    "ast_hash": "90f66529dd857bc77e15ccdb006d08e4",
+    "semantic_hash": "90f66529dd857bc77e15ccdb006d08e4"
   },
   "src/experiments/l-system/components/Editor.tsx": {
-    "mtime": 1782328830.5810382,
-    "ast_hash": "4f37c123d0dea93eb4339a2571915c55",
-    "semantic_hash": "4f37c123d0dea93eb4339a2571915c55"
+    "mtime": 1784941521.195906,
+    "ast_hash": "569cb707be7e4281a89a20725a4fc251",
+    "semantic_hash": "569cb707be7e4281a89a20725a4fc251"
   },
   "src/experiments/l-system/components/LCanvas.tsx": {
-    "mtime": 1782328830.5860484,
-    "ast_hash": "8a4d1c70885c2d470114413da9fb848a",
-    "semantic_hash": "8a4d1c70885c2d470114413da9fb848a"
+    "mtime": 1784941521.195906,
+    "ast_hash": "d7df07e36f9d583fc5bea60f00ba348a",
+    "semantic_hash": "d7df07e36f9d583fc5bea60f00ba348a"
   },
   "src/experiments/l-system/components/Stats.tsx": {
-    "mtime": 1782328830.591079,
-    "ast_hash": "6b04e5a83fa2787b24fd0d54afc183f1",
-    "semantic_hash": "6b04e5a83fa2787b24fd0d54afc183f1"
+    "mtime": 1784941521.195906,
+    "ast_hash": "8b55b9bd4686ab07a8d9740161010e09",
+    "semantic_hash": "8b55b9bd4686ab07a8d9740161010e09"
   },
   "src/experiments/l-system/constants.ts": {
     "mtime": 1782328830.5950792,
@@ -465,9 +465,9 @@
     "semantic_hash": "dbb24fe860a752ea56f034397e03d704"
   },
   "src/experiments/l-system/index.tsx": {
-    "mtime": 1782328830.5991468,
-    "ast_hash": "764ac75928762c962ab4ecbc8f8dd9c6",
-    "semantic_hash": "764ac75928762c962ab4ecbc8f8dd9c6"
+    "mtime": 1784941521.1969118,
+    "ast_hash": "ef5f65fdbc5cc1f14a736c643bd87da9",
+    "semantic_hash": "ef5f65fdbc5cc1f14a736c643bd87da9"
   },
   "src/experiments/l-system/lsystem.ts": {
     "mtime": 1782328830.602853,
@@ -495,44 +495,44 @@
     "semantic_hash": "5dc6d07827f99bc47b5430683f1c6b04"
   },
   "src/experiments/minesweeper/components/Board.tsx": {
-    "mtime": 1782328830.627151,
-    "ast_hash": "8a66b385cba4c364a6e88c004bc34457",
-    "semantic_hash": "8a66b385cba4c364a6e88c004bc34457"
+    "mtime": 1784941025.1219504,
+    "ast_hash": "7ad6c33905042b56f4d4f4ce4cdd9a38",
+    "semantic_hash": "7ad6c33905042b56f4d4f4ce4cdd9a38"
   },
   "src/experiments/minesweeper/components/BoardTools.tsx": {
-    "mtime": 1782328830.632924,
-    "ast_hash": "bbecb6fe40f0203b9f9f7cc5315a6507",
-    "semantic_hash": "bbecb6fe40f0203b9f9f7cc5315a6507"
+    "mtime": 1784941521.1979117,
+    "ast_hash": "db38ca78e8b24c5e73628ea6d46e2c82",
+    "semantic_hash": "db38ca78e8b24c5e73628ea6d46e2c82"
   },
   "src/experiments/minesweeper/components/DebugLog.tsx": {
-    "mtime": 1782328830.6369321,
-    "ast_hash": "0c60e38f3546a6adbef39ea34a68b85d",
-    "semantic_hash": "0c60e38f3546a6adbef39ea34a68b85d"
+    "mtime": 1784941521.1979117,
+    "ast_hash": "b22e079a043a8abf1a56bd9246cb69ca",
+    "semantic_hash": "b22e079a043a8abf1a56bd9246cb69ca"
   },
   "src/experiments/minesweeper/components/GenStats.tsx": {
-    "mtime": 1782328830.6412048,
-    "ast_hash": "584b54bebc8d04e31a72e895d4ce6303",
-    "semantic_hash": "584b54bebc8d04e31a72e895d4ce6303"
+    "mtime": 1784941521.1979117,
+    "ast_hash": "2ac1b7fd982e64aaf03ce4e9e09a784c",
+    "semantic_hash": "2ac1b7fd982e64aaf03ce4e9e09a784c"
   },
   "src/experiments/minesweeper/components/Hud.tsx": {
-    "mtime": 1782328830.646204,
-    "ast_hash": "ea0b16390c7a6a022f57da33ed9a804e",
-    "semantic_hash": "ea0b16390c7a6a022f57da33ed9a804e"
+    "mtime": 1784941521.1979117,
+    "ast_hash": "549502572cf73fe2850c8ca973fbadba",
+    "semantic_hash": "549502572cf73fe2850c8ca973fbadba"
   },
   "src/experiments/minesweeper/components/Section.tsx": {
-    "mtime": 1782328830.651263,
-    "ast_hash": "a71a1fba4bf07ef7986f9b8363876883",
-    "semantic_hash": "a71a1fba4bf07ef7986f9b8363876883"
+    "mtime": 1784941521.19891,
+    "ast_hash": "af5622f09f8b3fe957490d4e02aec8c8",
+    "semantic_hash": "af5622f09f8b3fe957490d4e02aec8c8"
   },
   "src/experiments/minesweeper/components/SetupPanel.tsx": {
-    "mtime": 1782328830.656263,
-    "ast_hash": "90060a797bc9d6151becc710fbd24258",
-    "semantic_hash": "90060a797bc9d6151becc710fbd24258"
+    "mtime": 1784941521.19891,
+    "ast_hash": "19cf6b5b9c2200219b0685c10691120d",
+    "semantic_hash": "19cf6b5b9c2200219b0685c10691120d"
   },
   "src/experiments/minesweeper/components/SolverPanel.tsx": {
-    "mtime": 1782328830.659996,
-    "ast_hash": "612ddea2b7e47e7b1fb505b46fa1d120",
-    "semantic_hash": "612ddea2b7e47e7b1fb505b46fa1d120"
+    "mtime": 1784941521.19891,
+    "ast_hash": "dc8f77bbce3f9dafab099412161a11e2",
+    "semantic_hash": "dc8f77bbce3f9dafab099412161a11e2"
   },
   "src/experiments/minesweeper/constants.ts": {
     "mtime": 1782328830.6640067,
@@ -555,9 +555,9 @@
     "semantic_hash": "83881ec6ada2875e809fb06e0e0ee076"
   },
   "src/experiments/minesweeper/index.tsx": {
-    "mtime": 1782328830.682265,
-    "ast_hash": "5a6505db8ba6531f52f57d3647cf7959",
-    "semantic_hash": "5a6505db8ba6531f52f57d3647cf7959"
+    "mtime": 1784941521.1999116,
+    "ast_hash": "a3dbc0ac39882f2272be09d96b1f4d08",
+    "semantic_hash": "a3dbc0ac39882f2272be09d96b1f4d08"
   },
   "src/experiments/minesweeper/rng.ts": {
     "mtime": 1782328830.6887684,
@@ -620,39 +620,39 @@
     "semantic_hash": "3aa35824575f5a25f26571f037adec3e"
   },
   "src/experiments/minesweeper/useMinesweeper.ts": {
-    "mtime": 1782328830.740218,
-    "ast_hash": "9697e2d5a8e55da318427fa9b6b01a96",
-    "semantic_hash": "9697e2d5a8e55da318427fa9b6b01a96"
+    "mtime": 1784941521.2009115,
+    "ast_hash": "90d0a97a2583dd718493cb1828c4913c",
+    "semantic_hash": "90d0a97a2583dd718493cb1828c4913c"
   },
   "src/experiments/n-body/components/Controls.tsx": {
-    "mtime": 1782328909.8567822,
-    "ast_hash": "753147d724fe4ea97dca188393915cf1",
-    "semantic_hash": "753147d724fe4ea97dca188393915cf1"
+    "mtime": 1784941521.2009115,
+    "ast_hash": "7d58b6ab325b124afe6d7023dc41609c",
+    "semantic_hash": "7d58b6ab325b124afe6d7023dc41609c"
   },
   "src/experiments/n-body/components/DebugPanel.tsx": {
-    "mtime": 1782328909.8567822,
-    "ast_hash": "a0c95786b7b50e5eb5e3f47e3d078292",
-    "semantic_hash": "a0c95786b7b50e5eb5e3f47e3d078292"
+    "mtime": 1784941521.2019117,
+    "ast_hash": "cc2a6da3ea162635b1fed8b7e900f88f",
+    "semantic_hash": "cc2a6da3ea162635b1fed8b7e900f88f"
   },
   "src/experiments/n-body/components/Look.tsx": {
-    "mtime": 1782328830.7452233,
-    "ast_hash": "4b421cdd87d15e404a12fdb107ee4d94",
-    "semantic_hash": "4b421cdd87d15e404a12fdb107ee4d94"
+    "mtime": 1784941521.2019117,
+    "ast_hash": "f4756747ebb8cc7d8cfe3be865c98992",
+    "semantic_hash": "f4756747ebb8cc7d8cfe3be865c98992"
   },
   "src/experiments/n-body/components/NBodyCanvas.tsx": {
-    "mtime": 1782328909.8582861,
-    "ast_hash": "0ecd667611817401e2f91d074934c143",
-    "semantic_hash": "0ecd667611817401e2f91d074934c143"
+    "mtime": 1784941521.2019117,
+    "ast_hash": "d3cbb6de4ca8daa02fc229b94ef88278",
+    "semantic_hash": "d3cbb6de4ca8daa02fc229b94ef88278"
   },
   "src/experiments/n-body/components/SegRow.tsx": {
-    "mtime": 1782328909.8582861,
-    "ast_hash": "0085ebd4e30b5a1938f49846cdc8bf38",
-    "semantic_hash": "0085ebd4e30b5a1938f49846cdc8bf38"
+    "mtime": 1784941521.202911,
+    "ast_hash": "d035e5c2192dc53bbbc342bd2f515a3b",
+    "semantic_hash": "d035e5c2192dc53bbbc342bd2f515a3b"
   },
   "src/experiments/n-body/components/Stats.tsx": {
-    "mtime": 1782328909.8582861,
-    "ast_hash": "0c03724184ab6b17ae96a8f1690cc938",
-    "semantic_hash": "0c03724184ab6b17ae96a8f1690cc938"
+    "mtime": 1784941521.202911,
+    "ast_hash": "896186ce32b595b7048f069de2c95593",
+    "semantic_hash": "896186ce32b595b7048f069de2c95593"
   },
   "src/experiments/n-body/constants.ts": {
     "mtime": 1782328909.8592906,
@@ -670,9 +670,9 @@
     "semantic_hash": "7794bb5bc723266cca26b501a7482fc8"
   },
   "src/experiments/n-body/index.tsx": {
-    "mtime": 1782328909.8597946,
-    "ast_hash": "28bad2fd60bbfc66df6129d5dcae59a4",
-    "semantic_hash": "28bad2fd60bbfc66df6129d5dcae59a4"
+    "mtime": 1784941521.202911,
+    "ast_hash": "00ddc60b2b3330f7fa61b0f52c7d4ade",
+    "semantic_hash": "00ddc60b2b3330f7fa61b0f52c7d4ade"
   },
   "src/experiments/n-body/mat4.ts": {
     "mtime": 1782328830.7502704,
@@ -715,19 +715,19 @@
     "semantic_hash": "65fda96d124012214e9e15d7900de260"
   },
   "src/experiments/pacman/components/MazeEditor.tsx": {
-    "mtime": 1782328830.7950377,
-    "ast_hash": "c60cb1f417e4f4353a0d8f46a1efda75",
-    "semantic_hash": "c60cb1f417e4f4353a0d8f46a1efda75"
+    "mtime": 1784941521.2039127,
+    "ast_hash": "ed42590d77a7750bceb409eaaa99fea0",
+    "semantic_hash": "ed42590d77a7750bceb409eaaa99fea0"
   },
   "src/experiments/pacman/components/PacmanCanvas.tsx": {
-    "mtime": 1782328830.7985408,
-    "ast_hash": "21dddad407c533a9d4ec6fe0654d714c",
-    "semantic_hash": "21dddad407c533a9d4ec6fe0654d714c"
+    "mtime": 1784941521.2039127,
+    "ast_hash": "f7b91007797b049888d690314665d466",
+    "semantic_hash": "f7b91007797b049888d690314665d466"
   },
   "src/experiments/pacman/components/Sidebar.tsx": {
-    "mtime": 1782328830.802862,
-    "ast_hash": "a205c32106faf6fd213550f6a197cc56",
-    "semantic_hash": "a205c32106faf6fd213550f6a197cc56"
+    "mtime": 1784941521.2050142,
+    "ast_hash": "3656c9aac4a83994f0d31c181eed591f",
+    "semantic_hash": "3656c9aac4a83994f0d31c181eed591f"
   },
   "src/experiments/pacman/constants.ts": {
     "mtime": 1782328830.8068614,
@@ -740,9 +740,9 @@
     "semantic_hash": "a891d1b4742ea89f0e88cb72600299a0"
   },
   "src/experiments/pacman/index.tsx": {
-    "mtime": 1782328830.8154607,
-    "ast_hash": "7720f64d9127ea00e8f17a0ca8cfef1b",
-    "semantic_hash": "7720f64d9127ea00e8f17a0ca8cfef1b"
+    "mtime": 1784941521.2050142,
+    "ast_hash": "f2e66d263bf864f6f43921b59e88465e",
+    "semantic_hash": "f2e66d263bf864f6f43921b59e88465e"
   },
   "src/experiments/pacman/maze.ts": {
     "mtime": 1782328830.819477,
@@ -920,24 +920,24 @@
     "semantic_hash": "c4d7b63620e4e1ebc35366951078e4c2"
   },
   "src/experiments/pathfinding/components/AlgoPanel.tsx": {
-    "mtime": 1782328830.971915,
-    "ast_hash": "ff1bc912d73305e05d08763920567029",
-    "semantic_hash": "ff1bc912d73305e05d08763920567029"
+    "mtime": 1784941521.2070146,
+    "ast_hash": "44b755e14603f664e81ef9d6db1d6957",
+    "semantic_hash": "44b755e14603f664e81ef9d6db1d6957"
   },
   "src/experiments/pathfinding/components/AlgorithmSelect.tsx": {
-    "mtime": 1782328830.9759216,
-    "ast_hash": "f72293bf0d6373c81975fef2789580e2",
-    "semantic_hash": "f72293bf0d6373c81975fef2789580e2"
+    "mtime": 1784941521.2070146,
+    "ast_hash": "3a04f88589ca9679702fe8355d58da10",
+    "semantic_hash": "3a04f88589ca9679702fe8355d58da10"
   },
   "src/experiments/pathfinding/components/MazeBuilder.tsx": {
-    "mtime": 1782328830.9801517,
-    "ast_hash": "a31f51b261ee580363c79303253a6d88",
-    "semantic_hash": "a31f51b261ee580363c79303253a6d88"
+    "mtime": 1784941521.2070146,
+    "ast_hash": "c9de4ba77190ca71606a84819811b98b",
+    "semantic_hash": "c9de4ba77190ca71606a84819811b98b"
   },
   "src/experiments/pathfinding/components/Run.tsx": {
-    "mtime": 1782328830.984154,
-    "ast_hash": "d5449f11cc45e91e484656bd8f636daa",
-    "semantic_hash": "d5449f11cc45e91e484656bd8f636daa"
+    "mtime": 1784941521.2070146,
+    "ast_hash": "b7960bfc8a0052960ed8566ca77ff936",
+    "semantic_hash": "b7960bfc8a0052960ed8566ca77ff936"
   },
   "src/experiments/pathfinding/constants.ts": {
     "mtime": 1782328830.989208,
@@ -945,9 +945,9 @@
     "semantic_hash": "bdd654475d088b1cd9b559712084091e"
   },
   "src/experiments/pathfinding/index.tsx": {
-    "mtime": 1782328830.992916,
-    "ast_hash": "47391a442141b7a227deaa41be9dace5",
-    "semantic_hash": "47391a442141b7a227deaa41be9dace5"
+    "mtime": 1784941521.2080145,
+    "ast_hash": "6caa364e2abe1f652fbe913750600129",
+    "semantic_hash": "6caa364e2abe1f652fbe913750600129"
   },
   "src/experiments/pathfinding/maze.ts": {
     "mtime": 1782328830.9970233,
@@ -960,44 +960,44 @@
     "semantic_hash": "fa61c0e88930326f44d2db63c616ee0a"
   },
   "src/experiments/river-crossing/components/Controls.tsx": {
-    "mtime": 1780584871.0401263,
-    "ast_hash": "7557652d01dd76a3df783f51bb01fa45",
-    "semantic_hash": "7557652d01dd76a3df783f51bb01fa45"
+    "mtime": 1784941521.2100153,
+    "ast_hash": "c455ba517d93b0e3a3e9eaac13475324",
+    "semantic_hash": "c455ba517d93b0e3a3e9eaac13475324"
   },
   "src/experiments/river-crossing/components/DebugLog.tsx": {
-    "mtime": 1782328831.010277,
-    "ast_hash": "7fb70e3ca9a22ad8b8e87417530ced66",
-    "semantic_hash": "7fb70e3ca9a22ad8b8e87417530ced66"
+    "mtime": 1784941521.2100153,
+    "ast_hash": "7a4dd1f8f5edfdcf5e3a1df242996820",
+    "semantic_hash": "7a4dd1f8f5edfdcf5e3a1df242996820"
   },
   "src/experiments/river-crossing/components/Person.tsx": {
-    "mtime": 1782328831.0152879,
-    "ast_hash": "31956893a6d7bbbf6f7703b68ad90623",
-    "semantic_hash": "31956893a6d7bbbf6f7703b68ad90623"
+    "mtime": 1784941521.2110162,
+    "ast_hash": "0aec5644155d244a445e45f663dac21b",
+    "semantic_hash": "0aec5644155d244a445e45f663dac21b"
   },
   "src/experiments/river-crossing/components/RiverScene.tsx": {
-    "mtime": 1782328831.0192947,
-    "ast_hash": "47c77b4ec3080f76ee22e62aa8fa4997",
-    "semantic_hash": "47c77b4ec3080f76ee22e62aa8fa4997"
+    "mtime": 1784941521.2110162,
+    "ast_hash": "29c5ba34fee533a711939381679b11ad",
+    "semantic_hash": "29c5ba34fee533a711939381679b11ad"
   },
   "src/experiments/river-crossing/components/SearchGraph.tsx": {
-    "mtime": 1782328831.023996,
-    "ast_hash": "216f995493d6ab95e14e182681d21f76",
-    "semantic_hash": "216f995493d6ab95e14e182681d21f76"
+    "mtime": 1784941521.2110162,
+    "ast_hash": "28f8301287312462d21fb7ba71a7f416",
+    "semantic_hash": "28f8301287312462d21fb7ba71a7f416"
   },
   "src/experiments/river-crossing/components/SetupPanel.tsx": {
-    "mtime": 1782328831.027003,
-    "ast_hash": "609cbd6dc0b9ac66d9128349d959d09e",
-    "semantic_hash": "609cbd6dc0b9ac66d9128349d959d09e"
+    "mtime": 1784941025.1319509,
+    "ast_hash": "80ad62227a3e0e5947eba653e00c99b8",
+    "semantic_hash": "80ad62227a3e0e5947eba653e00c99b8"
   },
   "src/experiments/river-crossing/components/SolverPanel.tsx": {
-    "mtime": 1782328831.0320342,
-    "ast_hash": "b2cd74d926302bbedb797257d52a80dc",
-    "semantic_hash": "b2cd74d926302bbedb797257d52a80dc"
+    "mtime": 1784941521.2120142,
+    "ast_hash": "d18d2f6d4d3eaeed59b44acc360d6b51",
+    "semantic_hash": "d18d2f6d4d3eaeed59b44acc360d6b51"
   },
   "src/experiments/river-crossing/components/StoryPanel.tsx": {
-    "mtime": 1782328831.0360322,
-    "ast_hash": "ed23daa4d5dc1e24e304a5484a7cf2da",
-    "semantic_hash": "ed23daa4d5dc1e24e304a5484a7cf2da"
+    "mtime": 1784941521.2120142,
+    "ast_hash": "a47f5aeb011661ddf9221f2efead3ed9",
+    "semantic_hash": "a47f5aeb011661ddf9221f2efead3ed9"
   },
   "src/experiments/river-crossing/constants.ts": {
     "mtime": 1782328831.0406632,
@@ -1005,9 +1005,9 @@
     "semantic_hash": "99ee96d61e30b6377f1b76fb98272f18"
   },
   "src/experiments/river-crossing/index.tsx": {
-    "mtime": 1782328831.0446618,
-    "ast_hash": "9eb4e87a063c2f5de6fbca89d5fc081a",
-    "semantic_hash": "9eb4e87a063c2f5de6fbca89d5fc081a"
+    "mtime": 1784941521.2120142,
+    "ast_hash": "d3fa85cbbb3e32c729bcce0d29109368",
+    "semantic_hash": "d3fa85cbbb3e32c729bcce0d29109368"
   },
   "src/experiments/river-crossing/narrative/cast.ts": {
     "mtime": 1782328831.0446618,
@@ -1045,9 +1045,9 @@
     "semantic_hash": "40a0ef7d1c11c5dc118e4f3b15d98c51"
   },
   "src/experiments/sorting-visualizer/index.tsx": {
-    "mtime": 1782328831.099284,
-    "ast_hash": "999be11b0162b6eb4ba29d2a42c094aa",
-    "semantic_hash": "999be11b0162b6eb4ba29d2a42c094aa"
+    "mtime": 1784941521.2130153,
+    "ast_hash": "521f4f216280f9da8586fe2ce8d27647",
+    "semantic_hash": "521f4f216280f9da8586fe2ce8d27647"
   },
   "src/hooks/useReducedMotion.ts": {
     "mtime": 1782328831.104295,
@@ -1060,29 +1060,29 @@
     "semantic_hash": "c40afa528aa819ed98028a1534a12fa5"
   },
   "src/i18n/index.ts": {
-    "mtime": 1782328831.1095967,
-    "ast_hash": "0a7297df4943c3eaba92e40290c9dab3",
-    "semantic_hash": "0a7297df4943c3eaba92e40290c9dab3"
+    "mtime": 1784940869.4464056,
+    "ast_hash": "789e5825f856b35da1f4326cd82798fa",
+    "semantic_hash": "789e5825f856b35da1f4326cd82798fa"
   },
   "src/i18n/locales/en.ts": {
     "mtime": 1784912627.784385,
     "ast_hash": "c9092074434d2026773386e65474a554",
-    "semantic_hash": ""
+    "semantic_hash": "c9092074434d2026773386e65474a554"
   },
   "src/i18n/locales/vi.ts": {
     "mtime": 1784912701.220895,
     "ast_hash": "105f286ae6fd4ea507cd0ca5f76c7f11",
-    "semantic_hash": ""
+    "semantic_hash": "105f286ae6fd4ea507cd0ca5f76c7f11"
   },
   "src/main.tsx": {
-    "mtime": 1782328831.119833,
-    "ast_hash": "2be614ed40eec53f0091c70ec1513d3f",
-    "semantic_hash": "2be614ed40eec53f0091c70ec1513d3f"
+    "mtime": 1784941025.1339521,
+    "ast_hash": "c2c2b1aac7eabcce35bf0ce0b4233ef8",
+    "semantic_hash": "c2c2b1aac7eabcce35bf0ce0b4233ef8"
   },
   "src/pages/About/AboutTerminal.tsx": {
-    "mtime": 1782328831.1293545,
-    "ast_hash": "fb35b3c9d5bf163f4c93f1ae2c062000",
-    "semantic_hash": "fb35b3c9d5bf163f4c93f1ae2c062000"
+    "mtime": 1784941521.2140143,
+    "ast_hash": "e79e1434a2a61b14ab4b8b7e2fa24c26",
+    "semantic_hash": "e79e1434a2a61b14ab4b8b7e2fa24c26"
   },
   "src/pages/About/commands.ts": {
     "mtime": 1782328831.1333935,
@@ -1090,9 +1090,9 @@
     "semantic_hash": "c3a9e225ea0afdeae426b50360ad703a"
   },
   "src/pages/About/index.tsx": {
-    "mtime": 1782328831.1373854,
-    "ast_hash": "d99db9b6c52bfe68f343646f8458143f",
-    "semantic_hash": "d99db9b6c52bfe68f343646f8458143f"
+    "mtime": 1784941521.2140143,
+    "ast_hash": "24fbb58370a97724fbb9a7578d1f95f3",
+    "semantic_hash": "24fbb58370a97724fbb9a7578d1f95f3"
   },
   "src/pages/About/pagespeed.ts": {
     "mtime": 1782328831.1402392,
@@ -1105,9 +1105,9 @@
     "semantic_hash": "ee00761583561d92874eccec3b712cc5"
   },
   "src/pages/Contact/index.tsx": {
-    "mtime": 1782328831.1529794,
-    "ast_hash": "60769515ba9ce1e49f9ecd6839bfe91d",
-    "semantic_hash": "60769515ba9ce1e49f9ecd6839bfe91d"
+    "mtime": 1784941521.2140143,
+    "ast_hash": "ffc5d3aedc857e5006178ff70aa9d389",
+    "semantic_hash": "ffc5d3aedc857e5006178ff70aa9d389"
   },
   "src/seo/RouteMeta.tsx": {
     "mtime": 1782328831.1584833,
@@ -1277,282 +1277,282 @@
   ".claude/settings.json": {
     "mtime": 1782328909.5332353,
     "ast_hash": "c864b02abab5aebc6b05ccd907e4c9d9",
-    "semantic_hash": ""
+    "semantic_hash": "c864b02abab5aebc6b05ccd907e4c9d9"
   },
   ".claude/skills/pagespeed-analyze/scripts/analyze.mjs": {
     "mtime": 1782328829.8270276,
     "ast_hash": "9fee2ccfe00451bd669ca89129199b1a",
-    "semantic_hash": ""
+    "semantic_hash": "9fee2ccfe00451bd669ca89129199b1a"
   },
   ".claude/skills/pagespeed-compare/scripts/compare.mjs": {
     "mtime": 1782328829.8362503,
     "ast_hash": "3ed70765b2a3542aa07ff46ef9b322c3",
-    "semantic_hash": ""
+    "semantic_hash": "3ed70765b2a3542aa07ff46ef9b322c3"
   },
   ".vscode/launch.json": {
     "mtime": 1779907060.1787329,
     "ast_hash": "f4fc523371c94b0ce8617a48e4931a94",
-    "semantic_hash": ""
+    "semantic_hash": "f4fc523371c94b0ce8617a48e4931a94"
   },
   ".vscode/tasks.json": {
     "mtime": 1779906156.2382402,
     "ast_hash": "12d721b7a493d6c2f7f0e112b77560d4",
-    "semantic_hash": ""
+    "semantic_hash": "12d721b7a493d6c2f7f0e112b77560d4"
   },
   "eslint.config.js": {
     "mtime": 1780334491.0205307,
     "ast_hash": "5ac99141a9164538c7d8e277ded47e6a",
-    "semantic_hash": ""
+    "semantic_hash": "5ac99141a9164538c7d8e277ded47e6a"
   },
   "package.json": {
-    "mtime": 1782329319.2283013,
-    "ast_hash": "3b5558313345fd6d6cfd9e6460823c26",
-    "semantic_hash": ""
+    "mtime": 1784940926.484114,
+    "ast_hash": "fd1ea9ff98418ee8d5ef495a77f8ddec",
+    "semantic_hash": "fd1ea9ff98418ee8d5ef495a77f8ddec"
   },
   "pagespeed-scannings/pagespeed-desktop-1780890027.json": {
     "mtime": 1782328830.0068088,
     "ast_hash": "0dca9ac71162a8b90e4e2181f4b0f49a",
-    "semantic_hash": ""
+    "semantic_hash": "0dca9ac71162a8b90e4e2181f4b0f49a"
   },
   "pagespeed-scannings/pagespeed-desktop-1780893568.json": {
     "mtime": 1782328830.0158336,
     "ast_hash": "719115b9b231d990ce9df93f381977bd",
-    "semantic_hash": ""
+    "semantic_hash": "719115b9b231d990ce9df93f381977bd"
   },
   "pagespeed-scannings/pagespeed-desktop-1780898046.json": {
     "mtime": 1782328830.0240908,
     "ast_hash": "1d9141bc3bc1b933e76a0a1362b9e3e5",
-    "semantic_hash": ""
+    "semantic_hash": "1d9141bc3bc1b933e76a0a1362b9e3e5"
   },
   "pagespeed-scannings/pagespeed-desktop-1780900579.json": {
     "mtime": 1782328830.0339153,
     "ast_hash": "8a0c82e2a789885798b13159a81cd115",
-    "semantic_hash": ""
+    "semantic_hash": "8a0c82e2a789885798b13159a81cd115"
   },
   "pagespeed-scannings/pagespeed-desktop-1780902076.json": {
     "mtime": 1782328830.0424685,
     "ast_hash": "d2d4079a82b4d715f33366c40cd43a5c",
-    "semantic_hash": ""
+    "semantic_hash": "d2d4079a82b4d715f33366c40cd43a5c"
   },
   "pagespeed-scannings/pagespeed-desktop-1780903374.json": {
     "mtime": 1782328830.053186,
     "ast_hash": "de4cc0dfaa4f3736a970ec5c18fb9f29",
-    "semantic_hash": ""
+    "semantic_hash": "de4cc0dfaa4f3736a970ec5c18fb9f29"
   },
   "pagespeed-scannings/pagespeed-mobile-1780889779.json": {
     "mtime": 1782328830.061904,
     "ast_hash": "c14d94724547e1ab11ca376cd54eb5c3",
-    "semantic_hash": ""
+    "semantic_hash": "c14d94724547e1ab11ca376cd54eb5c3"
   },
   "pagespeed-scannings/pagespeed-mobile-1780893706.json": {
     "mtime": 1782328830.0684235,
     "ast_hash": "29e2821131ffd031ddb0baf2d9ac3a5e",
-    "semantic_hash": ""
+    "semantic_hash": "29e2821131ffd031ddb0baf2d9ac3a5e"
   },
   "pagespeed-scannings/pagespeed-mobile-1780898120.json": {
     "mtime": 1782328830.0769517,
     "ast_hash": "48df9315eb979e08c57d4ccf1a27b645",
-    "semantic_hash": ""
+    "semantic_hash": "48df9315eb979e08c57d4ccf1a27b645"
   },
   "pagespeed-scannings/pagespeed-mobile-1780900561.json": {
     "mtime": 1782328830.0842113,
     "ast_hash": "7b5aa86045bcac7f917c83b845ec586f",
-    "semantic_hash": ""
+    "semantic_hash": "7b5aa86045bcac7f917c83b845ec586f"
   },
   "pagespeed-scannings/pagespeed-mobile-1780902058.json": {
     "mtime": 1782328830.0919685,
     "ast_hash": "aa48dbe1c2a7ed37ceac7fd49bc714cb",
-    "semantic_hash": ""
+    "semantic_hash": "aa48dbe1c2a7ed37ceac7fd49bc714cb"
   },
   "pagespeed-scannings/pagespeed-mobile-1780903358.json": {
     "mtime": 1782328830.0999832,
     "ast_hash": "a5836bceb5c5cfbd5bf47f061dc87b82",
-    "semantic_hash": ""
+    "semantic_hash": "a5836bceb5c5cfbd5bf47f061dc87b82"
   },
   "scripts/gen-og.mjs": {
-    "mtime": 1782328830.1512754,
-    "ast_hash": "8d4a959a9280bac5e64ea3bfaabc9d0f",
-    "semantic_hash": ""
+    "mtime": 1784940975.938767,
+    "ast_hash": "e1ac50dfd5e45063d852d241fe3a950a",
+    "semantic_hash": "e1ac50dfd5e45063d852d241fe3a950a"
   },
   "scripts/sync-wiki.ps1": {
     "mtime": 1782328830.156275,
     "ast_hash": "c453f78556bbc248e1ac9710f53848e4",
-    "semantic_hash": ""
+    "semantic_hash": "c453f78556bbc248e1ac9710f53848e4"
   },
   "scripts/vite-seo.ts": {
     "mtime": 1782328830.1601439,
     "ast_hash": "3247ff5cb4425bffe46b2108b4d1215a",
-    "semantic_hash": ""
+    "semantic_hash": "3247ff5cb4425bffe46b2108b4d1215a"
   },
   "src/experiments/reaction-diffusion/components/Controls.tsx": {
-    "mtime": 1782329319.2293043,
-    "ast_hash": "843037e45a2290f34c826f2c811d0700",
-    "semantic_hash": ""
+    "mtime": 1784941521.2080145,
+    "ast_hash": "e3ff1763b3ba69d6327a64971ff3eb94",
+    "semantic_hash": "e3ff1763b3ba69d6327a64971ff3eb94"
   },
   "src/experiments/reaction-diffusion/components/Look.tsx": {
-    "mtime": 1782329319.2293043,
-    "ast_hash": "a3b5d89db1a005b87e59f223b0f9d1eb",
-    "semantic_hash": ""
+    "mtime": 1784941521.2090154,
+    "ast_hash": "9791684b3460ecd7eaf4d01634c56c0c",
+    "semantic_hash": "9791684b3460ecd7eaf4d01634c56c0c"
   },
   "src/experiments/reaction-diffusion/components/Preview.tsx": {
-    "mtime": 1782329319.2300045,
-    "ast_hash": "4e55cbb4464d3c2d287323db239b48b6",
-    "semantic_hash": ""
+    "mtime": 1784941521.2090154,
+    "ast_hash": "79032983de97e16b70ed7a9cfff83a58",
+    "semantic_hash": "79032983de97e16b70ed7a9cfff83a58"
   },
   "src/experiments/reaction-diffusion/components/RDCanvas.tsx": {
-    "mtime": 1782329319.2300045,
-    "ast_hash": "cf13f3571bcce5b4cad78070460b4844",
-    "semantic_hash": ""
+    "mtime": 1784941521.2090154,
+    "ast_hash": "ae2c216aae12996268ba6678c2e2fdd6",
+    "semantic_hash": "ae2c216aae12996268ba6678c2e2fdd6"
   },
   "src/experiments/reaction-diffusion/constants.ts": {
     "mtime": 1782329319.2300045,
     "ast_hash": "de3056fa382391dc30d56eacc4da7d81",
-    "semantic_hash": ""
+    "semantic_hash": "de3056fa382391dc30d56eacc4da7d81"
   },
   "src/experiments/reaction-diffusion/index.tsx": {
-    "mtime": 1782329319.2300045,
-    "ast_hash": "dc25a004256250a6af129056c40b4db8",
-    "semantic_hash": ""
+    "mtime": 1784941521.2100153,
+    "ast_hash": "eab7104237975c01a2ebdf1d206e40e9",
+    "semantic_hash": "eab7104237975c01a2ebdf1d206e40e9"
   },
   "src/experiments/reaction-diffusion/palettes.ts": {
     "mtime": 1782329319.2310092,
     "ast_hash": "4ff78a53ac900c2238867af79ece5c6f",
-    "semantic_hash": ""
+    "semantic_hash": "4ff78a53ac900c2238867af79ece5c6f"
   },
   "src/experiments/reaction-diffusion/presets.ts": {
     "mtime": 1782329319.2310092,
     "ast_hash": "16e2e01f11bc77130223bab83225523c",
-    "semantic_hash": ""
+    "semantic_hash": "16e2e01f11bc77130223bab83225523c"
   },
   "src/experiments/reaction-diffusion/shaders.ts": {
     "mtime": 1782329319.2310092,
     "ast_hash": "d326c065442742bcd93ec9259a534c33",
-    "semantic_hash": ""
+    "semantic_hash": "d326c065442742bcd93ec9259a534c33"
   },
   "src/experiments/reaction-diffusion/simulation.ts": {
     "mtime": 1782329319.2310092,
     "ast_hash": "3ee693350a16aa32ec44c82430cf480e",
-    "semantic_hash": ""
+    "semantic_hash": "3ee693350a16aa32ec44c82430cf480e"
   },
   "src/experiments/reaction-diffusion/types.ts": {
     "mtime": 1782329319.2320075,
     "ast_hash": "fa0de5d01762cfc3175bf17fab940609",
-    "semantic_hash": ""
+    "semantic_hash": "fa0de5d01762cfc3175bf17fab940609"
   },
   "tsconfig.app.json": {
-    "mtime": 1779680260.7068431,
-    "ast_hash": "1994b7dc3617c4f2178c603bbf8123e9",
-    "semantic_hash": ""
+    "mtime": 1784941037.649117,
+    "ast_hash": "a45a5870c6dc5de5ed0901e7b89fb8d9",
+    "semantic_hash": "a45a5870c6dc5de5ed0901e7b89fb8d9"
   },
   "tsconfig.json": {
     "mtime": 1779679766.153306,
     "ast_hash": "a3d39fa780ebff65444de257f291ce6c",
-    "semantic_hash": ""
+    "semantic_hash": "a3d39fa780ebff65444de257f291ce6c"
   },
   "tsconfig.node.json": {
     "mtime": 1779679778.9178455,
     "ast_hash": "aad45b3c5a362587cf7ee0e46ec4a75e",
-    "semantic_hash": ""
+    "semantic_hash": "aad45b3c5a362587cf7ee0e46ec4a75e"
   },
   "vite.config.ts": {
-    "mtime": 1782328831.1768546,
-    "ast_hash": "3aa3ec27c42df884d6295b43ee86a35e",
-    "semantic_hash": ""
+    "mtime": 1784941046.4573834,
+    "ast_hash": "aaddde1ba7a4f42fac1f112b78b51f74",
+    "semantic_hash": "aaddde1ba7a4f42fac1f112b78b51f74"
   },
   ".claude/skills/docs-improvements/SKILL.md": {
     "mtime": 1782328829.8072722,
     "ast_hash": "e9f9070a8370bca2cd283dea5b3909a1",
-    "semantic_hash": ""
+    "semantic_hash": "e9f9070a8370bca2cd283dea5b3909a1"
   },
   ".claude/skills/docs-issues/SKILL.md": {
     "mtime": 1782328829.813283,
     "ast_hash": "b16a7fd2d57d0326c46d7b5ba320740d",
-    "semantic_hash": ""
+    "semantic_hash": "b16a7fd2d57d0326c46d7b5ba320740d"
   },
   ".claude/skills/docs-textbook/SKILL.md": {
     "mtime": 1782328829.8187957,
     "ast_hash": "204edab7a64a14359de242a1a4385d48",
-    "semantic_hash": ""
+    "semantic_hash": "204edab7a64a14359de242a1a4385d48"
   },
   ".claude/skills/pagespeed-analyze/SKILL.md": {
     "mtime": 1782328829.8230202,
     "ast_hash": "d3d50d80c6383189d538820f9474ee01",
-    "semantic_hash": ""
+    "semantic_hash": "d3d50d80c6383189d538820f9474ee01"
   },
   ".claude/skills/pagespeed-compare/SKILL.md": {
     "mtime": 1782328829.8322494,
     "ast_hash": "bb5dcd071594b1d2dca1985001a628a8",
-    "semantic_hash": ""
+    "semantic_hash": "bb5dcd071594b1d2dca1985001a628a8"
   },
   ".github/ISSUE_TEMPLATE/bug_report.yml": {
     "mtime": 1782328829.8409827,
     "ast_hash": "305c6eef737205afae316275415d41de",
-    "semantic_hash": ""
+    "semantic_hash": "305c6eef737205afae316275415d41de"
   },
   ".github/ISSUE_TEMPLATE/config.yml": {
     "mtime": 1782328829.8449903,
     "ast_hash": "74f45bc1a4125a25534a94f65d08f87a",
-    "semantic_hash": ""
+    "semantic_hash": "74f45bc1a4125a25534a94f65d08f87a"
   },
   ".github/ISSUE_TEMPLATE/feature_request.yml": {
     "mtime": 1782328829.8510292,
     "ast_hash": "61b688b5ebd27ece0583d939c8f39e03",
-    "semantic_hash": ""
+    "semantic_hash": "61b688b5ebd27ece0583d939c8f39e03"
   },
   ".github/workflows/deploy.yml": {
     "mtime": 1779958028.4063818,
     "ast_hash": "2f21f7f27e9a4c91958122a9d6cde90a",
-    "semantic_hash": ""
+    "semantic_hash": "2f21f7f27e9a4c91958122a9d6cde90a"
   },
   "CLAUDE.md": {
     "mtime": 1782329319.1894891,
     "ast_hash": "8268f1ffda48e04a1675a003eb2ba460",
-    "semantic_hash": ""
+    "semantic_hash": "8268f1ffda48e04a1675a003eb2ba460"
   },
   "CONTRIBUTING.md": {
     "mtime": 1782328829.861281,
     "ast_hash": "7480c39c9bd7909ffe280c76cdd875fb",
-    "semantic_hash": ""
+    "semantic_hash": "7480c39c9bd7909ffe280c76cdd875fb"
   },
   "NOTICE.md": {
     "mtime": 1782328829.8662734,
     "ast_hash": "3ce17804d6af718de8c7dd1ca35d96c0",
-    "semantic_hash": ""
+    "semantic_hash": "3ce17804d6af718de8c7dd1ca35d96c0"
   },
   "README.md": {
     "mtime": 1782328829.869989,
     "ast_hash": "909b01ff2c6d6bfda1ed58c1b78a62df",
-    "semantic_hash": ""
+    "semantic_hash": "909b01ff2c6d6bfda1ed58c1b78a62df"
   },
   "SECURITY.md": {
     "mtime": 1782328829.8749993,
     "ast_hash": "7b45c79c93d35e3cf512a1d452573d24",
-    "semantic_hash": ""
+    "semantic_hash": "7b45c79c93d35e3cf512a1d452573d24"
   },
   "index.html": {
     "mtime": 1782328829.9970841,
     "ast_hash": "b3f9fe923543e0f485e54faab893513b",
-    "semantic_hash": ""
+    "semantic_hash": "b3f9fe923543e0f485e54faab893513b"
   },
   "public/fonts/OFL.txt": {
     "mtime": 1782328830.1100006,
     "ast_hash": "2025a2ee80175b15561a8232e67d74d5",
-    "semantic_hash": ""
+    "semantic_hash": "2025a2ee80175b15561a8232e67d74d5"
   },
   "public/google89b56f051f891d42.html": {
     "mtime": 1782328830.1292615,
     "ast_hash": "6c3513dcabc87f6a8ed0184529d7c4a3",
-    "semantic_hash": ""
+    "semantic_hash": "6c3513dcabc87f6a8ed0184529d7c4a3"
   },
   "public/robots.txt": {
     "mtime": 1782328830.146056,
     "ast_hash": "f7b5b6ab84e20a043f16aaa251e420bd",
-    "semantic_hash": ""
+    "semantic_hash": "f7b5b6ab84e20a043f16aaa251e420bd"
   },
   "wiki/Adding-an-Experiment.md": {
     "mtime": 1782328831.180892,
     "ast_hash": "8ce5bb3ac63b273da027bbc87d4748f1",
-    "semantic_hash": ""
+    "semantic_hash": "8ce5bb3ac63b273da027bbc87d4748f1"
   },
   "wiki/Architecture.md": {
     "mtime": 1782328831.1848993,
@@ -1602,122 +1602,122 @@
   "wiki/Experiment-Pathfinding.md": {
     "mtime": 1782328831.2169483,
     "ast_hash": "200448eb98fffc0a32f30473692bf7ef",
-    "semantic_hash": ""
+    "semantic_hash": "200448eb98fffc0a32f30473692bf7ef"
   },
   "wiki/Experiment-River-Crossing.md": {
     "mtime": 1782328831.2211921,
     "ast_hash": "fb81daf044f6b96c27dddf46843e4866",
-    "semantic_hash": ""
+    "semantic_hash": "fb81daf044f6b96c27dddf46843e4866"
   },
   "wiki/Experiments.md": {
     "mtime": 1782329319.2340095,
     "ast_hash": "350fa76ef49db02eea782776fa850911",
-    "semantic_hash": ""
+    "semantic_hash": "350fa76ef49db02eea782776fa850911"
   },
   "wiki/Home.md": {
     "mtime": 1782329319.2340095,
     "ast_hash": "4004cb0c5011bc673c77f437cdfa6c33",
-    "semantic_hash": ""
+    "semantic_hash": "4004cb0c5011bc673c77f437cdfa6c33"
   },
   "wiki/Site-Performance.md": {
     "mtime": 1782328831.226192,
     "ast_hash": "235bf6960b7ecd95f669e3b71ecd4dd4",
-    "semantic_hash": ""
+    "semantic_hash": "235bf6960b7ecd95f669e3b71ecd4dd4"
   },
   "wiki/_Footer.md": {
     "mtime": 1780373997.9710407,
     "ast_hash": "d47144e33f5263d8b28be10de4712de1",
-    "semantic_hash": ""
+    "semantic_hash": "d47144e33f5263d8b28be10de4712de1"
   },
   "wiki/_Sidebar.md": {
     "mtime": 1782328831.2302284,
     "ast_hash": "ff90ef5879d1f82b4635c63f06bcfb12",
-    "semantic_hash": ""
+    "semantic_hash": "ff90ef5879d1f82b4635c63f06bcfb12"
   },
   "public/favicon.svg": {
     "mtime": 1782328830.1059878,
     "ast_hash": "ba244ef3099825e6eace062c2099e5e5",
-    "semantic_hash": ""
+    "semantic_hash": "ba244ef3099825e6eace062c2099e5e5"
   },
   "public/icons.svg": {
     "mtime": 1779679508.228415,
     "ast_hash": "3b4fcfcf393eca4d264dca4a4663bc37",
-    "semantic_hash": ""
+    "semantic_hash": "3b4fcfcf393eca4d264dca4a4663bc37"
   },
   "public/og-image.png": {
     "mtime": 1782328830.1360135,
     "ast_hash": "ff9057827520a81a7973760cbd32c503",
-    "semantic_hash": ""
+    "semantic_hash": "ff9057827520a81a7973760cbd32c503"
   },
   "public/og-image.svg": {
     "mtime": 1782328830.141056,
     "ast_hash": "b774fdc520303a293898b24334ce6164",
-    "semantic_hash": ""
+    "semantic_hash": "b774fdc520303a293898b24334ce6164"
   },
   "src/experiments/reaction-diffusion/components/DebugPanel.tsx": {
-    "mtime": 1782329319.2293043,
-    "ast_hash": "00852728520f97c94c850da396def9f2",
-    "semantic_hash": ""
+    "mtime": 1784941521.2080145,
+    "ast_hash": "e40c9dd007533f8df3b27b295674d40e",
+    "semantic_hash": "e40c9dd007533f8df3b27b295674d40e"
   },
   "src/experiments/reaction-diffusion/grayscott.test.ts": {
     "mtime": 1782329319.2300045,
     "ast_hash": "f952eb8369007b2ee3cd04fee9f9aed7",
-    "semantic_hash": ""
+    "semantic_hash": "f952eb8369007b2ee3cd04fee9f9aed7"
   },
   ".claude/skills/verify-experiment/SKILL.md": {
     "mtime": 1782329319.1884854,
     "ast_hash": "cbc704f40585a2892afd6c7101f0e66e",
-    "semantic_hash": ""
+    "semantic_hash": "cbc704f40585a2892afd6c7101f0e66e"
   },
   "docs/reaction-diffusion/TEXTBOOK.md": {
     "mtime": 1782329319.1899917,
     "ast_hash": "7e8c82e09079e744933794e0a6588378",
-    "semantic_hash": ""
+    "semantic_hash": "7e8c82e09079e744933794e0a6588378"
   },
   "wiki/Experiment-Reaction-Diffusion.md": {
     "mtime": 1782329319.2330074,
     "ast_hash": "c5c9cbec5087756d4ad33cf019054b8b",
-    "semantic_hash": ""
+    "semantic_hash": "c5c9cbec5087756d4ad33cf019054b8b"
   },
   "docs/ui-unification.md": {
     "mtime": 1782328829.9930766,
     "ast_hash": "36786b77717a7810af3dace0d7bafbc4",
-    "semantic_hash": ""
+    "semantic_hash": "36786b77717a7810af3dace0d7bafbc4"
   },
   "src/experiments/cellular-automata/types.ts": {
     "mtime": 1784911880.7353604,
     "ast_hash": "8fcb32a2ca46e533e1955893d9c09676",
-    "semantic_hash": ""
+    "semantic_hash": "8fcb32a2ca46e533e1955893d9c09676"
   },
   "src/experiments/cellular-automata/constants.ts": {
     "mtime": 1784911913.6765113,
     "ast_hash": "eb7d7bced61f8b9a5d79f40c4951a48d",
-    "semantic_hash": ""
+    "semantic_hash": "eb7d7bced61f8b9a5d79f40c4951a48d"
   },
   "src/experiments/cellular-automata/palettes.ts": {
     "mtime": 1784911941.7996385,
     "ast_hash": "4556abe50eb84b46ffb45216995fcbfd",
-    "semantic_hash": ""
+    "semantic_hash": "4556abe50eb84b46ffb45216995fcbfd"
   },
   "src/experiments/cellular-automata/rules.ts": {
     "mtime": 1784911991.2307754,
     "ast_hash": "79e60116ec3416079e95127e881e9bd3",
-    "semantic_hash": ""
+    "semantic_hash": "79e60116ec3416079e95127e881e9bd3"
   },
   "src/experiments/cellular-automata/miniSim.ts": {
     "mtime": 1784911959.6482575,
     "ast_hash": "d1eae564d5c084e1cbd6c8af7d32f720",
-    "semantic_hash": ""
+    "semantic_hash": "d1eae564d5c084e1cbd6c8af7d32f720"
   },
   "src/experiments/cellular-automata/shaders.ts": {
     "mtime": 1784912082.742507,
     "ast_hash": "9c78535ddd66ae6107dc44085e2757ac",
-    "semantic_hash": ""
+    "semantic_hash": "9c78535ddd66ae6107dc44085e2757ac"
   },
   "src/experiments/cellular-automata/simulation.ts": {
     "mtime": 1784912212.5529287,
     "ast_hash": "c5584135346fbd0455bba64380bc08b0",
-    "semantic_hash": ""
+    "semantic_hash": "c5584135346fbd0455bba64380bc08b0"
   },
   "src/experiments/cellular-automata/CellularAutomata.css": {
     "mtime": 1784912546.005793,
@@ -1725,1748 +1725,43 @@
     "semantic_hash": ""
   },
   "src/experiments/cellular-automata/index.tsx": {
-    "mtime": 1784913611.8982475,
-    "ast_hash": "e44654b503de816507f66569417ba116",
-    "semantic_hash": ""
-  },
-  "src/experiments/cellular-automata/components/CACanvas.tsx": {
-    "mtime": 1784912262.193123,
-    "ast_hash": "afd4958c472753f7636525b0447a3a6e",
-    "semantic_hash": ""
-  },
-  "src/experiments/cellular-automata/components/RuleEditor.tsx": {
-    "mtime": 1784912289.0506754,
-    "ast_hash": "a248104d59985a7e1d33e3bb705910fd",
-    "semantic_hash": ""
-  },
-  "src/experiments/cellular-automata/components/BreedingLab.tsx": {
-    "mtime": 1784913574.2993631,
-    "ast_hash": "bbd2c32e52e6e784ccd347152e8df74c",
-    "semantic_hash": ""
-  },
-  "src/experiments/cellular-automata/components/Look.tsx": {
-    "mtime": 1784912392.2466402,
-    "ast_hash": "9dddd9f9ddbc4e25cc8249a6e8ba2fe2",
-    "semantic_hash": ""
-  },
-  "src/experiments/cellular-automata/components/Controls.tsx": {
-    "mtime": 1784912411.7003922,
-    "ast_hash": "0629d31617064a83e4361820b487812a",
-    "semantic_hash": ""
-  },
-  "src/experiments/cellular-automata/components/DebugPanel.tsx": {
-    "mtime": 1784913593.5718274,
-    "ast_hash": "417e7f1af797d540a03d1c6098760907",
-    "semantic_hash": ""
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\.claude\\settings.json": {
-    "mtime": 1782328909.5332353,
-    "ast_hash": "c864b02abab5aebc6b05ccd907e4c9d9",
-    "semantic_hash": "c864b02abab5aebc6b05ccd907e4c9d9"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\.claude\\skills\\pagespeed-analyze\\scripts\\analyze.mjs": {
-    "mtime": 1782328829.8270276,
-    "ast_hash": "9fee2ccfe00451bd669ca89129199b1a",
-    "semantic_hash": "9fee2ccfe00451bd669ca89129199b1a"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\.claude\\skills\\pagespeed-compare\\scripts\\compare.mjs": {
-    "mtime": 1782328829.8362503,
-    "ast_hash": "3ed70765b2a3542aa07ff46ef9b322c3",
-    "semantic_hash": "3ed70765b2a3542aa07ff46ef9b322c3"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\.vscode\\launch.json": {
-    "mtime": 1779907060.1787329,
-    "ast_hash": "f4fc523371c94b0ce8617a48e4931a94",
-    "semantic_hash": "f4fc523371c94b0ce8617a48e4931a94"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\.vscode\\tasks.json": {
-    "mtime": 1779906156.2382402,
-    "ast_hash": "12d721b7a493d6c2f7f0e112b77560d4",
-    "semantic_hash": "12d721b7a493d6c2f7f0e112b77560d4"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\eslint.config.js": {
-    "mtime": 1780334491.0205307,
-    "ast_hash": "5ac99141a9164538c7d8e277ded47e6a",
-    "semantic_hash": "5ac99141a9164538c7d8e277ded47e6a"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\package.json": {
-    "mtime": 1784940926.484114,
-    "ast_hash": "fd1ea9ff98418ee8d5ef495a77f8ddec",
-    "semantic_hash": "fd1ea9ff98418ee8d5ef495a77f8ddec"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\pagespeed-scannings\\pagespeed-desktop-1780890027.json": {
-    "mtime": 1782328830.0068088,
-    "ast_hash": "0dca9ac71162a8b90e4e2181f4b0f49a",
-    "semantic_hash": "0dca9ac71162a8b90e4e2181f4b0f49a"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\pagespeed-scannings\\pagespeed-desktop-1780893568.json": {
-    "mtime": 1782328830.0158336,
-    "ast_hash": "719115b9b231d990ce9df93f381977bd",
-    "semantic_hash": "719115b9b231d990ce9df93f381977bd"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\pagespeed-scannings\\pagespeed-desktop-1780898046.json": {
-    "mtime": 1782328830.0240908,
-    "ast_hash": "1d9141bc3bc1b933e76a0a1362b9e3e5",
-    "semantic_hash": "1d9141bc3bc1b933e76a0a1362b9e3e5"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\pagespeed-scannings\\pagespeed-desktop-1780900579.json": {
-    "mtime": 1782328830.0339153,
-    "ast_hash": "8a0c82e2a789885798b13159a81cd115",
-    "semantic_hash": "8a0c82e2a789885798b13159a81cd115"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\pagespeed-scannings\\pagespeed-desktop-1780902076.json": {
-    "mtime": 1782328830.0424685,
-    "ast_hash": "d2d4079a82b4d715f33366c40cd43a5c",
-    "semantic_hash": "d2d4079a82b4d715f33366c40cd43a5c"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\pagespeed-scannings\\pagespeed-desktop-1780903374.json": {
-    "mtime": 1782328830.053186,
-    "ast_hash": "de4cc0dfaa4f3736a970ec5c18fb9f29",
-    "semantic_hash": "de4cc0dfaa4f3736a970ec5c18fb9f29"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\pagespeed-scannings\\pagespeed-mobile-1780889779.json": {
-    "mtime": 1782328830.061904,
-    "ast_hash": "c14d94724547e1ab11ca376cd54eb5c3",
-    "semantic_hash": "c14d94724547e1ab11ca376cd54eb5c3"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\pagespeed-scannings\\pagespeed-mobile-1780893706.json": {
-    "mtime": 1782328830.0684235,
-    "ast_hash": "29e2821131ffd031ddb0baf2d9ac3a5e",
-    "semantic_hash": "29e2821131ffd031ddb0baf2d9ac3a5e"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\pagespeed-scannings\\pagespeed-mobile-1780898120.json": {
-    "mtime": 1782328830.0769517,
-    "ast_hash": "48df9315eb979e08c57d4ccf1a27b645",
-    "semantic_hash": "48df9315eb979e08c57d4ccf1a27b645"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\pagespeed-scannings\\pagespeed-mobile-1780900561.json": {
-    "mtime": 1782328830.0842113,
-    "ast_hash": "7b5aa86045bcac7f917c83b845ec586f",
-    "semantic_hash": "7b5aa86045bcac7f917c83b845ec586f"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\pagespeed-scannings\\pagespeed-mobile-1780902058.json": {
-    "mtime": 1782328830.0919685,
-    "ast_hash": "aa48dbe1c2a7ed37ceac7fd49bc714cb",
-    "semantic_hash": "aa48dbe1c2a7ed37ceac7fd49bc714cb"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\pagespeed-scannings\\pagespeed-mobile-1780903358.json": {
-    "mtime": 1782328830.0999832,
-    "ast_hash": "a5836bceb5c5cfbd5bf47f061dc87b82",
-    "semantic_hash": "a5836bceb5c5cfbd5bf47f061dc87b82"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\scripts\\gen-og.mjs": {
-    "mtime": 1784940975.938767,
-    "ast_hash": "e1ac50dfd5e45063d852d241fe3a950a",
-    "semantic_hash": "e1ac50dfd5e45063d852d241fe3a950a"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\scripts\\sync-wiki.ps1": {
-    "mtime": 1782328830.156275,
-    "ast_hash": "c453f78556bbc248e1ac9710f53848e4",
-    "semantic_hash": "c453f78556bbc248e1ac9710f53848e4"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\scripts\\vite-seo.ts": {
-    "mtime": 1782328830.1601439,
-    "ast_hash": "3247ff5cb4425bffe46b2108b4d1215a",
-    "semantic_hash": "3247ff5cb4425bffe46b2108b4d1215a"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\App.tsx": {
-    "mtime": 1784941025.1039498,
-    "ast_hash": "05683df791175eb457766930348be0c6",
-    "semantic_hash": "05683df791175eb457766930348be0c6"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\AppRoutes.tsx": {
-    "mtime": 1784912559.7588909,
-    "ast_hash": "c72a0c767b47d1562b9c37e0891c2fd3",
-    "semantic_hash": "c72a0c767b47d1562b9c37e0891c2fd3"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\components\\ExperimentCard.tsx": {
-    "mtime": 1784941025.1039498,
-    "ast_hash": "5343b030a122f95c95d2679151dc6a2b",
-    "semantic_hash": "5343b030a122f95c95d2679151dc6a2b"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\components\\ExperimentHeader.tsx": {
-    "mtime": 1784941025.1049504,
-    "ast_hash": "728d9b855fc3577d6adffbefb53266fc",
-    "semantic_hash": "728d9b855fc3577d6adffbefb53266fc"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\components\\FilterBar.tsx": {
-    "mtime": 1784941025.1049504,
-    "ast_hash": "3eec23fd113daaa72a6501f6b1c0b7bb",
-    "semantic_hash": "3eec23fd113daaa72a6501f6b1c0b7bb"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\components\\LangToggle.tsx": {
-    "mtime": 1784941025.1049504,
-    "ast_hash": "9176d40e1c44a8c74dd54fec78068b19",
-    "semantic_hash": "9176d40e1c44a8c74dd54fec78068b19"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\components\\NotFound\\constants.ts": {
-    "mtime": 1782328830.2001827,
-    "ast_hash": "e3096f912390b8bceb188724dff98f55",
-    "semantic_hash": "e3096f912390b8bceb188724dff98f55"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\components\\NotFound\\index.tsx": {
-    "mtime": 1784941521.1808834,
-    "ast_hash": "d07a0a4268e8c0593df311a7ee00b43d",
-    "semantic_hash": "d07a0a4268e8c0593df311a7ee00b43d"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\components\\NotFound\\useMascotPhysics.ts": {
-    "mtime": 1782328830.208685,
-    "ast_hash": "0940cec4c01ed5d44e1c091b67f34884",
-    "semantic_hash": "0940cec4c01ed5d44e1c091b67f34884"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\components\\NotFound\\useTypingTerminal.ts": {
-    "mtime": 1782328830.2128756,
-    "ast_hash": "3a4957209530f82888f5d9a68faa82a9",
-    "semantic_hash": "3a4957209530f82888f5d9a68faa82a9"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\components\\ScrambleText.tsx": {
-    "mtime": 1782328830.2168756,
-    "ast_hash": "ec3351cb3dd849c6ace85043aac83cb9",
-    "semantic_hash": "ec3351cb3dd849c6ace85043aac83cb9"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\components\\ThemeToggle.tsx": {
-    "mtime": 1784941025.1059504,
-    "ast_hash": "a9275c88c2e1c1c992da0e23f35aafa7",
-    "semantic_hash": "a9275c88c2e1c1c992da0e23f35aafa7"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\components\\ui\\Button.tsx": {
-    "mtime": 1782328830.2284088,
-    "ast_hash": "8e7ec2738633e84ac52b7f8505be8c5f",
-    "semantic_hash": "8e7ec2738633e84ac52b7f8505be8c5f"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\components\\ui\\ControlBar.tsx": {
-    "mtime": 1782328830.2365105,
-    "ast_hash": "3340e9662a5f9ff64b7e438473b9b3a1",
-    "semantic_hash": "3340e9662a5f9ff64b7e438473b9b3a1"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\components\\ui\\ExperimentLayout.tsx": {
-    "mtime": 1782328830.2462513,
-    "ast_hash": "914287493eae9ea5eebde5076eb92bfd",
-    "semantic_hash": "914287493eae9ea5eebde5076eb92bfd"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\components\\ui\\Panel.tsx": {
-    "mtime": 1782328830.256952,
-    "ast_hash": "0923e82eeaabab28c16fa4c088c0bfa1",
-    "semantic_hash": "0923e82eeaabab28c16fa4c088c0bfa1"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\components\\ui\\Slider.tsx": {
-    "mtime": 1782328830.2664826,
-    "ast_hash": "96267e25a953da7b112611ffcd15eb2c",
-    "semantic_hash": "96267e25a953da7b112611ffcd15eb2c"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\components\\ui\\Stat.tsx": {
-    "mtime": 1782328830.277241,
-    "ast_hash": "a68bd04a4b6b9cc8324d7cd0c76be620",
-    "semantic_hash": "a68bd04a4b6b9cc8324d7cd0c76be620"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\components\\ui\\Tooltip.tsx": {
-    "mtime": 1782328830.2862298,
-    "ast_hash": "786f2e625da1e1b970dfd25c4f545065",
-    "semantic_hash": "786f2e625da1e1b970dfd25c4f545065"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\components\\ui\\index.ts": {
-    "mtime": 1782328830.290007,
-    "ast_hash": "f96cc9df3588bc366b48555b03611bdd",
-    "semantic_hash": "f96cc9df3588bc366b48555b03611bdd"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\components\\ui\\trackTip.ts": {
-    "mtime": 1782328830.2940185,
-    "ast_hash": "b1b35b652db0571693100366b525dd9e",
-    "semantic_hash": "b1b35b652db0571693100366b525dd9e"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\components\\useScrambledText.ts": {
-    "mtime": 1782328830.29853,
-    "ast_hash": "a198f1071817ae5a2cc80eb312ff1cd4",
-    "semantic_hash": "a198f1071817ae5a2cc80eb312ff1cd4"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments.ts": {
-    "mtime": 1784912550.449374,
-    "ast_hash": "062dac966be636d611b7c337093a4a38",
-    "semantic_hash": "062dac966be636d611b7c337093a4a38"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\aco\\aco.ts": {
-    "mtime": 1780333579.624263,
-    "ast_hash": "7d196b5f358c15f7b179a353c4fe5809",
-    "semantic_hash": "7d196b5f358c15f7b179a353c4fe5809"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\aco\\components\\ColonyCanvas.tsx": {
-    "mtime": 1784941521.1818838,
-    "ast_hash": "4e406c02c37e8e204a96228c5d2ad8d7",
-    "semantic_hash": "4e406c02c37e8e204a96228c5d2ad8d7"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\aco\\components\\Controls.tsx": {
-    "mtime": 1784941521.1818838,
-    "ast_hash": "53c8100b202d3d74312411fdeec772c2",
-    "semantic_hash": "53c8100b202d3d74312411fdeec772c2"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\aco\\components\\Convergence.tsx": {
-    "mtime": 1784941521.1818838,
-    "ast_hash": "8c7762b4da3d87b549ad1252ed5773eb",
-    "semantic_hash": "8c7762b4da3d87b549ad1252ed5773eb"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\aco\\components\\DebugLog.tsx": {
-    "mtime": 1784941521.182884,
-    "ast_hash": "cce50a2e720b8d3eaed1659b8a226bd2",
-    "semantic_hash": "cce50a2e720b8d3eaed1659b8a226bd2"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\aco\\components\\Legend.tsx": {
-    "mtime": 1784941521.182884,
-    "ast_hash": "8e9320dc0302bf2e9ada2eaf61c36161",
-    "semantic_hash": "8e9320dc0302bf2e9ada2eaf61c36161"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\aco\\components\\Params.tsx": {
-    "mtime": 1784941521.182884,
-    "ast_hash": "93fffe2e3977777ddd976e79295b2b6a",
-    "semantic_hash": "93fffe2e3977777ddd976e79295b2b6a"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\aco\\components\\Setup.tsx": {
-    "mtime": 1784941521.182884,
-    "ast_hash": "1f3e0fe9a6ad4528a5ed1503ee2bbb08",
-    "semantic_hash": "1f3e0fe9a6ad4528a5ed1503ee2bbb08"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\aco\\components\\Stats.tsx": {
-    "mtime": 1784941521.1838837,
-    "ast_hash": "d5a09d23c24b486655ce8b3e1ee0fdd7",
-    "semantic_hash": "d5a09d23c24b486655ce8b3e1ee0fdd7"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\aco\\constants.ts": {
-    "mtime": 1782328830.3407896,
-    "ast_hash": "13bedf93ad55c61a194859af81bec037",
-    "semantic_hash": "13bedf93ad55c61a194859af81bec037"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\aco\\index.tsx": {
-    "mtime": 1784941521.1838837,
-    "ast_hash": "98364c26d8e78c35f79a6c2595d6f10d",
-    "semantic_hash": "98364c26d8e78c35f79a6c2595d6f10d"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\aco\\layouts.ts": {
-    "mtime": 1780332974.2396727,
-    "ast_hash": "11466a09148fd4be4df347985f949ce4",
-    "semantic_hash": "11466a09148fd4be4df347985f949ce4"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\aco\\types.ts": {
-    "mtime": 1782328830.3482988,
-    "ast_hash": "f45d33ce0870269f441c56979d0066be",
-    "semantic_hash": "f45d33ce0870269f441c56979d0066be"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\boids\\components\\BoidsCanvas.tsx": {
-    "mtime": 1784941521.1843874,
-    "ast_hash": "6e3b8e74226b2de4c23a58e6b3f84071",
-    "semantic_hash": "6e3b8e74226b2de4c23a58e6b3f84071"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\boids\\components\\Controls.tsx": {
-    "mtime": 1784941521.1853914,
-    "ast_hash": "4780408190790b0b3072b2e12b644118",
-    "semantic_hash": "4780408190790b0b3072b2e12b644118"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\boids\\components\\OrderChart.tsx": {
-    "mtime": 1784941521.1853914,
-    "ast_hash": "79c2793ee9fd048876e820d7cd3d9729",
-    "semantic_hash": "79c2793ee9fd048876e820d7cd3d9729"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\boids\\components\\Stats.tsx": {
-    "mtime": 1784941521.1853914,
-    "ast_hash": "3dc84533f12f7e107ac6ac7bd7bf9cec",
-    "semantic_hash": "3dc84533f12f7e107ac6ac7bd7bf9cec"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\boids\\constants.ts": {
-    "mtime": 1782328830.3771815,
-    "ast_hash": "b83b9c9d1ff602d555e93062751ac793",
-    "semantic_hash": "b83b9c9d1ff602d555e93062751ac793"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\boids\\flock.ts": {
-    "mtime": 1782328830.3809352,
-    "ast_hash": "7f83955580f89cc95bbf2ae604547889",
-    "semantic_hash": "7f83955580f89cc95bbf2ae604547889"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\boids\\index.tsx": {
-    "mtime": 1784941521.1863966,
-    "ast_hash": "3a87a45be9b5320c7daffb7d1cb7195d",
-    "semantic_hash": "3a87a45be9b5320c7daffb7d1cb7195d"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\boids\\palette.ts": {
-    "mtime": 1782328830.3909771,
-    "ast_hash": "535f6df6ae5171e20d330e3556a2df60",
-    "semantic_hash": "535f6df6ae5171e20d330e3556a2df60"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\boids\\render.ts": {
-    "mtime": 1784941521.1863966,
-    "ast_hash": "469c4ed614f46d5ea6b75412158f5460",
-    "semantic_hash": "469c4ed614f46d5ea6b75412158f5460"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\boids\\simulation.ts": {
-    "mtime": 1782328830.4002056,
-    "ast_hash": "e2d6e4ea965bbdba1f36bf3efdb62268",
-    "semantic_hash": "e2d6e4ea965bbdba1f36bf3efdb62268"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\boids\\types.ts": {
-    "mtime": 1782328830.4052083,
-    "ast_hash": "cbd4a269e67e840ec48332ee6beb4c81",
-    "semantic_hash": "cbd4a269e67e840ec48332ee6beb4c81"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\cellular-automata\\components\\BreedingLab.tsx": {
-    "mtime": 1784941521.1873953,
-    "ast_hash": "8400305ed33a604b466b7487146d87e2",
-    "semantic_hash": "8400305ed33a604b466b7487146d87e2"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\cellular-automata\\components\\CACanvas.tsx": {
-    "mtime": 1784941521.1873953,
-    "ast_hash": "620671aac3b8b7884f48fb5b7774a95f",
-    "semantic_hash": "620671aac3b8b7884f48fb5b7774a95f"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\cellular-automata\\components\\Controls.tsx": {
-    "mtime": 1784941521.1873953,
-    "ast_hash": "f6076d3eff2226e2e74e744f006444e6",
-    "semantic_hash": "f6076d3eff2226e2e74e744f006444e6"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\cellular-automata\\components\\DebugPanel.tsx": {
-    "mtime": 1784941521.1873953,
-    "ast_hash": "4ac4f9324fa00b0cdd48046154b5ccc3",
-    "semantic_hash": "4ac4f9324fa00b0cdd48046154b5ccc3"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\cellular-automata\\components\\Look.tsx": {
-    "mtime": 1784941521.1883953,
-    "ast_hash": "82323eb892d6f08e9f48f1cf4bef90cc",
-    "semantic_hash": "82323eb892d6f08e9f48f1cf4bef90cc"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\cellular-automata\\components\\RuleEditor.tsx": {
-    "mtime": 1784941521.1883953,
-    "ast_hash": "f4c571794febdb4bc36127d9f94f8037",
-    "semantic_hash": "f4c571794febdb4bc36127d9f94f8037"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\cellular-automata\\constants.ts": {
-    "mtime": 1784911913.6765113,
-    "ast_hash": "eb7d7bced61f8b9a5d79f40c4951a48d",
-    "semantic_hash": "eb7d7bced61f8b9a5d79f40c4951a48d"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\cellular-automata\\index.tsx": {
     "mtime": 1784941521.1893954,
     "ast_hash": "e9eece578d3d6a18f29d069807b5d3a2",
     "semantic_hash": "e9eece578d3d6a18f29d069807b5d3a2"
   },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\cellular-automata\\miniSim.ts": {
-    "mtime": 1784911959.6482575,
-    "ast_hash": "d1eae564d5c084e1cbd6c8af7d32f720",
-    "semantic_hash": "d1eae564d5c084e1cbd6c8af7d32f720"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\cellular-automata\\palettes.ts": {
-    "mtime": 1784911941.7996385,
-    "ast_hash": "4556abe50eb84b46ffb45216995fcbfd",
-    "semantic_hash": "4556abe50eb84b46ffb45216995fcbfd"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\cellular-automata\\rules.ts": {
-    "mtime": 1784911991.2307754,
-    "ast_hash": "79e60116ec3416079e95127e881e9bd3",
-    "semantic_hash": "79e60116ec3416079e95127e881e9bd3"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\cellular-automata\\shaders.ts": {
-    "mtime": 1784912082.742507,
-    "ast_hash": "9c78535ddd66ae6107dc44085e2757ac",
-    "semantic_hash": "9c78535ddd66ae6107dc44085e2757ac"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\cellular-automata\\simulation.ts": {
-    "mtime": 1784912212.5529287,
-    "ast_hash": "c5584135346fbd0455bba64380bc08b0",
-    "semantic_hash": "c5584135346fbd0455bba64380bc08b0"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\cellular-automata\\types.ts": {
-    "mtime": 1784911880.7353604,
-    "ast_hash": "8fcb32a2ca46e533e1955893d9c09676",
-    "semantic_hash": "8fcb32a2ca46e533e1955893d9c09676"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\chess\\ai\\book.ts": {
-    "mtime": 1782328830.4602695,
-    "ast_hash": "71cfee14d65d895964d918e3bf33fb7a",
-    "semantic_hash": "71cfee14d65d895964d918e3bf33fb7a"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\chess\\ai\\constants.ts": {
-    "mtime": 1782328830.4642751,
-    "ast_hash": "1d4d90faa9eb0a63c0d1d7994def6bc9",
-    "semantic_hash": "1d4d90faa9eb0a63c0d1d7994def6bc9"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\chess\\ai\\evaluate.ts": {
-    "mtime": 1782328830.469276,
-    "ast_hash": "da389f13f011f9e0b5ad4b5f4056c3cf",
-    "semantic_hash": "da389f13f011f9e0b5ad4b5f4056c3cf"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\chess\\ai\\index.ts": {
-    "mtime": 1782328830.4729843,
-    "ast_hash": "e6a1d4bd33d70bb0981b0c83ec7ab99b",
-    "semantic_hash": "e6a1d4bd33d70bb0981b0c83ec7ab99b"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\chess\\ai\\kingSafety.ts": {
-    "mtime": 1779820412.0134993,
-    "ast_hash": "7f25c60529025385c571f999d0b8bda9",
-    "semantic_hash": "7f25c60529025385c571f999d0b8bda9"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\chess\\ai\\mobility.ts": {
-    "mtime": 1782328830.4769838,
-    "ast_hash": "2bccb4d2aa8655b5f3f120b692431ac1",
-    "semantic_hash": "2bccb4d2aa8655b5f3f120b692431ac1"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\chess\\ai\\ordering.ts": {
-    "mtime": 1782328830.4822004,
-    "ast_hash": "89953c039dbefa6a3f0807fcbe8c9599",
-    "semantic_hash": "89953c039dbefa6a3f0807fcbe8c9599"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\chess\\ai\\pawnStructure.ts": {
-    "mtime": 1779820399.5418391,
-    "ast_hash": "d9757c7a6ec15490dbec1d5ca5d1a55f",
-    "semantic_hash": "d9757c7a6ec15490dbec1d5ca5d1a55f"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\chess\\ai\\search.ts": {
-    "mtime": 1782328830.4862006,
-    "ast_hash": "8b89124196e11880e553af8ca35aa234",
-    "semantic_hash": "8b89124196e11880e553af8ca35aa234"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\chess\\ai\\searchOptions.ts": {
-    "mtime": 1779856486.6336844,
-    "ast_hash": "a13797736b6de711c8485f9f0f26ec38",
-    "semantic_hash": "a13797736b6de711c8485f9f0f26ec38"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\chess\\ai\\skill.ts": {
-    "mtime": 1782328830.49326,
-    "ast_hash": "0b2756126c27a250eb74603279e307c1",
-    "semantic_hash": "0b2756126c27a250eb74603279e307c1"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\chess\\ai\\tables.ts": {
-    "mtime": 1779816789.3759902,
-    "ast_hash": "8d76c40055240e7d9d6b99cef835311a",
-    "semantic_hash": "8d76c40055240e7d9d6b99cef835311a"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\chess\\ai\\worker.ts": {
-    "mtime": 1779856609.2232807,
-    "ast_hash": "b14d0cd8d18c4a48c258b3ef06ae9228",
-    "semantic_hash": "b14d0cd8d18c4a48c258b3ef06ae9228"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\chess\\components\\Board.tsx": {
-    "mtime": 1779706465.8759117,
-    "ast_hash": "7cafa62ed97457fa6022a3a40a0ae45d",
-    "semantic_hash": "7cafa62ed97457fa6022a3a40a0ae45d"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\chess\\components\\CapturedPieces.tsx": {
-    "mtime": 1779706422.0772307,
-    "ast_hash": "b6c12c2b96b04454ddcdd8d3ee0bbce3",
-    "semantic_hash": "b6c12c2b96b04454ddcdd8d3ee0bbce3"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\chess\\components\\GameControls.tsx": {
-    "mtime": 1784941521.1903965,
-    "ast_hash": "4377c1b4ba550d93b2a2f0fc8ea916d0",
-    "semantic_hash": "4377c1b4ba550d93b2a2f0fc8ea916d0"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\chess\\components\\ModeScreen.tsx": {
-    "mtime": 1784941521.1903965,
-    "ast_hash": "1b0696a00ebaab1bb82f1976b433aa8a",
-    "semantic_hash": "1b0696a00ebaab1bb82f1976b433aa8a"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\chess\\components\\MoveHistory.tsx": {
-    "mtime": 1784941521.1913955,
-    "ast_hash": "ad6ca4b1ee40ae06d343cc795603142c",
-    "semantic_hash": "ad6ca4b1ee40ae06d343cc795603142c"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\chess\\components\\PlayerStatus.tsx": {
-    "mtime": 1784941521.1913955,
-    "ast_hash": "95096c59f0326d7acedfebaff8d35609",
-    "semantic_hash": "95096c59f0326d7acedfebaff8d35609"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\chess\\components\\PromotionDialog.tsx": {
-    "mtime": 1784941521.1913955,
-    "ast_hash": "dde8b2c4b11ab57a71b10a22a1fc4503",
-    "semantic_hash": "dde8b2c4b11ab57a71b10a22a1fc4503"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\chess\\constants.ts": {
-    "mtime": 1779856645.7119582,
-    "ast_hash": "d0e298b6767fa9b7712d186a5ca25c4e",
-    "semantic_hash": "d0e298b6767fa9b7712d186a5ca25c4e"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\chess\\engine.ts": {
-    "mtime": 1782328830.510978,
-    "ast_hash": "2297b1b346442c0d5acb7caae8311acb",
-    "semantic_hash": "2297b1b346442c0d5acb7caae8311acb"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\chess\\hooks\\useChessAI.ts": {
-    "mtime": 1782328830.5149758,
-    "ast_hash": "9a6d7a6876727f1c8a48cc2cd88ca294",
-    "semantic_hash": "9a6d7a6876727f1c8a48cc2cd88ca294"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\chess\\hooks\\useChessGame.ts": {
-    "mtime": 1782328830.5184972,
-    "ast_hash": "d237a30171c444cfe5a528420d7083f9",
-    "semantic_hash": "d237a30171c444cfe5a528420d7083f9"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\chess\\index.tsx": {
-    "mtime": 1784941521.1923957,
-    "ast_hash": "6f238448edd4b969d2683e29814dea0a",
-    "semantic_hash": "6f238448edd4b969d2683e29814dea0a"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\chess\\types.ts": {
-    "mtime": 1779856468.552317,
-    "ast_hash": "0bf0a3864968427a04ccc33d4628f0c1",
-    "semantic_hash": "0bf0a3864968427a04ccc33d4628f0c1"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\chess\\utils.ts": {
-    "mtime": 1779856658.0346577,
-    "ast_hash": "1b0cd59b2c9c73583a128d4c8b206947",
-    "semantic_hash": "1b0cd59b2c9c73583a128d4c8b206947"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\chess\\zobrist.ts": {
-    "mtime": 1782328830.5270212,
-    "ast_hash": "dbd2506fb5ed4ac4803fd706267b8340",
-    "semantic_hash": "dbd2506fb5ed4ac4803fd706267b8340"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\elevator\\algorithms.ts": {
-    "mtime": 1782328830.5360553,
-    "ast_hash": "dfa65f37c356139f838b3aa695ce5fba",
-    "semantic_hash": "dfa65f37c356139f838b3aa695ce5fba"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\elevator\\components\\AlgorithmPicker.tsx": {
-    "mtime": 1784941521.1923957,
-    "ast_hash": "d0e95d317e2bac29a146eed0c31d88c9",
-    "semantic_hash": "d0e95d317e2bac29a146eed0c31d88c9"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\elevator\\components\\Building.tsx": {
-    "mtime": 1784941521.1923957,
-    "ast_hash": "66d7a3152ad0eba0a27ec8b63b89fc06",
-    "semantic_hash": "66d7a3152ad0eba0a27ec8b63b89fc06"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\elevator\\components\\CarPanel.tsx": {
-    "mtime": 1784941521.1923957,
-    "ast_hash": "9c35e1c8b2fa1f96e2c476d3f40fdb47",
-    "semantic_hash": "9c35e1c8b2fa1f96e2c476d3f40fdb47"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\elevator\\components\\Controls.tsx": {
-    "mtime": 1784941521.1938996,
-    "ast_hash": "349fb91b495a8c6e38ed49d397c75710",
-    "semantic_hash": "349fb91b495a8c6e38ed49d397c75710"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\elevator\\components\\History.tsx": {
-    "mtime": 1784941521.1938996,
-    "ast_hash": "a8d2762d24a7a14449d3ba9926f156a1",
-    "semantic_hash": "a8d2762d24a7a14449d3ba9926f156a1"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\elevator\\components\\Queue.tsx": {
-    "mtime": 1784941521.1938996,
-    "ast_hash": "b8a6e35778f599a53ad1b5a426e23e89",
-    "semantic_hash": "b8a6e35778f599a53ad1b5a426e23e89"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\elevator\\components\\StatsPanel.tsx": {
-    "mtime": 1784941521.1949067,
-    "ast_hash": "2edcc07d4def56baad6845a1ef5ecbb4",
-    "semantic_hash": "2edcc07d4def56baad6845a1ef5ecbb4"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\elevator\\constants.ts": {
-    "mtime": 1779963524.9322004,
-    "ast_hash": "b979eb7ca0ab42478a3dbf276c466f50",
-    "semantic_hash": "b979eb7ca0ab42478a3dbf276c466f50"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\elevator\\index.tsx": {
-    "mtime": 1784941521.1949067,
-    "ast_hash": "9a8e2befdf79d571e57179487c182ecf",
-    "semantic_hash": "9a8e2befdf79d571e57179487c182ecf"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\elevator\\types.ts": {
-    "mtime": 1779963514.978431,
-    "ast_hash": "6c06d9c9d248d5cab1a25fa0b687df1b",
-    "semantic_hash": "6c06d9c9d248d5cab1a25fa0b687df1b"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\elevator\\useSimulation.ts": {
-    "mtime": 1782328830.5650675,
-    "ast_hash": "e4981b47e46d9ad815a0258e010de3d0",
-    "semantic_hash": "e4981b47e46d9ad815a0258e010de3d0"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\l-system\\components\\Controls.tsx": {
-    "mtime": 1784941521.1949067,
-    "ast_hash": "e6b20d301bc848b4c3b465160b986948",
-    "semantic_hash": "e6b20d301bc848b4c3b465160b986948"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\l-system\\components\\DebugPanel.tsx": {
-    "mtime": 1784941521.195906,
-    "ast_hash": "90f66529dd857bc77e15ccdb006d08e4",
-    "semantic_hash": "90f66529dd857bc77e15ccdb006d08e4"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\l-system\\components\\Editor.tsx": {
-    "mtime": 1784941521.195906,
-    "ast_hash": "569cb707be7e4281a89a20725a4fc251",
-    "semantic_hash": "569cb707be7e4281a89a20725a4fc251"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\l-system\\components\\LCanvas.tsx": {
-    "mtime": 1784941521.195906,
-    "ast_hash": "d7df07e36f9d583fc5bea60f00ba348a",
-    "semantic_hash": "d7df07e36f9d583fc5bea60f00ba348a"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\l-system\\components\\Stats.tsx": {
-    "mtime": 1784941521.195906,
-    "ast_hash": "8b55b9bd4686ab07a8d9740161010e09",
-    "semantic_hash": "8b55b9bd4686ab07a8d9740161010e09"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\l-system\\constants.ts": {
-    "mtime": 1782328830.5950792,
-    "ast_hash": "dbb24fe860a752ea56f034397e03d704",
-    "semantic_hash": "dbb24fe860a752ea56f034397e03d704"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\l-system\\index.tsx": {
-    "mtime": 1784941521.1969118,
-    "ast_hash": "ef5f65fdbc5cc1f14a736c643bd87da9",
-    "semantic_hash": "ef5f65fdbc5cc1f14a736c643bd87da9"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\l-system\\lsystem.ts": {
-    "mtime": 1782328830.602853,
-    "ast_hash": "c2221cf830bf84a6d08bcc53709eb836",
-    "semantic_hash": "c2221cf830bf84a6d08bcc53709eb836"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\l-system\\palette.ts": {
-    "mtime": 1782328830.6068587,
-    "ast_hash": "d26cae263071edd7a38476a02d38b99a",
-    "semantic_hash": "d26cae263071edd7a38476a02d38b99a"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\l-system\\render.ts": {
-    "mtime": 1782328830.6121001,
-    "ast_hash": "e59836ebcabc48430eba84fe6af86f25",
-    "semantic_hash": "e59836ebcabc48430eba84fe6af86f25"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\l-system\\turtle.ts": {
-    "mtime": 1782328830.6160955,
-    "ast_hash": "07d0d8201ebf9f008a35f6c60e6b5668",
-    "semantic_hash": "07d0d8201ebf9f008a35f6c60e6b5668"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\l-system\\types.ts": {
-    "mtime": 1782328830.62014,
-    "ast_hash": "5dc6d07827f99bc47b5430683f1c6b04",
-    "semantic_hash": "5dc6d07827f99bc47b5430683f1c6b04"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\minesweeper\\components\\Board.tsx": {
-    "mtime": 1784941025.1219504,
-    "ast_hash": "7ad6c33905042b56f4d4f4ce4cdd9a38",
-    "semantic_hash": "7ad6c33905042b56f4d4f4ce4cdd9a38"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\minesweeper\\components\\BoardTools.tsx": {
-    "mtime": 1784941521.1979117,
-    "ast_hash": "db38ca78e8b24c5e73628ea6d46e2c82",
-    "semantic_hash": "db38ca78e8b24c5e73628ea6d46e2c82"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\minesweeper\\components\\DebugLog.tsx": {
-    "mtime": 1784941521.1979117,
-    "ast_hash": "b22e079a043a8abf1a56bd9246cb69ca",
-    "semantic_hash": "b22e079a043a8abf1a56bd9246cb69ca"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\minesweeper\\components\\GenStats.tsx": {
-    "mtime": 1784941521.1979117,
-    "ast_hash": "2ac1b7fd982e64aaf03ce4e9e09a784c",
-    "semantic_hash": "2ac1b7fd982e64aaf03ce4e9e09a784c"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\minesweeper\\components\\Hud.tsx": {
-    "mtime": 1784941521.1979117,
-    "ast_hash": "549502572cf73fe2850c8ca973fbadba",
-    "semantic_hash": "549502572cf73fe2850c8ca973fbadba"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\minesweeper\\components\\Section.tsx": {
-    "mtime": 1784941521.19891,
-    "ast_hash": "af5622f09f8b3fe957490d4e02aec8c8",
-    "semantic_hash": "af5622f09f8b3fe957490d4e02aec8c8"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\minesweeper\\components\\SetupPanel.tsx": {
-    "mtime": 1784941521.19891,
-    "ast_hash": "19cf6b5b9c2200219b0685c10691120d",
-    "semantic_hash": "19cf6b5b9c2200219b0685c10691120d"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\minesweeper\\components\\SolverPanel.tsx": {
-    "mtime": 1784941521.19891,
-    "ast_hash": "dc8f77bbce3f9dafab099412161a11e2",
-    "semantic_hash": "dc8f77bbce3f9dafab099412161a11e2"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\minesweeper\\constants.ts": {
-    "mtime": 1782328830.6640067,
-    "ast_hash": "034fd61a4f44b6087044beb43b63345f",
-    "semantic_hash": "034fd61a4f44b6087044beb43b63345f"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\minesweeper\\generator.ts": {
-    "mtime": 1782328830.6685216,
-    "ast_hash": "fb494a57af3b5fb2b5a5a9413c4912be",
-    "semantic_hash": "fb494a57af3b5fb2b5a5a9413c4912be"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\minesweeper\\generator.worker.ts": {
-    "mtime": 1782328830.6732223,
-    "ast_hash": "cbb0803eef99f1e7a141a9b5b55783b1",
-    "semantic_hash": "cbb0803eef99f1e7a141a9b5b55783b1"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\minesweeper\\grid.ts": {
-    "mtime": 1782328830.678725,
-    "ast_hash": "83881ec6ada2875e809fb06e0e0ee076",
-    "semantic_hash": "83881ec6ada2875e809fb06e0e0ee076"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\minesweeper\\index.tsx": {
-    "mtime": 1784941521.1999116,
-    "ast_hash": "a3dbc0ac39882f2272be09d96b1f4d08",
-    "semantic_hash": "a3dbc0ac39882f2272be09d96b1f4d08"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\minesweeper\\rng.ts": {
-    "mtime": 1782328830.6887684,
-    "ast_hash": "9b1cc2085e80df82af04edd9aa8130d0",
-    "semantic_hash": "9b1cc2085e80df82af04edd9aa8130d0"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\minesweeper\\solvers\\backtracking.ts": {
-    "mtime": 1782328830.6929822,
-    "ast_hash": "a9be31a2a8baa1d153f5d1f3c67d1b11",
-    "semantic_hash": "a9be31a2a8baa1d153f5d1f3c67d1b11"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\minesweeper\\solvers\\constraintPropagation.ts": {
-    "mtime": 1782328830.6969807,
-    "ast_hash": "906d482d7152152f39d6fa9e16ddf43d",
-    "semantic_hash": "906d482d7152152f39d6fa9e16ddf43d"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\minesweeper\\solvers\\core.ts": {
-    "mtime": 1782328830.7012665,
-    "ast_hash": "d1ce4cd3f3a5aab0e45a84074f14b38c",
-    "semantic_hash": "d1ce4cd3f3a5aab0e45a84074f14b38c"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\minesweeper\\solvers\\index.ts": {
-    "mtime": 1782328830.706259,
-    "ast_hash": "4ae4bff508afcc1c05ce8f692f31eba3",
-    "semantic_hash": "4ae4bff508afcc1c05ce8f692f31eba3"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\minesweeper\\solvers\\linearAlgebra.ts": {
-    "mtime": 1782328830.7102726,
-    "ast_hash": "bb0909e8c2e884d4e91b21fe15a0b9a4",
-    "semantic_hash": "bb0909e8c2e884d4e91b21fe15a0b9a4"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\minesweeper\\solvers\\probabilistic.ts": {
-    "mtime": 1782328830.7142768,
-    "ast_hash": "5798110b4a70582f710b3d619743f256",
-    "semantic_hash": "5798110b4a70582f710b3d619743f256"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\minesweeper\\solvers\\sat.ts": {
-    "mtime": 1782328830.7182827,
-    "ast_hash": "84c19e7a2ccab1ef1af61b4c8fd6b9e1",
-    "semantic_hash": "84c19e7a2ccab1ef1af61b4c8fd6b9e1"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\minesweeper\\solvers\\singlePoint.ts": {
-    "mtime": 1782328830.722992,
-    "ast_hash": "0d7e391a595ca5bcedfb5c38b796c476",
-    "semantic_hash": "0d7e391a595ca5bcedfb5c38b796c476"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\minesweeper\\solvers\\singlePointBacktracking.ts": {
-    "mtime": 1782328830.7269921,
-    "ast_hash": "a159386c8c40a2c2139e0554ec6fa2ee",
-    "semantic_hash": "a159386c8c40a2c2139e0554ec6fa2ee"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\minesweeper\\solvers\\types.ts": {
-    "mtime": 1782328830.7310205,
-    "ast_hash": "a1623409d3d73e88f3bd7c0b8402966a",
-    "semantic_hash": "a1623409d3d73e88f3bd7c0b8402966a"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\minesweeper\\types.ts": {
-    "mtime": 1782328830.7360203,
-    "ast_hash": "3aa35824575f5a25f26571f037adec3e",
-    "semantic_hash": "3aa35824575f5a25f26571f037adec3e"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\minesweeper\\useMinesweeper.ts": {
-    "mtime": 1784941521.2009115,
-    "ast_hash": "90d0a97a2583dd718493cb1828c4913c",
-    "semantic_hash": "90d0a97a2583dd718493cb1828c4913c"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\n-body\\components\\Controls.tsx": {
-    "mtime": 1784941521.2009115,
-    "ast_hash": "7d58b6ab325b124afe6d7023dc41609c",
-    "semantic_hash": "7d58b6ab325b124afe6d7023dc41609c"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\n-body\\components\\DebugPanel.tsx": {
-    "mtime": 1784941521.2019117,
-    "ast_hash": "cc2a6da3ea162635b1fed8b7e900f88f",
-    "semantic_hash": "cc2a6da3ea162635b1fed8b7e900f88f"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\n-body\\components\\Look.tsx": {
-    "mtime": 1784941521.2019117,
-    "ast_hash": "f4756747ebb8cc7d8cfe3be865c98992",
-    "semantic_hash": "f4756747ebb8cc7d8cfe3be865c98992"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\n-body\\components\\NBodyCanvas.tsx": {
-    "mtime": 1784941521.2019117,
-    "ast_hash": "d3cbb6de4ca8daa02fc229b94ef88278",
-    "semantic_hash": "d3cbb6de4ca8daa02fc229b94ef88278"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\n-body\\components\\SegRow.tsx": {
-    "mtime": 1784941521.202911,
-    "ast_hash": "d035e5c2192dc53bbbc342bd2f515a3b",
-    "semantic_hash": "d035e5c2192dc53bbbc342bd2f515a3b"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\n-body\\components\\Stats.tsx": {
-    "mtime": 1784941521.202911,
-    "ast_hash": "896186ce32b595b7048f069de2c95593",
-    "semantic_hash": "896186ce32b595b7048f069de2c95593"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\n-body\\constants.ts": {
-    "mtime": 1782328909.8592906,
-    "ast_hash": "59ddc39fb4035e5e0208fb8f0903d8fa",
-    "semantic_hash": "59ddc39fb4035e5e0208fb8f0903d8fa"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\n-body\\gpu\\nbody.wgsl.ts": {
-    "mtime": 1782328909.8592906,
-    "ast_hash": "d1128d0eda263d7fe33b7aaa78abb925",
-    "semantic_hash": "d1128d0eda263d7fe33b7aaa78abb925"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\n-body\\gpu\\solver.ts": {
-    "mtime": 1782328909.8597946,
-    "ast_hash": "7794bb5bc723266cca26b501a7482fc8",
-    "semantic_hash": "7794bb5bc723266cca26b501a7482fc8"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\n-body\\index.tsx": {
-    "mtime": 1784941521.202911,
-    "ast_hash": "00ddc60b2b3330f7fa61b0f52c7d4ade",
-    "semantic_hash": "00ddc60b2b3330f7fa61b0f52c7d4ade"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\n-body\\mat4.ts": {
-    "mtime": 1782328830.7502704,
-    "ast_hash": "97a5fb0de0b16057fe3b3c80a3ad0210",
-    "semantic_hash": "97a5fb0de0b16057fe3b3c80a3ad0210"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\n-body\\octree.ts": {
-    "mtime": 1782328830.7640083,
-    "ast_hash": "1acf98363a7e769a85619f20423388e0",
-    "semantic_hash": "1acf98363a7e769a85619f20423388e0"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\n-body\\palette.ts": {
-    "mtime": 1782328830.7685127,
-    "ast_hash": "90f6a6188fc7438f37b4a9415ca801ce",
-    "semantic_hash": "90f6a6188fc7438f37b4a9415ca801ce"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\n-body\\physics.ts": {
-    "mtime": 1782328830.7732272,
-    "ast_hash": "b005869122bfff5b52e29bfb2a099fef",
-    "semantic_hash": "b005869122bfff5b52e29bfb2a099fef"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\n-body\\presets.ts": {
-    "mtime": 1782328830.7772305,
-    "ast_hash": "ab419bfb6fc16817eef69d3677330c5a",
-    "semantic_hash": "ab419bfb6fc16817eef69d3677330c5a"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\n-body\\renderer.ts": {
-    "mtime": 1782328830.7812836,
-    "ast_hash": "431216d37bff555e4917e7f71adab10e",
-    "semantic_hash": "431216d37bff555e4917e7f71adab10e"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\n-body\\types.ts": {
-    "mtime": 1782328909.8597946,
-    "ast_hash": "fb5ec477aec964db7b160f0d185ee0eb",
-    "semantic_hash": "fb5ec477aec964db7b160f0d185ee0eb"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\pacman\\bfs.ts": {
-    "mtime": 1782328830.7900271,
-    "ast_hash": "65fda96d124012214e9e15d7900de260",
-    "semantic_hash": "65fda96d124012214e9e15d7900de260"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\pacman\\components\\MazeEditor.tsx": {
-    "mtime": 1784941521.2039127,
-    "ast_hash": "ed42590d77a7750bceb409eaaa99fea0",
-    "semantic_hash": "ed42590d77a7750bceb409eaaa99fea0"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\pacman\\components\\PacmanCanvas.tsx": {
-    "mtime": 1784941521.2039127,
-    "ast_hash": "f7b91007797b049888d690314665d466",
-    "semantic_hash": "f7b91007797b049888d690314665d466"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\pacman\\components\\Sidebar.tsx": {
-    "mtime": 1784941521.2050142,
-    "ast_hash": "3656c9aac4a83994f0d31c181eed591f",
-    "semantic_hash": "3656c9aac4a83994f0d31c181eed591f"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\pacman\\constants.ts": {
-    "mtime": 1782328830.8068614,
-    "ast_hash": "964ddcd096fb8fa1e320932e095a3f11",
-    "semantic_hash": "964ddcd096fb8fa1e320932e095a3f11"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\pacman\\coordination.ts": {
-    "mtime": 1782328830.811463,
-    "ast_hash": "a891d1b4742ea89f0e88cb72600299a0",
-    "semantic_hash": "a891d1b4742ea89f0e88cb72600299a0"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\pacman\\index.tsx": {
-    "mtime": 1784941521.2050142,
-    "ast_hash": "f2e66d263bf864f6f43921b59e88465e",
-    "semantic_hash": "f2e66d263bf864f6f43921b59e88465e"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\pacman\\maze.ts": {
-    "mtime": 1782328830.819477,
-    "ast_hash": "ef7531e648e29e3dee5ba392c33b77b0",
-    "semantic_hash": "ef7531e648e29e3dee5ba392c33b77b0"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\pacman\\mazes\\generate.ts": {
-    "mtime": 1782328830.8232126,
-    "ast_hash": "05cfd3e0c55ec92ecf861505e8b43ab0",
-    "semantic_hash": "05cfd3e0c55ec92ecf861505e8b43ab0"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\pacman\\mazes\\registry.ts": {
-    "mtime": 1782328830.827219,
-    "ast_hash": "968f346b94b35104eee276620460ff21",
-    "semantic_hash": "968f346b94b35104eee276620460ff21"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\pacman\\mazes\\serialize.ts": {
-    "mtime": 1782328830.8395026,
-    "ast_hash": "33e3aeb7dcbe5d4fa94ccd2674b0b67f",
-    "semantic_hash": "33e3aeb7dcbe5d4fa94ccd2674b0b67f"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\pacman\\mazes\\structure.ts": {
-    "mtime": 1782328830.843568,
-    "ast_hash": "4bcd678e6af3939779a525103d698209",
-    "semantic_hash": "4bcd678e6af3939779a525103d698209"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\pacman\\mazes\\validate.ts": {
-    "mtime": 1782328830.847567,
-    "ast_hash": "a0295924ebdb328e21323361a3174e87",
-    "semantic_hash": "a0295924ebdb328e21323361a3174e87"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\pacman\\pacai\\astar.ts": {
-    "mtime": 1782328830.8517823,
-    "ast_hash": "aa5874795ded30262494681f959ca4b4",
-    "semantic_hash": "aa5874795ded30262494681f959ca4b4"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\pacman\\pacai\\coverage.ts": {
-    "mtime": 1782328830.855783,
-    "ast_hash": "549a74c29701f9356451a85f36ced490",
-    "semantic_hash": "549a74c29701f9356451a85f36ced490"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\pacman\\pacai\\danger.ts": {
-    "mtime": 1782328830.8600302,
-    "ast_hash": "a5e8d205cc31dd199bc0030503c1a379",
-    "semantic_hash": "a5e8d205cc31dd199bc0030503c1a379"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\pacman\\pacai\\graph.ts": {
-    "mtime": 1782328830.8640404,
-    "ast_hash": "543f91f3b37f7e385a666e255e034f10",
-    "semantic_hash": "543f91f3b37f7e385a666e255e034f10"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\pacman\\pacai\\greedy.ts": {
-    "mtime": 1782328830.8685527,
-    "ast_hash": "d36ba0c5e578d6aec6e553a4259501d5",
-    "semantic_hash": "d36ba0c5e578d6aec6e553a4259501d5"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\pacman\\pacai\\index.ts": {
-    "mtime": 1782328830.8730783,
-    "ast_hash": "368095396ea9e279354898278d8a4e25",
-    "semantic_hash": "368095396ea9e279354898278d8a4e25"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\pacman\\pacai\\montecarlo.ts": {
-    "mtime": 1782328830.8770642,
-    "ast_hash": "487cdf9a869f2b0878999b23e7d1dacb",
-    "semantic_hash": "487cdf9a869f2b0878999b23e7d1dacb"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\pacman\\pacai\\node.ts": {
-    "mtime": 1782328830.8823392,
-    "ast_hash": "2ab28c53396267a9f063bec8441c8dce",
-    "semantic_hash": "2ab28c53396267a9f063bec8441c8dce"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\pacman\\pacai\\safe.ts": {
-    "mtime": 1782328830.886348,
-    "ast_hash": "11f1b9c585263d48a0717b3b87266f89",
-    "semantic_hash": "11f1b9c585263d48a0717b3b87266f89"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\pacman\\pacai\\search.ts": {
-    "mtime": 1782328830.8900824,
-    "ast_hash": "79f97366dab99ea9840c87044aca3b72",
-    "semantic_hash": "79f97366dab99ea9840c87044aca3b72"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\pacman\\pacai\\types.ts": {
-    "mtime": 1782328830.8960853,
-    "ast_hash": "350d6467d57abf4a0fc2569aa853d555",
-    "semantic_hash": "350d6467d57abf4a0fc2569aa853d555"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\pacman\\pacai\\util.ts": {
-    "mtime": 1782328830.899876,
-    "ast_hash": "5ddbf265575fa54737d3d2d24c0372da",
-    "semantic_hash": "5ddbf265575fa54737d3d2d24c0372da"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\pacman\\pellets\\registry.ts": {
-    "mtime": 1782328830.9038866,
-    "ast_hash": "e91b503c86b0c76e91d82dd101493b1e",
-    "semantic_hash": "e91b503c86b0c76e91d82dd101493b1e"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\pacman\\render.ts": {
-    "mtime": 1782328830.9083915,
-    "ast_hash": "04161ce4243e9fa9f77affc463567856",
-    "semantic_hash": "04161ce4243e9fa9f77affc463567856"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\pacman\\simulation.ts": {
-    "mtime": 1782328830.9134228,
-    "ast_hash": "5f1c9803629c37c870fcdbbc8de66408",
-    "semantic_hash": "5f1c9803629c37c870fcdbbc8de66408"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\pacman\\sound.ts": {
-    "mtime": 1782328830.9174232,
-    "ast_hash": "ba19674a808d522f581a7379ecc3c93a",
-    "semantic_hash": "ba19674a808d522f581a7379ecc3c93a"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\pacman\\targeting.ts": {
-    "mtime": 1782328830.9211757,
-    "ast_hash": "0403c8da0be5580ef78731c3e944c5cc",
-    "semantic_hash": "0403c8da0be5580ef78731c3e944c5cc"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\pacman\\types.ts": {
-    "mtime": 1782328830.925167,
-    "ast_hash": "9c89b8c0d528e7adf3ee9368edaa1629",
-    "semantic_hash": "9c89b8c0d528e7adf3ee9368edaa1629"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\pathfinding\\algorithms\\astar.ts": {
-    "mtime": 1782328830.933902,
-    "ast_hash": "d18d81e062671c6963add37d5a914b17",
-    "semantic_hash": "d18d81e062671c6963add37d5a914b17"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\pathfinding\\algorithms\\bfs.ts": {
-    "mtime": 1782328830.9384072,
-    "ast_hash": "cb65f0ccc9dcaa7d192d5da6866c9ab5",
-    "semantic_hash": "cb65f0ccc9dcaa7d192d5da6866c9ab5"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\pathfinding\\algorithms\\bidirectional-bfs.ts": {
-    "mtime": 1782328830.9428618,
-    "ast_hash": "378421bec3d038ecbf253c04a250cd50",
-    "semantic_hash": "378421bec3d038ecbf253c04a250cd50"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\pathfinding\\algorithms\\dfs.ts": {
-    "mtime": 1782328830.9468625,
-    "ast_hash": "f36607a73281d4a5de94d59c48137f63",
-    "semantic_hash": "f36607a73281d4a5de94d59c48137f63"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\pathfinding\\algorithms\\dijkstra.ts": {
-    "mtime": 1782328830.9521222,
-    "ast_hash": "bd3b4a6a278ec08f4bf4bd308638cff0",
-    "semantic_hash": "bd3b4a6a278ec08f4bf4bd308638cff0"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\pathfinding\\algorithms\\greedy.ts": {
-    "mtime": 1782328830.9561243,
-    "ast_hash": "8707e2b939c6164558bc4ec4ab742d4d",
-    "semantic_hash": "8707e2b939c6164558bc4ec4ab742d4d"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\pathfinding\\algorithms\\heap.ts": {
-    "mtime": 1779724438.6245656,
-    "ast_hash": "c2bfc4d04dfedbea9794e5c36561fded",
-    "semantic_hash": "c2bfc4d04dfedbea9794e5c36561fded"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\pathfinding\\algorithms\\index.ts": {
-    "mtime": 1779724576.7355285,
-    "ast_hash": "f0ceb46474bab16e19026dd52a802641",
-    "semantic_hash": "f0ceb46474bab16e19026dd52a802641"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\pathfinding\\algorithms\\jps.ts": {
-    "mtime": 1782328830.9608946,
-    "ast_hash": "c276c463c0c3872c63aa69569dc6c7a8",
-    "semantic_hash": "c276c463c0c3872c63aa69569dc6c7a8"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\pathfinding\\algorithms\\types.ts": {
-    "mtime": 1782328830.966894,
-    "ast_hash": "8ccf5ed073a46c5ecddd278bb3e06012",
-    "semantic_hash": "8ccf5ed073a46c5ecddd278bb3e06012"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\pathfinding\\algorithms\\utils.ts": {
-    "mtime": 1779727502.003243,
-    "ast_hash": "c4d7b63620e4e1ebc35366951078e4c2",
-    "semantic_hash": "c4d7b63620e4e1ebc35366951078e4c2"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\pathfinding\\components\\AlgoPanel.tsx": {
-    "mtime": 1784941521.2070146,
-    "ast_hash": "44b755e14603f664e81ef9d6db1d6957",
-    "semantic_hash": "44b755e14603f664e81ef9d6db1d6957"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\pathfinding\\components\\AlgorithmSelect.tsx": {
-    "mtime": 1784941521.2070146,
-    "ast_hash": "3a04f88589ca9679702fe8355d58da10",
-    "semantic_hash": "3a04f88589ca9679702fe8355d58da10"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\pathfinding\\components\\MazeBuilder.tsx": {
-    "mtime": 1784941521.2070146,
-    "ast_hash": "c9de4ba77190ca71606a84819811b98b",
-    "semantic_hash": "c9de4ba77190ca71606a84819811b98b"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\pathfinding\\components\\Run.tsx": {
-    "mtime": 1784941521.2070146,
-    "ast_hash": "b7960bfc8a0052960ed8566ca77ff936",
-    "semantic_hash": "b7960bfc8a0052960ed8566ca77ff936"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\pathfinding\\constants.ts": {
-    "mtime": 1782328830.989208,
-    "ast_hash": "bdd654475d088b1cd9b559712084091e",
-    "semantic_hash": "bdd654475d088b1cd9b559712084091e"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\pathfinding\\index.tsx": {
-    "mtime": 1784941521.2080145,
-    "ast_hash": "6caa364e2abe1f652fbe913750600129",
-    "semantic_hash": "6caa364e2abe1f652fbe913750600129"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\pathfinding\\maze.ts": {
-    "mtime": 1782328830.9970233,
-    "ast_hash": "425b5b97e39ef96c5065c26caadb4ce5",
-    "semantic_hash": "425b5b97e39ef96c5065c26caadb4ce5"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\pathfinding\\types.ts": {
-    "mtime": 1782328831.002568,
-    "ast_hash": "fa61c0e88930326f44d2db63c616ee0a",
-    "semantic_hash": "fa61c0e88930326f44d2db63c616ee0a"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\reaction-diffusion\\components\\Controls.tsx": {
-    "mtime": 1784941521.2080145,
-    "ast_hash": "e3ff1763b3ba69d6327a64971ff3eb94",
-    "semantic_hash": "e3ff1763b3ba69d6327a64971ff3eb94"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\reaction-diffusion\\components\\DebugPanel.tsx": {
-    "mtime": 1784941521.2080145,
-    "ast_hash": "e40c9dd007533f8df3b27b295674d40e",
-    "semantic_hash": "e40c9dd007533f8df3b27b295674d40e"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\reaction-diffusion\\components\\Look.tsx": {
-    "mtime": 1784941521.2090154,
-    "ast_hash": "9791684b3460ecd7eaf4d01634c56c0c",
-    "semantic_hash": "9791684b3460ecd7eaf4d01634c56c0c"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\reaction-diffusion\\components\\Preview.tsx": {
-    "mtime": 1784941521.2090154,
-    "ast_hash": "79032983de97e16b70ed7a9cfff83a58",
-    "semantic_hash": "79032983de97e16b70ed7a9cfff83a58"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\reaction-diffusion\\components\\RDCanvas.tsx": {
-    "mtime": 1784941521.2090154,
-    "ast_hash": "ae2c216aae12996268ba6678c2e2fdd6",
-    "semantic_hash": "ae2c216aae12996268ba6678c2e2fdd6"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\reaction-diffusion\\constants.ts": {
-    "mtime": 1782329319.2300045,
-    "ast_hash": "de3056fa382391dc30d56eacc4da7d81",
-    "semantic_hash": "de3056fa382391dc30d56eacc4da7d81"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\reaction-diffusion\\grayscott.test.ts": {
-    "mtime": 1782329319.2300045,
-    "ast_hash": "f952eb8369007b2ee3cd04fee9f9aed7",
-    "semantic_hash": "f952eb8369007b2ee3cd04fee9f9aed7"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\reaction-diffusion\\index.tsx": {
-    "mtime": 1784941521.2100153,
-    "ast_hash": "eab7104237975c01a2ebdf1d206e40e9",
-    "semantic_hash": "eab7104237975c01a2ebdf1d206e40e9"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\reaction-diffusion\\palettes.ts": {
-    "mtime": 1782329319.2310092,
-    "ast_hash": "4ff78a53ac900c2238867af79ece5c6f",
-    "semantic_hash": "4ff78a53ac900c2238867af79ece5c6f"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\reaction-diffusion\\presets.ts": {
-    "mtime": 1782329319.2310092,
-    "ast_hash": "16e2e01f11bc77130223bab83225523c",
-    "semantic_hash": "16e2e01f11bc77130223bab83225523c"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\reaction-diffusion\\shaders.ts": {
-    "mtime": 1782329319.2310092,
-    "ast_hash": "d326c065442742bcd93ec9259a534c33",
-    "semantic_hash": "d326c065442742bcd93ec9259a534c33"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\reaction-diffusion\\simulation.ts": {
-    "mtime": 1782329319.2310092,
-    "ast_hash": "3ee693350a16aa32ec44c82430cf480e",
-    "semantic_hash": "3ee693350a16aa32ec44c82430cf480e"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\reaction-diffusion\\types.ts": {
-    "mtime": 1782329319.2320075,
-    "ast_hash": "fa0de5d01762cfc3175bf17fab940609",
-    "semantic_hash": "fa0de5d01762cfc3175bf17fab940609"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\river-crossing\\components\\Controls.tsx": {
-    "mtime": 1784941521.2100153,
-    "ast_hash": "c455ba517d93b0e3a3e9eaac13475324",
-    "semantic_hash": "c455ba517d93b0e3a3e9eaac13475324"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\river-crossing\\components\\DebugLog.tsx": {
-    "mtime": 1784941521.2100153,
-    "ast_hash": "7a4dd1f8f5edfdcf5e3a1df242996820",
-    "semantic_hash": "7a4dd1f8f5edfdcf5e3a1df242996820"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\river-crossing\\components\\Person.tsx": {
-    "mtime": 1784941521.2110162,
-    "ast_hash": "0aec5644155d244a445e45f663dac21b",
-    "semantic_hash": "0aec5644155d244a445e45f663dac21b"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\river-crossing\\components\\RiverScene.tsx": {
-    "mtime": 1784941521.2110162,
-    "ast_hash": "29c5ba34fee533a711939381679b11ad",
-    "semantic_hash": "29c5ba34fee533a711939381679b11ad"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\river-crossing\\components\\SearchGraph.tsx": {
-    "mtime": 1784941521.2110162,
-    "ast_hash": "28f8301287312462d21fb7ba71a7f416",
-    "semantic_hash": "28f8301287312462d21fb7ba71a7f416"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\river-crossing\\components\\SetupPanel.tsx": {
-    "mtime": 1784941025.1319509,
-    "ast_hash": "80ad62227a3e0e5947eba653e00c99b8",
-    "semantic_hash": "80ad62227a3e0e5947eba653e00c99b8"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\river-crossing\\components\\SolverPanel.tsx": {
-    "mtime": 1784941521.2120142,
-    "ast_hash": "d18d2f6d4d3eaeed59b44acc360d6b51",
-    "semantic_hash": "d18d2f6d4d3eaeed59b44acc360d6b51"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\river-crossing\\components\\StoryPanel.tsx": {
-    "mtime": 1784941521.2120142,
-    "ast_hash": "a47f5aeb011661ddf9221f2efead3ed9",
-    "semantic_hash": "a47f5aeb011661ddf9221f2efead3ed9"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\river-crossing\\constants.ts": {
-    "mtime": 1782328831.0406632,
-    "ast_hash": "99ee96d61e30b6377f1b76fb98272f18",
-    "semantic_hash": "99ee96d61e30b6377f1b76fb98272f18"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\river-crossing\\index.tsx": {
-    "mtime": 1784941521.2120142,
-    "ast_hash": "d3fa85cbbb3e32c729bcce0d29109368",
-    "semantic_hash": "d3fa85cbbb3e32c729bcce0d29109368"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\river-crossing\\narrative\\cast.ts": {
-    "mtime": 1782328831.0446618,
-    "ast_hash": "965c632d6ca653f4b49f2871c06fd30c",
-    "semantic_hash": "965c632d6ca653f4b49f2871c06fd30c"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\river-crossing\\narrative\\rng.ts": {
-    "mtime": 1782328831.0499134,
-    "ast_hash": "9f4f8b72ddc46aa77f66808742123341",
-    "semantic_hash": "9f4f8b72ddc46aa77f66808742123341"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\river-crossing\\narrative\\storyEngine.ts": {
-    "mtime": 1782328831.070246,
-    "ast_hash": "7a05aad2a5871d5de0777d18a9af7fdc",
-    "semantic_hash": "7a05aad2a5871d5de0777d18a9af7fdc"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\river-crossing\\narrative\\templates.ts": {
-    "mtime": 1782328831.0742443,
-    "ast_hash": "e972a8978ff3ba6a633f0d138196e1b0",
-    "semantic_hash": "e972a8978ff3ba6a633f0d138196e1b0"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\river-crossing\\solver.ts": {
-    "mtime": 1782328831.0799732,
-    "ast_hash": "4078750e230eca4ba49d28d869530f92",
-    "semantic_hash": "4078750e230eca4ba49d28d869530f92"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\river-crossing\\types.ts": {
-    "mtime": 1782328831.0839777,
-    "ast_hash": "6f934a87257fce71758b41e2687d1364",
-    "semantic_hash": "6f934a87257fce71758b41e2687d1364"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\river-crossing\\useRiverCrossing.ts": {
-    "mtime": 1782328831.0869837,
-    "ast_hash": "40a0ef7d1c11c5dc118e4f3b15d98c51",
-    "semantic_hash": "40a0ef7d1c11c5dc118e4f3b15d98c51"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\experiments\\sorting-visualizer\\index.tsx": {
-    "mtime": 1784941521.2130153,
-    "ast_hash": "521f4f216280f9da8586fe2ce8d27647",
-    "semantic_hash": "521f4f216280f9da8586fe2ce8d27647"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\hooks\\useReducedMotion.ts": {
-    "mtime": 1782328831.104295,
-    "ast_hash": "62d988f69ad56181164bfe160c882b51",
-    "semantic_hash": "62d988f69ad56181164bfe160c882b51"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\hooks\\useTheme.ts": {
-    "mtime": 1779680688.6446378,
-    "ast_hash": "c40afa528aa819ed98028a1534a12fa5",
-    "semantic_hash": "c40afa528aa819ed98028a1534a12fa5"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\hooks\\useTranslation.ts": {
+  "src/experiments/cellular-automata/components/CACanvas.tsx": {
+    "mtime": 1784941521.1873953,
+    "ast_hash": "620671aac3b8b7884f48fb5b7774a95f",
+    "semantic_hash": "620671aac3b8b7884f48fb5b7774a95f"
+  },
+  "src/experiments/cellular-automata/components/RuleEditor.tsx": {
+    "mtime": 1784941521.1883953,
+    "ast_hash": "f4c571794febdb4bc36127d9f94f8037",
+    "semantic_hash": "f4c571794febdb4bc36127d9f94f8037"
+  },
+  "src/experiments/cellular-automata/components/BreedingLab.tsx": {
+    "mtime": 1784941521.1873953,
+    "ast_hash": "8400305ed33a604b466b7487146d87e2",
+    "semantic_hash": "8400305ed33a604b466b7487146d87e2"
+  },
+  "src/experiments/cellular-automata/components/Look.tsx": {
+    "mtime": 1784941521.1883953,
+    "ast_hash": "82323eb892d6f08e9f48f1cf4bef90cc",
+    "semantic_hash": "82323eb892d6f08e9f48f1cf4bef90cc"
+  },
+  "src/experiments/cellular-automata/components/Controls.tsx": {
+    "mtime": 1784941521.1873953,
+    "ast_hash": "f6076d3eff2226e2e74e744f006444e6",
+    "semantic_hash": "f6076d3eff2226e2e74e744f006444e6"
+  },
+  "src/experiments/cellular-automata/components/DebugPanel.tsx": {
+    "mtime": 1784941521.1873953,
+    "ast_hash": "4ac4f9324fa00b0cdd48046154b5ccc3",
+    "semantic_hash": "4ac4f9324fa00b0cdd48046154b5ccc3"
+  },
+  "src/hooks/useTranslation.ts": {
     "mtime": 1784941286.0380025,
     "ast_hash": "3722f38e895e29a5268ea97b04501004",
     "semantic_hash": "3722f38e895e29a5268ea97b04501004"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\i18n\\index.ts": {
-    "mtime": 1784940869.4464056,
-    "ast_hash": "789e5825f856b35da1f4326cd82798fa",
-    "semantic_hash": "789e5825f856b35da1f4326cd82798fa"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\i18n\\locales\\en.ts": {
-    "mtime": 1784912627.784385,
-    "ast_hash": "c9092074434d2026773386e65474a554",
-    "semantic_hash": "c9092074434d2026773386e65474a554"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\i18n\\locales\\vi.ts": {
-    "mtime": 1784912701.220895,
-    "ast_hash": "105f286ae6fd4ea507cd0ca5f76c7f11",
-    "semantic_hash": "105f286ae6fd4ea507cd0ca5f76c7f11"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\main.tsx": {
-    "mtime": 1784941025.1339521,
-    "ast_hash": "c2c2b1aac7eabcce35bf0ce0b4233ef8",
-    "semantic_hash": "c2c2b1aac7eabcce35bf0ce0b4233ef8"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\pages\\About\\AboutTerminal.tsx": {
-    "mtime": 1784941521.2140143,
-    "ast_hash": "e79e1434a2a61b14ab4b8b7e2fa24c26",
-    "semantic_hash": "e79e1434a2a61b14ab4b8b7e2fa24c26"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\pages\\About\\commands.ts": {
-    "mtime": 1782328831.1333935,
-    "ast_hash": "c3a9e225ea0afdeae426b50360ad703a",
-    "semantic_hash": "c3a9e225ea0afdeae426b50360ad703a"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\pages\\About\\index.tsx": {
-    "mtime": 1784941521.2140143,
-    "ast_hash": "24fbb58370a97724fbb9a7578d1f95f3",
-    "semantic_hash": "24fbb58370a97724fbb9a7578d1f95f3"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\pages\\About\\pagespeed.ts": {
-    "mtime": 1782328831.1402392,
-    "ast_hash": "da3937e138f4cc35d5d9b2dc2f08e5c7",
-    "semantic_hash": "da3937e138f4cc35d5d9b2dc2f08e5c7"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\pages\\About\\useAboutTerminal.ts": {
-    "mtime": 1782328831.1452425,
-    "ast_hash": "ee00761583561d92874eccec3b712cc5",
-    "semantic_hash": "ee00761583561d92874eccec3b712cc5"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\pages\\Contact\\index.tsx": {
-    "mtime": 1784941521.2140143,
-    "ast_hash": "ffc5d3aedc857e5006178ff70aa9d389",
-    "semantic_hash": "ffc5d3aedc857e5006178ff70aa9d389"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\seo\\RouteMeta.tsx": {
-    "mtime": 1782328831.1584833,
-    "ast_hash": "4d4c2bb1c8b9f05330c64bc1ae8222c0",
-    "semantic_hash": "4d4c2bb1c8b9f05330c64bc1ae8222c0"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\seo\\site.ts": {
-    "mtime": 1782328831.1626024,
-    "ast_hash": "6a77ec77b0fa186ce942b1e1f2815792",
-    "semantic_hash": "6a77ec77b0fa186ce942b1e1f2815792"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\seo\\useDocumentMeta.ts": {
-    "mtime": 1782328831.1666093,
-    "ast_hash": "c582570f47774b0325c5c6b2919f67b3",
-    "semantic_hash": "c582570f47774b0325c5c6b2919f67b3"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\vite-env.d.ts": {
-    "mtime": 1782328831.1718552,
-    "ast_hash": "01d9e7c66405e4f1d565569fe860136d",
-    "semantic_hash": "01d9e7c66405e4f1d565569fe860136d"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\tsconfig.app.json": {
-    "mtime": 1784941037.649117,
-    "ast_hash": "a45a5870c6dc5de5ed0901e7b89fb8d9",
-    "semantic_hash": "a45a5870c6dc5de5ed0901e7b89fb8d9"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\tsconfig.json": {
-    "mtime": 1779679766.153306,
-    "ast_hash": "a3d39fa780ebff65444de257f291ce6c",
-    "semantic_hash": "a3d39fa780ebff65444de257f291ce6c"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\tsconfig.node.json": {
-    "mtime": 1779679778.9178455,
-    "ast_hash": "aad45b3c5a362587cf7ee0e46ec4a75e",
-    "semantic_hash": "aad45b3c5a362587cf7ee0e46ec4a75e"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\vite.config.ts": {
-    "mtime": 1784941046.4573834,
-    "ast_hash": "aaddde1ba7a4f42fac1f112b78b51f74",
-    "semantic_hash": "aaddde1ba7a4f42fac1f112b78b51f74"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\.claude\\skills\\docs-improvements\\SKILL.md": {
-    "mtime": 1782328829.8072722,
-    "ast_hash": "e9f9070a8370bca2cd283dea5b3909a1",
-    "semantic_hash": "e9f9070a8370bca2cd283dea5b3909a1"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\.claude\\skills\\docs-issues\\SKILL.md": {
-    "mtime": 1782328829.813283,
-    "ast_hash": "b16a7fd2d57d0326c46d7b5ba320740d",
-    "semantic_hash": "b16a7fd2d57d0326c46d7b5ba320740d"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\.claude\\skills\\docs-textbook\\SKILL.md": {
-    "mtime": 1782328829.8187957,
-    "ast_hash": "204edab7a64a14359de242a1a4385d48",
-    "semantic_hash": "204edab7a64a14359de242a1a4385d48"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\.claude\\skills\\pagespeed-analyze\\SKILL.md": {
-    "mtime": 1782328829.8230202,
-    "ast_hash": "d3d50d80c6383189d538820f9474ee01",
-    "semantic_hash": "d3d50d80c6383189d538820f9474ee01"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\.claude\\skills\\pagespeed-compare\\SKILL.md": {
-    "mtime": 1782328829.8322494,
-    "ast_hash": "bb5dcd071594b1d2dca1985001a628a8",
-    "semantic_hash": "bb5dcd071594b1d2dca1985001a628a8"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\.claude\\skills\\verify-experiment\\SKILL.md": {
-    "mtime": 1782329319.1884854,
-    "ast_hash": "cbc704f40585a2892afd6c7101f0e66e",
-    "semantic_hash": "cbc704f40585a2892afd6c7101f0e66e"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\.github\\ISSUE_TEMPLATE\\bug_report.yml": {
-    "mtime": 1782328829.8409827,
-    "ast_hash": "305c6eef737205afae316275415d41de",
-    "semantic_hash": "305c6eef737205afae316275415d41de"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\.github\\ISSUE_TEMPLATE\\config.yml": {
-    "mtime": 1782328829.8449903,
-    "ast_hash": "74f45bc1a4125a25534a94f65d08f87a",
-    "semantic_hash": "74f45bc1a4125a25534a94f65d08f87a"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\.github\\ISSUE_TEMPLATE\\feature_request.yml": {
-    "mtime": 1782328829.8510292,
-    "ast_hash": "61b688b5ebd27ece0583d939c8f39e03",
-    "semantic_hash": "61b688b5ebd27ece0583d939c8f39e03"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\.github\\workflows\\deploy.yml": {
-    "mtime": 1779958028.4063818,
-    "ast_hash": "2f21f7f27e9a4c91958122a9d6cde90a",
-    "semantic_hash": "2f21f7f27e9a4c91958122a9d6cde90a"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\CLAUDE.md": {
-    "mtime": 1782329319.1894891,
-    "ast_hash": "8268f1ffda48e04a1675a003eb2ba460",
-    "semantic_hash": "8268f1ffda48e04a1675a003eb2ba460"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\CONTRIBUTING.md": {
-    "mtime": 1782328829.861281,
-    "ast_hash": "7480c39c9bd7909ffe280c76cdd875fb",
-    "semantic_hash": "7480c39c9bd7909ffe280c76cdd875fb"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\NOTICE.md": {
-    "mtime": 1782328829.8662734,
-    "ast_hash": "3ce17804d6af718de8c7dd1ca35d96c0",
-    "semantic_hash": "3ce17804d6af718de8c7dd1ca35d96c0"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\README.md": {
-    "mtime": 1782328829.869989,
-    "ast_hash": "909b01ff2c6d6bfda1ed58c1b78a62df",
-    "semantic_hash": "909b01ff2c6d6bfda1ed58c1b78a62df"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\SECURITY.md": {
-    "mtime": 1782328829.8749993,
-    "ast_hash": "7b45c79c93d35e3cf512a1d452573d24",
-    "semantic_hash": "7b45c79c93d35e3cf512a1d452573d24"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\docs\\aco\\TEXTBOOK.md": {
-    "mtime": 1782328829.880653,
-    "ast_hash": "0e709a43cd2b05219d23274c2b367401",
-    "semantic_hash": "0e709a43cd2b05219d23274c2b367401"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\docs\\boids\\IMPROVEMENTS.md": {
-    "mtime": 1782328829.8846443,
-    "ast_hash": "c20861360a22de1c4849a9e450ff3e33",
-    "semantic_hash": "c20861360a22de1c4849a9e450ff3e33"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\docs\\boids\\TEXTBOOK.md": {
-    "mtime": 1782328829.8891568,
-    "ast_hash": "21e17e64a8d86e8c16ea187c9def147f",
-    "semantic_hash": "21e17e64a8d86e8c16ea187c9def147f"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\docs\\branding\\README.md": {
-    "mtime": 1782328829.8928645,
-    "ast_hash": "97a3c8ffb7c0c9ff734eb8d0ad068e69",
-    "semantic_hash": "97a3c8ffb7c0c9ff734eb8d0ad068e69"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\docs\\chess\\IMPROVEMENTS.md": {
-    "mtime": 1782328829.9221761,
-    "ast_hash": "496acd0417fb47587cd33b721af3ee80",
-    "semantic_hash": "496acd0417fb47587cd33b721af3ee80"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\docs\\chess\\ISSUES.md": {
-    "mtime": 1782328829.9261694,
-    "ast_hash": "a3baf0a739919e871e4411f8cd743fbb",
-    "semantic_hash": "a3baf0a739919e871e4411f8cd743fbb"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\docs\\chess\\TEXTBOOK.md": {
-    "mtime": 1782328829.9309938,
-    "ast_hash": "4300b2c76f65fa66fdf5ef7716cf1dfe",
-    "semantic_hash": "4300b2c76f65fa66fdf5ef7716cf1dfe"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\docs\\elevator\\ISSUES.md": {
-    "mtime": 1782328829.9360013,
-    "ast_hash": "2ff2dd1949b1fa7ba2ce92a06804855a",
-    "semantic_hash": "2ff2dd1949b1fa7ba2ce92a06804855a"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\docs\\elevator\\TEXTBOOK.md": {
-    "mtime": 1782328829.9395201,
-    "ast_hash": "8c0b40fde49e405c201708aa697994e1",
-    "semantic_hash": "8c0b40fde49e405c201708aa697994e1"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\docs\\l-system\\TEXTBOOK.md": {
-    "mtime": 1782328829.9435894,
-    "ast_hash": "a44964370d8e08e7d1e99c11fa89a1d1",
-    "semantic_hash": "a44964370d8e08e7d1e99c11fa89a1d1"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\docs\\minesweeper\\TEXTBOOK.md": {
-    "mtime": 1782328829.9490938,
-    "ast_hash": "e361bbf4798021fbe87b1609c7ff7bd6",
-    "semantic_hash": "e361bbf4798021fbe87b1609c7ff7bd6"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\docs\\n-body\\TEXTBOOK.md": {
-    "mtime": 1782328829.952799,
-    "ast_hash": "e11974f2812cd4cee78e95799275ff0c",
-    "semantic_hash": "e11974f2812cd4cee78e95799275ff0c"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\docs\\pacman\\IMPROVEMENTS.md": {
-    "mtime": 1782328829.9567907,
-    "ast_hash": "40a6c3ee12cbcab163dc9b69a2af8cd8",
-    "semantic_hash": "40a6c3ee12cbcab163dc9b69a2af8cd8"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\docs\\pacman\\ISSUES.md": {
-    "mtime": 1782328829.96205,
-    "ast_hash": "5cc04d7ee5dba28ebb14eb47916fa246",
-    "semantic_hash": "5cc04d7ee5dba28ebb14eb47916fa246"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\docs\\pacman\\TEXTBOOK.md": {
-    "mtime": 1782328829.9660504,
-    "ast_hash": "938f5b276662f3c3fda61a840fb01e28",
-    "semantic_hash": "938f5b276662f3c3fda61a840fb01e28"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\docs\\pagespeed\\IMPROVEMENTS.md": {
-    "mtime": 1782328829.9705815,
-    "ast_hash": "2b07d9a0ddb57577abd0e238ae2c53cf",
-    "semantic_hash": "2b07d9a0ddb57577abd0e238ae2c53cf"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\docs\\pagespeed\\TEXTBOOK.md": {
-    "mtime": 1782328829.9745831,
-    "ast_hash": "a63fe961354dc3996ea03529305c6f06",
-    "semantic_hash": "a63fe961354dc3996ea03529305c6f06"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\docs\\pathfinding\\TEXTBOOK.md": {
-    "mtime": 1782328829.9790943,
-    "ast_hash": "182e3bdcc85c75092e2068e2907d2496",
-    "semantic_hash": "182e3bdcc85c75092e2068e2907d2496"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\docs\\reaction-diffusion\\TEXTBOOK.md": {
-    "mtime": 1782329319.1899917,
-    "ast_hash": "7e8c82e09079e744933794e0a6588378",
-    "semantic_hash": "7e8c82e09079e744933794e0a6588378"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\docs\\river-crossing\\IMPROVEMENTS.md": {
-    "mtime": 1782328829.9838002,
-    "ast_hash": "5263ae42fe9ecdf6d7bdd4f56da25423",
-    "semantic_hash": "5263ae42fe9ecdf6d7bdd4f56da25423"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\docs\\river-crossing\\TEXTBOOK.md": {
-    "mtime": 1782328829.9893239,
-    "ast_hash": "723074554ae88c28255e3a07a9d96b4a",
-    "semantic_hash": "723074554ae88c28255e3a07a9d96b4a"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\docs\\ui-unification.md": {
-    "mtime": 1782328829.9930766,
-    "ast_hash": "36786b77717a7810af3dace0d7bafbc4",
-    "semantic_hash": "36786b77717a7810af3dace0d7bafbc4"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\index.html": {
-    "mtime": 1782328829.9970841,
-    "ast_hash": "b3f9fe923543e0f485e54faab893513b",
-    "semantic_hash": "b3f9fe923543e0f485e54faab893513b"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\public\\fonts\\OFL.txt": {
-    "mtime": 1782328830.1100006,
-    "ast_hash": "2025a2ee80175b15561a8232e67d74d5",
-    "semantic_hash": "2025a2ee80175b15561a8232e67d74d5"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\public\\google89b56f051f891d42.html": {
-    "mtime": 1782328830.1292615,
-    "ast_hash": "6c3513dcabc87f6a8ed0184529d7c4a3",
-    "semantic_hash": "6c3513dcabc87f6a8ed0184529d7c4a3"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\public\\robots.txt": {
-    "mtime": 1782328830.146056,
-    "ast_hash": "f7b5b6ab84e20a043f16aaa251e420bd",
-    "semantic_hash": "f7b5b6ab84e20a043f16aaa251e420bd"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\wiki\\Adding-an-Experiment.md": {
-    "mtime": 1782328831.180892,
-    "ast_hash": "8ce5bb3ac63b273da027bbc87d4748f1",
-    "semantic_hash": "8ce5bb3ac63b273da027bbc87d4748f1"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\wiki\\Experiment-Pathfinding.md": {
-    "mtime": 1782328831.2169483,
-    "ast_hash": "200448eb98fffc0a32f30473692bf7ef",
-    "semantic_hash": "200448eb98fffc0a32f30473692bf7ef"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\wiki\\Experiment-Reaction-Diffusion.md": {
-    "mtime": 1782329319.2330074,
-    "ast_hash": "c5c9cbec5087756d4ad33cf019054b8b",
-    "semantic_hash": "c5c9cbec5087756d4ad33cf019054b8b"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\wiki\\Experiment-River-Crossing.md": {
-    "mtime": 1782328831.2211921,
-    "ast_hash": "fb81daf044f6b96c27dddf46843e4866",
-    "semantic_hash": "fb81daf044f6b96c27dddf46843e4866"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\wiki\\Experiments.md": {
-    "mtime": 1782329319.2340095,
-    "ast_hash": "350fa76ef49db02eea782776fa850911",
-    "semantic_hash": "350fa76ef49db02eea782776fa850911"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\wiki\\Home.md": {
-    "mtime": 1782329319.2340095,
-    "ast_hash": "4004cb0c5011bc673c77f437cdfa6c33",
-    "semantic_hash": "4004cb0c5011bc673c77f437cdfa6c33"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\wiki\\Site-Performance.md": {
-    "mtime": 1782328831.226192,
-    "ast_hash": "235bf6960b7ecd95f669e3b71ecd4dd4",
-    "semantic_hash": "235bf6960b7ecd95f669e3b71ecd4dd4"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\wiki\\_Footer.md": {
-    "mtime": 1780373997.9710407,
-    "ast_hash": "d47144e33f5263d8b28be10de4712de1",
-    "semantic_hash": "d47144e33f5263d8b28be10de4712de1"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\wiki\\_Sidebar.md": {
-    "mtime": 1782328831.2302284,
-    "ast_hash": "ff90ef5879d1f82b4635c63f06bcfb12",
-    "semantic_hash": "ff90ef5879d1f82b4635c63f06bcfb12"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\docs\\branding\\favicon.svg": {
-    "mtime": 1782328829.8968651,
-    "ast_hash": "080a63711f567b33eb1f08b4e0b864af",
-    "semantic_hash": "080a63711f567b33eb1f08b4e0b864af"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\docs\\branding\\icon-app.svg": {
-    "mtime": 1782328829.9028802,
-    "ast_hash": "4e6debe05521793ed8bb0b1d010c8734",
-    "semantic_hash": "4e6debe05521793ed8bb0b1d010c8734"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\docs\\branding\\icon-master-1024.webp": {
-    "mtime": 1782328829.906886,
-    "ast_hash": "e0ca4e805baf61555fd3f8f4703edd79",
-    "semantic_hash": "e0ca4e805baf61555fd3f8f4703edd79"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\docs\\branding\\icon-master.svg": {
-    "mtime": 1782328829.911469,
-    "ast_hash": "3686891797fa4bdcaa7628d55423f060",
-    "semantic_hash": "3686891797fa4bdcaa7628d55423f060"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\docs\\branding\\icon-mono.svg": {
-    "mtime": 1782328829.9174685,
-    "ast_hash": "1845bc1eac5f330e253b837aa08d1e12",
-    "semantic_hash": "1845bc1eac5f330e253b837aa08d1e12"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\public\\favicon.svg": {
-    "mtime": 1782328830.1059878,
-    "ast_hash": "ba244ef3099825e6eace062c2099e5e5",
-    "semantic_hash": "ba244ef3099825e6eace062c2099e5e5"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\public\\icons.svg": {
-    "mtime": 1779679508.228415,
-    "ast_hash": "3b4fcfcf393eca4d264dca4a4663bc37",
-    "semantic_hash": "3b4fcfcf393eca4d264dca4a4663bc37"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\public\\og-image.png": {
-    "mtime": 1782328830.1360135,
-    "ast_hash": "ff9057827520a81a7973760cbd32c503",
-    "semantic_hash": "ff9057827520a81a7973760cbd32c503"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\public\\og-image.svg": {
-    "mtime": 1782328830.141056,
-    "ast_hash": "b774fdc520303a293898b24334ce6164",
-    "semantic_hash": "b774fdc520303a293898b24334ce6164"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\assets\\hero.png": {
-    "mtime": 1779679508.183571,
-    "ast_hash": "aead493361b27e7510691c5d7072dfc1",
-    "semantic_hash": "aead493361b27e7510691c5d7072dfc1"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\assets\\react.svg": {
-    "mtime": 1779679508.2460928,
-    "ast_hash": "f0402b67b6ce880f65666bb49e841696",
-    "semantic_hash": "f0402b67b6ce880f65666bb49e841696"
-  },
-  "D:\\WORK\\GITHUB\\archive-of-experiments\\src\\assets\\vite.svg": {
-    "mtime": 1779679508.2640939,
-    "ast_hash": "9960a24288958394ac50e57ff638b036",
-    "semantic_hash": "9960a24288958394ac50e57ff638b036"
   }
 }
