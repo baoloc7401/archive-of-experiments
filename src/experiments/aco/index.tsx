@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useTranslation } from "react-i18next";
-import ScrambleText from "../../components/ScrambleText";
-import { ExperimentLayout } from "../../components/ui";
-import { useTheme } from "../../hooks/useTheme";
+import { useTranslation } from "@/hooks/useTranslation";
+import ScrambleText from "@/components/ScrambleText";
+import { ExperimentLayout } from "@/components/ui";
+import { useTheme } from "@/hooks/useTheme";
 import type { AcoParams, ColonySnapshot, LayoutId, LogEntry, Point } from "./types";
 import {
   DEFAULT_PARAMS,

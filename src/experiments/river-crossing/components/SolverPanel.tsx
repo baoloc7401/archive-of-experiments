@@ -1,5 +1,5 @@
-import { useTranslation } from "react-i18next";
-import ScrambleText from "../../../components/ScrambleText";
+import { useTranslation } from "@/hooks/useTranslation";
+import ScrambleText from "@/components/ScrambleText";
 import type { Move, SearchAlgo, SearchResult, Status } from "../types";
 import { ALGO_BY_ID, ALGOS } from "../constants";
 import { loadLabel, moveArrow } from "../solver";

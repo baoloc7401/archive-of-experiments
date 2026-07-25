@@ -1,9 +1,9 @@
 import { useCallback, useRef, useState } from "react";
-import { useTranslation } from "react-i18next";
-import ScrambleText from "../../components/ScrambleText";
-import { ExperimentLayout } from "../../components/ui";
-import { useTheme } from "../../hooks/useTheme";
-import { prefersReducedMotion, useReducedMotion } from "../../hooks/useReducedMotion";
+import { useTranslation } from "@/hooks/useTranslation";
+import ScrambleText from "@/components/ScrambleText";
+import { ExperimentLayout } from "@/components/ui";
+import { useTheme } from "@/hooks/useTheme";
+import { prefersReducedMotion, useReducedMotion } from "@/hooks/useReducedMotion";
 import type { BoidParams, BoidSnapshot } from "./types";
 import { DEFAULT_PARAMS, ORDER_HISTORY_MAX } from "./constants";
 import BoidsCanvas, { type BoidsHandle } from "./components/BoidsCanvas";

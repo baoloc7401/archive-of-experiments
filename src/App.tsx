@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { flushSync } from "react-dom";
 import { Link } from "react-router-dom";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "@/hooks/useTranslation";
 import { experiments } from "./experiments";
 import type { Experiment, ExperimentStatus } from "./experiments";
 import ExperimentCard from "./components/ExperimentCard";

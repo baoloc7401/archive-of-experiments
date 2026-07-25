@@ -1,5 +1,5 @@
-import { useTranslation } from "react-i18next";
-import { ControlBar, Panel, Slider } from "../../../components/ui";
+import { useTranslation } from "@/hooks/useTranslation";
+import { ControlBar, Panel, Slider } from "@/components/ui";
 import { MIN_SPEED, MAX_SPEED } from "../constants";
 
 interface Props {

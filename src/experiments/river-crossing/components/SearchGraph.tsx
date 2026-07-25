@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
-import { useTranslation } from "react-i18next";
-import ScrambleText from "../../../components/ScrambleText";
+import { useTranslation } from "@/hooks/useTranslation";
+import ScrambleText from "@/components/ScrambleText";
 import type { Config, PuzzleState, SearchStep, StateGraph } from "../types";
 import { SEARCH_STEP_MS } from "../constants";
 import { startState, stateKey } from "../solver";

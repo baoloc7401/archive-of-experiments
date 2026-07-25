@@ -1,0 +1,9 @@
+# Scope the graphify knowledge graph to the code + its documentation.
+# Everything else (wiki/, public/, .claude/, .github/, root-level docs,
+# pagespeed-scannings/) is real content but not what "how does the code
+# work" queries need - see CLAUDE.md's graphify section.
+/*
+!/src/
+!/src/**
+!/docs/
+!/docs/**

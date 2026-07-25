@@ -5,15 +5,15 @@ import {
   useState,
   type CSSProperties,
 } from "react";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "@/hooks/useTranslation";
 import { Link, useNavigate } from "react-router-dom";
 import ThemeToggle from "../ThemeToggle";
 import LangToggle from "../LangToggle";
 import ScrambleText from "../ScrambleText";
 import { Tooltip } from "../ui";
-import { experiments } from "../../experiments";
-import { useTheme } from "../../hooks/useTheme";
-import { useReducedMotion } from "../../hooks/useReducedMotion";
+import { experiments } from "@/experiments";
+import { useTheme } from "@/hooks/useTheme";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { useMascotPhysics } from "./useMascotPhysics";
 import { useTypingTerminal } from "./useTypingTerminal";
 import "./NotFound.css";

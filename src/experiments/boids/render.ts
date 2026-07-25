@@ -12,7 +12,7 @@ import {
 } from "./constants";
 import type { Palette } from "./palette";
 import { computeFocusForces } from "./simulation";
-import type { Theme } from "../../hooks/useTheme";
+import type { Theme } from "@/hooks/useTheme";
 import type { BoidParams, Flock, Pointer, World } from "./types";
 
 export interface DrawState {

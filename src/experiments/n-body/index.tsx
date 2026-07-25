@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useTranslation } from "react-i18next";
-import ScrambleText from "../../components/ScrambleText";
-import { ExperimentLayout } from "../../components/ui";
-import { useTheme } from "../../hooks/useTheme";
-import { prefersReducedMotion, useReducedMotion } from "../../hooks/useReducedMotion";
+import { useTranslation } from "@/hooks/useTranslation";
+import ScrambleText from "@/components/ScrambleText";
+import { ExperimentLayout } from "@/components/ui";
+import { useTheme } from "@/hooks/useTheme";
+import { prefersReducedMotion, useReducedMotion } from "@/hooks/useReducedMotion";
 import type { ColorMode, Compute, NBodyParams, NBodySnapshot } from "./types";
 import { DEFAULT_PARAMS, MAX_TRAILS, MAX_TIME_SCALE, MIN_TIME_SCALE, webgpuSupported } from "./constants";
 import NBodyCanvas, { type NBodyHandle } from "./components/NBodyCanvas";

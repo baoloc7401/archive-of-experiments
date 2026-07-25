@@ -1,39 +1,89 @@
-import i18n from "i18next";
-import { initReactI18next } from "react-i18next";
 import en from "./locales/en";
 
-const saved = localStorage.getItem("lang") ?? "en";
+type Bundle = Record<string, unknown>;
 
-// Only English (the default + fallback) is bundled eagerly. Every other locale
-// is code-split via dynamic import and registered on first use - this keeps the
-// ~48 KB of inactive translations out of the landing bundle's parse/eval. See
-// loadLocale() / restoreLanguage() below; LangToggle awaits loadLocale too.
-i18n.use(initReactI18next).init({
-  resources: { en: { translation: en } },
-  lng: "en",
-  fallbackLng: "en",
-  interpolation: { escapeValue: false },
-});
+/** Options accepted by `t()`: interpolation vars plus the two i18next-style flags in use. */
+export interface TOptions {
+  readonly [key: string]: unknown;
+  count?: number;
+  returnObjects?: boolean;
+}
 
-const loaders: Record<string, () => Promise<{ default: object }>> = {
-  vi: () => import("./locales/vi"),
+const resources: Record<string, Bundle> = { en: en as Bundle };
+let currentLang = "en";
+const listeners = new Set<() => void>();
+
+export function subscribe(listener: () => void): () => void {
+  listeners.add(listener);
+  return () => listeners.delete(listener);
+}
+
+export function getLanguage(): string {
+  return currentLang;
+}
+
+/** Switches the active language and notifies subscribed components. No-op if a locale hasn't been loaded (call loadLocale first). */
+export function changeLanguage(lng: string): void {
+  if (lng === currentLang || (lng !== "en" && !resources[lng])) return;
+  currentLang = lng;
+  listeners.forEach((listener) => listener());
+}
+
+function resolvePath(bundle: Bundle | undefined, path: string): unknown {
+  if (!bundle) return undefined;
+  let value: unknown = bundle;
+  for (const part of path.split(".")) {
+    if (value === null || typeof value !== "object" || !(part in value)) return undefined;
+    value = (value as Record<string, unknown>)[part];
+  }
+  return value;
+}
+
+function lookup(lang: string, key: string): unknown {
+  const own = resolvePath(resources[lang], key);
+  if (own !== undefined) return own;
+  return lang === "en" ? undefined : resolvePath(resources.en, key);
+}
+
+function interpolate(str: string, options: TOptions | undefined): string {
+  if (!options) return str;
+  return str.replace(/\{\{\s*(\w+)\s*\}\}/g, (match, name: string) =>
+    name in options ? String(options[name]) : match
+  );
+}
+
+/** Translation lookup: dot-path keys, `{{var}}` interpolation, `_one`/`_other` pluralization
+ *  (picked via options.count), and `returnObjects` to get the raw array/object leaf. */
+export function translate(lang: string, key: string, options?: TOptions): unknown {
+  let resolvedKey = key;
+  if (typeof options?.count === "number") {
+    const suffixed = `${key}_${options.count === 1 ? "one" : "other"}`;
+    if (lookup(lang, suffixed) !== undefined) resolvedKey = suffixed;
+  }
+  const value = lookup(lang, resolvedKey);
+  if (value === undefined) return key;
+  if (options?.returnObjects) return value;
+  return typeof value === "string" ? interpolate(value, options) : value;
+}
+
+const loaders: Record<string, () => Promise<{ default: Bundle }>> = {
+  vi: () => import("./locales/vi") as Promise<{ default: Bundle }>,
 };
 
 /** Fetch and register a locale's chunk if it isn't already loaded. */
 export async function loadLocale(lng: string): Promise<void> {
-  if (lng === "en" || i18n.hasResourceBundle(lng, "translation")) return;
+  if (lng === "en" || resources[lng]) return;
   const loader = loaders[lng];
   if (!loader) return;
   const mod = await loader();
-  i18n.addResourceBundle(lng, "translation", mod.default, true, true);
+  resources[lng] = mod.default;
 }
 
 /** Restore the saved language at startup: English is instant; another locale
  *  loads its chunk before we switch, so the app mounts already translated. */
 export async function restoreLanguage(): Promise<void> {
+  const saved = localStorage.getItem("lang") ?? "en";
   if (saved === "en") return;
   await loadLocale(saved);
-  await i18n.changeLanguage(saved);
+  changeLanguage(saved);
 }
-
-export default i18n;

@@ -1,4 +1,4 @@
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "@/hooks/useTranslation";
 import type { Config } from "../types";
 import { MAX_CAP, MAX_PEOPLE, MIN_CAP, MIN_PEOPLE } from "../constants";
 

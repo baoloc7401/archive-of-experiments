@@ -6,8 +6,8 @@ import {
   useRef,
   type PointerEvent as ReactPointerEvent,
 } from "react";
-import { useTranslation } from "react-i18next";
-import type { Theme } from "../../../hooks/useTheme";
+import { useTranslation } from "@/hooks/useTranslation";
+import type { Theme } from "@/hooks/useTheme";
 import { COLS, FIXED_DT, ROWS, SNAPSHOT_INTERVAL, TILE_PX } from "../constants";
 import { drawScene, readPalette, type Palette } from "../render";
 import { computeSnapshot, ghostMode, makeInitialState, step } from "../simulation";

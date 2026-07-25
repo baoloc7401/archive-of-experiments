@@ -1,6 +1,6 @@
 import { memo, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
-import ScrambleText from '../../../components/ScrambleText';
+import { useTranslation } from '@/hooks/useTranslation';
+import ScrambleText from '@/components/ScrambleText';
 import type { AlgoState } from '../algorithms';
 import type { AlgorithmId, CellState, GridConfig } from '../types';
 import { ALGORITHMS } from '../constants';

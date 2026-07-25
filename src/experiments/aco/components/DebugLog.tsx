@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import { useTranslation } from "react-i18next";
-import ScrambleText from "../../../components/ScrambleText";
-import { Button, Panel } from "../../../components/ui";
+import { useTranslation } from "@/hooks/useTranslation";
+import ScrambleText from "@/components/ScrambleText";
+import { Button, Panel } from "@/components/ui";
 import type { LogEntry } from "../types";
 
 interface Props {

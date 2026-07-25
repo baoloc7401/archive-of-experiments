@@ -6,8 +6,8 @@ import {
   useRef,
   type PointerEvent as ReactPointerEvent,
 } from "react";
-import { useTranslation } from "react-i18next";
-import type { Theme } from "../../../hooks/useTheme";
+import { useTranslation } from "@/hooks/useTranslation";
+import type { Theme } from "@/hooks/useTheme";
 import type { BoidParams, BoidSnapshot, Flock, Pointer, World } from "../types";
 import { FLOW_DRIFT, FOCUS_PICK_RADIUS, MAX_COUNT, OBSTACLE_RADIUS, STATS_INTERVAL, TWO_PI } from "../constants";
 import { makeFlock, placeFormation, setVelocity } from "../flock";

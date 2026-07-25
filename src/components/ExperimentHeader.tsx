@@ -1,5 +1,5 @@
 import { Fragment, useEffect, useRef, useState } from "react";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "@/hooks/useTranslation";
 import { useLocation, useNavigate } from "react-router-dom";
 import LangToggle from "./LangToggle";
 import ThemeToggle from "./ThemeToggle";

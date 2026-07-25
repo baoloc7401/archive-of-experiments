@@ -1,6 +1,6 @@
-import { useTranslation } from "react-i18next";
-import { ExperimentLayout } from "../../components/ui";
-import ScrambleText from "../../components/ScrambleText";
+import { useTranslation } from "@/hooks/useTranslation";
+import { ExperimentLayout } from "@/components/ui";
+import ScrambleText from "@/components/ScrambleText";
 import { useRiverCrossing } from "./useRiverCrossing";
 import RiverScene from "./components/RiverScene";
 import Controls from "./components/Controls";

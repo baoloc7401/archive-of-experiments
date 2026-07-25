@@ -1,6 +1,6 @@
-import { useTranslation } from "react-i18next";
-import ScrambleText from "../../../components/ScrambleText";
-import { Tooltip } from "../../../components/ui";
+import { useTranslation } from "@/hooks/useTranslation";
+import ScrambleText from "@/components/ScrambleText";
+import { Tooltip } from "@/components/ui";
 import type { Difficulty, FieldConfig } from "../types";
 import { MAX_DENSITY, MAX_DIM, MIN_DIM, MIN_MINES, PRESETS } from "../constants";
 

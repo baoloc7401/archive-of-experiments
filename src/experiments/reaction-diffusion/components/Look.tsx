@@ -1,6 +1,6 @@
-import { useTranslation } from "react-i18next";
-import ScrambleText from "../../../components/ScrambleText";
-import { Button, Panel } from "../../../components/ui";
+import { useTranslation } from "@/hooks/useTranslation";
+import ScrambleText from "@/components/ScrambleText";
+import { Button, Panel } from "@/components/ui";
 import type { RDParams } from "../types";
 import { RES_LEVELS } from "../constants";
 import { PALETTE_IDS, paletteAccentCss } from "../palettes";

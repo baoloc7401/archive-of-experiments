@@ -1,6 +1,6 @@
-import { useTranslation } from 'react-i18next';
-import ScrambleText from '../../../components/ScrambleText';
-import { trackTip } from '../../../components/ui/trackTip';
+import { useTranslation } from '@/hooks/useTranslation';
+import ScrambleText from '@/components/ScrambleText';
+import { trackTip } from '@/components/ui/trackTip';
 import '../../../components/ui/Tooltip.css';
 import type { ElevatorRequest, RequestOrigin } from '../types';
 

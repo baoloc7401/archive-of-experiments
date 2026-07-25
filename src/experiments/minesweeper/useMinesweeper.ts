@@ -10,7 +10,7 @@ import type {
 } from "./types";
 import { DEFAULT_CONFIG, DEFAULT_DIFFICULTY, PRESETS } from "./constants";
 import { neighbors } from "./grid";
-import { prefersReducedMotion } from "../../hooks/useReducedMotion";
+import { prefersReducedMotion } from "@/hooks/useReducedMotion";
 import { clampMines } from "./generator";
 import { getSolver } from "./solvers";
 import type { SolverAction, SolverId, SolverReport } from "./solvers/types";

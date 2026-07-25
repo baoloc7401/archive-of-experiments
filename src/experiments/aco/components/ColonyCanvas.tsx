@@ -1,6 +1,6 @@
 import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from "react";
-import { useTranslation } from "react-i18next";
-import type { Theme } from "../../../hooks/useTheme";
+import { useTranslation } from "@/hooks/useTranslation";
+import type { Theme } from "@/hooks/useTheme";
 import type { AcoDebug, AcoParams, ColonySnapshot, Point, Tour } from "../types";
 import { Colony } from "../aco";
 import { MIN_SPEED, MAX_SPEED } from "../constants";

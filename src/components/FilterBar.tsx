@@ -1,4 +1,4 @@
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "@/hooks/useTranslation";
 import type { CSSProperties } from "react";
 import "./FilterBar.css";
 import ScrambleText from "./ScrambleText";

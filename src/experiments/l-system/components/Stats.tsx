@@ -1,5 +1,5 @@
-import { useTranslation } from "react-i18next";
-import { Panel, Stat, StatGrid } from "../../../components/ui";
+import { useTranslation } from "@/hooks/useTranslation";
+import { Panel, Stat, StatGrid } from "@/components/ui";
 import type { LSnapshot } from "../types";
 
 interface Props {

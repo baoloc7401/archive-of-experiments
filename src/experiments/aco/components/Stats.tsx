@@ -1,9 +1,9 @@
-import { useTranslation } from "react-i18next";
-import ScrambleText from "../../../components/ScrambleText";
-import { Panel, Stat, StatGrid } from "../../../components/ui";
+import { useTranslation } from "@/hooks/useTranslation";
+import ScrambleText from "@/components/ScrambleText";
+import { Panel, Stat, StatGrid } from "@/components/ui";
 import type { ColonySnapshot } from "../types";
 import Convergence from "./Convergence";
-import type { Theme } from "../../../hooks/useTheme";
+import type { Theme } from "@/hooks/useTheme";
 
 interface Props {
   snap: ColonySnapshot | null;

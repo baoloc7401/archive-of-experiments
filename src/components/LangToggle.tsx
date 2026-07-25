@@ -1,5 +1,5 @@
-import { useTranslation } from "react-i18next";
-import { loadLocale } from "../i18n";
+import { useTranslation } from "@/hooks/useTranslation";
+import { loadLocale } from "@/i18n";
 import "./LangToggle.css";
 
 export default function LangToggle() {

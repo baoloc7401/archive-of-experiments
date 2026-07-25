@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "@/hooks/useTranslation";
 import { Link, useNavigate } from "react-router-dom";
-import { ExperimentLayout } from "../../components/ui";
-import ScrambleText from "../../components/ScrambleText";
-import { useReducedMotion } from "../../hooks/useReducedMotion";
-import { experiments } from "../../experiments";
-import { SITE } from "../../seo/site";
+import { ExperimentLayout } from "@/components/ui";
+import ScrambleText from "@/components/ScrambleText";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
+import { experiments } from "@/experiments";
+import { SITE } from "@/seo/site";
 import AboutTerminal from "./AboutTerminal";
 import type { TermBlock } from "./useAboutTerminal";
 import {

@@ -70,8 +70,8 @@ export const experiments: Experiment[] = [
   },
   {
     id: "cellular-automata",
-    tags: ["simulation", "fun"],
-    status: "planned",
+    tags: ["simulation", "algorithms", "fun"],
+    status: "active",
     path: "/experiments/cellular-automata",
   },
   {

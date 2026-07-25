@@ -7,9 +7,9 @@ import {
   useState,
   type PointerEvent as ReactPointerEvent,
 } from "react";
-import { useTranslation } from "react-i18next";
-import ScrambleText from "../../../components/ScrambleText";
-import type { Theme } from "../../../hooks/useTheme";
+import { useTranslation } from "@/hooks/useTranslation";
+import ScrambleText from "@/components/ScrambleText";
+import type { Theme } from "@/hooks/useTheme";
 import type { NBodyParams, NBodySnapshot, View } from "../types";
 import {
   CAM_DIST,

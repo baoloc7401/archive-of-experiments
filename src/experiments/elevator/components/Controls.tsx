@@ -1,5 +1,5 @@
-import { useTranslation } from 'react-i18next';
-import ScrambleText from '../../../components/ScrambleText';
+import { useTranslation } from '@/hooks/useTranslation';
+import ScrambleText from '@/components/ScrambleText';
 import type { SimStatus } from '../types';
 import { SPEED_PRESETS } from '../constants';
 

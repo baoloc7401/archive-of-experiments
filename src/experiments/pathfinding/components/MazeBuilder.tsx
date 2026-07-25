@@ -1,7 +1,7 @@
 import { memo, useRef, useState, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
-import ScrambleText from '../../../components/ScrambleText';
-import { Tooltip } from '../../../components/ui';
+import { useTranslation } from '@/hooks/useTranslation';
+import ScrambleText from '@/components/ScrambleText';
+import { Tooltip } from '@/components/ui';
 import type { CellState, DrawMode, GridConfig, MazeOptions, RouteDensity, TerrainConfig, TerrainType } from '../types';
 import type { AlgorithmId } from '../types';
 import {

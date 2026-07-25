@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useTranslation } from "react-i18next";
-import ScrambleText from "../../components/ScrambleText";
-import { ExperimentLayout } from "../../components/ui";
-import { prefersReducedMotion } from "../../hooks/useReducedMotion";
+import { useTranslation } from "@/hooks/useTranslation";
+import ScrambleText from "@/components/ScrambleText";
+import { ExperimentLayout } from "@/components/ui";
+import { prefersReducedMotion } from "@/hooks/useReducedMotion";
 import type { PaletteId, RDParams, RDSnapshot } from "./types";
 import { DEFAULT_PARAMS, RES_LEVELS } from "./constants";
 import { PALETTE_IDS } from "./palettes";

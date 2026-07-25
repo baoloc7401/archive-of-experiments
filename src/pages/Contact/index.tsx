@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "@/hooks/useTranslation";
 import { Link } from "react-router-dom";
-import { ExperimentLayout, Button } from "../../components/ui";
-import ScrambleText from "../../components/ScrambleText";
-import { SITE } from "../../seo/site";
+import { ExperimentLayout, Button } from "@/components/ui";
+import ScrambleText from "@/components/ScrambleText";
+import { SITE } from "@/seo/site";
 import "./Contact.css";
 
 const EMAIL = "baoloc7401@gmail.com";

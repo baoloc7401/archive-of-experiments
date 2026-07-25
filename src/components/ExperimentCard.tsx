@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import type { CSSProperties } from "react";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "@/hooks/useTranslation";
 import "./ExperimentCard.css";
 import ScrambleText from "./ScrambleText";
 import type { Experiment, ExperimentStatus } from "../experiments";

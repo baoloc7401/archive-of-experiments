@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from '@/hooks/useTranslation';
 import type { GameMode, SkillLevel } from '../types';
 import { DEFAULT_SKILL, SKILL_LEVELS, SKILL_PIECES } from '../ai/skill';
-import { ExperimentLayout } from '../../../components/ui';
-import ScrambleText from '../../../components/ScrambleText';
+import { ExperimentLayout } from '@/components/ui';
+import ScrambleText from '@/components/ScrambleText';
 
 interface Props {
   onStart: (mode: GameMode, whiteSkill: SkillLevel, blackSkill: SkillLevel) => void;

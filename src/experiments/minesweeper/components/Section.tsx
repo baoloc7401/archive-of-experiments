@@ -1,5 +1,5 @@
 import { useState } from "react";
-import ScrambleText from "../../../components/ScrambleText";
+import ScrambleText from "@/components/ScrambleText";
 
 interface Props {
   title: string;

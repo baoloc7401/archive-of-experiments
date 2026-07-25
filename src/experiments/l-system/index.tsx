@@ -1,9 +1,9 @@
 import { useCallback, useRef, useState } from "react";
-import { useTranslation } from "react-i18next";
-import ScrambleText from "../../components/ScrambleText";
-import { ExperimentLayout } from "../../components/ui";
-import { useTheme } from "../../hooks/useTheme";
-import { prefersReducedMotion } from "../../hooks/useReducedMotion";
+import { useTranslation } from "@/hooks/useTranslation";
+import ScrambleText from "@/components/ScrambleText";
+import { ExperimentLayout } from "@/components/ui";
+import { useTheme } from "@/hooks/useTheme";
+import { prefersReducedMotion } from "@/hooks/useReducedMotion";
 import type { LParams, LSnapshot } from "./types";
 import { DEFAULT_PARAMS } from "./constants";
 import LCanvas, { type LHandle } from "./components/LCanvas";

@@ -1,5 +1,5 @@
-import { useTranslation } from "react-i18next";
-import { Tooltip } from "../../../components/ui";
+import { useTranslation } from "@/hooks/useTranslation";
+import { Tooltip } from "@/components/ui";
 import type { GameStatus } from "../types";
 
 interface Props {

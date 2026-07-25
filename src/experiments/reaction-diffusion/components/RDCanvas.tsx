@@ -7,8 +7,8 @@ import {
   useState,
   type PointerEvent as ReactPointerEvent,
 } from "react";
-import { useTranslation } from "react-i18next";
-import ScrambleText from "../../../components/ScrambleText";
+import { useTranslation } from "@/hooks/useTranslation";
+import ScrambleText from "@/components/ScrambleText";
 import type { RDParams, RDSnapshot } from "../types";
 import { createSimulator, type RDSimulator } from "../simulation";
 

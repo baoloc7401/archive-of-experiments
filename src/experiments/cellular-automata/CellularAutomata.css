@@ -1,0 +1,306 @@
+/* Cellular Automata (Generations engine): WebGL2 integer-texture stage +
+   sidebar controls + breeding lab. Classes are ca- prefixed. Stage/canvas/
+   fallback mirror the shared rd-/n-body shell shape. */
+
+.ca-info-tagline {
+  color: var(--accent);
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+}
+.ca-info-desc {
+  color: var(--text-dim);
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+/* Stage / canvas: the GL display pass paints the whole field, flat block
+   colour per cell (no interpolation - matches the discrete-cell aesthetic). */
+.ca-stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  max-height: calc(100vh - 200px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--bg);
+}
+.ca-canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: crosshair;
+  touch-action: none;
+}
+
+/* Overlay shown while WebGL2 is unavailable (core only - no extension needed). */
+.ca-fallback {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  line-height: 1.6;
+  background: var(--bg);
+}
+
+.ca-legend {
+  margin-top: 0.6rem;
+  font-size: 0.72rem;
+  color: var(--text-dim);
+}
+
+/* Pattern / palette / boundary / brush-mode chips (accent-tinted when active). */
+.ca-presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+.ca-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: inherit;
+  font-size: 0.74rem;
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text-dim);
+  cursor: pointer;
+  transition: border-color var(--dur-fast), color var(--dur-fast), background var(--dur-fast);
+}
+.ca-chip:hover {
+  color: var(--text-hi);
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 10%, var(--bg2));
+}
+.ca-chip:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.ca-chip--on {
+  color: var(--text-hi);
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 18%, var(--bg2));
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 40%, transparent);
+}
+.ca-swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex: none;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, #000 30%, transparent);
+}
+
+.ca-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.7rem;
+}
+
+/* Labeled chip group (cell size, boundary, brush mode). */
+.ca-look-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-top: 0.7rem;
+}
+.ca-look-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+/* Rule editor: preset chips, then the B/S neighbor-count toggle matrix. */
+.ca-rule-string {
+  font-family: ui-monospace, "SFMono-Regular", "Consolas", monospace;
+  font-size: 0.68rem;
+  color: var(--text-hi);
+  letter-spacing: 0.02em;
+}
+.ca-rule-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.6rem;
+}
+.ca-rule-row-label {
+  flex: none;
+  width: 3.2rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+.ca-rule-grid {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  gap: 0.25rem;
+  flex: 1;
+}
+.ca-bit {
+  aspect-ratio: 1;
+  min-width: 0;
+  display: grid;
+  place-items: center;
+  font-family: ui-monospace, "SFMono-Regular", "Consolas", monospace;
+  font-size: 0.7rem;
+  font-variant-numeric: tabular-nums;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text-dim);
+  cursor: pointer;
+  transition: border-color var(--dur-fast), color var(--dur-fast), background var(--dur-fast);
+}
+.ca-bit:hover {
+  color: var(--text-hi);
+  border-color: var(--accent);
+}
+.ca-bit:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.ca-bit--on {
+  color: var(--bg);
+  font-weight: 600;
+  border-color: var(--accent);
+  background: var(--accent);
+}
+
+/* Breeding lab: current-rule tile + a grid of live mutant offspring thumbnails. */
+.ca-lab-hint {
+  margin: 0 0 0.6rem;
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  line-height: 1.5;
+}
+.ca-lab-current {
+  position: relative;
+  width: 100%;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--border));
+  background: var(--bg);
+}
+.ca-lab-badge {
+  position: absolute;
+  left: 0.4rem;
+  bottom: 0.3rem;
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-hi);
+  padding: 0.1rem 0.4rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--bg) 60%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 50%, var(--border));
+}
+.ca-lab-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+}
+.ca-lab-offspring {
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background: var(--bg);
+  cursor: pointer;
+  transition: border-color var(--dur-fast), box-shadow var(--dur-fast);
+}
+.ca-lab-offspring:hover {
+  border-color: var(--accent);
+}
+.ca-lab-offspring:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.ca-mini-canvas {
+  display: block;
+  width: 100%;
+  aspect-ratio: 40 / 26;
+  image-rendering: pixelated;
+}
+
+.ca-hint {
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  line-height: 1.5;
+}
+
+/* Debug report (the copy-back bridge). */
+.ca-dbg {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  font-size: 0.72rem;
+}
+.ca-dbg-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+.ca-dbg-badge {
+  font-family: ui-monospace, "SFMono-Regular", "Consolas", monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+  color: var(--text-hi);
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--border));
+  background: color-mix(in srgb, var(--accent) 10%, var(--bg));
+}
+.ca-dbg-sec {
+  display: flex;
+  flex-direction: column;
+  gap: 0.12rem;
+}
+.ca-dbg-sec-title {
+  font-size: 0.62rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  padding-bottom: 0.18rem;
+  margin-bottom: 0.12rem;
+  border-bottom: 1px solid var(--border);
+}
+.ca-dbg-row {
+  display: grid;
+  grid-template-columns: minmax(0, auto) 1fr;
+  gap: 0.6rem;
+  align-items: baseline;
+}
+.ca-dbg-k {
+  color: var(--text-dim);
+}
+.ca-dbg-v {
+  text-align: right;
+  font-family: ui-monospace, "SFMono-Regular", "Consolas", monospace;
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+  word-break: break-word;
+}
+.ca-dbg-v--hi {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+@media (max-width: 860px) {
+  .ca-stage {
+    max-height: none;
+  }
+}

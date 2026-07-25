@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from '@/hooks/useTranslation';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import type { AlgorithmId, AppScreen, GridConfig, MazeOptions } from './types';
 import { DEFAULT_ROWS, DEFAULT_COLS, DEFAULT_MAZE_OPTIONS } from './constants';
@@ -7,7 +7,7 @@ import { makeDefaultGrid, computeTerrainWeights } from './maze';
 import AlgorithmSelect from './components/AlgorithmSelect';
 import MazeBuilder from './components/MazeBuilder';
 import Run from './components/Run';
-import ExperimentHeader from '../../components/ExperimentHeader';
+import ExperimentHeader from '@/components/ExperimentHeader';
 import './Pathfinding.css';
 
 // ---------------------------------------------------------------------------

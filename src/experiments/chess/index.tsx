@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from '@/hooks/useTranslation';
 import type { GameMode, SkillLevel } from './types';
 import { DEFAULT_SKILL, SKILL_PRESETS } from './ai/skill';
 import { useChessGame } from './hooks/useChessGame';
@@ -12,7 +12,7 @@ import { GameControls } from './components/GameControls';
 import { MoveHistory } from './components/MoveHistory';
 import { CapturedPieces } from './components/CapturedPieces';
 import { ModeScreen } from './components/ModeScreen';
-import { ExperimentLayout } from '../../components/ui';
+import { ExperimentLayout } from '@/components/ui';
 import './Chess.css';
 import './chess-board.css';
 import './chess-sidebar.css';

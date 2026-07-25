@@ -1,6 +1,6 @@
-import { useTranslation } from "react-i18next";
-import ScrambleText from "../../../components/ScrambleText";
-import { Button, ControlBar, Panel, Stat, StatGrid } from "../../../components/ui";
+import { useTranslation } from "@/hooks/useTranslation";
+import ScrambleText from "@/components/ScrambleText";
+import { Button, ControlBar, Panel, Stat, StatGrid } from "@/components/ui";
 import { FRUIT_COLOR, GHOST_COLOR, WORMHOLE_COLOR } from "../constants";
 import { PAC_STRATEGY_IDS, type PacController } from "../pacai";
 import { PELLET_KINDS, SPECIAL_KINDS, type SpecialKind } from "../pellets/registry";

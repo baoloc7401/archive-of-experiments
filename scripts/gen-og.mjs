@@ -1,6 +1,8 @@
 // One-off: rasterize public/og-image.svg -> public/og-image.png (1200x630) so
 // social platforms that don't render SVG (Facebook/LinkedIn) still get a card.
-// Run with: node scripts/gen-og.mjs
+// playwright isn't a project dependency (it's a ~300MB browser download used only
+// here) - install it on demand, run, then let node_modules drop it again:
+//   npm install --no-save playwright && node scripts/gen-og.mjs
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";

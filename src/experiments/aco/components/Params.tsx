@@ -1,6 +1,6 @@
-import { useTranslation } from "react-i18next";
-import ScrambleText from "../../../components/ScrambleText";
-import { Panel, Slider, Tooltip } from "../../../components/ui";
+import { useTranslation } from "@/hooks/useTranslation";
+import ScrambleText from "@/components/ScrambleText";
+import { Panel, Slider, Tooltip } from "@/components/ui";
 import type { AcoParams } from "../types";
 import { PARAM_RANGES } from "../constants";
 

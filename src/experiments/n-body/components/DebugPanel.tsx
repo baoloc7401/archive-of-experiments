@@ -1,7 +1,7 @@
 import { useState, type ReactNode } from "react";
-import { useTranslation } from "react-i18next";
-import ScrambleText from "../../../components/ScrambleText";
-import { Button, Panel } from "../../../components/ui";
+import { useTranslation } from "@/hooks/useTranslation";
+import ScrambleText from "@/components/ScrambleText";
+import { Button, Panel } from "@/components/ui";
 import { SUBSTEP } from "../constants";
 import type { NBodyParams, NBodySnapshot } from "../types";
 

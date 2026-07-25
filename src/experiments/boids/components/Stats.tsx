@@ -1,6 +1,6 @@
-import { useTranslation } from "react-i18next";
-import { Panel, Stat, StatGrid } from "../../../components/ui";
-import type { Theme } from "../../../hooks/useTheme";
+import { useTranslation } from "@/hooks/useTranslation";
+import { Panel, Stat, StatGrid } from "@/components/ui";
+import type { Theme } from "@/hooks/useTheme";
 import type { BoidSnapshot } from "../types";
 import OrderChart from "./OrderChart";
 

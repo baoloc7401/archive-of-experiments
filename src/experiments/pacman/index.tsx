@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useTranslation } from "react-i18next";
-import ScrambleText from "../../components/ScrambleText";
-import { ExperimentLayout } from "../../components/ui";
-import { useTheme } from "../../hooks/useTheme";
-import { prefersReducedMotion, useReducedMotion } from "../../hooks/useReducedMotion";
+import { useTranslation } from "@/hooks/useTranslation";
+import ScrambleText from "@/components/ScrambleText";
+import { ExperimentLayout } from "@/components/ui";
+import { useTheme } from "@/hooks/useTheme";
+import { prefersReducedMotion, useReducedMotion } from "@/hooks/useReducedMotion";
 import PacmanCanvas, { type PacmanHandle } from "./components/PacmanCanvas";
 import Sidebar from "./components/Sidebar";
 import MazeEditor from "./components/MazeEditor";

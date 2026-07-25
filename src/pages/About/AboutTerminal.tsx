@@ -6,7 +6,7 @@ import {
   type CSSProperties,
   type KeyboardEvent,
 } from "react";
-import ScrambleText from "../../components/ScrambleText";
+import ScrambleText from "@/components/ScrambleText";
 import { useAboutTerminal, type TermBlock } from "./useAboutTerminal";
 import {
   runLine,

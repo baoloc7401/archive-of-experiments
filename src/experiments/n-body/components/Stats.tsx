@@ -1,6 +1,6 @@
-import { useTranslation } from "react-i18next";
-import ScrambleText from "../../../components/ScrambleText";
-import { Panel, Stat, StatGrid } from "../../../components/ui";
+import { useTranslation } from "@/hooks/useTranslation";
+import ScrambleText from "@/components/ScrambleText";
+import { Panel, Stat, StatGrid } from "@/components/ui";
 import { DRIFT_WARN } from "../constants";
 import type { NBodySnapshot } from "../types";
 

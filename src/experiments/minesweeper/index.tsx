@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { useTranslation } from "react-i18next";
-import { ExperimentLayout } from "../../components/ui";
-import ScrambleText from "../../components/ScrambleText";
+import { useTranslation } from "@/hooks/useTranslation";
+import { ExperimentLayout } from "@/components/ui";
+import ScrambleText from "@/components/ScrambleText";
 import { useMinesweeper } from "./useMinesweeper";
 import Board from "./components/Board";
 import Hud from "./components/Hud";

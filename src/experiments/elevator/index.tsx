@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { ExperimentLayout } from '../../components/ui';
-import ScrambleText from '../../components/ScrambleText';
+import { useTranslation } from '@/hooks/useTranslation';
+import { ExperimentLayout } from '@/components/ui';
+import ScrambleText from '@/components/ScrambleText';
 import type { AlgorithmId } from './types';
 import { ALGORITHM_BY_ID, SPEED_PRESETS, DEFAULT_SPEED_INDEX } from './constants';
 import { useSimulation } from './useSimulation';

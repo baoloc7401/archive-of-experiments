@@ -7,8 +7,8 @@ import {
   useState,
   type PointerEvent as ReactPointerEvent,
 } from "react";
-import { useTranslation } from "react-i18next";
-import type { Theme } from "../../../hooks/useTheme";
+import { useTranslation } from "@/hooks/useTranslation";
+import type { Theme } from "@/hooks/useTheme";
 import type { LModel, LParams, LSnapshot } from "../types";
 import { GROW_MAX_MS, GROW_MIN_MS, STATS_INTERVAL } from "../constants";
 import { expand, parseRules } from "../lsystem";

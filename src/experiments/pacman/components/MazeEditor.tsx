@@ -6,10 +6,10 @@ import {
   useState,
   type PointerEvent as ReactPointerEvent,
 } from "react";
-import { useTranslation } from "react-i18next";
-import ScrambleText from "../../../components/ScrambleText";
-import { Button, Panel } from "../../../components/ui";
-import { prefersReducedMotion } from "../../../hooks/useReducedMotion";
+import { useTranslation } from "@/hooks/useTranslation";
+import ScrambleText from "@/components/ScrambleText";
+import { Button, Panel } from "@/components/ui";
+import { prefersReducedMotion } from "@/hooks/useReducedMotion";
 import { COLS, FRUIT_COLOR, ROWS, TILE_PX, WORMHOLE_COLOR } from "../constants";
 import { tileKey } from "../maze";
 import { readPalette } from "../render";
